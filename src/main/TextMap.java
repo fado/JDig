@@ -17,6 +17,7 @@ public class TextMap {
     private final String FILE_NOT_FOUND_MSG = "File not found, or specified path is a directory.";
     private final String EMPTY_MAP_MSG = "No lines found in Ascii Map.";
     private final String CHARSET = "UTF-8";
+    private final char ROOM_SYMBOL = 'O';
     private List<String> linesInSourceFile = new ArrayList<>();
     
     /**
@@ -68,6 +69,23 @@ public class TextMap {
             }
         }
         return points;
+    }
+    
+    /**
+     * Generates Room objects for each instance of the room symbol within the map.
+     * @return - A List of all rooms within the map, as Room objects.
+     */
+    public List<Room> getRooms() {
+        List<Room> rooms = new ArrayList<>();
+        // Get the coordinates of all the rooms.
+        List<Point> points = getCoordinatesOf(ROOM_SYMBOL);
+        // For each coordinate, create a new Room object.
+        for(Point point : points) {
+            Room room = new Room(point.x, point.y);
+            rooms.add(room);
+        }
+        // Return the Rooms.
+        return rooms;
     }
     
     
