@@ -1,8 +1,6 @@
 package main;
 
-import java.awt.Point;
 import java.io.IOException;
-import java.util.List;
 
 public class Jdig {
         
@@ -13,7 +11,7 @@ public class Jdig {
      */
     public static void main(String[] args) throws IOException {
         TextMap map = new TextMap(args[0]);
-        List<Point> coordinate = map.getCoordinatesOf('O');
+        map.getRooms();   
     }
    
 }
