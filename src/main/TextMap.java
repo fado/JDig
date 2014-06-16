@@ -82,7 +82,7 @@ public class TextMap {
         // For each coordinate, create a new Room object.
         for(Point point : points) {
             Room room = new Room(point.x, point.y);
-            System.out.println("Coordinates found at "+String.valueOf(point.x)+", "+String.valueOf(point.y));
+            System.out.println("Room created at "+String.valueOf(point.x)+", "+String.valueOf(point.y));
             rooms.add(room);
         }
         // Return the Rooms.
