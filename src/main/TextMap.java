@@ -14,11 +14,25 @@ import java.util.List;
  */
 public class TextMap {
     
+    /**
+     * Error messages.
+     */
     private final String FILE_NOT_FOUND_MSG = "File not found, or specified path is a directory.";
     private final String EMPTY_MAP_MSG = "No lines found in Ascii Map.";
-    private final String CHARSET = "UTF-8";
+    /**
+     * Map symbols.
+     */
     private final char ROOM_SYMBOL = 'O';
+    private final char HORIZONTAL_EXIT_SYMBOL = '-';
+    private final char VERTICAL_EXIT_SYMBOL = '|';
+    private final char BACK_DIAGONAL_EXIT_SYMBOL = '\\';
+    private final char FORWARD_DIAGONAL_EXIT_SYMBOL = '/';
+    private final char MULTI_DIAGONAL_EXIT_SYMBOL = 'X';
+    /**
+     * Class variables.
+     */
     private List<String> linesInSourceFile = new ArrayList<>();
+    private final List<Room> rooms;
     
     /**
      * Constructor. Checks to see if the file exists before extracting the data from it.
@@ -26,6 +40,8 @@ public class TextMap {
      * @throws IOException 
      */
     public TextMap(String path) throws IOException {
+        rooms = new ArrayList<>();
+        // Make sure the text file exists.
         File mapSourceFile = new File(path);
         if(mapSourceFile.exists() && !mapSourceFile.isDirectory()) {
             linesInSourceFile = read(path);
@@ -42,7 +58,7 @@ public class TextMap {
      * @throws IOException 
      */
     private List<String> read(String path) throws IOException {
-        return Files.readAllLines(Paths.get(path), Charset.forName(CHARSET));
+        return Files.readAllLines(Paths.get(path), Charset.defaultCharset());
     }
  
     /**
@@ -53,7 +69,7 @@ public class TextMap {
     public List<Point> getCoordinatesOf(char symbol) {
         List<Point> points = new ArrayList<>();
         // Check to see if there are any elements in the List.
-        if(linesInSourceFile.size() <= 0) {
+        if(linesInSourceFile.isEmpty()) {
             System.out.println(EMPTY_MAP_MSG);
             return points;
         }
@@ -62,8 +78,8 @@ public class TextMap {
             // Iterate through each character in the element.
             for(int innerCounter = 0; innerCounter < linesInSourceFile.get(counter).length(); innerCounter++) {
                 if(linesInSourceFile.get(counter).charAt(innerCounter) == symbol) {
-                    Point point = new Point(counter, innerCounter);
-                    System.out.println("Coordinates found at "+String.valueOf(counter)+", "+String.valueOf(innerCounter));
+                    Point point = new Point(innerCounter, counter);
+                    System.out.println("Coordinates found at x"+String.valueOf(innerCounter)+", y"+String.valueOf(counter));
                     points.add(point);
                 }
             }
@@ -76,18 +92,212 @@ public class TextMap {
      * @return - A List of all rooms within the map, as Room objects.
      */
     public List<Room> getRooms() {
-        List<Room> rooms = new ArrayList<>();
         // Get the coordinates of all the rooms.
         List<Point> points = getCoordinatesOf(ROOM_SYMBOL);
         // For each coordinate, create a new Room object.
         for(Point point : points) {
-            Room room = new Room(point.x, point.y);
+            Room room = new Room(point);
             System.out.println("Room created at "+String.valueOf(point.x)+", "+String.valueOf(point.y));
             rooms.add(room);
         }
         // Return the Rooms.
         return rooms;
     }
+    
+    /**
+     * Generates Exit objects for each instance of each exit symbol within the map.
+     */
+    public void getExits() {
+        // Establish locations of all symbols.
+        List<Point> horizontalExits = getCoordinatesOf(HORIZONTAL_EXIT_SYMBOL);
+        List<Point> verticalExits = getCoordinatesOf(VERTICAL_EXIT_SYMBOL);
+        List<Point> backDiagonalExits = getCoordinatesOf(BACK_DIAGONAL_EXIT_SYMBOL);
+        List<Point> forwardDiagonalExits = getCoordinatesOf(FORWARD_DIAGONAL_EXIT_SYMBOL);
+        List<Point> multiDiagonalExits = getCoordinatesOf(MULTI_DIAGONAL_EXIT_SYMBOL);
+        
+        // Add horizontal exits.
+        if(!horizontalExits.isEmpty()) {
+            for(Point point : horizontalExits) {
+                // Add exit to west room.
+                getRoomWestOf(point).addExit(Direction.EAST.toString(), getRoomEastOf(point));
+                echoAddExit(Direction.EAST, getRoomWestOf(point));
+                // Add exit to east room.
+                getRoomEastOf(point).addExit(Direction.WEST.toString(), getRoomWestOf(point));
+                echoAddExit(Direction.WEST, getRoomEastOf(point));
+            }
+        }
+        // Add veritical exits.
+        if(!verticalExits.isEmpty()) {
+            for(Point point : verticalExits) {
+                // Add exit to north room.
+                getRoomNorthOf(point).addExit(Direction.SOUTH.toString(), getRoomSouthOf(point));
+                echoAddExit(Direction.SOUTH, getRoomNorthOf(point));
+                // Add exit to south room.
+                getRoomSouthOf(point).addExit(Direction.NORTH.toString(), getRoomNorthOf(point));
+                echoAddExit(Direction.NORTH, getRoomSouthOf(point));
+            }
+        }
+        // Add back diagonal (\) exits.
+        if(!backDiagonalExits.isEmpty()) {
+            for(Point point : backDiagonalExits) {
+                // Add exit to northwest room.
+                getRoomNorthwestOf(point).addExit(Direction.SOUTHEAST.toString(), getRoomSoutheastOf(point));
+                echoAddExit(Direction.SOUTHEAST, getRoomNorthwestOf(point));
+                // Add exit to southeast room.
+                getRoomSoutheastOf(point).addExit(Direction.NORTHWEST.toString(), getRoomNorthwestOf(point));
+                echoAddExit(Direction.NORTHWEST, getRoomSoutheastOf(point));
+            }
+        }
+        // Add forward diagonal (/) exits.
+        if(!forwardDiagonalExits.isEmpty()) {
+            for(Point point : forwardDiagonalExits) {
+                // Add exit to northeast room.
+                getRoomNortheastOf(point).addExit(Direction.SOUTHWEST.toString(), getRoomSouthwestOf(point));
+                echoAddExit(Direction.SOUTHWEST, getRoomNortheastOf(point));
+                // Add exit to southwest room.
+                getRoomSouthwestOf(point).addExit(Direction.NORTHEAST.toString(), getRoomNortheastOf(point));
+                echoAddExit(Direction.NORTHEAST, getRoomSouthwestOf(point));
+            }
+        }
+        // Add multidiagonal (X) exits.
+        if(!multiDiagonalExits.isEmpty()) {
+            for(Point point : multiDiagonalExits) {
+                // Add exit to northwest room.
+                getRoomNorthwestOf(point).addExit(Direction.SOUTHEAST.toString(), getRoomSoutheastOf(point));
+                echoAddExit(Direction.SOUTHEAST, getRoomNorthwestOf(point));
+                // Add exit to southwest room.
+                getRoomSouthwestOf(point).addExit(Direction.NORTHEAST.toString(), getRoomNortheastOf(point));
+                echoAddExit(Direction.NORTHEAST, getRoomSouthwestOf(point));
+                // Add exit to northeast room.
+                getRoomNortheastOf(point).addExit(Direction.SOUTHWEST.toString(), getRoomSouthwestOf(point));
+                echoAddExit(Direction.SOUTHWEST, getRoomNortheastOf(point));
+                // Add exit to southeast room.
+                getRoomSoutheastOf(point).addExit(Direction.NORTHWEST.toString(), getRoomNorthwestOf(point));
+                echoAddExit(Direction.NORTHWEST, getRoomSoutheastOf(point));
+            }
+        }
+    }
+    
+    /**
+     * Echos adding of an exit to a room to the command line.
+     * @param direction - The direction of the exit.
+     * @param room  - The destination of the exit.
+     */
+    public void echoAddExit(Direction direction, Room room) {
+        System.out.println("Adding "+ direction.toString() + " exit to room at "+ room.toString());
+    }
+    
+    /**
+     * Find and return the Room to the west (x-1) of the specified exit.
+     * @param point - A Point describing the position of an exit.
+     * @return - The Room to the west (x-1) of the specified Point.
+     */
+    public Room getRoomWestOf(Point point) {
+        for(Room room : rooms) {
+           if(room.getPosition().x == point.x - 1 && room.getPosition().y == point.y) {
+               return room;
+           }
+        }
+        return null;
+    }
+    
+    /**
+     * Find and return the Room to the east (x+1) of the specified exit.
+     * @param point - A Point describing the position of an exit.
+     * @return  - The Room to the east (x+1) of the specified Point.
+     */
+    public Room getRoomEastOf(Point point) {
+        for(Room room : rooms) {
+           if(room.getPosition().x == point.x + 1 && room.getPosition().y == point.y) {
+               return room;
+           }
+        }
+        return null;
+    }
+    
+    /**
+     * Find and return the Room to the north (y-1) of the specified exit.
+     * @param point - A Point describing the position of an exit.
+     * @return - The Room to the north (y-1) of the specified Point.
+     */
+    public Room getRoomNorthOf(Point point) {
+        for(Room room : rooms) {
+           if(room.getPosition().x == point.x && room.getPosition().y == point.y - 1) {
+               return room;
+           }
+        }
+        return null;
+    }
+    
+    /**
+     * Find and return the Room to the south (y+1) of the specified exit.
+     * @param point - A Point describing the position of an exit.
+     * @return - The Room to the south (y+1) of the specified Point.
+     */
+    public Room getRoomSouthOf(Point point) {
+        for(Room room : rooms) {
+           if(room.getPosition().x == point.x && room.getPosition().y == point.y + 1) {
+               return room;
+           }
+        }
+        return null;
+    }
+    
+    /**
+     * Find and return the Room to the northwest (x-1, y-1) of the specified exit.
+     * @param point - A Point describing the position of an exit.
+     * @return - The Room to the northwest (x-1, y-1) of the specified Point.
+     */
+    private Room getRoomNorthwestOf(Point point) {
+        for(Room room : rooms) {
+           if(room.getPosition().x == point.x - 1 && room.getPosition().y == point.y - 1) {
+               return room;
+           }
+        }
+        return null;
+    }
+    
+    /**
+     * Find and return the Room to the northeast (x+1, y-1) of the specified exit.
+     * @param point - A Point describing the position of an exit.
+     * @return - The Room to the northeast (x+1, y-1) of the specified Point.
+     */
+    private Room getRoomNortheastOf(Point point) {
+        for(Room room : rooms) {
+           if(room.getPosition().x == point.x + 1 && room.getPosition().y == point.y - 1) {
+               return room;
+           }
+        }
+        return null;
+    }
+    /**
+     * Find and return the Room to the southwest (x-1, y+1) of the specified exit.
+     * @param point - A Point describing the position of an exit.
+     * @return - The Room to the southwest (x-1, y+1) of the specified Point.
+     */
+    private Room getRoomSouthwestOf(Point point) {
+        for(Room room : rooms) {
+           if(room.getPosition().x == point.x - 1 && room.getPosition().y == point.y + 1) {
+               return room;
+           }
+        }
+        return null;
+    }
+    
+    /**
+     * Find and return the Room to the southeast (x+1, y+1) of the specified exit.
+     * @param point - A Point describing the position of an exit.
+     * @return - The Room to the southeast (x+1, y+1) of the specified Point.
+     */
+    private Room getRoomSoutheastOf(Point point) {
+        for(Room room : rooms) {
+           if(room.getPosition().x == point.x + 1 && room.getPosition().y == point.y + 1) {
+               return room;
+           }
+        }
+        return null;
+    }
+    
     
     
     /**

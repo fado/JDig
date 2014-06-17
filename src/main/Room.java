@@ -1,16 +1,28 @@
 package main;
 
+import java.awt.Point;
+import java.util.HashMap;
+import java.util.Map;
+
 public class Room {
-    private final int xCoord;
-    private final int yCoord;
+   
+    private final Point position;
+    private final Map<String, Room> exits = new HashMap();
     
-    public Room(int xCoord, int yCoord) {
-        this.xCoord = xCoord;
-        this.yCoord = yCoord;
+    public Room(Point point) {
+        this.position = point;
     }
     
+   public Point getPosition() {
+       return this.position;
+   }
+   
+   public void addExit(String name, Room destination) {
+       exits.put(name, destination);
+   }
+   
     @Override
-    public String toString() {
-        return String.valueOf(xCoord) +", "+ String.valueOf(yCoord);
-    }
+   public String toString() {
+       return position.x +", "+position.y;
+   }
 }
