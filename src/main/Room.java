@@ -17,8 +17,8 @@ public class Room {
        return this.position;
    }
    
-   public void addExit(String name, Room destination) {
-       exits.put(name, destination);
+   public void addExit(Direction direction, Room destination) {
+       exits.put(direction.toString(), destination);
    }
    
     @Override

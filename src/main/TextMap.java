@@ -119,10 +119,10 @@ public class TextMap {
         if(!horizontalExits.isEmpty()) {
             for(Point point : horizontalExits) {
                 // Add exit to west room.
-                getRoomWestOf(point).addExit(Direction.EAST.toString(), getRoomEastOf(point));
+                getRoomWestOf(point).addExit(Direction.EAST, getRoomEastOf(point));
                 echoAddExit(Direction.EAST, getRoomWestOf(point));
                 // Add exit to east room.
-                getRoomEastOf(point).addExit(Direction.WEST.toString(), getRoomWestOf(point));
+                getRoomEastOf(point).addExit(Direction.WEST, getRoomWestOf(point));
                 echoAddExit(Direction.WEST, getRoomEastOf(point));
             }
         }
@@ -130,10 +130,10 @@ public class TextMap {
         if(!verticalExits.isEmpty()) {
             for(Point point : verticalExits) {
                 // Add exit to north room.
-                getRoomNorthOf(point).addExit(Direction.SOUTH.toString(), getRoomSouthOf(point));
+                getRoomNorthOf(point).addExit(Direction.SOUTH, getRoomSouthOf(point));
                 echoAddExit(Direction.SOUTH, getRoomNorthOf(point));
                 // Add exit to south room.
-                getRoomSouthOf(point).addExit(Direction.NORTH.toString(), getRoomNorthOf(point));
+                getRoomSouthOf(point).addExit(Direction.NORTH, getRoomNorthOf(point));
                 echoAddExit(Direction.NORTH, getRoomSouthOf(point));
             }
         }
@@ -141,10 +141,10 @@ public class TextMap {
         if(!backDiagonalExits.isEmpty()) {
             for(Point point : backDiagonalExits) {
                 // Add exit to northwest room.
-                getRoomNorthwestOf(point).addExit(Direction.SOUTHEAST.toString(), getRoomSoutheastOf(point));
+                getRoomNorthwestOf(point).addExit(Direction.SOUTHEAST, getRoomSoutheastOf(point));
                 echoAddExit(Direction.SOUTHEAST, getRoomNorthwestOf(point));
                 // Add exit to southeast room.
-                getRoomSoutheastOf(point).addExit(Direction.NORTHWEST.toString(), getRoomNorthwestOf(point));
+                getRoomSoutheastOf(point).addExit(Direction.NORTHWEST, getRoomNorthwestOf(point));
                 echoAddExit(Direction.NORTHWEST, getRoomSoutheastOf(point));
             }
         }
@@ -152,10 +152,10 @@ public class TextMap {
         if(!forwardDiagonalExits.isEmpty()) {
             for(Point point : forwardDiagonalExits) {
                 // Add exit to northeast room.
-                getRoomNortheastOf(point).addExit(Direction.SOUTHWEST.toString(), getRoomSouthwestOf(point));
+                getRoomNortheastOf(point).addExit(Direction.SOUTHWEST, getRoomSouthwestOf(point));
                 echoAddExit(Direction.SOUTHWEST, getRoomNortheastOf(point));
                 // Add exit to southwest room.
-                getRoomSouthwestOf(point).addExit(Direction.NORTHEAST.toString(), getRoomNortheastOf(point));
+                getRoomSouthwestOf(point).addExit(Direction.NORTHEAST, getRoomNortheastOf(point));
                 echoAddExit(Direction.NORTHEAST, getRoomSouthwestOf(point));
             }
         }
@@ -163,16 +163,16 @@ public class TextMap {
         if(!multiDiagonalExits.isEmpty()) {
             for(Point point : multiDiagonalExits) {
                 // Add exit to northwest room.
-                getRoomNorthwestOf(point).addExit(Direction.SOUTHEAST.toString(), getRoomSoutheastOf(point));
+                getRoomNorthwestOf(point).addExit(Direction.SOUTHEAST, getRoomSoutheastOf(point));
                 echoAddExit(Direction.SOUTHEAST, getRoomNorthwestOf(point));
                 // Add exit to southwest room.
-                getRoomSouthwestOf(point).addExit(Direction.NORTHEAST.toString(), getRoomNortheastOf(point));
+                getRoomSouthwestOf(point).addExit(Direction.NORTHEAST, getRoomNortheastOf(point));
                 echoAddExit(Direction.NORTHEAST, getRoomSouthwestOf(point));
                 // Add exit to northeast room.
-                getRoomNortheastOf(point).addExit(Direction.SOUTHWEST.toString(), getRoomSouthwestOf(point));
+                getRoomNortheastOf(point).addExit(Direction.SOUTHWEST, getRoomSouthwestOf(point));
                 echoAddExit(Direction.SOUTHWEST, getRoomNortheastOf(point));
                 // Add exit to southeast room.
-                getRoomSoutheastOf(point).addExit(Direction.NORTHWEST.toString(), getRoomNorthwestOf(point));
+                getRoomSoutheastOf(point).addExit(Direction.NORTHWEST, getRoomNorthwestOf(point));
                 echoAddExit(Direction.NORTHWEST, getRoomSoutheastOf(point));
             }
         }
