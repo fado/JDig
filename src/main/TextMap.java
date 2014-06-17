@@ -105,7 +105,8 @@ public class TextMap {
     }
     
     /**
-     * Generates Exit objects for each instance of each exit symbol within the map.
+     * Iterates through the map looking for exit symbols, then calls addExit on each room at
+     * either end of each exit that it finds.
      */
     public void addAllExits() {
         // Establish locations of all symbols.
