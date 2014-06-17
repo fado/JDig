@@ -107,7 +107,7 @@ public class TextMap {
     /**
      * Generates Exit objects for each instance of each exit symbol within the map.
      */
-    public void getExits() {
+    public void addAllExits() {
         // Establish locations of all symbols.
         List<Point> horizontalExits = getCoordinatesOf(HORIZONTAL_EXIT_SYMBOL);
         List<Point> verticalExits = getCoordinatesOf(VERTICAL_EXIT_SYMBOL);

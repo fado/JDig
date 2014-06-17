@@ -12,7 +12,7 @@ public class Jdig {
     public static void main(String[] args) throws IOException {
         TextMap map = new TextMap(args[0]);
         map.getRooms();   
-        map.getExits();
+        map.addAllExits();
     }
    
 }
