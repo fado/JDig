@@ -66,7 +66,7 @@ public class TextMap {
      * @param symbol - The symbol to be matched.
      * @return - A List of Points matching the symbol.
      */
-    public List<Point> getCoordinatesOf(char symbol) {
+    private List<Point> getCoordinatesOf(char symbol) {
         List<Point> points = new ArrayList<>();
         // Check to see if there are any elements in the List.
         if(linesInSourceFile.isEmpty()) {
@@ -183,7 +183,7 @@ public class TextMap {
      * @param direction - The direction of the exit.
      * @param room  - The destination of the exit.
      */
-    public void echoAddExit(Direction direction, Room room) {
+    private void echoAddExit(Direction direction, Room room) {
         System.out.println("Adding "+ direction.toString() + " exit to room at "+ room.toString());
     }
     
@@ -192,7 +192,7 @@ public class TextMap {
      * @param point - A Point describing the position of an exit.
      * @return - The Room to the west (x-1) of the specified Point.
      */
-    public Room getRoomWestOf(Point point) {
+    private Room getRoomWestOf(Point point) {
         for(Room room : rooms) {
            if(room.getPosition().x == point.x - 1 && room.getPosition().y == point.y) {
                return room;
@@ -206,7 +206,7 @@ public class TextMap {
      * @param point - A Point describing the position of an exit.
      * @return  - The Room to the east (x+1) of the specified Point.
      */
-    public Room getRoomEastOf(Point point) {
+    private Room getRoomEastOf(Point point) {
         for(Room room : rooms) {
            if(room.getPosition().x == point.x + 1 && room.getPosition().y == point.y) {
                return room;
@@ -220,7 +220,7 @@ public class TextMap {
      * @param point - A Point describing the position of an exit.
      * @return - The Room to the north (y-1) of the specified Point.
      */
-    public Room getRoomNorthOf(Point point) {
+    private Room getRoomNorthOf(Point point) {
         for(Room room : rooms) {
            if(room.getPosition().x == point.x && room.getPosition().y == point.y - 1) {
                return room;
@@ -234,7 +234,7 @@ public class TextMap {
      * @param point - A Point describing the position of an exit.
      * @return - The Room to the south (y+1) of the specified Point.
      */
-    public Room getRoomSouthOf(Point point) {
+    private Room getRoomSouthOf(Point point) {
         for(Room room : rooms) {
            if(room.getPosition().x == point.x && room.getPosition().y == point.y + 1) {
                return room;
@@ -297,8 +297,6 @@ public class TextMap {
         }
         return null;
     }
-    
-    
     
     /**
      * Custom toString().
