@@ -13,7 +13,7 @@ Well, when working on a MUD, developers tend to map out areas either by hand, or
 
 JDig takes those ASCII map files and converts them into the individual LPC files for the area, which saves a LOT of time (hopefully).  As iterative development goes forward, I'll be introducing (-) a GUI, (-) a means of procedural generation, (-) a way to work back from existing areas into decent looking maps, to name just a few features.  A more comprehensive list of functional requirements is just below this...
 
-Function requirements!
+Functional requirements!
 ======================
 
 Told you so.
