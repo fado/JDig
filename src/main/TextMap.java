@@ -33,10 +33,12 @@ public class TextMap {
      */
     private List<String> linesInSourceFile = new ArrayList<>();
     private final List<Room> rooms;
+    private final int DEFAULT_ROOM_NUMBER = 1;
     
     /**
      * Constructor. Checks to see if the file exists before extracting the data from it.
      * @param path - The path of the text file containing the map.
+     * @param streetName - The name of the street being generated.
      * @throws IOException 
      */
     public TextMap(String path) throws IOException {

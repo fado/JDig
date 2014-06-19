@@ -21,6 +21,10 @@ public class Room {
        exits.put(direction.toString(), destination);
    }
    
+   public Map<String, Room> getExits() {
+       return this.exits;
+   }
+   
     @Override
    public String toString() {
        return position.x +", "+position.y;
