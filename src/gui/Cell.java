@@ -33,7 +33,7 @@ public class Cell extends JPanel {
      */
     private Color defaultBackground;
     private final int size;
-    private Point position;
+    private final Point position;
     
     /**
      * Creates a Cell object with its fields set to the passed-in parameters.
