@@ -1,18 +1,24 @@
 package main;
 
+import gui.Gui;
 import java.io.IOException;
 
+/**
+ * The Jdig class is the main class in the Jdig application.
+ */
 public class Jdig {
         
     /**
-     * Configured to pass testmap.txt as a parameter for testing purposes.
+     * Create a new Jdig object with the specified arguments.
      * @param args
      * @throws IOException 
      */
     public static void main(String[] args) throws IOException {
-        TextMap map = new TextMap(args[0]);
-        map.getRooms();   
-        map.addAllExits();
+        //TextMap map = new TextMap(args[0]);
+        //map.getRooms();   
+        //map.addAllExits();
+        Gui gui = new Gui();
+        gui.run();
     }
    
 }

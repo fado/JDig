@@ -10,14 +10,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This class takes a text file containing an area map and stores the data contained therein as a List.
+ * This class takes a text file containing a map of a MUD area drawn in ASCII
+ * characters and stores the data contained therein as a List.
  */
 public class TextMap {
     
     /**
      * Error messages.
      */
-    private final String FILE_NOT_FOUND_MSG = "File not found, or specified path is a directory.";
+    private final String FILE_NOT_FOUND_MSG = "File not found, or specified "
+            + "path is a directory.";
     private final String EMPTY_MAP_MSG = "No lines found in Ascii Map.";
     /**
      * Map symbols.
@@ -33,12 +35,11 @@ public class TextMap {
      */
     private List<String> linesInSourceFile = new ArrayList<>();
     private final List<Room> rooms;
-    private final int DEFAULT_ROOM_NUMBER = 1;
     
     /**
-     * Constructor. Checks to see if the file exists before extracting the data from it.
+     * Creates a new TextMap with its fields set to the passed-in parameters.
+     * Checks to see if the file exists before extracting the data from it.
      * @param path - The path of the text file containing the map.
-     * @param streetName - The name of the street being generated.
      * @throws IOException 
      */
     public TextMap(String path) throws IOException {
@@ -47,7 +48,8 @@ public class TextMap {
         File mapSourceFile = new File(path);
         if(mapSourceFile.exists() && !mapSourceFile.isDirectory()) {
             linesInSourceFile = read(path);
-            System.out.println(linesInSourceFile.size() +" lines added to Map.");
+            System.out.println(linesInSourceFile.size() +" lines added to "
+                    + "map.");
         } else {
             System.out.println(FILE_NOT_FOUND_MSG);
         }
@@ -81,7 +83,8 @@ public class TextMap {
             for(int innerCounter = 0; innerCounter < linesInSourceFile.get(counter).length(); innerCounter++) {
                 if(linesInSourceFile.get(counter).charAt(innerCounter) == symbol) {
                     Point point = new Point(innerCounter, counter);
-                    System.out.println("Coordinates found at x"+String.valueOf(innerCounter)+", y"+String.valueOf(counter));
+                    System.out.println("Coordinates found at x"
+                            +String.valueOf(innerCounter)+", y"+String.valueOf(counter));
                     points.add(point);
                 }
             }
@@ -99,7 +102,8 @@ public class TextMap {
         // For each coordinate, create a new Room object.
         for(Point point : points) {
             Room room = new Room(point);
-            System.out.println("Room created at "+String.valueOf(point.x)+", "+String.valueOf(point.y));
+            System.out.println("Room created at "+String.valueOf(point.x)+", "
+                    +String.valueOf(point.y));
             rooms.add(room);
         }
         // Return the Rooms.
@@ -144,10 +148,12 @@ public class TextMap {
         if(!backDiagonalExits.isEmpty()) {
             for(Point point : backDiagonalExits) {
                 // Add exit to northwest room.
-                getRoomNorthwestOf(point).addExit(Direction.SOUTHEAST, getRoomSoutheastOf(point));
+                getRoomNorthwestOf(point).addExit(Direction.SOUTHEAST, 
+                        getRoomSoutheastOf(point));
                 echoAddExit(Direction.SOUTHEAST, getRoomNorthwestOf(point));
                 // Add exit to southeast room.
-                getRoomSoutheastOf(point).addExit(Direction.NORTHWEST, getRoomNorthwestOf(point));
+                getRoomSoutheastOf(point).addExit(Direction.NORTHWEST, 
+                        getRoomNorthwestOf(point));
                 echoAddExit(Direction.NORTHWEST, getRoomSoutheastOf(point));
             }
         }
@@ -155,10 +161,12 @@ public class TextMap {
         if(!forwardDiagonalExits.isEmpty()) {
             for(Point point : forwardDiagonalExits) {
                 // Add exit to northeast room.
-                getRoomNortheastOf(point).addExit(Direction.SOUTHWEST, getRoomSouthwestOf(point));
+                getRoomNortheastOf(point).addExit(Direction.SOUTHWEST, 
+                        getRoomSouthwestOf(point));
                 echoAddExit(Direction.SOUTHWEST, getRoomNortheastOf(point));
                 // Add exit to southwest room.
-                getRoomSouthwestOf(point).addExit(Direction.NORTHEAST, getRoomNortheastOf(point));
+                getRoomSouthwestOf(point).addExit(Direction.NORTHEAST, 
+                        getRoomNortheastOf(point));
                 echoAddExit(Direction.NORTHEAST, getRoomSouthwestOf(point));
             }
         }
@@ -166,16 +174,20 @@ public class TextMap {
         if(!multiDiagonalExits.isEmpty()) {
             for(Point point : multiDiagonalExits) {
                 // Add exit to northwest room.
-                getRoomNorthwestOf(point).addExit(Direction.SOUTHEAST, getRoomSoutheastOf(point));
+                getRoomNorthwestOf(point).addExit(Direction.SOUTHEAST, 
+                        getRoomSoutheastOf(point));
                 echoAddExit(Direction.SOUTHEAST, getRoomNorthwestOf(point));
                 // Add exit to southwest room.
-                getRoomSouthwestOf(point).addExit(Direction.NORTHEAST, getRoomNortheastOf(point));
+                getRoomSouthwestOf(point).addExit(Direction.NORTHEAST, 
+                        getRoomNortheastOf(point));
                 echoAddExit(Direction.NORTHEAST, getRoomSouthwestOf(point));
                 // Add exit to northeast room.
-                getRoomNortheastOf(point).addExit(Direction.SOUTHWEST, getRoomSouthwestOf(point));
+                getRoomNortheastOf(point).addExit(Direction.SOUTHWEST, 
+                        getRoomSouthwestOf(point));
                 echoAddExit(Direction.SOUTHWEST, getRoomNortheastOf(point));
                 // Add exit to southeast room.
-                getRoomSoutheastOf(point).addExit(Direction.NORTHWEST, getRoomNorthwestOf(point));
+                getRoomSoutheastOf(point).addExit(Direction.NORTHWEST, 
+                        getRoomNorthwestOf(point));
                 echoAddExit(Direction.NORTHWEST, getRoomSoutheastOf(point));
             }
         }
@@ -187,7 +199,8 @@ public class TextMap {
      * @param room  - The destination of the exit.
      */
     private void echoAddExit(Direction direction, Room room) {
-        System.out.println("Adding "+ direction.toString() + " exit to room at "+ room.toString());
+        System.out.println("Adding "+ direction.toString() + " exit to room at "
+                + room.toString());
     }
     
     /**
@@ -302,7 +315,7 @@ public class TextMap {
     }
     
     /**
-     * Custom toString().
+     * Overridden toString().
      * @return - A String containing all lines stores by the Map.
      */
     @Override
