@@ -3,6 +3,7 @@ package gui;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.BorderFactory;
@@ -10,7 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.border.Border;
 
 /**
- * The Cell class Specifies one cell in the MapGrid that makes up the 
+ * The Cell class specifies one cell in the MapGrid that makes up the 
  * user-interface for drawing maps.
  */
 public class Cell extends JPanel {
@@ -32,8 +33,7 @@ public class Cell extends JPanel {
      */
     private Color defaultBackground;
     private final int size;
-    private final int row;
-    private final int column;
+    private Point position;
     
     /**
      * Creates a Cell object with its fields set to the passed-in parameters.
@@ -44,9 +44,9 @@ public class Cell extends JPanel {
     public Cell(int size, int row, int column) {
         // Set the cell size.
         this.size = size;
-        this.row = row;
-        this.column = column;
-        // Remove default vGap.
+        // Record the position.
+        position = new Point(column, row);
+        // Remove default vGap that the FlowLayout puts in.
         ((FlowLayout)this.getLayout()).setVgap(0);
         // Set default border color.
         Border greyBorder = BorderFactory.createLineBorder(VERY_LIGHT_GRAY);
@@ -80,6 +80,14 @@ public class Cell extends JPanel {
     public void drawRoom() {
         Border blackBorder = BorderFactory.createLineBorder(Color.BLACK, 2);
         this.setBorder(blackBorder);
+    }
+    
+    /**
+     * Returns the position of the Cell in the MapGrid.
+     * @return - Point object specifying position of the Cell in the MapGrid.
+     */
+    public Point getPosition() {
+        return this.position;
     }
 
     /**
