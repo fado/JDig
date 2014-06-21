@@ -23,16 +23,17 @@ public class Gui implements Runnable {
         constraints.weighty = 0.1;
         constraints.fill = GridBagConstraints.BOTH;
         
-        // Add MapEditorToolbar.
-        MapEditorToolbar toolbar = new MapEditorToolbar();
-        constraints.gridx = 0;
-        constraints.gridy = 0;
-        pane.add(toolbar, constraints);
         // Add MapGrid.
         MapGrid grid = new MapGrid(40, 40);
         constraints.gridx = 0;
         constraints.gridy = 1;
         pane.add(grid, constraints);
+        
+        // Add MapEditorToolbar.
+        MapEditorToolbar toolbar = new MapEditorToolbar(grid);
+        constraints.gridx = 0;
+        constraints.gridy = 0;
+        pane.add(toolbar, constraints);
     }
     
     /**
