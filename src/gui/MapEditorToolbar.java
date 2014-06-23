@@ -1,7 +1,7 @@
 package gui;
 
 import gui.tools.RoomTool;
-import java.awt.Component;
+import gui.tools.ExitTool;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -72,7 +72,7 @@ public class MapEditorToolbar extends JToolBar {
             @Override
             public void actionPerformed(ActionEvent event) {
                 if(!exitToolButton.isSelected()) {
-                    mapGrid.setSelectedTool(null);
+                    mapGrid.setSelectedTool(new ExitTool());
                 }
             }
         });

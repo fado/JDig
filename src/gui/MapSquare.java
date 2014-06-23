@@ -53,14 +53,11 @@ public class MapSquare extends JPanel {
         Border greyBorder = BorderFactory.createLineBorder(VERY_LIGHT_GRAY);
         this.setBorder(greyBorder);
         this.setBackground(Color.WHITE);
-                
-        // Determine the currently selected tool.
-        // selectedTool = grid.getSelectedTool();
         
         // Setup behaviours.
         addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseEntered(MouseEvent event) {
+            public void mouseEntered(MouseEvent e) {
                 getMapGrid().getSelectedTool().mouseEntered(MapSquare.this);
             }
             
