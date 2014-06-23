@@ -1,9 +1,9 @@
 package gui.tools;
 
-import gui.Cell;
+import gui.MapSquare;
 
 public interface Tool {
-    public void mouseEntered(Cell cell);
-    public void mouseExited(Cell cell);
-    public void mouseClicked(Cell cell);
+    public void mouseEntered(MapSquare cell);
+    public void mouseExited(MapSquare cell);
+    public void mouseClicked(MapSquare cell);
 }

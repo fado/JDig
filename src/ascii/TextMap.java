@@ -1,4 +1,4 @@
-package main;
+package ascii;
 
 import java.awt.Point;
 import java.io.File;
@@ -8,6 +8,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import main.Direction;
+import main.Room;
 
 /**
  * This class takes a text file containing a map of a MUD area drawn in ASCII
