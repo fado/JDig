@@ -1,31 +1,35 @@
 package gui.tools;
 
-import gui.Cell;
+import gui.MapSquare;
 import java.awt.Color;
 import javax.swing.BorderFactory;
 import javax.swing.border.Border;
 
 public class RoomTool implements Tool {
 
-    private Color defaultBackground;
+    private Border defaultBorder;
     
     @Override
-    public void mouseEntered(Cell cell) {
-        defaultBackground = cell.getBackground();
-        cell.setBackground(Color.BLACK);
+    public void mouseEntered(MapSquare square) {
+        defaultBorder = square.getBorder();
+        Border blackBorder = BorderFactory.createLineBorder(Color.BLACK, 2);
+        square.setBorder(blackBorder);
     }
     
     @Override
-    public void mouseExited(Cell cell) {
-        cell.setBackground(defaultBackground);
+    public void mouseExited(MapSquare square) {
+        if(!square.isFilled()) {
+            square.setBorder(defaultBorder);
+        }
     }
 
     @Override
-    public void mouseClicked(Cell cell) {
-        if (!cell.isFilled()) {
+    public void mouseClicked(MapSquare square) {
+        if (!square.isFilled()) {
             Border blackBorder = BorderFactory.createLineBorder(Color.BLACK, 2);
-            cell.setBorder(blackBorder);
-            cell.setFilled(true);
+            square.setBorder(blackBorder);
+            square.setFilled(true);
+            square.setRoom(true);
         }
     }
 
