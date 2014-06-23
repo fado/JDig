@@ -33,6 +33,9 @@ public class MapEditorToolbar extends JToolBar {
      * @param grid - The MapGrid to which the tool bar is attached.
      */
     public MapEditorToolbar(MapGrid grid) {
+        // Make its position immutable.
+        this.setFloatable(false);
+
         // Record the associated MapGrid.
         this.mapGrid = grid;
         
