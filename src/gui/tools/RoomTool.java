@@ -1,5 +1,6 @@
 package gui.tools;
 
+import globals.Entity;
 import gui.MapSquare;
 import java.awt.Color;
 import javax.swing.BorderFactory;
@@ -25,11 +26,10 @@ public class RoomTool implements Tool {
 
     @Override
     public void mouseClicked(MapSquare square) {
-        if (!square.isFilled()) {
+        if(!square.isFilled()) {
             Border blackBorder = BorderFactory.createLineBorder(Color.BLACK, 2);
             square.setBorder(blackBorder);
-            square.setFilled(true);
-            square.setRoom(true);
+            square.setEntity(Entity.ROOM);
         }
     }
 

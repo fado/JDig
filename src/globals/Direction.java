@@ -1,4 +1,4 @@
-package main;
+package globals;
 
 /**
  * Possible compass directions within the MUD's exit structure.

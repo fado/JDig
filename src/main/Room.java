@@ -1,5 +1,6 @@
 package main;
 
+import globals.Direction;
 import java.awt.Point;
 import java.util.HashMap;
 import java.util.Map;

@@ -1,12 +1,20 @@
 package gui;
 
+import globals.Entity;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Image;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
@@ -26,8 +34,8 @@ public class MapSquare extends JPanel {
     private final int size;
     private final Point position;
     private final MapGrid grid;
-    private boolean filled = false;
-    private boolean room = false;
+    private Entity entity;
+    private JLabel imageLabel;
     
     /**
      * Creates a MapSquare object with its fields set to the passed-in parameters.
@@ -72,6 +80,41 @@ public class MapSquare extends JPanel {
             }
         });
     }
+    
+    public boolean hasEntity(Entity entity) {
+        if(this.entity == entity) {
+            return true;
+        }
+        return false;
+    }
+    
+    public void setEntity(Entity entity) {
+        this.entity = entity;
+    }
+    
+    public boolean isFilled() {
+        if(this.entity != null) {
+            return true;
+        }
+        return false;
+    }
+    
+     public void addImage(String path) throws IOException {
+        BufferedImage image = ImageIO.read(new File(path));
+        Image scaledImage = image.getScaledInstance(size, size, 1);
+        imageLabel = new JLabel(new ImageIcon(scaledImage));
+        this.add(imageLabel);
+        this.validate();
+        this.repaint();
+    }
+     
+    public void removeImage() {
+        if(!this.isFilled() && imageLabel != null) {
+            this.remove(imageLabel);
+            this.validate();
+            this.repaint();
+        }
+    }
        
     /**
      * Returns the MapGrid associated with this MapSquare.
@@ -88,40 +131,7 @@ public class MapSquare extends JPanel {
     public Point getPosition() {
         return this.position;
     }
-    
-    /**
-     * Determines whether or not the MapSquare contains a room.
-     * @return - True if the MapSquare contains a room, false otherwise.
-     */
-    public boolean isRoom() {
-        return this.room;
-    }
-    
-    /**
-     * Sets whether or not the MapSquare contains with a room.
-     * @param bool - Boolean value specifying whether or not the MapSquare 
-     * contains a room.
-     */
-    public void setRoom(boolean bool) {
-        this.room = bool;
-    }
-    
-    /**
-     * Sets whether or not the MapSquare has been filled with an entity.
-     * @param bool - Boolean value specifying whether or not the MapSquare has been filled.
-     */
-    public void setFilled(boolean bool) {
-        this.filled = bool;
-    }
-    
-    /**
-     * Determines whether or not the MapSquare has been filled with an entity.
-     * @return - True if the MapSquare has been filled with an entity, false otherwise.
-     */
-    public boolean isFilled() {
-        return this.filled;
-    }
-
+   
     /**
      * Returns the preferred size of the MapSquare, as dictated by the parameters 
      * passed to the constructor.

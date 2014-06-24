@@ -8,7 +8,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import main.Direction;
+import globals.Direction;
 import main.Room;
 
 /**
