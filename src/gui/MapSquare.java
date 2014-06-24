@@ -67,18 +67,18 @@ public class MapSquare extends JPanel {
         // Setup behaviours.
         addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseEntered(MouseEvent e) {
-                getMapGrid().getSelectedTool().mouseEntered(MapSquare.this);
+            public void mouseEntered(MouseEvent event) {
+                getMapGrid().getSelectedTool().mouseEntered(MapSquare.this, event);
             }
             
             @Override
-            public void mouseExited(MouseEvent e) {
-                getMapGrid().getSelectedTool().mouseExited(MapSquare.this);
+            public void mouseExited(MouseEvent event) {
+                getMapGrid().getSelectedTool().mouseExited(MapSquare.this, event);
             }
             
             @Override
-            public void mouseClicked(MouseEvent e) {
-               getMapGrid().getSelectedTool().mouseClicked(MapSquare.this);
+            public void mouseClicked(MouseEvent event) {
+                getMapGrid().getSelectedTool().mouseClicked(MapSquare.this, event);
             }
         });
     }
