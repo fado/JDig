@@ -3,6 +3,7 @@ package gui.tools;
 import globals.Entity;
 import gui.MapGrid;
 import gui.MapSquare;
+import java.awt.event.MouseEvent;
 import java.io.IOException;
 
 public class ExitTool implements Tool {
@@ -13,9 +14,10 @@ public class ExitTool implements Tool {
      * to an exit type appropriate for the rooms that may be connected by the 
      * placement of an exit.
      * @param square - The square entered by the mouse.
+     * @param event - The MouseEvent that triggered the method call.
      */
     @Override
-    public void mouseEntered(MapSquare square) {
+    public void mouseEntered(MapSquare square, MouseEvent event) {
         
         MapGrid grid = square.getMapGrid();
 
@@ -87,14 +89,15 @@ public class ExitTool implements Tool {
     /**
      * Removes the image from the square upon the mouse exiting.
      * @param square - The square exited by the mouse.
+     * @param event - The MouseEvent that triggered the method call.
      */
     @Override
-    public void mouseExited(MapSquare square) {
+    public void mouseExited(MapSquare square, MouseEvent event) {
         square.removeImage();
     }
 
     @Override
-    public void mouseClicked(MapSquare square) {
+    public void mouseClicked(MapSquare square, MouseEvent event) {
         
     }
   
