@@ -7,6 +7,13 @@ import java.io.IOException;
 
 public class ExitTool implements Tool {
     
+    /**
+     * This method looks at squares adjacent to the square entered and determines
+     * whether or not rooms exist there.  If rooms do exist, the cursor is changed
+     * to an exit type appropriate for the rooms that may be connected by the 
+     * placement of an exit.
+     * @param square - The square entered by the mouse.
+     */
     @Override
     public void mouseEntered(MapSquare square) {
         
@@ -77,6 +84,10 @@ public class ExitTool implements Tool {
         }
     }
 
+    /**
+     * Removes the image from the square upon the mouse exiting.
+     * @param square - The square exited by the mouse.
+     */
     @Override
     public void mouseExited(MapSquare square) {
         square.removeImage();
