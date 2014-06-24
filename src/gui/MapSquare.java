@@ -11,7 +11,6 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -99,6 +98,9 @@ public class MapSquare extends JPanel {
         this.entity = entity;
     }
 
+    /**
+     * Remove the entity contained by the MapSquare.
+     */
     public void removeEntity() {
         this.entity = null;
     }
@@ -113,6 +115,11 @@ public class MapSquare extends JPanel {
         return this.entity == entity;
     }
 
+    /**
+     * Determines whether or not the MapSquare contains any entity.
+     * 
+     * @return - True if the MapSquare contains any entity.
+     */
     public boolean containsAnyEntity() {
         return entity != null;
     }
@@ -151,10 +158,18 @@ public class MapSquare extends JPanel {
         this.setBorder(BorderFactory.createMatteBorder(0, 1, 0, 1, VERY_LIGHT_GRAY));
     }
 
+    /**
+     * Sets a border appropriate to the presence of a horizontal exit.  The width
+     * of the right and left edges becomes zero, while the top and bottom edges
+     * remain the same.
+     */
     public void setHorizontalExitBorder() {
         this.setBorder(BorderFactory.createMatteBorder(1, 0, 1, 0, VERY_LIGHT_GRAY));
     }
 
+    /**
+     * Restores the default border of the MapSquare.
+     */
     public void restoreDefaultBorder() {
         this.setBorder(defaultBorder);
     }
