@@ -11,6 +11,7 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -35,7 +36,7 @@ public class MapSquare extends JPanel {
     private final Point position;
     private final MapGrid grid;
     private Entity entity;
-    private JLabel imageLabel;
+    private JLabel entityImage;
     private final Border defaultBorder;
     
     /**
@@ -116,17 +117,17 @@ public class MapSquare extends JPanel {
      public void addImage(String path) throws IOException {
         BufferedImage image = ImageIO.read(new File(path));
         Image scaledImage = image.getScaledInstance(size, size, 1);
-        imageLabel = new JLabel(new ImageIcon(scaledImage));
-        this.add(imageLabel);
+        entityImage = new JLabel(new ImageIcon(scaledImage));
+        this.add(entityImage);
         this.validate();
     }
      
     /**
-     * Removes any image that has been added to the MapSquare.
+     * Removes any entityImage that has been added to the MapSquare.
      */
     public void removeImage() {
-        if(!this.isFilled() && imageLabel != null) {
-            this.remove(imageLabel);
+        if(!this.isFilled() && entityImage != null) {
+            this.remove(entityImage);
             this.validate();
             this.repaint();
         }

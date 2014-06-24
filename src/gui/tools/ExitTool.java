@@ -47,26 +47,34 @@ public class ExitTool implements Tool {
         MapSquare northwestSquare = grid.getSquareNorthwestOf(square.getPosition());
         MapSquare southeastSquare = grid.getSquareSoutheastOf(square.getPosition());
 
-        // Check for rooms and null pointers on the southwest/northeast axis.
-        if (southwestSquare !=null && southwestSquare.hasEntity(Entity.ROOM) &&
-                northeastSquare != null && northeastSquare.hasEntity(Entity.ROOM)) {
+        // Check for rooms and null points on southwest/northeast and northwest/southeast axis.
+        if (southwestSquare != null && southwestSquare.hasEntity(Entity.ROOM)
+                && northeastSquare != null && northeastSquare.hasEntity(Entity.ROOM)
+                && northwestSquare != null && northwestSquare.hasEntity(Entity.ROOM)
+                && southeastSquare != null && southeastSquare.hasEntity(Entity.ROOM)) {
             try {
-                square.addImage(Entity.FORWARD_DIAGONAL_EXIT.getImagePath());
+                square.addImage(Entity.X_EXIT.getImagePath());
             } catch (IOException ex) {
                 // TO-DO: Something.
             }
-        }
-        
-        // Check for rooms and null pointers on the northwest/southeast axis.
-        if (northwestSquare !=null && northwestSquare.hasEntity(Entity.ROOM) &&
-                southeastSquare !=null && southeastSquare.hasEntity(Entity.ROOM)) {
+            // Check for rooms and null pointers on the southwest/northeast axis.
+        } else if (southwestSquare != null && southwestSquare.hasEntity(Entity.ROOM)
+                && northeastSquare != null && northeastSquare.hasEntity(Entity.ROOM)) {
+            try {
+                square.addImage(Entity.FORWARD_DIAGONAL_EXIT.getImagePath());
+
+            } catch (IOException ex) {
+                // TO-DO: Something.
+            }
+            // Check for rooms and null pointers on the northwest/southeast axis.
+        } else if (northwestSquare != null && northwestSquare.hasEntity(Entity.ROOM)
+                && southeastSquare != null && southeastSquare.hasEntity(Entity.ROOM)) {
             try {
                 square.addImage(Entity.BACK_DIAGONAL_EXIT.getImagePath());
             } catch (IOException ex) {
                 // TO-DO: Something.
             }
         }
-        
     }
 
     @Override
