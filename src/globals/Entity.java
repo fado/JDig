@@ -9,13 +9,13 @@ public enum Entity {
     BACK_DIAGONAL_EXIT("./resources/images/back_diagonal_exit.png"),
     X_EXIT("./resources/images/x_exit.png");
     
-    private final String path;
+    private final String imagePath;
     
     Entity(String path) {
-        this.path = path;
+        this.imagePath = path;
     }
     
-    public String getPath() {
-        return path;
+    public String getImagePath() {
+        return imagePath;
     }
 }
