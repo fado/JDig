@@ -3,16 +3,7 @@ package gui.tools;
 import globals.Entity;
 import gui.MapGrid;
 import gui.MapSquare;
-import java.awt.Dimension;
-import java.awt.Image;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 
 public class ExitTool implements Tool {
     
@@ -21,11 +12,27 @@ public class ExitTool implements Tool {
 
         MapGrid grid = square.getMapGrid();
 
-        // Check for horizontal connection.
-        if (grid.getSquareWestOf(square.getPosition()).hasEntity(Entity.ROOM)
-                && grid.getSquareEastOf(square.getPosition()).hasEntity(Entity.ROOM)) {
+        // Get MapSquares adjacent horizontally.
+        MapSquare westSquare = grid.getSquareWestOf(square.getPosition());
+        MapSquare eastSquare = grid.getSquareEastOf(square.getPosition());
+        // Check for rooms and null pointers.
+        if (westSquare != null && westSquare.hasEntity(Entity.ROOM) &&
+                eastSquare != null && eastSquare.hasEntity(Entity.ROOM)) {
             try {
-                square.addImage(Entity.HORIZONTAL_EXIT.getPath());
+                square.addImage(Entity.HORIZONTAL_EXIT.getImagePath());
+            } catch (IOException ex) {
+                // TO-DO: Something.
+            }
+        }
+        
+        // Get MapSquares adjacent vertically.
+        MapSquare northSquare = grid.getSquareNorthOf(square.getPosition());
+        MapSquare southSquare = grid.getSquareSouthOf(square.getPosition());
+        // Check for rooms and null pointers.
+        if (northSquare != null && northSquare.hasEntity(Entity.ROOM) &&
+                southSquare != null && southSquare.hasEntity(Entity.ROOM)) {
+            try {
+                square.addImage(Entity.VERTICAL_EXIT.getImagePath());
             } catch (IOException ex) {
                 // TO-DO: Something.
             }
