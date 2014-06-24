@@ -36,6 +36,7 @@ public class MapSquare extends JPanel {
     private final MapGrid grid;
     private Entity entity;
     private JLabel imageLabel;
+    private Border defaultBorder;
     
     /**
      * Creates a MapSquare object with its fields set to the passed-in parameters.
@@ -58,8 +59,8 @@ public class MapSquare extends JPanel {
         ((FlowLayout)this.getLayout()).setVgap(0);
         
         // Set default border color.
-        Border greyBorder = BorderFactory.createLineBorder(VERY_LIGHT_GRAY);
-        this.setBorder(greyBorder);
+        this.defaultBorder = BorderFactory.createLineBorder(VERY_LIGHT_GRAY);
+        this.setBorder(defaultBorder);
         this.setBackground(Color.WHITE);
         
         // Setup behaviours.
@@ -89,6 +90,7 @@ public class MapSquare extends JPanel {
     }
     
     public void setEntity(Entity entity) {
+        this.setBorder(BorderFactory.createEmptyBorder());
         this.entity = entity;
     }
     
@@ -114,6 +116,18 @@ public class MapSquare extends JPanel {
             this.validate();
             this.repaint();
         }
+    }
+    
+    public void setVerticalExitBorder() {
+        this.setBorder(BorderFactory.createMatteBorder(0, 1, 0, 1, VERY_LIGHT_GRAY));
+    }
+    
+    public void setHorizontalExitBorder() {
+        this.setBorder(BorderFactory.createMatteBorder(1, 0, 1, 0, VERY_LIGHT_GRAY));
+    }
+    
+    public void restoreDefaultBorder() {
+        this.setBorder(defaultBorder);
     }
        
     /**

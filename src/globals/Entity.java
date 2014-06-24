@@ -2,7 +2,7 @@ package globals;
 
 public enum Entity {
     
-    ROOM(null),
+    ROOM("./resources/images/room.png"),
     HORIZONTAL_EXIT("./resources/images/horizontal_exit.png"),
     VERTICAL_EXIT("./resources/images/vertical_exit.png"),
     FORWARD_DIAGONAL_EXIT("./resources/images/forward_diagonal_exit.png"),
