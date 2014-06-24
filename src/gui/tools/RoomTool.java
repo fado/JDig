@@ -30,9 +30,6 @@ public class RoomTool implements Tool {
     public void mouseClicked(MapSquare square, MouseEvent event) {
         if(SwingUtilities.isRightMouseButton(event)) {
             square.removeEntity();
-            if(square.containsAnyEntity()) {
-                System.out.println("Trace.");
-            }
         } else if (SwingUtilities.isLeftMouseButton(event)) {
             square.addEntity(Entity.ROOM);
         }
