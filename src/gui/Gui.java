@@ -3,6 +3,9 @@ package gui;
 import java.awt.Container;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -16,7 +19,7 @@ public class Gui implements Runnable {
      * Adds components to the passed-in Container.
      * @param pane - The Container to which the components are to be added.
      */
-    private void addComponentsToPane(Container pane) {
+    private void addComponentsToPane(Container pane) throws IOException {
         pane.setLayout(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
         constraints.weightx = 0.1;
@@ -39,7 +42,7 @@ public class Gui implements Runnable {
     /**
      * Creates a Gui object.
      */
-    private void createAndShowGui() {   
+    private void createAndShowGui() throws IOException {   
         JFrame frame = new JFrame("JDig");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         addComponentsToPane(frame.getContentPane());
@@ -56,7 +59,8 @@ public class Gui implements Runnable {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
             createAndShowGui();
         } catch (ClassNotFoundException | InstantiationException | 
-                IllegalAccessException | UnsupportedLookAndFeelException ex) {
+                IllegalAccessException | UnsupportedLookAndFeelException |
+                IOException ex) {
             // TO-DO: Stuff.
         }
     }

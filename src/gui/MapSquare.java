@@ -36,7 +36,7 @@ public class MapSquare extends JPanel {
     private final MapGrid grid;
     private Entity entity;
     private JLabel imageLabel;
-    private Border defaultBorder;
+    private final Border defaultBorder;
     
     /**
      * Creates a MapSquare object with its fields set to the passed-in parameters.
@@ -82,34 +82,48 @@ public class MapSquare extends JPanel {
         });
     }
     
+    /**
+     * Determines whether or not the MapSquare contains the passed-in Entity.
+     * @param entity - Entity whose presence in the MapSquare is to be tested.
+     * @return - True if the MapSquare contains the specified Entity.
+     */
     public boolean hasEntity(Entity entity) {
-        if(this.entity == entity) {
-            return true;
-        }
-        return false;
+        return this.entity == entity;
     }
     
+    /**
+     * Set the Entity contained by the MapSquare.
+     * @param entity  - The Entity to be contained by this MapSquare.
+     */
     public void setEntity(Entity entity) {
         this.setBorder(BorderFactory.createEmptyBorder());
         this.entity = entity;
     }
     
+    /**
+     * Determines whether or not the MapSquare contains an entity.
+     * @return - True if the MapSquare contains an entity.
+     */
     public boolean isFilled() {
-        if(this.entity != null) {
-            return true;
-        }
-        return false;
+        return this.entity != null;
     }
     
+    /**
+     * Adds the image at the passed-in path to the MapSquare.
+     * @param path - The path of the image to be added.
+     * @throws IOException 
+     */
      public void addImage(String path) throws IOException {
         BufferedImage image = ImageIO.read(new File(path));
         Image scaledImage = image.getScaledInstance(size, size, 1);
         imageLabel = new JLabel(new ImageIcon(scaledImage));
         this.add(imageLabel);
         this.validate();
-        this.repaint();
     }
      
+    /**
+     * Removes any image that has been added to the MapSquare.
+     */
     public void removeImage() {
         if(!this.isFilled() && imageLabel != null) {
             this.remove(imageLabel);
@@ -118,6 +132,11 @@ public class MapSquare extends JPanel {
         }
     }
     
+    /**
+     * Sets a border appropriate to the presence of a vertical exit.  The width
+     * of the top and bottom edges of the border become zero, while the right 
+     * and left edges remain the same.
+     */
     public void setVerticalExitBorder() {
         this.setBorder(BorderFactory.createMatteBorder(0, 1, 0, 1, VERY_LIGHT_GRAY));
     }

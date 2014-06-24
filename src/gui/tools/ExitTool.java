@@ -39,11 +39,38 @@ public class ExitTool implements Tool {
                 // TO-DO: Something.
             }
         }
+        
+        // Get MapSquares adjacent diagonally southwest/northeast.
+        MapSquare southwestSquare = grid.getSquareSouthwestOf(square.getPosition());
+        MapSquare northeastSquare = grid.getSquareNortheastOf(square.getPosition());
+        // Get MapSquares adjadcent diagonally northwest/southeast.
+        MapSquare northwestSquare = grid.getSquareNorthwestOf(square.getPosition());
+        MapSquare southeastSquare = grid.getSquareSoutheastOf(square.getPosition());
+
+        // Check for rooms and null pointers on the southwest/northeast axis.
+        if (southwestSquare !=null && southwestSquare.hasEntity(Entity.ROOM) &&
+                northeastSquare != null && northeastSquare.hasEntity(Entity.ROOM)) {
+            try {
+                square.addImage(Entity.FORWARD_DIAGONAL_EXIT.getImagePath());
+            } catch (IOException ex) {
+                // TO-DO: Something.
+            }
+        }
+        
+        // Check for rooms and null pointers on the northwest/southeast axis.
+        if (northwestSquare !=null && northwestSquare.hasEntity(Entity.ROOM) &&
+                southeastSquare !=null && southeastSquare.hasEntity(Entity.ROOM)) {
+            try {
+                square.addImage(Entity.BACK_DIAGONAL_EXIT.getImagePath());
+            } catch (IOException ex) {
+                // TO-DO: Something.
+            }
+        }
+        
     }
 
     @Override
     public void mouseExited(MapSquare square) {
-        square.restoreDefaultBorder();
         square.removeImage();
     }
 
