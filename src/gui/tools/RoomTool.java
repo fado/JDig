@@ -2,11 +2,8 @@ package gui.tools;
 
 import globals.Entity;
 import gui.MapSquare;
-import java.awt.Color;
+import java.awt.event.MouseEvent;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.BorderFactory;
 import javax.swing.border.Border;
 
 public class RoomTool implements Tool {
@@ -14,7 +11,7 @@ public class RoomTool implements Tool {
     private Border defaultBorder;
     
     @Override
-    public void mouseEntered(MapSquare square) {
+    public void mouseEntered(MapSquare square, MouseEvent event) {
         try {
             //defaultBorder = square.getBorder();
             //Border blackBorder = BorderFactory.createLineBorder(Color.BLACK, 2);
@@ -26,7 +23,7 @@ public class RoomTool implements Tool {
     }
     
     @Override
-    public void mouseExited(MapSquare square) {
+    public void mouseExited(MapSquare square, MouseEvent event) {
         if(!square.isFilled()) {
             //square.setBorder(defaultBorder);
             square.removeImage();
@@ -34,7 +31,7 @@ public class RoomTool implements Tool {
     }
 
     @Override
-    public void mouseClicked(MapSquare square) {
+    public void mouseClicked(MapSquare square, MouseEvent event) {
         if(!square.isFilled()) {
             try {
                 //Border blackBorder = BorderFactory.createLineBorder(Color.BLACK, 2);
