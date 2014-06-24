@@ -71,17 +71,21 @@ public class MapSquare extends JPanel {
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent event) {
-                getMapGrid().getSelectedTool().mouseEntered(MapSquare.this, event);
+                if(!MapSquare.this.containsAnyEntity()) {
+                    getMapGrid().getSelectedTool().mouseEntered(MapSquare.this, event);
+                }
             }
 
             @Override
             public void mouseExited(MouseEvent event) {
-                getMapGrid().getSelectedTool().mouseExited(MapSquare.this, event);
+                if (!MapSquare.this.containsAnyEntity()) {
+                    getMapGrid().getSelectedTool().mouseExited(MapSquare.this, event);
+                }
             }
 
             @Override
-            public void mouseClicked(MouseEvent event) {
-                getMapGrid().getSelectedTool().mouseClicked(MapSquare.this, event);
+            public void mousePressed(MouseEvent event) {
+                getMapGrid().getSelectedTool().mousePressed(MapSquare.this, event);
             }
         });
     }

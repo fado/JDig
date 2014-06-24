@@ -7,27 +7,23 @@ import java.io.IOException;
 import javax.swing.SwingUtilities;
 
 public class RoomTool implements Tool {
-    
+
     @Override
     public void mouseEntered(MapSquare square, MouseEvent event) {
-        if (!square.containsAnyEntity()) {
-            try {
-                square.addImage(Entity.ROOM.getImagePath());
-            } catch (IOException ex) {
-                // TO-DO: Something.
-            }
+        try {
+            square.addImage(Entity.ROOM.getImagePath());
+        } catch (IOException ex) {
+            // TO-DO: Something.
         }
     }
     
     @Override
     public void mouseExited(MapSquare square, MouseEvent event) {
-        if(!square.containsAnyEntity()) {
-            square.removeImage();
-        }
+        square.removeImage();
     }
 
     @Override
-    public void mouseClicked(MapSquare square, MouseEvent event) {
+    public void mousePressed(MapSquare square, MouseEvent event) {
         if(SwingUtilities.isRightMouseButton(event)) {
             square.removeEntity();
         } else if (SwingUtilities.isLeftMouseButton(event)) {
