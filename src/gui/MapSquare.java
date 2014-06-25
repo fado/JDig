@@ -167,6 +167,10 @@ public class MapSquare extends JPanel {
         this.setBorder(BorderFactory.createMatteBorder(1, 0, 1, 0, VERY_LIGHT_GRAY));
     }
 
+    public void removeBorder() {
+        this.setBorder(BorderFactory.createEmptyBorder());
+    }
+    
     /**
      * Restores the default border of the MapSquare.
      */

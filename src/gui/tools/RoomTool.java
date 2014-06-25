@@ -12,6 +12,7 @@ public class RoomTool implements Tool {
     public void mouseEntered(MapSquare square, MouseEvent event) {
         try {
             square.addImage(Entity.ROOM.getImagePath());
+            square.removeBorder();
         } catch (IOException ex) {
             // TO-DO: Something.
         }
@@ -20,6 +21,7 @@ public class RoomTool implements Tool {
     @Override
     public void mouseExited(MapSquare square, MouseEvent event) {
         square.removeImage();
+        square.restoreDefaultBorder();
     }
 
     @Override
@@ -28,6 +30,7 @@ public class RoomTool implements Tool {
             square.removeEntity();
         } else if (SwingUtilities.isLeftMouseButton(event)) {
             square.addEntity(Entity.ROOM);
+            square.removeBorder();
         }
     }
 }

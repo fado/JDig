@@ -26,8 +26,8 @@ public class Gui implements Runnable {
         constraints.weighty = 0.1;
         constraints.fill = GridBagConstraints.BOTH;
         
-        // Add MapGrid. Was 40, 40.
-        MapGrid grid = new MapGrid(4, 4);
+        // Add MapGrid.
+        MapGrid grid = new MapGrid(40, 40);
         constraints.gridx = 0;
         constraints.gridy = 1;
         pane.add(grid, constraints);

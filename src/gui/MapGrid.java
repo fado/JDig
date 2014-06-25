@@ -16,7 +16,7 @@ import javax.swing.JPanel;
 public class MapGrid extends JPanel {
     
     // The default dimensions of each cell, expressed in pixels. (Was 15)
-    private final int SIZE = 200;
+    private final int SIZE = 15;
     private Tool selectedTool;
     private final List<MapSquare> squares;
     
