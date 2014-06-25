@@ -4,8 +4,6 @@ import java.awt.Container;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -14,6 +12,8 @@ import javax.swing.UnsupportedLookAndFeelException;
  * The Gui class specifies the user interface for JDig.
  */
 public class Gui implements Runnable {
+    
+    private final int GRID_SIZE = 40;
     
     /**
      * Adds components to the passed-in Container.
@@ -27,7 +27,7 @@ public class Gui implements Runnable {
         constraints.fill = GridBagConstraints.BOTH;
         
         // Add MapGrid.
-        MapGrid grid = new MapGrid(40, 40);
+        MapGrid grid = new MapGrid(GRID_SIZE, GRID_SIZE);
         constraints.gridx = 0;
         constraints.gridy = 1;
         pane.add(grid, constraints);

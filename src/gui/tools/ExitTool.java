@@ -4,7 +4,6 @@ import globals.Entity;
 import gui.MapGrid;
 import gui.MapSquare;
 import java.awt.event.MouseEvent;
-import java.io.IOException;
 import javax.swing.SwingUtilities;
 
 public class ExitTool implements Tool {
@@ -29,30 +28,22 @@ public class ExitTool implements Tool {
         MapSquare westSquare = grid.getSquareWestOf(square.getPosition());
         MapSquare eastSquare = grid.getSquareEastOf(square.getPosition());
         // Check for rooms and null pointers.
-        if (westSquare != null && westSquare.containsEntity(Entity.ROOM)
-                && eastSquare != null && eastSquare.containsEntity(Entity.ROOM)) {
-            try {
-                square.setHorizontalExitBorder();
-                square.addImage(Entity.HORIZONTAL_EXIT.getImagePath());
-                this.currentEntity = Entity.HORIZONTAL_EXIT;
-            } catch (IOException ex) {
-                // TO-DO: Something.
-            }
+        if (westSquare.isInBounds() && westSquare.containsEntity(Entity.ROOM)
+                && eastSquare.isInBounds() && eastSquare.containsEntity(Entity.ROOM)) {
+            square.setHorizontalExitBorder();
+            square.addImage(Entity.HORIZONTAL_EXIT.getImagePath());
+            this.currentEntity = Entity.HORIZONTAL_EXIT;
         }
 
         // Get MapSquares adjacent vertically.
         MapSquare northSquare = grid.getSquareNorthOf(square.getPosition());
         MapSquare southSquare = grid.getSquareSouthOf(square.getPosition());
         // Check for rooms and null pointers.
-        if (northSquare != null && northSquare.containsEntity(Entity.ROOM)
-                && southSquare != null && southSquare.containsEntity(Entity.ROOM)) {
-            try {
-                square.setVerticalExitBorder();
-                square.addImage(Entity.VERTICAL_EXIT.getImagePath());
-                this.currentEntity = Entity.VERTICAL_EXIT;
-            } catch (IOException ex) {
-                // TO-DO: Something.
-            }
+        if (northSquare.isInBounds() && northSquare.containsEntity(Entity.ROOM)
+                && southSquare.isInBounds() && southSquare.containsEntity(Entity.ROOM)) {
+            square.setVerticalExitBorder();
+            square.addImage(Entity.VERTICAL_EXIT.getImagePath());
+            this.currentEntity = Entity.VERTICAL_EXIT;
         }
 
         // Get MapSquares adjacent diagonally southwest/northeast.
@@ -63,34 +54,22 @@ public class ExitTool implements Tool {
         MapSquare southeastSquare = grid.getSquareSoutheastOf(square.getPosition());
 
         // Check for rooms and null points on southwest/northeast and northwest/southeast axis.
-        if (southwestSquare != null && southwestSquare.containsEntity(Entity.ROOM)
-                && northeastSquare != null && northeastSquare.containsEntity(Entity.ROOM)
-                && northwestSquare != null && northwestSquare.containsEntity(Entity.ROOM)
-                && southeastSquare != null && southeastSquare.containsEntity(Entity.ROOM)) {
-            try {
-                square.addImage(Entity.X_EXIT.getImagePath());
-                this.currentEntity = Entity.X_EXIT;
-            } catch (IOException ex) {
-                // TO-DO: Something.
-            }
-            // Check for rooms and null pointers on the southwest/northeast axis.
-        } else if (southwestSquare != null && southwestSquare.containsEntity(Entity.ROOM)
-                && northeastSquare != null && northeastSquare.containsEntity(Entity.ROOM)) {
-            try {
-                square.addImage(Entity.FORWARD_DIAGONAL_EXIT.getImagePath());
-                this.currentEntity = Entity.FORWARD_DIAGONAL_EXIT;
-            } catch (IOException ex) {
-                // TO-DO: Something.
-            }
-            // Check for rooms and null pointers on the northwest/southeast axis.
-        } else if (northwestSquare != null && northwestSquare.containsEntity(Entity.ROOM)
-                && southeastSquare != null && southeastSquare.containsEntity(Entity.ROOM)) {
-            try {
-                square.addImage(Entity.BACK_DIAGONAL_EXIT.getImagePath());
-                this.currentEntity = Entity.BACK_DIAGONAL_EXIT;
-            } catch (IOException ex) {
-                // TO-DO: Something.
-            }
+        if (southwestSquare.isInBounds() && southwestSquare.containsEntity(Entity.ROOM)
+                && northeastSquare.isInBounds() && northeastSquare.containsEntity(Entity.ROOM)
+                && northwestSquare.isInBounds() && northwestSquare.containsEntity(Entity.ROOM)
+                && southeastSquare.isInBounds() && southeastSquare.containsEntity(Entity.ROOM)) {
+            square.addImage(Entity.X_EXIT.getImagePath());
+            this.currentEntity = Entity.X_EXIT;
+        // Check for rooms and null pointers on the southwest/northeast axis.
+        } else if (southwestSquare.isInBounds() && southwestSquare.containsEntity(Entity.ROOM)
+                && northeastSquare.isInBounds() && northeastSquare.containsEntity(Entity.ROOM)) {
+            square.addImage(Entity.FORWARD_DIAGONAL_EXIT.getImagePath());
+            this.currentEntity = Entity.FORWARD_DIAGONAL_EXIT;
+        // Check for rooms and null pointers on the northwest/southeast axis.
+        } else if (northwestSquare.isInBounds() && northwestSquare.containsEntity(Entity.ROOM)
+                && southeastSquare.isInBounds() && southeastSquare.containsEntity(Entity.ROOM)) {
+            square.addImage(Entity.BACK_DIAGONAL_EXIT.getImagePath());
+            this.currentEntity = Entity.BACK_DIAGONAL_EXIT;
         }
     }
 
@@ -113,5 +92,4 @@ public class ExitTool implements Tool {
             square.addEntity(currentEntity);
         }
     }
-
 }

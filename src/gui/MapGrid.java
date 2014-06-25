@@ -15,10 +15,9 @@ import javax.swing.JPanel;
  */
 public class MapGrid extends JPanel {
     
-    // The default dimensions of each cell, expressed in pixels. (Was 15)
-    private final int SIZE = 15;
     private Tool selectedTool;
     private final List<MapSquare> squares;
+    private MapSquare defaultMapSquare;
     
     /**
      * Creates a Grid object with its fields set to the passed-in arguments.
@@ -26,7 +25,8 @@ public class MapGrid extends JPanel {
      * @param maxColumns - Size of the grid on the x axis.
      */
     public MapGrid(int maxRows, int maxColumns) {
-        squares = new ArrayList<>();
+        // Create a default MapSquare at position -1x, -1y.
+        defaultMapSquare = new MapSquare(this, -1, -1);
         
         // Set default tool selection.
         selectedTool = new DefaultPointer();
@@ -35,12 +35,14 @@ public class MapGrid extends JPanel {
         setLayout(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
         
+        squares = new ArrayList<>();
+        
         for(int row = 0; row < maxRows; row++) {
             for(int column = 0; column < maxColumns; column++) {
                 constraints.gridx = column;
                 constraints.gridy = row;
                 
-                MapSquare square = new MapSquare(this, SIZE, row, column);
+                MapSquare square = new MapSquare(this, row, column);
                 squares.add(square);  // Gives us an easy way to access MapSquares.
                 add(square, constraints);
             }
@@ -73,7 +75,7 @@ public class MapGrid extends JPanel {
                return square;
            }
         }
-        return null;
+        return defaultMapSquare;
     }
     
     /**
@@ -87,7 +89,7 @@ public class MapGrid extends JPanel {
                return square;
            }
         }
-        return null;
+        return defaultMapSquare;
     }
     
     /**
@@ -101,7 +103,7 @@ public class MapGrid extends JPanel {
                return square;
            }
         }
-        return null;
+        return defaultMapSquare;
     }
     
     /**
@@ -115,7 +117,7 @@ public class MapGrid extends JPanel {
                return square;
            }
         }
-        return null;
+        return defaultMapSquare;
     }
     
     /**
@@ -129,7 +131,7 @@ public class MapGrid extends JPanel {
                return square;
            }
         }
-        return null;
+        return defaultMapSquare;
     }
     
     /**
@@ -143,7 +145,7 @@ public class MapGrid extends JPanel {
                return square;
            }
         }
-        return null;
+        return defaultMapSquare;
     }
     /**
      * Find and return the MapSquare to the southwest (x-1, y+1) of the specified Point.
@@ -156,7 +158,7 @@ public class MapGrid extends JPanel {
                return square;
            }
         }
-        return null;
+        return defaultMapSquare;
     }
     
     /**
@@ -170,7 +172,7 @@ public class MapGrid extends JPanel {
                return square;
            }
         }
-        return null;
+        return defaultMapSquare;
     }
     
     /**

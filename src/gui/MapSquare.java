@@ -10,7 +10,9 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Properties;
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -24,33 +26,36 @@ import javax.swing.border.Border;
  */
 public class MapSquare extends JPanel {
 
-    /**
-     * Constants.
-     */
     private final Color VERY_LIGHT_GRAY = new Color(224, 224, 224);
-    /**
-     * Instance variables.
-     */
+    private final String CONFIG_PROPERTIES = "./config/config.properties";
+   
     private final int size;
     private final Point position;
     private final MapGrid grid;
     private Entity entity;
     private JLabel entityImage;
     private final Border defaultBorder;
+    private final Properties properties;
 
     /**
      * Creates a MapSquare object with its fields set to the passed-in
      * parameters.
      *
      * @param grid - The MapGrid in which the MapSquare is contained.
-     * @param size - The size in pixels of the MapSquare.
      * @param row - The row of the MapGrid in which this MapSquare is contained.
      * @param column - The column of the MapGrid in which this MapSquare is
      * contained.
      */
-    public MapSquare(MapGrid grid, int size, int row, int column) {
-        // Set the square size.
-        this.size = size;
+    public MapSquare(MapGrid grid, int row, int column) {
+        // Load properties.
+        properties = new Properties();
+        try {
+            properties.load(new FileInputStream(CONFIG_PROPERTIES));
+        } catch (IOException ex) {
+            // TO-DO: Something.
+        }
+
+        this.size = Integer.parseInt(properties.getProperty("map_grid_size"));
 
         // Save a reference to the MapGrid containing this MapSquare.
         this.grid = grid;
@@ -70,7 +75,7 @@ public class MapSquare extends JPanel {
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent event) {
-                if(!MapSquare.this.containsAnyEntity()) {
+                if (!MapSquare.this.containsAnyEntity()) {
                     getMapGrid().getSelectedTool().mouseEntered(MapSquare.this, event);
                 }
             }
@@ -117,7 +122,7 @@ public class MapSquare extends JPanel {
 
     /**
      * Determines whether or not the MapSquare contains any entity.
-     * 
+     *
      * @return - True if the MapSquare contains any entity.
      */
     public boolean containsAnyEntity() {
@@ -128,14 +133,19 @@ public class MapSquare extends JPanel {
      * Adds the image at the passed-in path to the MapSquare.
      *
      * @param path - The path of the image to be added.
-     * @throws IOException
      */
-    public void addImage(String path) throws IOException {
-        BufferedImage image = ImageIO.read(new File(path));
-        Image scaledImage = image.getScaledInstance(size, size, 1);
-        entityImage = new JLabel(new ImageIcon(scaledImage));
-        this.add(entityImage);
-        this.validate();
+    public void addImage(String path) {
+        try {
+            BufferedImage image = ImageIO.read(new File(path));
+            if (image != null) {
+                Image scaledImage = image.getScaledInstance(size, size, 1);
+                entityImage = new JLabel(new ImageIcon(scaledImage));
+                this.add(entityImage);
+                this.validate();
+            }
+        } catch (IOException e) {
+            // TO-DO: Something.
+        }
     }
 
     /**
@@ -159,7 +169,7 @@ public class MapSquare extends JPanel {
     }
 
     /**
-     * Sets a border appropriate to the presence of a horizontal exit.  The width
+     * Sets a border appropriate to the presence of a horizontal exit. The width
      * of the right and left edges becomes zero, while the top and bottom edges
      * remain the same.
      */
@@ -167,10 +177,13 @@ public class MapSquare extends JPanel {
         this.setBorder(BorderFactory.createMatteBorder(1, 0, 1, 0, VERY_LIGHT_GRAY));
     }
 
+    /**
+     * Removes the current border applied to the MapSquare.
+     */
     public void removeBorder() {
         this.setBorder(BorderFactory.createEmptyBorder());
     }
-    
+
     /**
      * Restores the default border of the MapSquare.
      */
@@ -195,6 +208,15 @@ public class MapSquare extends JPanel {
      */
     public Point getPosition() {
         return this.position;
+    }
+    
+    /**
+     * Determines whether or not the MapSquare is within the bounds of the MapGrid.
+     * 
+     * @return - True if the x and y coordinates are not less than zero, false otherwise.
+     */
+    public boolean isInBounds() {
+        return this.getPosition().x >= 0 && this.getPosition().y >= 0;
     }
 
     /**
