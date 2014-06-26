@@ -35,7 +35,7 @@ public class MapSquare extends JPanel {
     private Entity entity;
     private JLabel entityImage;
     private final Border defaultBorder;
-    private final Properties properties;
+    private Properties properties;
 
     /**
      * Creates a MapSquare object with its fields set to the passed-in
@@ -47,8 +47,9 @@ public class MapSquare extends JPanel {
      * contained.
      */
     public MapSquare(MapGrid grid, int row, int column) {
-        // Load properties.
-        properties = new Properties();
+        if (properties == null) {
+            properties = new Properties();
+        }
         try {
             properties.load(new FileInputStream(CONFIG_PROPERTIES));
         } catch (IOException ex) {
@@ -56,20 +57,13 @@ public class MapSquare extends JPanel {
         }
 
         this.size = Integer.parseInt(properties.getProperty("map_grid_size"));
-
-        // Save a reference to the MapGrid containing this MapSquare.
         this.grid = grid;
-
-        // Record the position.
-        position = new Point(column, row);
-
-        // Remove default vGap that the FlowLayout puts in.
-        ((FlowLayout) this.getLayout()).setVgap(0);
-
-        // Set default border color.
+        this.position = new Point(column, row);
         this.defaultBorder = BorderFactory.createLineBorder(VERY_LIGHT_GRAY);
         this.setBorder(defaultBorder);
         this.setBackground(Color.WHITE);
+        // Remove default vGap that the FlowLayout puts in.
+        ((FlowLayout) this.getLayout()).setVgap(0);
 
         // Setup behaviours.
         addMouseListener(new MouseAdapter() {
