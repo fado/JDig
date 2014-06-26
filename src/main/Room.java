@@ -10,14 +10,8 @@ import java.util.Map;
  */
 public class Room {
    
-    /**
-     * Position of the Room in the map.
-     */
     private final Point position;
-    /**
-     * A list of exits leading out of this Room.
-     */
-    private final Map<String, Room> exits = new HashMap();
+    private Map<String, Room> exits;
     
     /**
      * Create a new Room object with the passed-in parameter.
@@ -25,6 +19,10 @@ public class Room {
      */
     public Room(Point point) {
         this.position = point;
+        
+        if (exits == null) {
+            exits = new HashMap();
+        }
     }
     
     /**
