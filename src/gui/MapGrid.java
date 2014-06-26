@@ -15,9 +15,13 @@ import javax.swing.JPanel;
  */
 public class MapGrid extends JPanel {
 
+    private final int maxRows;
+    private final int maxColumns;
     private Tool selectedTool;
     private List<MapSquare> squares;
     private final MapSquare defaultMapSquare;
+    private final String ILLEGAL_POINT_MSG = "Point coordinates must be positive integers "+
+            "and within the bounds of the MapGrid (i.e. within maxRows, maxColumns).";
 
     /**
      * Creates a Grid object with its fields set to the passed-in arguments.  Creates
@@ -29,6 +33,8 @@ public class MapGrid extends JPanel {
      * @param maxColumns - Size of the grid on the x axis.
      */
     public MapGrid(int maxRows, int maxColumns) {
+        this.maxRows = maxRows;
+        this.maxColumns = maxColumns;
         // Create a default MapSquare at position -1x, -1y.
         defaultMapSquare = new MapSquare(this, -1, -1);
         selectedTool = new DefaultPointer();
@@ -59,6 +65,9 @@ public class MapGrid extends JPanel {
      * @return - Returns the MapSquare if found, otherwise null.
      */
     public MapSquare getCellAt(Point point) {
+        if (point.x < 0 || point.y < 0 || point.x > maxColumns || point.y > maxRows) {
+            throw new IllegalArgumentException(ILLEGAL_POINT_MSG);
+        }
         for (MapSquare cell : squares) {
             if (cell.getPosition() == point) {
                 return cell;
