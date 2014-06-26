@@ -1,15 +1,16 @@
 package gui.tools;
 
-import globals.Entity;
 import gui.MapSquare;
 import java.awt.event.MouseEvent;
 import javax.swing.SwingUtilities;
 
 public class RoomTool implements Tool {
 
+    private final String ROOM = "./resources/images/room.png";
+    
     @Override
     public void mouseEntered(MapSquare square, MouseEvent event) {
-        square.addImage(Entity.ROOM.getImagePath());
+        square.addImage(ROOM);
         square.removeBorder();
     }
 
@@ -22,9 +23,14 @@ public class RoomTool implements Tool {
     @Override
     public void mousePressed(MapSquare square, MouseEvent event) {
         if (SwingUtilities.isRightMouseButton(event)) {
-            square.removeEntity();
+             if(square.isExit()) {
+                square.setExit(false);
+            } else if(square.isRoom()) {
+                square.setRoom(false);
+            }
+            square.restoreDefaultBorder();
         } else if (SwingUtilities.isLeftMouseButton(event)) {
-            square.addEntity(Entity.ROOM);
+            square.setRoom(true);
             square.removeBorder();
         }
     }

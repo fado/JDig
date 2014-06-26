@@ -1,6 +1,5 @@
 package gui;
 
-import globals.Entity;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -32,10 +31,11 @@ public class MapSquare extends JPanel {
     private final int size;
     private final Point position;
     private final MapGrid grid;
-    private Entity entity;
     private JLabel entityImage;
     private final Border defaultBorder;
     private Properties properties;
+    private boolean isRoom;
+    private boolean isExit;
 
     /**
      * Creates a MapSquare object with its fields set to the passed-in
@@ -68,14 +68,14 @@ public class MapSquare extends JPanel {
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent event) {
-                if (!MapSquare.this.containsAnyEntity()) {
+                if (!MapSquare.this.isFilled()) {
                     getMapGrid().getSelectedTool().mouseEntered(MapSquare.this, event);
                 }
             }
 
             @Override
             public void mouseExited(MouseEvent event) {
-                if (!MapSquare.this.containsAnyEntity()) {
+                if (!MapSquare.this.isFilled()) {
                     getMapGrid().getSelectedTool().mouseExited(MapSquare.this, event);
                 }
             }
@@ -87,30 +87,20 @@ public class MapSquare extends JPanel {
         });
     }
 
-    /**
-     * Set the Entity contained by the MapSquare.
-     *
-     * @param entity - The Entity to be contained by this MapSquare.
-     */
-    public void addEntity(Entity entity) {
-        this.entity = entity;
+    public boolean isRoom() {
+        return isRoom;
     }
-
-    /**
-     * Remove the entity contained by the MapSquare.
-     */
-    public void removeEntity() {
-        this.entity = null;
+    
+    public boolean isExit() {
+        return isExit;
     }
-
-    /**
-     * Determines whether or not the MapSquare contains the passed-in Entity.
-     *
-     * @param entity - Entity whose presence in the MapSquare is to be tested.
-     * @return - True if the MapSquare contains the specified Entity.
-     */
-    public boolean containsEntity(Entity entity) {
-        return this.entity == entity;
+    
+    public void setRoom(boolean bool) {
+        this.isRoom = bool;
+    }
+    
+    public void setExit(boolean bool) {
+        this.isExit = bool;
     }
 
     /**
@@ -118,8 +108,8 @@ public class MapSquare extends JPanel {
      *
      * @return - True if the MapSquare contains any entity.
      */
-    public boolean containsAnyEntity() {
-        return entity != null;
+    public boolean isFilled() {
+        return this.isExit() || this.isRoom();
     }
 
     /**
