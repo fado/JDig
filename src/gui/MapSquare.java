@@ -87,18 +87,38 @@ public class MapSquare extends JPanel {
         });
     }
 
+    /**
+     * Determines whether or not the MapSquare contains a room.
+     * 
+     * @return - True if the MapSquare contains a room.
+     */
     public boolean isRoom() {
         return isRoom;
     }
     
+    /**
+     * Determines whether or not the MapSquare contains an exit.
+     * 
+     * @return - True if the MapSquare contains an exit.
+     */
     public boolean isExit() {
         return isExit;
     }
     
+    /**
+     * Set whether or not the MapSquare contains a room.
+     * 
+     * @param bool - If true, MapSquare contains a room.
+     */
     public void setRoom(boolean bool) {
         this.isRoom = bool;
     }
     
+    /**
+     * Sets whether or not the MapSquare contains an exit.
+     * 
+     * @param bool - If true, MapSquare contains an exit.
+     */
     public void setExit(boolean bool) {
         this.isExit = bool;
     }
