@@ -65,7 +65,6 @@ public class MapSquare extends JPanel {
         // Remove default vGap that the FlowLayout puts in.
         ((FlowLayout) this.getLayout()).setVgap(0);
 
-        // Setup behaviours.
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent event) {
