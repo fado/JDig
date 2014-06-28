@@ -1,5 +1,9 @@
 package gui;
 
+import gui.tools.DefaultPointer;
+import gui.tools.Tool;
+import gui.tools.ToolEvent;
+import gui.tools.ToolListener;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -23,7 +27,7 @@ import javax.swing.border.Border;
  * The MapSquare class specifies one square in the MapGrid that makes up the
  * user-interface for drawing maps.
  */
-public class MapSquare extends JPanel {
+public class MapSquare extends JPanel implements ToolListener {
 
     private final Color VERY_LIGHT_GRAY = new Color(224, 224, 224);
     private final String CONFIG_PROPERTIES = "./config/config.properties";
@@ -36,6 +40,7 @@ public class MapSquare extends JPanel {
     private Properties properties;
     private boolean isRoom;
     private boolean isExit;
+    private Tool selectedTool;
 
     /**
      * Creates a MapSquare object with its fields set to the passed-in
@@ -62,6 +67,7 @@ public class MapSquare extends JPanel {
         this.defaultBorder = BorderFactory.createLineBorder(VERY_LIGHT_GRAY);
         this.setBorder(defaultBorder);
         this.setBackground(Color.WHITE);
+        this.selectedTool = new DefaultPointer();
         // Remove default vGap that the FlowLayout puts in.
         ((FlowLayout) this.getLayout()).setVgap(0);
 
@@ -69,20 +75,20 @@ public class MapSquare extends JPanel {
             @Override
             public void mouseEntered(MouseEvent event) {
                 if (!MapSquare.this.isFilled()) {
-                    getMapGrid().getSelectedTool().mouseEntered(MapSquare.this, event);
+                    MapSquare.this.selectedTool.mouseEntered(MapSquare.this, event);
                 }
             }
 
             @Override
             public void mouseExited(MouseEvent event) {
                 if (!MapSquare.this.isFilled()) {
-                    getMapGrid().getSelectedTool().mouseExited(MapSquare.this, event);
+                    MapSquare.this.selectedTool.mouseExited(MapSquare.this, event);
                 }
             }
 
             @Override
             public void mousePressed(MouseEvent event) {
-                getMapGrid().getSelectedTool().mousePressed(MapSquare.this, event);
+                MapSquare.this.selectedTool.mousePressed(MapSquare.this, event);
             }
         });
     }
@@ -220,6 +226,11 @@ public class MapSquare extends JPanel {
      */
     public boolean isInBounds() {
         return this.getPosition().x >= 0 && this.getPosition().y >= 0;
+    }
+    
+    @Override
+    public void toolChanged(ToolEvent event) {
+        this.selectedTool = event.getTool();
     }
 
     /**

@@ -2,6 +2,8 @@ package gui;
 
 import gui.tools.DefaultPointer;
 import gui.tools.Tool;
+import gui.tools.ToolEvent;
+import gui.tools.ToolListener;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Point;
@@ -18,6 +20,7 @@ public class MapGrid extends JPanel {
     private final int maxRows;
     private final int maxColumns;
     private Tool selectedTool;
+    private List<ToolListener> listeners;
     private List<MapSquare> squares;
     private final MapSquare defaultMapSquare;
     private final String ILLEGAL_POINT_MSG = "Point coordinates must be positive integers "+
@@ -36,8 +39,9 @@ public class MapGrid extends JPanel {
         this.maxRows = maxRows;
         this.maxColumns = maxColumns;
         // Create a default MapSquare at position -1x, -1y.
-        defaultMapSquare = new MapSquare(this, -1, -1);
-        selectedTool = new DefaultPointer();
+        this.defaultMapSquare = new MapSquare(this, -1, -1);
+        this.selectedTool = new DefaultPointer();
+        this.listeners = new ArrayList<>();
         setLayout(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
 
@@ -52,6 +56,7 @@ public class MapGrid extends JPanel {
 
                 MapSquare square = new MapSquare(this, row, column);
                 squares.add(square);
+                addToolListener(square);
                 add(square, constraints);
             }
         }
@@ -220,6 +225,22 @@ public class MapGrid extends JPanel {
      */
     public void setSelectedTool(Tool tool) {
         this.selectedTool = tool;
+        fireToolChanged();
+    }
+    
+    public void addToolListener(ToolListener obj) {
+        listeners.add(obj);
+    }
+
+    public void removeToolListener(ToolListener obj) {
+        listeners.remove(obj);
+    }
+
+    protected void fireToolChanged() {
+        ToolEvent toolEvent = new ToolEvent(this, getSelectedTool());
+        for (ToolListener eachListener : listeners) {
+            eachListener.toolChanged(toolEvent);
+        }
     }
 
 }

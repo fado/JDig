@@ -32,6 +32,8 @@ public class MapSquareTest {
         testSquare4 = new MapSquare(testGrid, testPoint4.x, testPoint4.y);
     }
     
+    
+    
     @Test
     public void testSizeCorrectlySetFromProperties() {
         int expected = Integer.parseInt(properties.getProperty("map_grid_size"));
