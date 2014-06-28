@@ -20,7 +20,7 @@ public class MapGrid extends JPanel {
     private final int maxRows;
     private final int maxColumns;
     private Tool selectedTool;
-    private List<ToolListener> listeners;
+    private final List<ToolListener> listeners;
     private List<MapSquare> squares;
     private final MapSquare defaultMapSquare;
     private final String ILLEGAL_POINT_MSG = "Point coordinates must be positive integers "+
@@ -228,14 +228,18 @@ public class MapGrid extends JPanel {
         fireToolChanged();
     }
     
-    public void addToolListener(ToolListener obj) {
+    /**
+     * Add a ToolListener object to the List of ToolListeners.
+     * 
+     * @param obj - The ToolListener to be added.
+     */
+    private void addToolListener(ToolListener obj) {
         listeners.add(obj);
     }
 
-    public void removeToolListener(ToolListener obj) {
-        listeners.remove(obj);
-    }
-
+    /**
+     * Fires the toolChanged() method in each of this classes listeners.
+     */
     protected void fireToolChanged() {
         ToolEvent toolEvent = new ToolEvent(this, getSelectedTool());
         for (ToolListener eachListener : listeners) {

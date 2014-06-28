@@ -228,6 +228,11 @@ public class MapSquare extends JPanel implements ToolListener {
         return this.getPosition().x >= 0 && this.getPosition().y >= 0;
     }
     
+    /**
+     * Fires when the selectedTool is changed in the MapGrid.
+     * 
+     * @param event - Event object containing a reference to the new selected Tool.
+     */
     @Override
     public void toolChanged(ToolEvent event) {
         this.selectedTool = event.getTool();
