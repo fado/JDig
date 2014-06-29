@@ -2,8 +2,6 @@ package gui;
 
 import gui.tools.DefaultPointer;
 import gui.tools.Tool;
-import gui.tools.ToolEvent;
-import gui.tools.ToolListener;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;

@@ -1,5 +1,6 @@
-package gui.tools;
+package gui;
 
+import gui.tools.Tool;
 import java.util.EventObject;
 
 public class ToolEvent extends EventObject {
