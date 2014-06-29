@@ -21,16 +21,12 @@ public class Map {
     }
     
     /**
-     * Gets the Cell adjacent to the passed-in Cell, in the passed-in Direction.
-     * Each member of the Direction enum knows the offsets that should be applied
-     * to the X and Y coordinates of the passed-in Cell to get the coordinates of the 
-     * Cell that lies adjacent in that Direction.  This method returns that Cell
-     * if it exists, otherwise it returns a default cell with the coordinates (-1, -1).
+     * This method returns the Cell adjacent to the passed-in Cell that lies
+     * in the passed-in Direction.
      * 
-     * @param cell - The Cell that is the point of reference.
-     * @param direction - Specifies in which direction relative to the passed-in
-     * Cell that we want to look for an adjacent Cell.
-     * @return - The adjacent cell.
+     * @param cell - The point of reference.
+     * @param direction - The direction in which we are looking.
+     * @return - The Cell found.
      */
     public Cell getCellAdjacentTo(Cell cell, Direction direction) {
         for (Cell aCell : allCells) {
