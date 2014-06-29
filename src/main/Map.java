@@ -8,6 +8,12 @@ public class Map {
     private final List<Cell> allCells;
     private final Cell defaultCell;
     
+    /**
+     * Creates a new Map object with the passed-in parameters.
+     * 
+     * @param maxColumns - Maximum number of Cells on the X axis.
+     * @param maxRows  - Maximum number of Cells on the Y axis.
+     */
     public Map(int maxColumns, int maxRows) {
         this.defaultCell = new Cell(-1, -1);
         
