@@ -26,7 +26,6 @@ public class MapUI extends JPanel {
             for (int column = 0; column < maxColumns; column++) {
                 constraints.gridx = column;
                 constraints.gridy = row;
-
                 SquareUI square = new SquareUI(gridSize, row, column);
                 squares.add(square);
                 add(square, constraints);
