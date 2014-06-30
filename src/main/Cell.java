@@ -6,22 +6,26 @@ public class Cell {
     
     public final int X;
     public final int Y;
-    private final Map map;
+    private final Map parentMap;
     private Entity currentEntity;
     
     public Cell(Point point, Map map) {
         this.X = point.x;
         this.Y = point.y;
-        this.map = map;
+        this.parentMap = map;
         this.currentEntity = Entity.NO_ENTITY;
     }
     
     public Map getParentMap() {
-        return this.map;
+        return this.parentMap;
     }
     
     public void setEntity(Entity entity) {
         this.currentEntity = entity;
+    }
+    
+    public Entity getEntity() {
+        return this.currentEntity;
     }
     
     public boolean isFilled() {
