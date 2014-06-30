@@ -1,9 +1,5 @@
 package gui;
 
-import tools.ToolListener;
-import tools.ToolEvent;
-import tools.DefaultPointer;
-import tools.Tool;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -20,6 +16,11 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
+import tools.DefaultPointer;
+import tools.JdigMouseAdapter;
+import tools.Tool;
+import tools.ToolEvent;
+import tools.ToolListener;
 
 /**
  * The MapSquare class specifies one square in the MapGrid that makes up the
@@ -30,7 +31,6 @@ public class SquareUI extends JPanel implements ToolListener {
     private final Color VERY_LIGHT_GRAY = new Color(224, 224, 224);
     private final int size;
     private final Point position;
-    private Tool selectedTool;
     private JLabel entityImage;
     private final Border defaultBorder;
 
@@ -49,26 +49,8 @@ public class SquareUI extends JPanel implements ToolListener {
         this.defaultBorder = BorderFactory.createLineBorder(VERY_LIGHT_GRAY);
         this.setBorder(defaultBorder);
         this.setBackground(Color.WHITE);
-        this.selectedTool = new DefaultPointer();
-        // Remove default vGap that the FlowLayout puts in.
         ((FlowLayout) this.getLayout()).setVgap(0);
-
-        addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent event) {
-                
-            }
-
-            @Override
-            public void mouseExited(MouseEvent event) {
-                
-            }
-
-            @Override
-            public void mousePressed(MouseEvent event) {
-            
-            }
-        });
+        addMouseListener(new JdigMouseAdapter());
     }
 
     /**
@@ -131,16 +113,6 @@ public class SquareUI extends JPanel implements ToolListener {
      */
     public void restoreDefaultBorder() {
         this.setBorder(defaultBorder);
-    }
-    
-    /**
-     * Fires when the selectedTool is changed in the MapGrid.
-     * 
-     * @param event - Event object containing a reference to the new selected Tool.
-     */
-    @Override
-    public void toolChanged(ToolEvent event) {
-        this.selectedTool = event.getTool();
     }
 
     /**
