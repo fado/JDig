@@ -19,26 +19,16 @@ public class Map {
      * @param maxRows  - Maximum number of Cells on the Y axis.
      */
     public Map(int maxColumns, int maxRows) {
-        this.defaultCell = new Cell(new Point(-1, -1));
+        this.defaultCell = new Cell(new Point(-1, -1), this);
         this.cellPanelMapping = new HashMap<>();
         
         this.allCells = new ArrayList<>();
         for (int rows = 0; rows < maxRows; rows++) {
             for (int columns = 0; columns < maxColumns; columns++) {
-                Cell cell = new Cell(new Point(columns, rows));
+                Cell cell = new Cell(new Point(columns, rows), this);
                 allCells.add(cell);
             }
         }
-    }
-    
-    /**
-     * Maps Cells against their corresponding CellPanels.
-     * 
-     * @param cell 
-     * @param cellPanel 
-     */
-    public void registerCellPanel(Cell cell, CellPanel cellPanel) {
-        cellPanelMapping.put(cell, cellPanel);
     }
     
     /**
