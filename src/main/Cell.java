@@ -1,14 +1,16 @@
 package main;
 
+import java.awt.Point;
+
 public class Cell {
     
     public final int X;
     public final int Y;
     private Entity currentEntity;
     
-    public Cell(int column, int row) {
-        this.X = column;
-        this.Y = row;
+    public Cell(Point point) {
+        this.X = point.x;
+        this.Y = point.y;
     }
     
     public void setEntity(Entity entity) {
