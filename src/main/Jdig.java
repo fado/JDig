@@ -20,7 +20,7 @@ public class Jdig {
             // TO-DO: Something.
         }
         
-        Gui gui = new Gui();
+        Gui gui = new Gui(properties);
         gui.run();
     }
    

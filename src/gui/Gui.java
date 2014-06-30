@@ -4,6 +4,7 @@ import java.awt.Container;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.io.IOException;
+import java.util.Properties;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -13,7 +14,12 @@ import javax.swing.UnsupportedLookAndFeelException;
  */
 public class Gui implements Runnable {
 
-    private final int GRID_SIZE = 40;
+    private final int MAP_SIZE = 40;
+    private final int GRID_SIZE;
+    
+    public Gui(Properties properties) {
+        GRID_SIZE = Integer.parseInt(properties.getProperty("map_grid_size"));
+    }
 
     /**
      * Adds components to the passed-in Container.
@@ -27,7 +33,7 @@ public class Gui implements Runnable {
         constraints.weighty = 0.1;
         constraints.fill = GridBagConstraints.BOTH;
 
-        MapUI grid = new MapUI(GRID_SIZE, GRID_SIZE);
+        MapUI grid = new MapUI(GRID_SIZE, MAP_SIZE, MAP_SIZE);
         constraints.gridx = 0;
         constraints.gridy = 1;
         pane.add(grid, constraints);

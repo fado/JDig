@@ -14,7 +14,7 @@ public class MapUI extends JPanel {
     
     private List<SquareUI> squares;
 
-    public MapUI(int maxRows, int maxColumns) {
+    public MapUI(int gridSize, int maxRows, int maxColumns) {
         setLayout(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
 
@@ -27,7 +27,7 @@ public class MapUI extends JPanel {
                 constraints.gridx = column;
                 constraints.gridy = row;
 
-                SquareUI square = new SquareUI(this, row, column);
+                SquareUI square = new SquareUI(gridSize, row, column);
                 squares.add(square);
                 add(square, constraints);
             }
