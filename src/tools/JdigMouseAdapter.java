@@ -7,7 +7,7 @@ public class JdigMouseAdapter extends MouseAdapter {
 
     @Override
     public void mouseEntered(MouseEvent event) {
-
+        
     }
 
     @Override
