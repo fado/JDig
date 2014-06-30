@@ -16,7 +16,7 @@ public class DefaultPointer implements Tool {
     }
 
     @Override
-    public void mousePressed(CellPanel cell, MouseEvent event) {
+    public void mouseClicked(CellPanel cell, MouseEvent event) {
         
     }
     
