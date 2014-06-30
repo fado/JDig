@@ -14,8 +14,8 @@ public class MapSquareTest {
     
     private final String CONFIG_PROPERTIES = "./config/config.properties";
     Properties properties;
-    MapSquare testSquare1, testSquare2, testSquare3, testSquare4;
-    MapGrid testGrid;
+    SquareUI testSquare1, testSquare2, testSquare3, testSquare4;
+    MapUI testGrid;
     Point testPoint1, testPoint2, testPoint3, testPoint4;
     
     @Before
@@ -26,10 +26,10 @@ public class MapSquareTest {
         testPoint2 = new Point(0, -1);
         testPoint3 = new Point(-1, 0);
         testPoint4 = new Point(-1, -1);
-        testSquare1 = new MapSquare(testGrid, testPoint1.x, testPoint1.y);
-        testSquare2 = new MapSquare(testGrid, testPoint2.x, testPoint2.y);
-        testSquare3 = new MapSquare(testGrid, testPoint3.x, testPoint3.y);
-        testSquare4 = new MapSquare(testGrid, testPoint4.x, testPoint4.y);
+        testSquare1 = new SquareUI(testGrid, testPoint1.x, testPoint1.y);
+        testSquare2 = new SquareUI(testGrid, testPoint2.x, testPoint2.y);
+        testSquare3 = new SquareUI(testGrid, testPoint3.x, testPoint3.y);
+        testSquare4 = new SquareUI(testGrid, testPoint4.x, testPoint4.y);
     }
     
     
