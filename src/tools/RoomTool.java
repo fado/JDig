@@ -17,7 +17,7 @@ public class RoomTool implements Tool {
     }
 
     @Override
-    public void mousePressed(CellPanel square, MouseEvent event) {
+    public void mouseClicked(CellPanel square, MouseEvent event) {
 
     }
 }
