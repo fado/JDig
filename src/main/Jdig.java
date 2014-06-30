@@ -1,6 +1,6 @@
 package main;
 
-import gui.Gui;
+import gui.MainUI;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
@@ -20,7 +20,7 @@ public class Jdig {
             // TO-DO: Something.
         }
         
-        Gui gui = new Gui(properties);
+        MainUI gui = new MainUI(properties);
         gui.run();
     }
    
