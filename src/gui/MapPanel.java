@@ -12,7 +12,7 @@ import main.Map;
  */
 public class MapPanel extends JPanel {
 
-    public MapPanel(Map map) {
+    public MapPanel(Map map, MapToolbar toolbar) {
         setLayout(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
 
@@ -21,6 +21,7 @@ public class MapPanel extends JPanel {
             constraints.gridy = cell.Y;
             CellPanel cellUi = new CellPanel();
             add(cellUi, constraints);
+            toolbar.addToolListener(cellUi);
         }
     }
     
