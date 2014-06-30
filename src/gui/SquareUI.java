@@ -5,8 +5,6 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Image;
 import java.awt.Point;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -16,17 +14,13 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
-import tools.DefaultPointer;
 import tools.JdigMouseAdapter;
-import tools.Tool;
-import tools.ToolEvent;
-import tools.ToolListener;
 
 /**
  * The MapSquare class specifies one square in the MapGrid that makes up the
  * user-interface for drawing maps.
  */
-public class SquareUI extends JPanel implements ToolListener {
+public class SquareUI extends JPanel {
 
     private final Color VERY_LIGHT_GRAY = new Color(224, 224, 224);
     private final int size;
