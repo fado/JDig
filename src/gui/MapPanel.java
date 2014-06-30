@@ -19,7 +19,7 @@ public class MapPanel extends JPanel {
         for(Cell cell : map.getAllCells()) {
             constraints.gridx = cell.X;
             constraints.gridy = cell.Y;
-            CellPanel cellUi = new CellPanel();
+            CellPanel cellUi = new CellPanel(cell);
             add(cellUi, constraints);
             toolbar.addToolListener(cellUi);
         }
