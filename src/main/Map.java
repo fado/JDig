@@ -26,12 +26,17 @@ public class Map {
         }
     }
     
+    /**
+     * Returns a List of all Cells in the Map.
+     * 
+     * @return - A List containing all Cells in the Map.
+     */
     public List<Cell> getAllCells() {
         return this.allCells;
     }
     
     /**
-     * This method returns the Cell adjacent to the passed-in Cell that lies
+     * Returns the Cell adjacent to the passed-in Cell that lies
      * in the passed-in Direction.
      * 
      * @param cell - The point of reference.
@@ -48,7 +53,7 @@ public class Map {
     }
     
     /**
-     * This method determines the potential Entity that could exist in a Cell,
+     * Determines the potential Entity that could exist in a Cell,
      * given its surroundings.
      * @param cell - The Cell we are querying.
      * @return - The potential Entity that could exist in the Cell.
