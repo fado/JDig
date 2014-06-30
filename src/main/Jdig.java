@@ -2,7 +2,6 @@ package main;
 
 import gui.MainUI;
 import java.io.IOException;
-import java.util.Properties;
 
 public class Jdig {
     
@@ -15,8 +14,8 @@ public class Jdig {
     }
     
     private Jdig() {
-        currentMap = new Map(DEFAULT_COLUMNS, DEFAULT_ROWS);
-        MainUI gui = new MainUI(getCurrentMap());
+        currentMap = getCurrentMap();
+        MainUI gui = new MainUI(currentMap);
         gui.run();
     }
     
