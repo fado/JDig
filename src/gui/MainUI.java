@@ -8,17 +8,19 @@ import java.util.Properties;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import main.Map;
+import tools.ToolHandler;
 
 /**
  * The Gui class specifies the user interface for JDig.
  */
 public class MainUI implements Runnable {
 
-    private final int MAP_SIZE = 40;
-    private final int GRID_SIZE;
+    private final Map map;
+
     
-    public MainUI(Properties properties) {
-        GRID_SIZE = Integer.parseInt(properties.getProperty("map_grid_size"));
+    public MainUI(Map map) {
+        this.map = map;
     }
 
     /**
@@ -33,12 +35,12 @@ public class MainUI implements Runnable {
         constraints.weighty = 0.1;
         constraints.fill = GridBagConstraints.BOTH;
 
-        MapUI grid = new MapUI(GRID_SIZE, MAP_SIZE, MAP_SIZE);
+        MapPanel mapPanel = new MapPanel(this.map);
         constraints.gridx = 0;
         constraints.gridy = 1;
-        pane.add(grid, constraints);
+        pane.add(mapPanel, constraints);
 
-        MapToolbarUI toolbar = new MapToolbarUI(grid);
+        MapToolbarUI toolbar = new MapToolbarUI(mapPanel);
         constraints.gridx = 0;
         constraints.gridy = 0;
         pane.add(toolbar, constraints);

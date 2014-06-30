@@ -26,6 +26,10 @@ public class Map {
         }
     }
     
+    public List<Cell> getAllCells() {
+        return this.allCells;
+    }
+    
     /**
      * This method returns the Cell adjacent to the passed-in Cell that lies
      * in the passed-in Direction.

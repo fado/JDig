@@ -1,23 +1,23 @@
 package tools;
 
-import gui.SquareUI;
+import gui.CellPanel;
 import java.awt.event.MouseEvent;
 
 public class RoomTool implements Tool {
 
     
     @Override
-    public void mouseEntered(SquareUI square, MouseEvent event) {
+    public void mouseEntered(CellPanel square, MouseEvent event) {
 
     }
 
     @Override
-    public void mouseExited(SquareUI square, MouseEvent event) {
+    public void mouseExited(CellPanel square, MouseEvent event) {
 
     }
 
     @Override
-    public void mousePressed(SquareUI square, MouseEvent event) {
+    public void mousePressed(CellPanel square, MouseEvent event) {
 
     }
 }

@@ -2,8 +2,8 @@ package main;
 
 public class Cell {
     
-    final int X;
-    final int Y;
+    public final int X;
+    public final int Y;
     private Entity currentEntity;
     
     public Cell(int column, int row) {

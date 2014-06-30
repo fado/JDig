@@ -1,13 +1,11 @@
 package main;
 
 import gui.MainUI;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
 public class Jdig {
     
-    private static Properties properties;
     private final int DEFAULT_ROWS = 40;
     private final int DEFAULT_COLUMNS = 40;
     private final Map currentMap;
@@ -18,7 +16,7 @@ public class Jdig {
     
     private Jdig() {
         currentMap = new Map(DEFAULT_COLUMNS, DEFAULT_ROWS);
-        MainUI gui = new MainUI(getCurrentMap(), properties);
+        MainUI gui = new MainUI(getCurrentMap());
         gui.run();
     }
     

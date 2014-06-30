@@ -19,14 +19,14 @@ public class MapToolbarUI extends JToolBar {
     private final String ROOM_TOOL_ICON = IMAGES + "room_tool.png";
     private final String EXIT_TOOL_ICON = IMAGES + "exit_tool.png";
     private final List<JButton> buttons;
-    private final MapUI mapGrid;
+    private final MapPanel mapGrid;
 
     /**
      * Creates a MapEditorToolbar object.
      *
      * @param grid - The MapGrid to which the tool bar is attached.
      */
-    public MapToolbarUI(MapUI grid) {
+    public MapToolbarUI(MapPanel grid) {
         this.mapGrid = grid;
         this.setFloatable(false);
 

@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Image;
-import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -20,26 +19,14 @@ import tools.JdigMouseAdapter;
  * The MapSquare class specifies one square in the MapGrid that makes up the
  * user-interface for drawing maps.
  */
-public class SquareUI extends JPanel {
+public class CellPanel extends JPanel {
 
     private final Color VERY_LIGHT_GRAY = new Color(224, 224, 224);
-    private final int size;
-    private final Point position;
+    private final int SIZE = 15;
     private JLabel entityImage;
     private final Border defaultBorder;
 
-    /**
-     * Creates a MapSquare object with its fields set to the passed-in
-     * parameters.
-     *
-     * @param size
-     * @param row - The row of the MapGrid in which this MapSquare is contained.
-     * @param column - The column of the MapGrid in which this MapSquare is
-     * contained.
-     */
-    public SquareUI(int size, int row, int column) {
-        this.size = size;
-        this.position = new Point(column, row);
+    public CellPanel() {
         this.defaultBorder = BorderFactory.createLineBorder(VERY_LIGHT_GRAY);
         this.setBorder(defaultBorder);
         this.setBackground(Color.WHITE);
@@ -56,7 +43,7 @@ public class SquareUI extends JPanel {
         try {
             BufferedImage image = ImageIO.read(new File(path));
             if (image != null) {
-                Image scaledImage = image.getScaledInstance(size, size, 1);
+                Image scaledImage = image.getScaledInstance(SIZE, SIZE, 1);
                 entityImage = new JLabel(new ImageIcon(scaledImage));
                 this.add(entityImage);
                 this.validate();
@@ -117,6 +104,6 @@ public class SquareUI extends JPanel {
      */
     @Override
     public Dimension getPreferredSize() {
-        return new Dimension(size, size);
+        return new Dimension(SIZE, SIZE);
     }
 }
