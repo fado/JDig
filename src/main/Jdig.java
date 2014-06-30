@@ -8,20 +8,25 @@ import java.util.Properties;
 public class Jdig {
     
     private static Properties properties;
-    private static final String CONFIG_PROPERTIES = "./config/config.properties";
+    private final int DEFAULT_ROWS = 40;
+    private final int DEFAULT_COLUMNS = 40;
+    private final Map currentMap;
     
     public static void main(String[] args) throws IOException {
-        if (properties == null) {
-            properties = new Properties();
-        }
-        try {
-            properties.load(new FileInputStream(CONFIG_PROPERTIES));
-        } catch (IOException ex) {
-            // TO-DO: Something.
-        }
-        
-        MainUI gui = new MainUI(properties);
+        new Jdig();
+    }
+    
+    private Jdig() {
+        currentMap = new Map(DEFAULT_COLUMNS, DEFAULT_ROWS);
+        MainUI gui = new MainUI(getCurrentMap(), properties);
         gui.run();
     }
-   
+    
+    private Map getCurrentMap() {
+        if(currentMap == null) {
+            return new Map(DEFAULT_COLUMNS, DEFAULT_ROWS);
+        }
+        return currentMap;
+    }
+    
 }
