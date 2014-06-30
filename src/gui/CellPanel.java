@@ -15,6 +15,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
+import main.Cell;
 import tools.DefaultPointer;
 import tools.Tool;
 import tools.ToolEvent;
@@ -31,8 +32,10 @@ public class CellPanel extends JPanel implements ToolListener {
     private JLabel entityImage;
     private final Border defaultBorder;
     private Tool selectedTool;
+    private Cell cellObject;
 
-    public CellPanel() {
+    public CellPanel(Cell cellObject) {
+        this.cellObject = cellObject;
         this.defaultBorder = BorderFactory.createLineBorder(VERY_LIGHT_GRAY);
         this.setBorder(defaultBorder);
         this.setBackground(Color.WHITE);
@@ -57,6 +60,10 @@ public class CellPanel extends JPanel implements ToolListener {
         });
     }
 
+    public Cell getCellObject() {
+        return this.cellObject;
+    }
+    
     /**
      * Adds the image at the passed-in path to the MapSquare.
      *
