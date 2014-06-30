@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Image;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -13,25 +15,46 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
-import tools.JdigMouseAdapter;
+import tools.DefaultPointer;
+import tools.Tool;
+import tools.ToolEvent;
+import tools.ToolListener;
 
 /**
  * The MapSquare class specifies one square in the MapGrid that makes up the
  * user-interface for drawing maps.
  */
-public class CellPanel extends JPanel {
+public class CellPanel extends JPanel implements ToolListener {
 
     private final Color VERY_LIGHT_GRAY = new Color(224, 224, 224);
     private final int SIZE = 15;
     private JLabel entityImage;
     private final Border defaultBorder;
+    private Tool selectedTool;
 
     public CellPanel() {
         this.defaultBorder = BorderFactory.createLineBorder(VERY_LIGHT_GRAY);
         this.setBorder(defaultBorder);
         this.setBackground(Color.WHITE);
+        this.selectedTool = new DefaultPointer();
         ((FlowLayout) this.getLayout()).setVgap(0);
-        addMouseListener(new JdigMouseAdapter());
+        
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent event) {
+                selectedTool.mouseEntered(CellPanel.this, event);
+            }
+            
+            @Override
+            public void mouseExited(MouseEvent event) {
+                selectedTool.mouseExited(CellPanel.this, event);
+            }
+            
+            @Override
+            public void mouseClicked(MouseEvent event) {
+                selectedTool.mouseClicked(CellPanel.this, event);
+            }
+        });
     }
 
     /**
@@ -105,5 +128,15 @@ public class CellPanel extends JPanel {
     @Override
     public Dimension getPreferredSize() {
         return new Dimension(SIZE, SIZE);
+    }
+
+    /**
+     * Fires when the currently selected Tool is changed in the MapToolbar.
+     * 
+     * @param event - The ToolEvent containing a reference to the newly selected Tool.
+     */
+    @Override
+    public void toolChanged(ToolEvent event) {
+        this.selectedTool = event.getTool();
     }
 }
