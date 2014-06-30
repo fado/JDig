@@ -4,12 +4,10 @@ import java.awt.Container;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.io.IOException;
-import java.util.Properties;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import main.Map;
-import tools.ToolHandler;
 
 /**
  * The Gui class specifies the user interface for JDig.
