@@ -1,7 +1,5 @@
 package gui;
 
-import gui.tools.RoomTool;
-import gui.tools.ExitTool;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -21,14 +19,14 @@ public class MapEditorToolbar extends JToolBar {
     private final String ROOM_TOOL_ICON = IMAGES + "room_tool.png";
     private final String EXIT_TOOL_ICON = IMAGES + "exit_tool.png";
     private final List<JButton> buttons;
-    private final MapGrid mapGrid;
+    private final MapUI mapGrid;
 
     /**
      * Creates a MapEditorToolbar object.
      *
      * @param grid - The MapGrid to which the tool bar is attached.
      */
-    public MapEditorToolbar(MapGrid grid) {
+    public MapEditorToolbar(MapUI grid) {
         this.mapGrid = grid;
         this.setFloatable(false);
 
@@ -48,18 +46,14 @@ public class MapEditorToolbar extends JToolBar {
         roomToolButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent event) {
-                if (!roomToolButton.isSelected()) {
-                    mapGrid.setSelectedTool(new RoomTool());
-                }
+                // TO-DO: Something.
             }
         });
 
         exitToolButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent event) {
-                if (!exitToolButton.isSelected()) {
-                    mapGrid.setSelectedTool(new ExitTool());
-                }
+                // TO-DO: Something.
             }
         });
     }
