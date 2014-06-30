@@ -33,15 +33,15 @@ public class MainUI implements Runnable {
         constraints.weighty = 0.1;
         constraints.fill = GridBagConstraints.BOTH;
 
-        MapPanel mapPanel = new MapPanel(this.map);
-        constraints.gridx = 0;
-        constraints.gridy = 1;
-        pane.add(mapPanel, constraints);
-
-        MapToolbarUI toolbar = new MapToolbarUI(mapPanel);
+        MapToolbar toolbar = new MapToolbar();
         constraints.gridx = 0;
         constraints.gridy = 0;
         pane.add(toolbar, constraints);
+        
+        MapPanel mapPanel = new MapPanel(this.map, toolbar);
+        constraints.gridx = 0;
+        constraints.gridy = 1;
+        pane.add(mapPanel, constraints);
     }
 
     /**
