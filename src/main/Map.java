@@ -1,13 +1,16 @@
 package main;
 
+import gui.CellPanel;
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class Map {
     
     private final List<Cell> allCells;
     private final Cell defaultCell;
+    private final java.util.Map<Cell, CellPanel> cellPanelMapping;
     
     /**
      * Creates a new Map object with the passed-in parameters.
@@ -17,6 +20,7 @@ public class Map {
      */
     public Map(int maxColumns, int maxRows) {
         this.defaultCell = new Cell(new Point(-1, -1));
+        this.cellPanelMapping = new HashMap<>();
         
         this.allCells = new ArrayList<>();
         for (int rows = 0; rows < maxRows; rows++) {
@@ -25,6 +29,16 @@ public class Map {
                 allCells.add(cell);
             }
         }
+    }
+    
+    /**
+     * Maps Cells against their corresponding CellPanels.
+     * 
+     * @param cell 
+     * @param cellPanel 
+     */
+    public void registerCellPanel(Cell cell, CellPanel cellPanel) {
+        cellPanelMapping.put(cell, cellPanel);
     }
     
     /**
@@ -54,8 +68,8 @@ public class Map {
     }
     
     /**
-     * Determines the potential Entity that could exist in a Cell,
-     * given its surroundings.
+     * Determines the potential Entity that could exist in a Cell, given its surroundings.
+     * 
      * @param cell - The Cell we are querying.
      * @return - The potential Entity that could exist in the Cell.
      */
