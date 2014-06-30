@@ -6,17 +6,17 @@ import java.awt.event.MouseEvent;
 public class ExitTool implements Tool {
     
     @Override
-    public void mouseEntered(CellPanel square, MouseEvent event) {
+    public void mouseEntered(CellPanel cell, MouseEvent event) {
 
     }
     
     @Override
-    public void mouseExited(CellPanel square, MouseEvent event) {
+    public void mouseExited(CellPanel cell, MouseEvent event) {
     
     }
 
     @Override
-    public void mouseClicked(CellPanel square, MouseEvent event) {
+    public void mouseClicked(CellPanel cell, MouseEvent event) {
  
     }
 }
