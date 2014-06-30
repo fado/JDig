@@ -1,22 +1,25 @@
 package main;
 
 import gui.Gui;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Properties;
 
-/**
- * The Jdig class is the main class in the Jdig application.
- */
 public class Jdig {
-        
-    /**
-     * Create a new Jdig object with the specified arguments.
-     * @param args
-     * @throws IOException 
-     */
+    
+    private static Properties properties;
+    private static final String CONFIG_PROPERTIES = "./config/config.properties";
+    
     public static void main(String[] args) throws IOException {
-        //TextMap map = new TextMap(args[0]);
-        //map.getRooms();   
-        //map.addAllExits();
+        if (properties == null) {
+            properties = new Properties();
+        }
+        try {
+            properties.load(new FileInputStream(CONFIG_PROPERTIES));
+        } catch (IOException ex) {
+            // TO-DO: Something.
+        }
+        
         Gui gui = new Gui();
         gui.run();
     }
