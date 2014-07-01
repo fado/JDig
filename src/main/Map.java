@@ -18,6 +18,11 @@ public class Map {
         this.allCells = new ArrayList<>();
     }
     
+    /**
+     * Adds a Cell to the Map.
+     * 
+     * @param cell - The Cell to be added.
+     */
     public void addCell(Cell cell) {
         allCells.add(cell);
     }
