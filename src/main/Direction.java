@@ -21,11 +21,11 @@ public enum Direction {
         this.yOffset = yOffset;
     }
     
-    public int getX(Cell cell) {
+    public int translateX(Cell cell) {
         return cell.X + this.xOffset;
     }
     
-    public int getY(Cell cell) {
+    public int translateY(Cell cell) {
         return cell.Y + this.yOffset;
     }
 }
