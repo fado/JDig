@@ -12,7 +12,6 @@ import org.junit.Test;
  */
 public class CellTest {
 
-    private int testColumns, testRows;
     private int validXCoord, validYCoord, invalidXCoord, invalidYCoord;
     private Cell testCellInBounds, testCellOutOfBounds, testCellXOutOfBounds,
             testCellYOutOfBounds;
@@ -22,13 +21,11 @@ public class CellTest {
     
     @Before
     public void setUp() {
-        testColumns = 1;
-        testRows = 1;
         validXCoord = 0;
         validYCoord = 0;
         invalidXCoord = -1;
         invalidYCoord = -1;
-        testMap = new Map(testColumns, testRows);
+        testMap = new Map();
         validTestPoint = new Point(validXCoord, validYCoord);
         invalidTestPoint = new Point(invalidXCoord, invalidYCoord);
         invalidXPoint = new Point(invalidXCoord, validYCoord);
