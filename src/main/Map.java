@@ -9,10 +9,6 @@ public class Map {
     private final List<Cell> allCells;
     private final Cell defaultCell;
     
-    /**
-     * Creates a new Map object with the passed-in parameters.
-     * 
-     */
     public Map() {
         this.defaultCell = new Cell(new Point(-1, -1), this);
         this.allCells = new ArrayList<>();
@@ -48,7 +44,7 @@ public class Map {
         for (Cell cell : allCells) {
             if(cell.X == direction.translateX(referenceCell) && 
                     cell.Y == direction.translateY(referenceCell)) {
-                return referenceCell;
+                return cell;
             }
         }
         return defaultCell;
