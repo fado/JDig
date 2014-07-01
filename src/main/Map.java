@@ -44,14 +44,15 @@ public class Map {
      * Returns the Cell adjacent to the passed-in Cell that lies
      * in the passed-in Direction.
      * 
-     * @param cell - The point of reference.
+     * @param referenceCell - The point of reference.
      * @param direction - The direction in which we are looking.
      * @return - The Cell found.
      */
-    public Cell getCellAdjacentTo(Cell cell, Direction direction) {
-        for (Cell aCell : allCells) {
-            if(aCell.X == direction.getX(cell) && aCell.Y == direction.getY(cell)) {
-                return cell;
+    public Cell getCellAdjacentTo(Cell referenceCell, Direction direction) {
+        for (Cell cell : allCells) {
+            if(cell.X == direction.translateX(referenceCell) && 
+                    cell.Y == direction.translateY(referenceCell)) {
+                return referenceCell;
             }
         }
         return defaultCell;
