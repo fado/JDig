@@ -12,7 +12,7 @@ public class MapLoader {
         load(new Map());
     }
 
-    private void load(Map map) {
+    public void load(Map map) {
         if (map.getAllCells().isEmpty()) {
             for (int rows = 0; rows < DEFAULT_ROWS; rows++) {
                 for (int columns = 0; columns < DEFAULT_COLUMNS; columns++) {
