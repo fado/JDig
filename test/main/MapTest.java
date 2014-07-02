@@ -136,7 +136,7 @@ public class MapTest {
         testMap2.getCellAt(northwestPoint).setEntity(Entity.ROOM);
         testMap2.getCellAt(northeastPoint).setEntity(Entity.ROOM);
         Entity expected = Entity.HORIZONTAL_EXIT;
-        Entity actual = testMap2.getPotentialEntity(testMap2.getCellAt(northPoint));
+        Entity actual = testMap2.getCellAt(northPoint).getPotentialEntity();
         assertEquals(expected, actual);
     }
 
@@ -145,7 +145,7 @@ public class MapTest {
         testMap2.getCellAt(northPoint).setEntity(Entity.ROOM);
         testMap2.getCellAt(southPoint).setEntity(Entity.ROOM);
         Entity expected = Entity.VERTICAL_EXIT;
-        Entity actual = testMap2.getPotentialEntity(testMap2.getCellAt(centerPoint));
+        Entity actual = testMap2.getCellAt(centerPoint).getPotentialEntity();
         assertEquals(expected, actual);
     }
 
@@ -156,7 +156,7 @@ public class MapTest {
         testMap2.getCellAt(southwestPoint).setEntity(Entity.ROOM);
         testMap2.getCellAt(southeastPoint).setEntity(Entity.ROOM);
         Entity expected = Entity.X_EXIT;
-        Entity actual = testMap2.getPotentialEntity(testMap2.getCellAt(centerPoint));
+        Entity actual = testMap2.getCellAt(centerPoint).getPotentialEntity();
         assertEquals(expected, actual);
     }
 
@@ -165,7 +165,7 @@ public class MapTest {
         testMap2.getCellAt(northeastPoint).setEntity(Entity.ROOM);
         testMap2.getCellAt(southwestPoint).setEntity(Entity.ROOM);
         Entity expected = Entity.FORWARD_DIAGONAL_EXIT;
-        Entity actual = testMap2.getPotentialEntity(testMap2.getCellAt(centerPoint));
+        Entity actual = testMap2.getCellAt(centerPoint).getPotentialEntity();
         assertEquals(expected, actual);
     }
 
@@ -175,7 +175,7 @@ public class MapTest {
         testMap2.getCellAt(northeastPoint).setEntity(Entity.ROOM);
         testMap2.getCellAt(southwestPoint).setEntity(Entity.ROOM);
         Entity expected = Entity.FORWARD_DIAGONAL_EXIT;
-        Entity actual = testMap2.getPotentialEntity(testMap2.getCellAt(centerPoint));
+        Entity actual = testMap2.getCellAt(centerPoint).getPotentialEntity();
         assertEquals(expected, actual);
     }
 
@@ -184,7 +184,7 @@ public class MapTest {
         testMap2.getCellAt(northwestPoint).setEntity(Entity.ROOM);
         testMap2.getCellAt(southeastPoint).setEntity(Entity.ROOM);
         Entity expected = Entity.BACKWARD_DIAGONAL_EXIT;
-        Entity actual = testMap2.getPotentialEntity(testMap2.getCellAt(centerPoint));
+        Entity actual = testMap2.getCellAt(centerPoint).getPotentialEntity();
         assertEquals(expected, actual);
     }
 
@@ -194,14 +194,14 @@ public class MapTest {
         testMap2.getCellAt(northeastPoint).setEntity(Entity.ROOM);
         testMap2.getCellAt(southeastPoint).setEntity(Entity.ROOM);
         Entity expected = Entity.BACKWARD_DIAGONAL_EXIT;
-        Entity actual = testMap2.getPotentialEntity(testMap2.getCellAt(centerPoint));
+        Entity actual = testMap2.getCellAt(centerPoint).getPotentialEntity();
         assertEquals(expected, actual);
     }
 
     @Test
     public void testGetPotentialEntityReturnsNoEntityForNoSurroundingRooms() {
         Entity expected = Entity.NO_ENTITY;
-        Entity actual = testMap2.getPotentialEntity(testMap2.getCellAt(centerPoint));
+        Entity actual = testMap2.getCellAt(centerPoint).getPotentialEntity();
         assertEquals(expected, actual);
     }
 
@@ -209,7 +209,7 @@ public class MapTest {
     public void testGetPotentialEntityReturnsNoEntityForRoomToWest() {
         testMap2.getCellAt(westPoint).setEntity(Entity.ROOM);
         Entity expected = Entity.NO_ENTITY;
-        Entity actual = testMap2.getPotentialEntity(testMap2.getCellAt(centerPoint));
+        Entity actual = testMap2.getCellAt(centerPoint).getPotentialEntity();
         assertEquals(expected, actual);
     }
 
@@ -217,7 +217,7 @@ public class MapTest {
     public void testGetPotentialEntityReturnsNoEntityForRoomToEast() {
         testMap2.getCellAt(eastPoint).setEntity(Entity.ROOM);
         Entity expected = Entity.NO_ENTITY;
-        Entity actual = testMap2.getPotentialEntity(testMap2.getCellAt(centerPoint));
+        Entity actual = testMap2.getCellAt(centerPoint).getPotentialEntity();
         assertEquals(expected, actual);
     }
 
@@ -225,7 +225,7 @@ public class MapTest {
     public void testGetPotentiaLEntityReturnsNoEntityForRoomToNorth() {
         testMap2.getCellAt(northPoint).setEntity(Entity.ROOM);
         Entity expected = Entity.NO_ENTITY;
-        Entity actual = testMap2.getPotentialEntity(testMap2.getCellAt(centerPoint));
+        Entity actual = testMap2.getCellAt(centerPoint).getPotentialEntity();
         assertEquals(expected, actual);
     }
 
@@ -233,7 +233,7 @@ public class MapTest {
     public void testGetPotentialEntityReturnsNoEntityForRoomToSouth() {
         testMap2.getCellAt(southPoint).setEntity(Entity.ROOM);
         Entity expected = Entity.NO_ENTITY;
-        Entity actual = testMap2.getPotentialEntity(testMap2.getCellAt(centerPoint));
+        Entity actual = testMap2.getCellAt(centerPoint).getPotentialEntity();
         assertEquals(expected, actual);
     }
 
@@ -241,7 +241,7 @@ public class MapTest {
     public void testGetPotentialEntityReturnsNoEntityForRoomToNorthwest() {
         testMap2.getCellAt(northwestPoint).setEntity(Entity.ROOM);
         Entity expected = Entity.NO_ENTITY;
-        Entity actual = testMap2.getPotentialEntity(testMap2.getCellAt(centerPoint));
+        Entity actual = testMap2.getCellAt(centerPoint).getPotentialEntity();
         assertEquals(expected, actual);
     }
 
@@ -249,7 +249,7 @@ public class MapTest {
     public void testGetPotentialEntityReturnsNoEntityForRoomToNortheast() {
         testMap2.getCellAt(northeastPoint).setEntity(Entity.ROOM);
         Entity expected = Entity.NO_ENTITY;
-        Entity actual = testMap2.getPotentialEntity(testMap2.getCellAt(centerPoint));
+        Entity actual = testMap2.getCellAt(centerPoint).getPotentialEntity();
         assertEquals(expected, actual);
     }
 
@@ -257,7 +257,7 @@ public class MapTest {
     public void testGetPotentialEntityReturnsNoEntityForRoomToSouthwest() {
         testMap2.getCellAt(southwestPoint).setEntity(Entity.ROOM);
         Entity expected = Entity.NO_ENTITY;
-        Entity actual = testMap2.getPotentialEntity(testMap2.getCellAt(centerPoint));
+        Entity actual = testMap2.getCellAt(centerPoint).getPotentialEntity();
         assertEquals(expected, actual);
     }
 
@@ -265,7 +265,7 @@ public class MapTest {
     public void testGetPotentialEntityReturnsNoEntityForRoomToSoutheast() {
         testMap2.getCellAt(southeastPoint).setEntity(Entity.ROOM);
         Entity expected = Entity.NO_ENTITY;
-        Entity actual = testMap2.getPotentialEntity(testMap2.getCellAt(centerPoint));
+        Entity actual = testMap2.getCellAt(centerPoint).getPotentialEntity();
         assertEquals(expected, actual);
     }
 
