@@ -1,15 +1,11 @@
 package main;
 
+import gui.MainUI;
+
 public class Jdig {
-    
-    private static MapLoader loader = new MapLoader();
 
     public static void main(String[] args) {
-        loader.newMap();
+        MainUI ui = new MainUI(new Map(40, 40));
+        ui.run();
     }
-    
-    static void setMapLoader(MapLoader loader) {
-        Jdig.loader = loader;
-    }
-    
 }
