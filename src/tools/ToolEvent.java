@@ -1,10 +1,9 @@
 package tools;
 
-import tools.Tool;
 import java.util.EventObject;
 
 public class ToolEvent extends EventObject {
-    private Tool tool;
+    private final Tool tool;
     
     public ToolEvent(Object source, Tool tool) {
         super(source);
