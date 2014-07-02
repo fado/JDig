@@ -9,9 +9,17 @@ public class Map {
     private final List<Cell> allCells;
     private final Cell defaultCell;
     
-    public Map() {
+    public Map(int maxColumns, int maxRows) {
         this.defaultCell = new Cell(new Point(-1, -1), this);
         this.allCells = new ArrayList<>();
+        
+        for (int rows = 0; rows < maxColumns; rows++) {
+            for (int columns = 0; columns < maxRows; columns++) {
+                Cell cell = new Cell(new Point(columns, rows), this);
+                this.addCell(cell);
+            }
+        }
+        
     }
     
     /**
@@ -19,8 +27,23 @@ public class Map {
      * 
      * @param cell - The Cell to be added.
      */
-    public void addCell(Cell cell) {
+    private void addCell(Cell cell) {
         allCells.add(cell);
+    }
+    
+    /**
+     * Gets the Cell at the specified Point.
+     * 
+     * @param point - The Point at which the cell lies.
+     * @return - The Cell at the specified point.
+     */
+    public Cell getCellAt(Point point) {
+        for (Cell cell : allCells) {
+            if (cell.X == point.x && cell.Y == point.y) {
+                return cell;
+            }
+        }
+        return defaultCell;
     }
     
     /**
