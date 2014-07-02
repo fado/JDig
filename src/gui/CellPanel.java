@@ -16,15 +16,12 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 import main.Cell;
+import main.Entity;
 import tools.DefaultPointer;
 import tools.Tool;
 import tools.ToolEvent;
 import tools.ToolListener;
 
-/**
- * The MapSquare class specifies one square in the MapGrid that makes up the
- * user-interface for drawing maps.
- */
 public class CellPanel extends JPanel implements ToolListener {
 
     private final Color VERY_LIGHT_GRAY = new Color(224, 224, 224);
@@ -32,8 +29,14 @@ public class CellPanel extends JPanel implements ToolListener {
     private JLabel entityImage;
     private final Border defaultBorder;
     private Tool selectedTool;
-    private Cell cellObject;
+    private final Cell cellObject;
 
+    /**
+     * Constructor takes as a parameter the Cell object associated with this
+     * CellPanel.
+     *
+     * @param cellObject - The Cell object associated with this Cell panel.
+     */
     public CellPanel(Cell cellObject) {
         this.cellObject = cellObject;
         this.defaultBorder = BorderFactory.createLineBorder(VERY_LIGHT_GRAY);
@@ -41,18 +44,18 @@ public class CellPanel extends JPanel implements ToolListener {
         this.setBackground(Color.WHITE);
         this.selectedTool = new DefaultPointer();
         ((FlowLayout) this.getLayout()).setVgap(0);
-        
+
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent event) {
                 selectedTool.mouseEntered(CellPanel.this, event);
             }
-            
+
             @Override
             public void mouseExited(MouseEvent event) {
                 selectedTool.mouseExited(CellPanel.this, event);
             }
-            
+
             @Override
             public void mouseClicked(MouseEvent event) {
                 selectedTool.mouseClicked(CellPanel.this, event);
@@ -60,10 +63,45 @@ public class CellPanel extends JPanel implements ToolListener {
         });
     }
 
+    /**
+     * Gets the Cell object associated with this CellPanel.
+     *
+     * @return - The Cell object associated with this CellPanel.
+     */
     public Cell getCellObject() {
         return this.cellObject;
     }
-    
+
+    /**
+     * Calls the isFilled() method on the Cell object associated with this
+     * panel. Determines whether or not that Cell object contains any entity.
+     *
+     * @return - True if the associated Cell object is filled.
+     */
+    public boolean isFilled() {
+        return this.cellObject.isFilled();
+    }
+
+    /**
+     * Calls getParentMap() on the Cell object associated with this panel, then
+     * calls getPotentialEntity() on the Map returned. Returns the Map
+     * associated with the Cell object associated with this CellPanel.
+     *
+     * @return - The Map containing the Cell associated with this CellPanel.
+     */
+    public Entity getPotentialEntity() {
+        return this.cellObject.getParentMap().getPotentialEntity(this.cellObject);
+    }
+
+    /**
+     * Calls the setEntity() method on the Cell associated with this Cell panel.
+     *
+     * @param entity - The Entity to be set.
+     */
+    public void setEntity(Entity entity) {
+        this.cellObject.setEntity(entity);
+    }
+
     /**
      * Adds the image at the passed-in path to the MapSquare.
      *
@@ -77,6 +115,7 @@ public class CellPanel extends JPanel implements ToolListener {
                 entityImage = new JLabel(new ImageIcon(scaledImage));
                 this.add(entityImage);
                 this.validate();
+                this.repaint();
             }
         } catch (IOException e) {
             // TO-DO: Something.
@@ -139,8 +178,9 @@ public class CellPanel extends JPanel implements ToolListener {
 
     /**
      * Fires when the currently selected Tool is changed in the MapToolbar.
-     * 
-     * @param event - The ToolEvent containing a reference to the newly selected Tool.
+     *
+     * @param event - The ToolEvent containing a reference to the newly selected
+     * Tool.
      */
     @Override
     public void toolChanged(ToolEvent event) {
