@@ -10,7 +10,7 @@ import java.util.Map;
 public class Room {
    
     private final Point position;
-    private Map<String, Room> exits;
+    private final Map<String, Room> exits;
     
     /**
      * Create a new Room object with the passed-in parameter.
@@ -18,10 +18,7 @@ public class Room {
      */
     public Room(Point point) {
         this.position = point;
-        
-        if (exits == null) {
-            exits = new HashMap();
-        }
+        this.exits = new HashMap();
     }
     
     /**
