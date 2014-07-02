@@ -37,7 +37,7 @@ public class CellPanel extends JPanel implements ToolListener {
      *
      * @param cellObject - The Cell object associated with this Cell panel.
      */
-    public CellPanel(Cell cellObject) {
+    public CellPanel(final Cell cellObject) {
         this.cellObject = cellObject;
         this.defaultBorder = BorderFactory.createLineBorder(VERY_LIGHT_GRAY);
         this.setBorder(defaultBorder);
@@ -48,58 +48,19 @@ public class CellPanel extends JPanel implements ToolListener {
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent event) {
-                selectedTool.mouseEntered(CellPanel.this, event);
+                selectedTool.mouseEntered(CellPanel.this, cellObject, event);
             }
 
             @Override
             public void mouseExited(MouseEvent event) {
-                selectedTool.mouseExited(CellPanel.this, event);
+                selectedTool.mouseExited(CellPanel.this, cellObject, event);
             }
 
             @Override
             public void mouseClicked(MouseEvent event) {
-                selectedTool.mouseClicked(CellPanel.this, event);
+                selectedTool.mouseClicked(CellPanel.this, cellObject, event);
             }
         });
-    }
-
-    /**
-     * Gets the Cell object associated with this CellPanel.
-     *
-     * @return - The Cell object associated with this CellPanel.
-     */
-    public Cell getCellObject() {
-        return this.cellObject;
-    }
-
-    /**
-     * Calls the isFilled() method on the Cell object associated with this
-     * panel. Determines whether or not that Cell object contains any entity.
-     *
-     * @return - True if the associated Cell object is filled.
-     */
-    public boolean isFilled() {
-        return this.cellObject.isFilled();
-    }
-
-    /**
-     * Calls getParentMap() on the Cell object associated with this panel, then
-     * calls getPotentialEntity() on the Map returned. Returns the Map
-     * associated with the Cell object associated with this CellPanel.
-     *
-     * @return - The Map containing the Cell associated with this CellPanel.
-     */
-    public Entity getPotentialEntity() {
-        return this.cellObject.getParentMap().getPotentialEntity(this.cellObject);
-    }
-
-    /**
-     * Calls the setEntity() method on the Cell associated with this Cell panel.
-     *
-     * @param entity - The Entity to be set.
-     */
-    public void setEntity(Entity entity) {
-        this.cellObject.setEntity(entity);
     }
 
     /**
