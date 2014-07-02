@@ -25,7 +25,7 @@ public class CellTest {
         validYCoord = 0;
         invalidXCoord = -1;
         invalidYCoord = -1;
-        testMap = new Map();
+        testMap = new Map(1, 1);
         validTestPoint = new Point(validXCoord, validYCoord);
         invalidTestPoint = new Point(invalidXCoord, invalidYCoord);
         invalidXPoint = new Point(invalidXCoord, validYCoord);
