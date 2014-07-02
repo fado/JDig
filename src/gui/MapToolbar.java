@@ -79,7 +79,6 @@ public class MapToolbar extends JToolBar {
         for (ToolListener eachListener : listeners) {
             eachListener.toolChanged(toolEvent);
         }
-        System.out.println("Tool change fired.");
     }
 
 }
