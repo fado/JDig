@@ -8,7 +8,8 @@ import main.Entity;
 public class ExitTool implements Tool {
     
     @Override
-    public void mouseEntered(CellPanel cellPanel, Cell cell, MouseEvent event) {
+    public void mouseEntered(Cell cell, MouseEvent event) {
+        CellPanel cellPanel = (CellPanel)event.getSource();
         if(!cell.isFilled()) {
             Entity potentialEntity = cell.getPotentialEntity();
             if(!potentialEntity.equals(Entity.NO_ENTITY)) {
@@ -23,7 +24,8 @@ public class ExitTool implements Tool {
     }
     
     @Override
-    public void mouseExited(CellPanel cellPanel, Cell cell, MouseEvent event) {
+    public void mouseExited(Cell cell, MouseEvent event) {
+        CellPanel cellPanel = (CellPanel)event.getSource();
         if(!cell.isFilled()) {
             cellPanel.removeImage();
             cellPanel.restoreDefaultBorder();
@@ -31,7 +33,7 @@ public class ExitTool implements Tool {
     }
 
     @Override
-    public void mouseClicked(CellPanel cellPanel, Cell cell, MouseEvent event) {
+    public void mouseClicked(Cell cell, MouseEvent event) {
  
     }
 }

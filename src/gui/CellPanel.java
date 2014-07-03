@@ -45,17 +45,17 @@ public class CellPanel extends JPanel implements ToolListener {
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent event) {
-                selectedTool.mouseEntered(CellPanel.this, cellObject, event);
+                selectedTool.mouseEntered(cellObject, event);
             }
 
             @Override
             public void mouseExited(MouseEvent event) {
-                selectedTool.mouseExited(CellPanel.this, cellObject, event);
+                selectedTool.mouseExited(cellObject, event);
             }
 
             @Override
             public void mouseClicked(MouseEvent event) {
-                selectedTool.mouseClicked(CellPanel.this, cellObject, event);
+                selectedTool.mouseClicked(cellObject, event);
             }
         });
     }

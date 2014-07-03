@@ -5,7 +5,7 @@ import java.awt.event.MouseEvent;
 import main.Cell;
 
 public interface Tool {
-    public void mouseEntered(CellPanel cellPanel, Cell cell, MouseEvent event);
-    public void mouseExited(CellPanel cellPanel, Cell cell, MouseEvent event);
-    public void mouseClicked(CellPanel cellPanel, Cell cell, MouseEvent event);
+    public void mouseEntered(Cell cell, MouseEvent event);
+    public void mouseExited(Cell cell, MouseEvent event);
+    public void mouseClicked(Cell cell, MouseEvent event);
 }
