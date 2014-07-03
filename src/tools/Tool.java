@@ -1,6 +1,5 @@
 package tools;
 
-import gui.CellPanel;
 import java.awt.event.MouseEvent;
 import main.Cell;
 
