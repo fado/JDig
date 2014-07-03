@@ -16,7 +16,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 import main.Cell;
-import main.Entity;
 import tools.DefaultPointer;
 import tools.Tool;
 import tools.ToolEvent;
@@ -29,7 +28,6 @@ public class CellPanel extends JPanel implements ToolListener {
     private JLabel entityImage;
     private final Border defaultBorder;
     private Tool selectedTool;
-    private final Cell cellObject;
 
     /**
      * Constructor takes as a parameter the Cell object associated with this
@@ -38,7 +36,6 @@ public class CellPanel extends JPanel implements ToolListener {
      * @param cellObject - The Cell object associated with this Cell panel.
      */
     public CellPanel(final Cell cellObject) {
-        this.cellObject = cellObject;
         this.defaultBorder = BorderFactory.createLineBorder(VERY_LIGHT_GRAY);
         this.setBorder(defaultBorder);
         this.setBackground(Color.WHITE);
