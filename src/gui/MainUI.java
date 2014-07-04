@@ -42,6 +42,11 @@ public class MainUI implements Runnable {
         constraints.gridx = 0;
         constraints.gridy = 1;
         pane.add(mapPanel, constraints);
+        
+        AttributesPanel attributes = new AttributesPanel();
+        constraints.gridx = 1;
+        constraints.gridy = 1;
+        pane.add(attributes, constraints);
     }
 
     /**
