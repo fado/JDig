@@ -11,6 +11,7 @@ public class Room {
    
     private final Point position;
     private final Map<String, Room> exits;
+    private String name;
     
     /**
      * Create a new Room object with the passed-in parameter.
@@ -46,6 +47,14 @@ public class Room {
         return this.exits;
     }
    
+    public void setName(String name) {
+        this.name = name;
+    }
+    
+    public String getName() {
+        return this.name;
+    }
+    
     /**
      * Overridden toString() method.
      * @return - A String containing the x and y map coordinates of the room.
