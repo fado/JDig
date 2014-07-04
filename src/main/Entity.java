@@ -9,6 +9,7 @@ public enum Entity {
     X_EXIT("./resources/images/x_exit.png"),
     NO_ENTITY(null);
     
+    // Test.
     private final String path;
     
     Entity(String path) {
