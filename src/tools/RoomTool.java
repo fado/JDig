@@ -18,15 +18,6 @@ public class RoomTool implements Tool {
     }
 
     @Override
-    public void mouseExited(Cell cell, MouseEvent event) {
-        CellPanel cellPanel = (CellPanel)event.getSource();
-        if (!cell.isFilled()) {
-            cellPanel.removeImage();
-            cellPanel.restoreDefaultBorder();
-        }
-    }
-
-    @Override
     public void mouseClicked(Cell cell, MouseEvent event) {
         if (SwingUtilities.isRightMouseButton(event)) {
             cell.setEntity(Entity.NO_ENTITY);

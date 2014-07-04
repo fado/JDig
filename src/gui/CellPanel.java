@@ -50,7 +50,10 @@ public class CellPanel extends JPanel implements ToolListener {
 
             @Override
             public void mouseExited(MouseEvent event) {
-                selectedTool.mouseExited(cellObject, event);
+                if (!cellObject.isFilled()) {
+                    CellPanel.this.removeImage();
+                    CellPanel.this.restoreDefaultBorder();
+                }
             }
 
             @Override
