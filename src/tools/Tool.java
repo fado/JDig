@@ -5,5 +5,6 @@ import main.Cell;
 
 public interface Tool {
     public void mouseEntered(Cell cell, MouseEvent event);
+    public void mouseExited(Cell cell, MouseEvent event);
     public void mouseClicked(Cell cell, MouseEvent event);
 }
