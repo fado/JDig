@@ -7,7 +7,7 @@ import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JToolBar;
-import tools.DefaultPointer;
+import tools.SelectionTool;
 import tools.ExitTool;
 import tools.RoomTool;
 import tools.Tool;
@@ -22,6 +22,7 @@ import tools.ToolListener;
 public class MapToolbar extends JToolBar {
 
     private final String IMAGES = "./resources/images/";
+    private final String SELECTION_TOOL_ICON = IMAGES + "selection_tool.png";
     private final String ROOM_TOOL_ICON = IMAGES + "room_tool.png";
     private final String EXIT_TOOL_ICON = IMAGES + "exit_tool.png";
     private final List<JButton> buttons;
@@ -31,20 +32,31 @@ public class MapToolbar extends JToolBar {
     public MapToolbar() {
         this.setFloatable(false);
         this.listeners = new ArrayList<>();
-        this.selectedTool = new DefaultPointer();
+        this.selectedTool = new SelectionTool();
 
+        ImageIcon selectionToolIcon = new ImageIcon(SELECTION_TOOL_ICON);
         ImageIcon roomToolIcon = new ImageIcon(ROOM_TOOL_ICON);
         ImageIcon exitToolIcon = new ImageIcon(EXIT_TOOL_ICON);
 
+        final JButton selectionToolButton = new JButton(selectionToolIcon);
         final JButton roomToolButton = new JButton(roomToolIcon);
         final JButton exitToolButton = new JButton(exitToolIcon);
 
+        this.add(selectionToolButton);
         this.add(roomToolButton);
         this.add(exitToolButton);
 
         buttons = new ArrayList<>();
+        buttons.add(selectionToolButton);
         buttons.add(roomToolButton);
         buttons.add(exitToolButton);
+        
+        selectionToolButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent event) {
+                setSelectedTool(new SelectionTool());
+            }
+        });
 
         roomToolButton.addActionListener(new ActionListener() {
             @Override
