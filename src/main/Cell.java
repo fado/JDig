@@ -1,39 +1,56 @@
 package main;
 
 import java.awt.Point;
+import main.entities.EntityType;
+import main.entities.ExitType;
+import main.entities.Room;
 
 public class Cell {
 
     public final int X;
     public final int Y;
     private final Map parentMap;
-    private Entity currentEntity;
+    private EntityType currentEntity;
+    private boolean filled;
+    private Room room;
 
     public Cell(Point point, Map map) {
         this.X = point.x;
         this.Y = point.y;
         this.parentMap = map;
-        this.currentEntity = Entity.NO_ENTITY;
+        this.currentEntity = EntityType.NO_ENTITY;
     }
 
     public Map getParentMap() {
         return this.parentMap;
     }
 
-    public void setEntity(Entity entity) {
+    public void setEntityType(EntityType entity) {
+        if (entity == EntityType.NO_ENTITY) {
+            this.setFilled(false);
+        } else {
+            if (entity == EntityType.ROOM) {
+                room = new Room();
+            }
+            this.setFilled(true);
+        }
         this.currentEntity = entity;
     }
-
-    public Entity getEntity() {
-        return this.currentEntity;
+    
+    public Room getRoom() {
+        return this.room;
     }
 
+    public void setFilled(boolean bool) {
+        this.filled = bool;
+    }
+    
     public boolean isFilled() {
-        return !currentEntity.equals(Entity.NO_ENTITY);
+        return filled;
     }
 
     public boolean isRoom() {
-        return currentEntity.equals(Entity.ROOM) && this.isInBounds();
+        return currentEntity == EntityType.ROOM && this.isInBounds();
     }
 
     private boolean isInBounds() {
@@ -46,18 +63,18 @@ public class Cell {
      *
      * @return - The potential Entity that could exist in the Cell.
      */
-    public Entity getPotentialEntity() {
+    public ExitType getPotentialExitType() {
         // Check for rooms adjacent horizontally.
         Cell westCell = parentMap.getCellAdjacentTo(this, Direction.WEST);
         Cell eastCell = parentMap.getCellAdjacentTo(this, Direction.EAST);
         if (westCell.isRoom() && eastCell.isRoom()) {
-            return Entity.HORIZONTAL_EXIT;
+            return ExitType.HORIZONTAL_EXIT;
         }
         // Check for rooms adjacent vertically.
         Cell northCell = parentMap.getCellAdjacentTo(this, Direction.NORTH);
         Cell southCell = parentMap.getCellAdjacentTo(this, Direction.SOUTH);
         if (northCell.isRoom() && southCell.isRoom()) {
-            return Entity.VERTICAL_EXIT;
+            return ExitType.VERTICAL_EXIT;
         }
         // Check for rooms adjacent diagonally.
         Cell northwestCell = parentMap.getCellAdjacentTo(this, Direction.NORTHWEST);
@@ -67,14 +84,14 @@ public class Cell {
         // Check for rooms across both diagonal axis.
         if (northwestCell.isRoom() && northeastCell.isRoom()
                 && southwestCell.isRoom() && southeastCell.isRoom()) {
-            return Entity.X_EXIT;
+            return ExitType.X_EXIT;
         } // Check for rooms on the southwest/northeast axis.
         else if (southwestCell.isRoom() && northeastCell.isRoom()) {
-            return Entity.FORWARD_DIAGONAL_EXIT;
+            return ExitType.FORWARD_DIAGONAL_EXIT;
         } // Check for rooms on the southeast/northwest axis.
         else if (southeastCell.isRoom() && northwestCell.isRoom()) {
-            return Entity.BACKWARD_DIAGONAL_EXIT;
+            return ExitType.BACKWARD_DIAGONAL_EXIT;
         }
-        return Entity.NO_ENTITY;
+        return null;
     }
 }
