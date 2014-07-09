@@ -2,6 +2,7 @@
 package main;
 
 import java.awt.Point;
+import main.entities.EntityType;
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,7 +18,6 @@ public class CellTest {
             testCellYOutOfBounds;
     private Point validTestPoint, invalidTestPoint, invalidXPoint, invalidYPoint;
     private Map testMap;
-    private Entity defaultEntity;
     
     @Before
     public void setUp() {
@@ -34,7 +34,6 @@ public class CellTest {
         testCellOutOfBounds = new Cell(invalidTestPoint, testMap);
         testCellXOutOfBounds = new Cell(invalidXPoint, testMap);
         testCellYOutOfBounds = new Cell(invalidYPoint, testMap);
-        defaultEntity = Entity.NO_ENTITY;
     }
 
     @Test
@@ -51,21 +50,10 @@ public class CellTest {
     public void testdGetParentMapReturnsMap() {
         assertEquals(testMap, testCellInBounds.getParentMap());
     }
-
-    @Test
-    public void testConstructorSetsDefaultEntity() {
-        assertEquals(defaultEntity, testCellInBounds.getEntity());
-    }
-    
-    @Test
-    public void testSetAndGetEntity() {
-        testCellInBounds.setEntity(Entity.ROOM);
-        assertEquals(Entity.ROOM, testCellInBounds.getEntity());
-    }
     
     @Test
     public void testIsFilledReturnsTrueWhenFilled() {
-        testCellInBounds.setEntity(Entity.ROOM);
+        testCellInBounds.setEntityType(EntityType.ROOM);
         assertTrue(testCellInBounds.isFilled());
     }
     
@@ -76,13 +64,13 @@ public class CellTest {
     
     @Test
     public void testIsRoomReturnsTrueWhenEntityIsRoomInBounds() {
-        testCellInBounds.setEntity(Entity.ROOM);
+        testCellInBounds.setEntityType(EntityType.ROOM);
         assertTrue(testCellInBounds.isRoom());
     }
     
     @Test
     public void testIsRoomReturnsFalseWhenEntityIsRoomOutOfBounds() {
-        testCellOutOfBounds.setEntity(Entity.ROOM);
+        testCellOutOfBounds.setEntityType(EntityType.ROOM);
         assertFalse(testCellOutOfBounds.isRoom());
     }
     
@@ -98,13 +86,13 @@ public class CellTest {
     
     @Test
     public void testIsRoomReturnsFalseWhenEntityIsRoomWithXOutOfBounds() {
-        testCellXOutOfBounds.setEntity(Entity.ROOM);
+        testCellXOutOfBounds.setEntityType(EntityType.ROOM);
         assertFalse(testCellXOutOfBounds.isRoom());
     }
     
     @Test
     public void testIsRoomReturnsFalseWhenEntityIsRoomWithYOutOfBounds() {
-        testCellYOutOfBounds.setEntity(Entity.ROOM);
+        testCellYOutOfBounds.setEntityType(EntityType.ROOM);
         assertFalse(testCellYOutOfBounds.isRoom());
     }
     

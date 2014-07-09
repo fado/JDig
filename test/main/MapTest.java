@@ -2,6 +2,8 @@ package main;
 
 import java.awt.Point;
 import java.util.List;
+import main.entities.EntityType;
+import main.entities.ExitType;
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
@@ -133,139 +135,139 @@ public class MapTest {
 
     @Test
     public void testGetPotentialEntityFindsHorizontalExits() {
-        testMap2.getCellAt(northwestPoint).setEntity(Entity.ROOM);
-        testMap2.getCellAt(northeastPoint).setEntity(Entity.ROOM);
-        Entity expected = Entity.HORIZONTAL_EXIT;
-        Entity actual = testMap2.getCellAt(northPoint).getPotentialEntity();
+        testMap2.getCellAt(northwestPoint).setEntityType(EntityType.ROOM);
+        testMap2.getCellAt(northeastPoint).setEntityType(EntityType.ROOM);
+        ExitType expected = ExitType.HORIZONTAL_EXIT;
+        ExitType actual = testMap2.getCellAt(northPoint).getPotentialExitType();
         assertEquals(expected, actual);
     }
 
     @Test
     public void testGetPotentialEntityFindsVerticalExits() {
-        testMap2.getCellAt(northPoint).setEntity(Entity.ROOM);
-        testMap2.getCellAt(southPoint).setEntity(Entity.ROOM);
-        Entity expected = Entity.VERTICAL_EXIT;
-        Entity actual = testMap2.getCellAt(centerPoint).getPotentialEntity();
+        testMap2.getCellAt(northPoint).setEntityType(EntityType.ROOM);
+        testMap2.getCellAt(southPoint).setEntityType(EntityType.ROOM);
+        ExitType expected = ExitType.VERTICAL_EXIT;
+        ExitType actual = testMap2.getCellAt(centerPoint).getPotentialExitType();
         assertEquals(expected, actual);
     }
 
     @Test
     public void testGetPotentialEntityFindsXExits() {
-        testMap2.getCellAt(northwestPoint).setEntity(Entity.ROOM);
-        testMap2.getCellAt(northeastPoint).setEntity(Entity.ROOM);
-        testMap2.getCellAt(southwestPoint).setEntity(Entity.ROOM);
-        testMap2.getCellAt(southeastPoint).setEntity(Entity.ROOM);
-        Entity expected = Entity.X_EXIT;
-        Entity actual = testMap2.getCellAt(centerPoint).getPotentialEntity();
+        testMap2.getCellAt(northwestPoint).setEntityType(EntityType.ROOM);
+        testMap2.getCellAt(northeastPoint).setEntityType(EntityType.ROOM);
+        testMap2.getCellAt(southwestPoint).setEntityType(EntityType.ROOM);
+        testMap2.getCellAt(southeastPoint).setEntityType(EntityType.ROOM);
+        ExitType expected = ExitType.X_EXIT;
+        ExitType actual = testMap2.getCellAt(centerPoint).getPotentialExitType();
         assertEquals(expected, actual);
     }
 
     @Test
     public void testGetPotentialEntityFindsForwardDiagonalExits() {
-        testMap2.getCellAt(northeastPoint).setEntity(Entity.ROOM);
-        testMap2.getCellAt(southwestPoint).setEntity(Entity.ROOM);
-        Entity expected = Entity.FORWARD_DIAGONAL_EXIT;
-        Entity actual = testMap2.getCellAt(centerPoint).getPotentialEntity();
+        testMap2.getCellAt(northeastPoint).setEntityType(EntityType.ROOM);
+        testMap2.getCellAt(southwestPoint).setEntityType(EntityType.ROOM);
+        ExitType expected = ExitType.FORWARD_DIAGONAL_EXIT;
+        ExitType actual = testMap2.getCellAt(centerPoint).getPotentialExitType();
         assertEquals(expected, actual);
     }
 
     @Test
     public void testGetPotentialExitReturnsForwardDiagonalExitWithThreeRooms() {
-        testMap2.getCellAt(northwestPoint).setEntity(Entity.ROOM);
-        testMap2.getCellAt(northeastPoint).setEntity(Entity.ROOM);
-        testMap2.getCellAt(southwestPoint).setEntity(Entity.ROOM);
-        Entity expected = Entity.FORWARD_DIAGONAL_EXIT;
-        Entity actual = testMap2.getCellAt(centerPoint).getPotentialEntity();
+        testMap2.getCellAt(northwestPoint).setEntityType(EntityType.ROOM);
+        testMap2.getCellAt(northeastPoint).setEntityType(EntityType.ROOM);
+        testMap2.getCellAt(southwestPoint).setEntityType(EntityType.ROOM);
+        ExitType expected = ExitType.FORWARD_DIAGONAL_EXIT;
+        ExitType actual = testMap2.getCellAt(centerPoint).getPotentialExitType();
         assertEquals(expected, actual);
     }
 
     @Test
     public void testGetPotentialEntityFindsBackwardDiagonalExits() {
-        testMap2.getCellAt(northwestPoint).setEntity(Entity.ROOM);
-        testMap2.getCellAt(southeastPoint).setEntity(Entity.ROOM);
-        Entity expected = Entity.BACKWARD_DIAGONAL_EXIT;
-        Entity actual = testMap2.getCellAt(centerPoint).getPotentialEntity();
+        testMap2.getCellAt(northwestPoint).setEntityType(EntityType.ROOM);
+        testMap2.getCellAt(southeastPoint).setEntityType(EntityType.ROOM);
+        ExitType expected = ExitType.BACKWARD_DIAGONAL_EXIT;
+        ExitType actual = testMap2.getCellAt(centerPoint).getPotentialExitType();
         assertEquals(expected, actual);
     }
 
     @Test
     public void testGetPotentialExitReturnsBackwardDiagonalExitWithThreeRooms() {
-        testMap2.getCellAt(northwestPoint).setEntity(Entity.ROOM);
-        testMap2.getCellAt(northeastPoint).setEntity(Entity.ROOM);
-        testMap2.getCellAt(southeastPoint).setEntity(Entity.ROOM);
-        Entity expected = Entity.BACKWARD_DIAGONAL_EXIT;
-        Entity actual = testMap2.getCellAt(centerPoint).getPotentialEntity();
+        testMap2.getCellAt(northwestPoint).setEntityType(EntityType.ROOM);
+        testMap2.getCellAt(northeastPoint).setEntityType(EntityType.ROOM);
+        testMap2.getCellAt(southeastPoint).setEntityType(EntityType.ROOM);
+        ExitType expected = ExitType.BACKWARD_DIAGONAL_EXIT;
+        ExitType actual = testMap2.getCellAt(centerPoint).getPotentialExitType();
         assertEquals(expected, actual);
     }
 
     @Test
     public void testGetPotentialEntityReturnsNoEntityForNoSurroundingRooms() {
-        Entity expected = Entity.NO_ENTITY;
-        Entity actual = testMap2.getCellAt(centerPoint).getPotentialEntity();
+        ExitType expected = null;
+        ExitType actual = testMap2.getCellAt(centerPoint).getPotentialExitType();
         assertEquals(expected, actual);
     }
 
     @Test
     public void testGetPotentialEntityReturnsNoEntityForRoomToWest() {
-        testMap2.getCellAt(westPoint).setEntity(Entity.ROOM);
-        Entity expected = Entity.NO_ENTITY;
-        Entity actual = testMap2.getCellAt(centerPoint).getPotentialEntity();
+        testMap2.getCellAt(westPoint).setEntityType(EntityType.ROOM);
+        ExitType expected = null;
+        ExitType actual = testMap2.getCellAt(centerPoint).getPotentialExitType();
         assertEquals(expected, actual);
     }
 
     @Test
     public void testGetPotentialEntityReturnsNoEntityForRoomToEast() {
-        testMap2.getCellAt(eastPoint).setEntity(Entity.ROOM);
-        Entity expected = Entity.NO_ENTITY;
-        Entity actual = testMap2.getCellAt(centerPoint).getPotentialEntity();
+        testMap2.getCellAt(eastPoint).setEntityType(EntityType.ROOM);
+        ExitType expected = null;
+        ExitType actual = testMap2.getCellAt(centerPoint).getPotentialExitType();
         assertEquals(expected, actual);
     }
 
     @Test
     public void testGetPotentiaLEntityReturnsNoEntityForRoomToNorth() {
-        testMap2.getCellAt(northPoint).setEntity(Entity.ROOM);
-        Entity expected = Entity.NO_ENTITY;
-        Entity actual = testMap2.getCellAt(centerPoint).getPotentialEntity();
+        testMap2.getCellAt(northPoint).setEntityType(EntityType.ROOM);
+        ExitType expected = null;
+        ExitType actual = testMap2.getCellAt(centerPoint).getPotentialExitType();
         assertEquals(expected, actual);
     }
 
     @Test
     public void testGetPotentialEntityReturnsNoEntityForRoomToSouth() {
-        testMap2.getCellAt(southPoint).setEntity(Entity.ROOM);
-        Entity expected = Entity.NO_ENTITY;
-        Entity actual = testMap2.getCellAt(centerPoint).getPotentialEntity();
+        testMap2.getCellAt(southPoint).setEntityType(EntityType.ROOM);
+        ExitType expected = null;
+        ExitType actual = testMap2.getCellAt(centerPoint).getPotentialExitType();
         assertEquals(expected, actual);
     }
 
     @Test
     public void testGetPotentialEntityReturnsNoEntityForRoomToNorthwest() {
-        testMap2.getCellAt(northwestPoint).setEntity(Entity.ROOM);
-        Entity expected = Entity.NO_ENTITY;
-        Entity actual = testMap2.getCellAt(centerPoint).getPotentialEntity();
+        testMap2.getCellAt(northwestPoint).setEntityType(EntityType.ROOM);
+        ExitType expected = null;
+        ExitType actual = testMap2.getCellAt(centerPoint).getPotentialExitType();
         assertEquals(expected, actual);
     }
 
     @Test
     public void testGetPotentialEntityReturnsNoEntityForRoomToNortheast() {
-        testMap2.getCellAt(northeastPoint).setEntity(Entity.ROOM);
-        Entity expected = Entity.NO_ENTITY;
-        Entity actual = testMap2.getCellAt(centerPoint).getPotentialEntity();
+        testMap2.getCellAt(northeastPoint).setEntityType(EntityType.ROOM);
+        ExitType expected = null;
+        ExitType actual = testMap2.getCellAt(centerPoint).getPotentialExitType();
         assertEquals(expected, actual);
     }
 
     @Test
     public void testGetPotentialEntityReturnsNoEntityForRoomToSouthwest() {
-        testMap2.getCellAt(southwestPoint).setEntity(Entity.ROOM);
-        Entity expected = Entity.NO_ENTITY;
-        Entity actual = testMap2.getCellAt(centerPoint).getPotentialEntity();
+        testMap2.getCellAt(southwestPoint).setEntityType(EntityType.ROOM);
+        ExitType expected = null;
+        ExitType actual = testMap2.getCellAt(centerPoint).getPotentialExitType();
         assertEquals(expected, actual);
     }
 
     @Test
     public void testGetPotentialEntityReturnsNoEntityForRoomToSoutheast() {
-        testMap2.getCellAt(southeastPoint).setEntity(Entity.ROOM);
-        Entity expected = Entity.NO_ENTITY;
-        Entity actual = testMap2.getCellAt(centerPoint).getPotentialEntity();
+        testMap2.getCellAt(southeastPoint).setEntityType(EntityType.ROOM);
+        ExitType expected = null;
+        ExitType actual = testMap2.getCellAt(centerPoint).getPotentialExitType();
         assertEquals(expected, actual);
     }
 
