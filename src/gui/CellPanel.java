@@ -16,7 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 import main.Cell;
-import tools.DefaultPointer;
+import tools.SelectionTool;
 import tools.Tool;
 import tools.ToolEvent;
 import tools.ToolListener;
@@ -39,7 +39,7 @@ public class CellPanel extends JPanel implements ToolListener {
         this.defaultBorder = BorderFactory.createLineBorder(VERY_LIGHT_GRAY);
         this.setBorder(defaultBorder);
         this.setBackground(Color.WHITE);
-        this.selectedTool = new DefaultPointer();
+        this.selectedTool = new SelectionTool();
         ((FlowLayout) this.getLayout()).setVgap(0);
 
         addMouseListener(new MouseAdapter() {
