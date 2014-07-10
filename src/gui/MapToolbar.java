@@ -22,9 +22,9 @@ import tools.ToolListener;
 public class MapToolbar extends JToolBar {
 
     private final String IMAGES = "./resources/images/";
-    private final String SELECTION_TOOL_ICON = IMAGES + "selection_tool.png";
-    private final String ROOM_TOOL_ICON = IMAGES + "room_tool.png";
-    private final String EXIT_TOOL_ICON = IMAGES + "exit_tool.png";
+    private final String SELECTION_TOOL_ICON = IMAGES + "selection_tool_16.png";
+    private final String ROOM_TOOL_ICON = IMAGES + "room_16.png";
+    private final String EXIT_TOOL_ICON = IMAGES + "exit_tool_16.png";
     private final List<JButton> buttons;
     private final List<ToolListener> listeners;
     private Tool selectedTool;
