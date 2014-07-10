@@ -10,8 +10,3 @@ Key features include:
 - 2D, layered mapping of MUD areas.
 - Automatic conversion of maps to LPC.
 - Procedural generation of areas.
-
-Latest Developments
-===================
-
-The essential mapping features are in place.  Now working on allowing the user to assign attributes to each of the rooms.  A very early pre-alpha release has been posted to give the end users an idea of the direction in which the project is going.  An early alpha is still a few weeks away.
