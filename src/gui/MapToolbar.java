@@ -33,7 +33,9 @@ public class MapToolbar extends JToolBar {
     public MapToolbar() {
         this.setFloatable(false);
         this.listeners = new ArrayList<>();
-        this.selectedTool = new SelectionTool();
+        // SelectionTool has to preserve some state, so let's just have one.
+        this.selectionTool = new SelectionTool();
+        this.selectedTool = selectionTool;
 
         ImageIcon selectionToolIcon = new ImageIcon(SELECTION_TOOL_ICON);
         ImageIcon roomToolIcon = new ImageIcon(ROOM_TOOL_ICON);
@@ -58,9 +60,6 @@ public class MapToolbar extends JToolBar {
         selectionToolButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent event) {
-                if (selectionTool == null) {
-                    selectionTool = new SelectionTool();
-                }
                 setSelectedTool(selectionTool);
             }
         });
