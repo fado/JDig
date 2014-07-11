@@ -39,8 +39,11 @@ public class MapToolbar extends JToolBar {
         ImageIcon exitToolIcon = new ImageIcon(EXIT_TOOL_ICON);
 
         final JButton selectionToolButton = new JButton(selectionToolIcon);
+        selectionToolButton.setToolTipText("Selection Tool");
         final JButton roomToolButton = new JButton(roomToolIcon);
+        roomToolButton.setToolTipText(("Room Tool"));
         final JButton exitToolButton = new JButton(exitToolIcon);
+        exitToolButton.setToolTipText("Exit Tool");
 
         this.add(selectionToolButton);
         this.add(roomToolButton);
