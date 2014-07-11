@@ -15,7 +15,6 @@ import main.Map;
 public class MainUI implements Runnable {
 
     private final Map map;
-
     
     public MainUI(Map map) {
         this.map = map;
@@ -38,17 +37,17 @@ public class MainUI implements Runnable {
         constraints.gridy = 0;
         pane.add(toolbar, constraints);
         
-        MapPanel mapPanel = new MapPanel(this.map, toolbar);
+        AttributesPanel attributesPanel = new AttributesPanel();
+        constraints.gridx = 1;
+        constraints.gridy = 1;
+        pane.add(attributesPanel, constraints);
+        
+        MapPanel mapPanel = new MapPanel(this.map, toolbar, attributesPanel);
         constraints.gridx = 0;
         constraints.gridy = 1;
         pane.add(mapPanel, constraints);
-        
-        AttributesPanel attributes = new AttributesPanel();
-        constraints.gridx = 1;
-        constraints.gridy = 1;
-        pane.add(attributes, constraints);
     }
-
+    
     /**
      * Creates a Gui object.
      */

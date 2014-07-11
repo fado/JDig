@@ -40,6 +40,10 @@ public class Cell {
     public Room getRoom() {
         return this.room;
     }
+    
+    public void setRoom() {
+        this.room = new Room();
+    }
 
     public void setFilled(boolean bool) {
         this.filled = bool;

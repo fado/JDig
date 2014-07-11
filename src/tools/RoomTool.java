@@ -34,6 +34,7 @@ public class RoomTool implements Tool {
             cell.setEntityType(EntityType.NO_ENTITY);
         } else if (SwingUtilities.isLeftMouseButton(event)) {
             cell.setEntityType(EntityType.ROOM);
+            cell.setRoom();
         }
     }
 }

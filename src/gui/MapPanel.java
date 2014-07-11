@@ -11,8 +11,11 @@ import main.Map;
  * interface for drawing maps within JDig.
  */
 public class MapPanel extends JPanel {
-
-    public MapPanel(Map map, MapToolbar toolbar) {
+    
+    private AttributesPanel attributesPanel;
+    
+    public MapPanel(Map map, MapToolbar toolbar, AttributesPanel attributesPanel) {
+        this.attributesPanel = attributesPanel;
         setLayout(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
 
@@ -23,6 +26,10 @@ public class MapPanel extends JPanel {
             add(cellUi, constraints);
             toolbar.addToolListener(cellUi);
         }
+    }
+    
+    public AttributesPanel getAttributesPanel() {
+        return this.attributesPanel;
     }
     
 }
