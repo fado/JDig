@@ -15,10 +15,10 @@ import net.miginfocom.swing.MigLayout;
 
 public class AttributesPanel extends JPanel {
     
-    private final JTextField roomNameField;
-    private final JComboBox streetNameField;
-    private final JButton addEditStreetsButton;
-    private Room currentRoom;
+    public final JTextField roomNameField;
+    public final JComboBox streetNameField;
+    public final JButton addEditStreetsButton;
+    public Room currentRoom;
     
     public AttributesPanel() {
         setLayout(new MigLayout());
@@ -47,17 +47,6 @@ public class AttributesPanel extends JPanel {
         contentPanel.add(addEditStreetsButton);
         
         this.add(contentPanel);
-    }
-    
-    public void loadRoom(Room room) {
-        this.currentRoom = room;
-        this.roomNameField.setText(room.getName());
-    }
-    
-    public void saveRoom() {
-        if (currentRoom != null) {
-            this.currentRoom.setName(roomNameField.getText());
-        }
     }
     
 }

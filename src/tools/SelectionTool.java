@@ -5,9 +5,11 @@ import gui.CellPanel;
 import gui.MapPanel;
 import java.awt.event.MouseEvent;
 import main.Cell;
+import main.entities.Room;
 
 public class SelectionTool implements Tool {
-
+    
+    private CellPanel cellPanel;
     private CellPanel currentPanel;
     
     @Override
@@ -22,18 +24,31 @@ public class SelectionTool implements Tool {
 
     @Override
     public void mouseClicked(Cell cell, MouseEvent event) {
-        CellPanel cellPanel = (CellPanel)event.getSource();
+        this.cellPanel = (CellPanel)event.getSource();
         if(cellPanel != currentPanel) {
-            getAttributesPanel(cellPanel).saveRoom();
+            this.saveRoom();
         }
         if(cell.isRoom()) {
-            getAttributesPanel(cellPanel).loadRoom(cell.getRoom());
+            loadRoom(cell.getRoom());
         }
     }
     
-    private AttributesPanel getAttributesPanel(CellPanel cellPanel) {
+    private AttributesPanel getAttributesPanel() {
         MapPanel mapPanel = (MapPanel)cellPanel.getParent();
         return mapPanel.getAttributesPanel();
+    }
+    
+    public void loadRoom(Room room) {
+        AttributesPanel attributesPanel = getAttributesPanel();
+        attributesPanel.currentRoom = room;
+        attributesPanel.roomNameField.setText(room.getName());
+    }
+    
+    public void saveRoom() {
+        AttributesPanel attributesPanel = getAttributesPanel();
+        if (attributesPanel.currentRoom != null) {
+            attributesPanel.currentRoom.setName(attributesPanel.roomNameField.getText());
+        }
     }
     
 }

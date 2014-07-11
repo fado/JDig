@@ -28,6 +28,7 @@ public class MapToolbar extends JToolBar {
     private final List<JButton> buttons;
     private final List<ToolListener> listeners;
     private Tool selectedTool;
+    private Tool selectionTool;
     
     public MapToolbar() {
         this.setFloatable(false);
@@ -57,7 +58,10 @@ public class MapToolbar extends JToolBar {
         selectionToolButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent event) {
-                setSelectedTool(new SelectionTool());
+                if (selectionTool == null) {
+                    selectionTool = new SelectionTool();
+                }
+                setSelectedTool(selectionTool);
             }
         });
 
