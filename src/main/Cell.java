@@ -1,6 +1,8 @@
 package main;
 
 import java.awt.Point;
+import java.util.HashMap;
+import java.util.Map;
 import main.entities.EntityType;
 import main.entities.ExitType;
 import main.entities.Room;
@@ -13,8 +15,6 @@ public class Cell {
     private EntityType currentEntity;
     private boolean filled;
     private Room room;
-    private Cell northCell, southCell, eastCell, westCell, northwestCell,
-            northeastCell, southwestCell, southeastCell;
 
     public Cell(Point point, Level map) {
         this.X = point.x;
@@ -70,40 +70,42 @@ public class Cell {
      * @return - The potential Entity that could exist in the Cell.
      */
     public ExitType getPotentialExitType() {
-        getAdjacentRooms();
+        Map <String, Cell> cells = getAdjacentCells();
         // Check for rooms adjacent horizontally.
-        if (westCell.isRoom() && eastCell.isRoom()) {
+        if (cells.get("westCell").isRoom() && cells.get("eastCell").isRoom()) {
             return ExitType.HORIZONTAL_EXIT;
         }
         // Check for rooms adjacent vertically.
-        if (northCell.isRoom() && southCell.isRoom()) {
+        if (cells.get("northCell").isRoom() && cells.get("southCell").isRoom()) {
             return ExitType.VERTICAL_EXIT;
         }
         // Check for rooms across both diagonal axis.
-        if (northwestCell.isRoom() && northeastCell.isRoom()
-                && southwestCell.isRoom() && southeastCell.isRoom()) {
+        if (cells.get("northwestCell").isRoom() && cells.get("northeastCell").isRoom()
+                && cells.get("southwestCell").isRoom() && cells.get("southeastCell").isRoom()) {
             return ExitType.X_EXIT;
         } 
         // Check for rooms on the southwest/northeast axis.
-        else if (southwestCell.isRoom() && northeastCell.isRoom()) {
+        else if (cells.get("southwestCell").isRoom() && cells.get("northeastCell").isRoom()) {
             return ExitType.FORWARD_DIAGONAL_EXIT;
         } 
         // Check for rooms on the southeast/northwest axis.
-        else if (southeastCell.isRoom() && northwestCell.isRoom()) {
+        else if (cells.get("southeastCell").isRoom() && cells.get("northwestCell").isRoom()) {
             return ExitType.BACKWARD_DIAGONAL_EXIT;
         }
         return null;
     }
     
-    public void getAdjacentRooms() {
-        westCell = parentMap.getCellAdjacentTo(this, Direction.WEST);
-        eastCell = parentMap.getCellAdjacentTo(this, Direction.EAST);
-        northCell = parentMap.getCellAdjacentTo(this, Direction.NORTH);
-        southCell = parentMap.getCellAdjacentTo(this, Direction.SOUTH);
-        northwestCell = parentMap.getCellAdjacentTo(this, Direction.NORTHWEST);
-        northeastCell = parentMap.getCellAdjacentTo(this, Direction.NORTHEAST);
-        southwestCell = parentMap.getCellAdjacentTo(this, Direction.SOUTHWEST);
-        southeastCell = parentMap.getCellAdjacentTo(this, Direction.SOUTHEAST);
+    public Map<String, Cell> getAdjacentCells() {
+        Map <String, Cell> cells = new HashMap<>();
+        cells.put("westCell", parentMap.getCellAdjacentTo(this, Direction.WEST));
+        cells.put("eastCell", parentMap.getCellAdjacentTo(this, Direction.EAST));
+        cells.put("northCell", parentMap.getCellAdjacentTo(this, Direction.NORTH));
+        cells.put("southCell", parentMap.getCellAdjacentTo(this, Direction.SOUTH));
+        cells.put("northwestCell", parentMap.getCellAdjacentTo(this, Direction.NORTHWEST));
+        cells.put("northeastCell", parentMap.getCellAdjacentTo(this, Direction.NORTHEAST));
+        cells.put("southwestCell", parentMap.getCellAdjacentTo(this, Direction.SOUTHWEST));
+        cells.put("southeastCell", parentMap.getCellAdjacentTo(this, Direction.SOUTHEAST));
+        return cells;
     }
-    
+
 }
