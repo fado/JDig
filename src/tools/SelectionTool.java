@@ -10,7 +10,7 @@ import main.entities.Room;
 public class SelectionTool implements Tool {
     
     private CellPanel cellPanel;
-    private CellPanel currentPanel;
+    private Room currentRoom;
     
     @Override
     public void mouseEntered(Cell cell, MouseEvent event) {
@@ -25,11 +25,10 @@ public class SelectionTool implements Tool {
     @Override
     public void mouseClicked(Cell cell, MouseEvent event) {
         this.cellPanel = (CellPanel)event.getSource();
-        if(cellPanel != currentPanel) {
-            this.saveRoom();
-        }
+        this.saveRoom();
         if(cell.isRoom()) {
-            loadRoom(cell.getRoom());
+            this.currentRoom = cell.getRoom();
+            loadRoom(currentRoom);
         }
     }
     
@@ -39,15 +38,15 @@ public class SelectionTool implements Tool {
     }
     
     public void loadRoom(Room room) {
-        AttributesPanel attributesPanel = getAttributesPanel();
-        attributesPanel.currentRoom = room;
-        attributesPanel.roomNameField.setText(room.getName());
+        getAttributesPanel()
+                .roomNameField.setText(room.getName());
     }
     
     public void saveRoom() {
         AttributesPanel attributesPanel = getAttributesPanel();
-        if (attributesPanel.currentRoom != null) {
-            attributesPanel.currentRoom.setName(attributesPanel.roomNameField.getText());
+        if (this.currentRoom != null) {
+            this.currentRoom
+                    .setName(attributesPanel.roomNameField.getText());
         }
     }
     

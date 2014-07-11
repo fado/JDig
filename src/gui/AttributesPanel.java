@@ -10,7 +10,6 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import main.entities.Room;
 import net.miginfocom.swing.MigLayout;
 
 public class AttributesPanel extends JPanel {
@@ -18,7 +17,6 @@ public class AttributesPanel extends JPanel {
     public final JTextField roomNameField;
     public final JComboBox streetNameField;
     public final JButton addEditStreetsButton;
-    public Room currentRoom;
     
     public AttributesPanel() {
         setLayout(new MigLayout());
