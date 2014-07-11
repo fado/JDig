@@ -2,14 +2,14 @@ package tools;
 
 import gui.AttributesPanel;
 import gui.CellPanel;
-import gui.MapPanel;
+import gui.LevelPanel;
 import java.awt.event.MouseEvent;
 import main.Cell;
 import main.entities.Room;
 
 public class SelectionTool implements Tool {
     
-    private CellPanel cellPanel;
+    private CellPanel currentCellPanel;
     private Room currentRoom;
     
     @Override
@@ -24,7 +24,7 @@ public class SelectionTool implements Tool {
 
     @Override
     public void mouseClicked(Cell cell, MouseEvent event) {
-        this.cellPanel = (CellPanel)event.getSource();
+        this.currentCellPanel = (CellPanel)event.getSource();
         this.saveRoom();
         if(cell.isRoom()) {
             this.currentRoom = cell.getRoom();
@@ -33,7 +33,7 @@ public class SelectionTool implements Tool {
     }
     
     private AttributesPanel getAttributesPanel() {
-        MapPanel mapPanel = (MapPanel)cellPanel.getParent();
+        LevelPanel mapPanel = (LevelPanel)currentCellPanel.getParent();
         return mapPanel.getAttributesPanel();
     }
     
