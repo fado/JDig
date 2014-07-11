@@ -7,16 +7,16 @@ import java.io.IOException;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-import main.Map;
+import main.Level;
 
 /**
  * The Gui class specifies the user interface for JDig.
  */
 public class MainUI implements Runnable {
 
-    private final Map map;
+    private final Level map;
     
-    public MainUI(Map map) {
+    public MainUI(Level map) {
         this.map = map;
     }
 
@@ -42,7 +42,7 @@ public class MainUI implements Runnable {
         constraints.gridy = 1;
         pane.add(attributesPanel, constraints);
         
-        MapPanel mapPanel = new MapPanel(this.map, toolbar, attributesPanel);
+        LevelPanel mapPanel = new LevelPanel(this.map, toolbar, attributesPanel);
         constraints.gridx = 0;
         constraints.gridy = 1;
         pane.add(mapPanel, constraints);
