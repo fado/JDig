@@ -33,9 +33,9 @@ public class CellView extends JPanel implements ToolListener {
      * Constructor takes as a parameter the Cell object associated with this
      * CellPanel.
      *
-     * @param cellObject - The Cell object associated with this Cell panel.
+     * @param cell - The Cell object associated with this Cell panel.
      */
-    public CellView(final Cell cellObject) {
+    public CellView(final Cell cell) {
         this.defaultBorder = BorderFactory.createLineBorder(VERY_LIGHT_GRAY);
         this.setBorder(defaultBorder);
         this.setBackground(Color.WHITE);
@@ -45,12 +45,12 @@ public class CellView extends JPanel implements ToolListener {
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent event) {
-                selectedTool.mouseEntered(cellObject, event);
+                selectedTool.mouseEntered(cell, event);
             }
 
             @Override
             public void mouseExited(MouseEvent event) {
-                if (!cellObject.isFilled()) {
+                if (!cell.isFilled()) {
                     CellView.this.removeImage();
                     CellView.this.restoreDefaultBorder();
                 }
@@ -58,7 +58,7 @@ public class CellView extends JPanel implements ToolListener {
 
             @Override
             public void mouseClicked(MouseEvent event) {
-                selectedTool.mouseClicked(cellObject, event);
+                selectedTool.mouseClicked(cell, event);
             }
         });
     }
