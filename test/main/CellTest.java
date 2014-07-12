@@ -17,7 +17,7 @@ public class CellTest {
     private Cell testCellInBounds, testCellOutOfBounds, testCellXOutOfBounds,
             testCellYOutOfBounds;
     private Point validTestPoint, invalidTestPoint, invalidXPoint, invalidYPoint;
-    private Level testMap;
+    private LevelModel testMap;
     
     @Before
     public void setUp() {
@@ -25,7 +25,7 @@ public class CellTest {
         validYCoord = 0;
         invalidXCoord = -1;
         invalidYCoord = -1;
-        testMap = new Level(1, 1);
+        testMap = new LevelModel(1, 1);
         validTestPoint = new Point(validXCoord, validYCoord);
         invalidTestPoint = new Point(invalidXCoord, invalidYCoord);
         invalidXPoint = new Point(invalidXCoord, validYCoord);

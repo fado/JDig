@@ -4,13 +4,13 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import javax.swing.JPanel;
 import main.Cell;
-import main.Level;
+import main.LevelModel;
 
 public class LevelPanel extends JPanel {
     
     private AttributesPanel attributesPanel;
     
-    public LevelPanel(Level level, MapToolbar toolbar, AttributesPanel attributesPanel) {
+    public LevelPanel(LevelModel level, MapToolbar toolbar, AttributesPanel attributesPanel) {
         this.attributesPanel = attributesPanel;
         setLayout(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();

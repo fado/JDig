@@ -10,15 +10,15 @@ import org.junit.Test;
 
 public class MapTest {
 
-    Level testMap1, testMap2;
+    LevelModel testMap1, testMap2;
     Point testPoint, invalidPoint, defaultPoint, northPoint, southPoint,
             eastPoint, westPoint, northwestPoint, northeastPoint,
             southwestPoint, southeastPoint, centerPoint;
 
     @Before
     public void setUp() {
-        testMap1 = new Level(1, 1);
-        testMap2 = new Level(3, 3);
+        testMap1 = new LevelModel(1, 1);
+        testMap2 = new LevelModel(3, 3);
 
         testPoint = new Point(0, 0);
         invalidPoint = new Point(10, 10);

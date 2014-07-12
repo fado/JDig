@@ -11,19 +11,19 @@ public class Cell {
 
     public final int X;
     public final int Y;
-    private final Level parentMap;
+    private final LevelModel parentMap;
     private Entity currentEntity;
     private boolean filled;
     private Room room;
 
-    public Cell(Point point, Level map) {
+    public Cell(Point point, LevelModel map) {
         this.X = point.x;
         this.Y = point.y;
         this.parentMap = map;
         this.currentEntity = Entity.NO_ENTITY;
     }
 
-    public Level getParentMap() {
+    public LevelModel getParentMap() {
         return this.parentMap;
     }
 

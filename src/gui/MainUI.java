@@ -7,16 +7,16 @@ import java.io.IOException;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-import main.Level;
+import main.LevelModel;
 
 /**
  * The Gui class specifies the user interface for JDig.
  */
 public class MainUI implements Runnable {
 
-    private final Level map;
+    private final LevelModel map;
     
-    public MainUI(Level map) {
+    public MainUI(LevelModel map) {
         this.map = map;
     }
 

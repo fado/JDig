@@ -4,12 +4,12 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Level {
+public class LevelModel {
     
     private final List<Cell> allCells;
     private final Cell defaultCell;
     
-    public Level(int maxColumns, int maxRows) {
+    public LevelModel(int maxColumns, int maxRows) {
         this.defaultCell = new Cell(new Point(-1, -1), this);
         this.allCells = new ArrayList<>();
         

@@ -2,13 +2,13 @@ package tools;
 
 import gui.CellPanel;
 import java.awt.event.MouseEvent;
-import main.Level;
+import main.LevelModel;
 import org.junit.Before;
 import org.junit.Test;
 
 public class ExitToolTest {
     
-    Level testMap;
+    LevelModel testMap;
     CellPanel testPanel;
     MouseEvent testEvent;
     
