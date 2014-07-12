@@ -88,8 +88,8 @@ public class MapToolbar extends JToolBar {
 
     protected void fireToolChanged() {
         ToolEvent toolEvent = new ToolEvent(this, getSelectedTool());
-        for (ToolListener eachListener : listeners) {
-            eachListener.toolChanged(toolEvent);
+        for (ToolListener listener : listeners) {
+            listener.toolChanged(toolEvent);
         }
     }
 
