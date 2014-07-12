@@ -14,7 +14,7 @@ import org.junit.Test;
 public class CellTest {
 
     private int validXCoord, validYCoord, invalidXCoord, invalidYCoord;
-    private Cell testCellInBounds, testCellOutOfBounds, testCellXOutOfBounds,
+    private CellModel testCellInBounds, testCellOutOfBounds, testCellXOutOfBounds,
             testCellYOutOfBounds;
     private Point validTestPoint, invalidTestPoint, invalidXPoint, invalidYPoint;
     private LevelModel testMap;
@@ -30,10 +30,10 @@ public class CellTest {
         invalidTestPoint = new Point(invalidXCoord, invalidYCoord);
         invalidXPoint = new Point(invalidXCoord, validYCoord);
         invalidYPoint = new Point(validXCoord, invalidYCoord);
-        testCellInBounds = new Cell(validTestPoint, testMap);
-        testCellOutOfBounds = new Cell(invalidTestPoint, testMap);
-        testCellXOutOfBounds = new Cell(invalidXPoint, testMap);
-        testCellYOutOfBounds = new Cell(invalidYPoint, testMap);
+        testCellInBounds = new CellModel(validTestPoint, testMap);
+        testCellOutOfBounds = new CellModel(invalidTestPoint, testMap);
+        testCellXOutOfBounds = new CellModel(invalidXPoint, testMap);
+        testCellYOutOfBounds = new CellModel(invalidYPoint, testMap);
     }
 
     @Test

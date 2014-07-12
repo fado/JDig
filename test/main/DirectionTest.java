@@ -9,7 +9,7 @@ public class DirectionTest {
     
     Point northOffset, southOffset, eastOffset, westOffset, northwestOffset,
         northeastOffset, southwestOffset, southeastOffset, testPoint;
-    Cell testCell;
+    CellModel testCell;
     
     @Before
     public void setUp() {
@@ -23,7 +23,7 @@ public class DirectionTest {
         southeastOffset = new Point(1, 1);
         
         testPoint = new Point(1, 1);
-        testCell = new Cell(testPoint, null);
+        testCell = new CellModel(testPoint, null);
     }
     
     /**

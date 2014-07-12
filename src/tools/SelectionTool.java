@@ -4,7 +4,7 @@ import gui.AttributesPanel;
 import gui.CellView;
 import gui.LevelView;
 import java.awt.event.MouseEvent;
-import main.Cell;
+import main.CellModel;
 import main.entities.Room;
 
 public class SelectionTool implements Tool {
@@ -13,17 +13,17 @@ public class SelectionTool implements Tool {
     private Room currentRoom;
     
     @Override
-    public void mouseEntered(Cell cell, MouseEvent event) {
+    public void mouseEntered(CellModel cell, MouseEvent event) {
         
     }
     
     @Override
-    public void mouseExited(Cell cell, MouseEvent event) {
+    public void mouseExited(CellModel cell, MouseEvent event) {
         
     }
 
     @Override
-    public void mouseClicked(Cell cell, MouseEvent event) {
+    public void mouseClicked(CellModel cell, MouseEvent event) {
         this.currentCellPanel = (CellView)event.getSource();
         this.saveRoom();
         if(cell.isRoom()) {

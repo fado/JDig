@@ -15,7 +15,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
-import main.Cell;
+import main.CellModel;
 import main.entities.Entity;
 import tools.SelectionTool;
 import tools.Tool;
@@ -36,7 +36,7 @@ public class CellView extends JPanel implements ToolListener {
      *
      * @param cell - The Cell object associated with this Cell panel.
      */
-    public CellView(final Cell cell) {
+    public CellView(final CellModel cell) {
         this.defaultBorder = BorderFactory.createLineBorder(VERY_LIGHT_GRAY);
         this.setBorder(defaultBorder);
         this.setBackground(Color.WHITE);

@@ -37,26 +37,26 @@ public class MapTest {
 
     @Test
     public void testGetAllCellsForOneCellMap() {
-        List<Cell> allCells = testMap1.getAllCells();
+        List<CellModel> allCells = testMap1.getAllCells();
         assertTrue(allCells.size() == 1);
     }
     
     @Test
     public void testGetAllCellsForMultiCellMap() {
-        List<Cell> allCells = testMap2.getAllCells();
+        List<CellModel> allCells = testMap2.getAllCells();
         assertTrue(allCells.size() == 9);
     }
     
     @Test
     public void testGetCellAtReturnsCorrectCell() {
-        Cell cell = testMap1.getCellAt(testPoint);
+        CellModel cell = testMap1.getCellAt(testPoint);
         Point actual = new Point(cell.X, cell.Y);
         assertEquals(testPoint, actual);
     }
     
     @Test
     public void testGetCellAtReturnsDefaultCellForInvalidPoint() {
-        Cell cell = testMap1.getCellAt(invalidPoint);
+        CellModel cell = testMap1.getCellAt(invalidPoint);
         Point actual = new Point(cell.X, cell.Y);
         assertEquals(defaultPoint, actual);
     }
@@ -64,7 +64,7 @@ public class MapTest {
     @Test
     public void testCellAdjacentNorthReturnsNorthForCenter() {
         Point expected = northPoint;
-        Cell cell = testMap2.getCellAdjacentTo(testMap2.getCellAt(centerPoint), Direction.NORTH);
+        CellModel cell = testMap2.getCellAdjacentTo(testMap2.getCellAt(centerPoint), Direction.NORTH);
         Point actual = new Point(cell.X, cell.Y);
         assertEquals(expected, actual);
     }
@@ -72,7 +72,7 @@ public class MapTest {
     @Test
     public void testCellAdjacentSouthReturnsSouthForCenter() {
         Point expected = southPoint;
-        Cell cell = testMap2.getCellAdjacentTo(testMap2.getCellAt(centerPoint), Direction.SOUTH);
+        CellModel cell = testMap2.getCellAdjacentTo(testMap2.getCellAt(centerPoint), Direction.SOUTH);
         Point actual = new Point(cell.X, cell.Y);
         assertEquals(expected, actual);
     }
@@ -80,7 +80,7 @@ public class MapTest {
     @Test
     public void testCellAdjacentEastReturnsEastForCenter() {
         Point expected = eastPoint;
-        Cell cell = testMap2.getCellAdjacentTo(testMap2.getCellAt(centerPoint), Direction.EAST);
+        CellModel cell = testMap2.getCellAdjacentTo(testMap2.getCellAt(centerPoint), Direction.EAST);
         Point actual = new Point(cell.X, cell.Y);
         assertEquals(expected, actual);
     }
@@ -88,7 +88,7 @@ public class MapTest {
     @Test
     public void testCellAdjacentWestReturnsWestForCenter() {
         Point expected = westPoint;
-        Cell cell = testMap2.getCellAdjacentTo(testMap2.getCellAt(centerPoint), Direction.WEST);
+        CellModel cell = testMap2.getCellAdjacentTo(testMap2.getCellAt(centerPoint), Direction.WEST);
         Point actual = new Point(cell.X, cell.Y);
         assertEquals(expected, actual);
     }
@@ -96,7 +96,7 @@ public class MapTest {
     @Test
     public void testCellAdjacentNorthwestReturnsNorthwestForCenter() {
         Point expected = northwestPoint;
-        Cell cell = testMap2.getCellAdjacentTo(testMap2.getCellAt(centerPoint), Direction.NORTHWEST);
+        CellModel cell = testMap2.getCellAdjacentTo(testMap2.getCellAt(centerPoint), Direction.NORTHWEST);
         Point actual = new Point(cell.X, cell.Y);
         assertEquals(expected, actual);
     }
@@ -104,7 +104,7 @@ public class MapTest {
     @Test
     public void testCellAdjacentNortheastReturnsNortheastForCenter() {
         Point expected = northeastPoint;
-        Cell cell = testMap2.getCellAdjacentTo(testMap2.getCellAt(centerPoint), Direction.NORTHEAST);
+        CellModel cell = testMap2.getCellAdjacentTo(testMap2.getCellAt(centerPoint), Direction.NORTHEAST);
         Point actual = new Point(cell.X, cell.Y);
         assertEquals(expected, actual);
     }
@@ -112,7 +112,7 @@ public class MapTest {
     @Test
     public void testCellAdjacentSouthwestReturnsSouthwestForCenter() {
         Point expected = southwestPoint;
-        Cell cell = testMap2.getCellAdjacentTo(testMap2.getCellAt(centerPoint), Direction.SOUTHWEST);
+        CellModel cell = testMap2.getCellAdjacentTo(testMap2.getCellAt(centerPoint), Direction.SOUTHWEST);
         Point actual = new Point(cell.X, cell.Y);
         assertEquals(expected, actual);
     }
@@ -120,7 +120,7 @@ public class MapTest {
     @Test
     public void testCellAdjacentSoutheastReturnsSoutheastForCenter() {
         Point expected = southeastPoint;
-        Cell cell = testMap2.getCellAdjacentTo(testMap2.getCellAt(centerPoint), Direction.SOUTHEAST);
+        CellModel cell = testMap2.getCellAdjacentTo(testMap2.getCellAt(centerPoint), Direction.SOUTHEAST);
         Point actual = new Point(cell.X, cell.Y);
         assertEquals(expected, actual);
     }
@@ -128,7 +128,7 @@ public class MapTest {
     @Test
     public void testCellAdjacentReturnsDefaultCellWhenNoCellFound() {
         Point expected = defaultPoint;
-        Cell cell = testMap2.getCellAdjacentTo(testMap2.getCellAt(northPoint), Direction.NORTH);
+        CellModel cell = testMap2.getCellAdjacentTo(testMap2.getCellAt(northPoint), Direction.NORTH);
         Point actual = new Point(cell.X, cell.Y);
         assertEquals(expected, actual);
     }

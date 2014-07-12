@@ -3,7 +3,7 @@ package gui;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import javax.swing.JPanel;
-import main.Cell;
+import main.CellModel;
 import main.LevelModel;
 
 public class LevelView extends JPanel {
@@ -15,7 +15,7 @@ public class LevelView extends JPanel {
         setLayout(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
 
-        for(Cell cell : level.getAllCells()) {
+        for(CellModel cell : level.getAllCells()) {
             constraints.gridx = cell.X;
             constraints.gridy = cell.Y;
             CellView cellUi = new CellView(cell);
