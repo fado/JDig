@@ -38,7 +38,7 @@ public class ExitTool implements Tool {
         if (SwingUtilities.isRightMouseButton(event)) {
             cell.setEntityType(Entity.NO_ENTITY);
         } else if (SwingUtilities.isLeftMouseButton(event)) {
-            cell.setFilled(true);
+            cell.setEntityType(Entity.EXIT);
         }
     }
  
