@@ -1,7 +1,24 @@
 package gui;
 
+/**
+ * A tool for the automatic generation of LPC class files for Epitaph
+ * developers. Copyright (C) 2014 Fado@Epitaph.
+ *
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation, either version 3 of the License, or (at your option) any later
+ * version.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ *
+ * You should have received a copy of the GNU General Public License along with
+ * this program. If not, see <http://www.gnu.org/licenses/>.
+ */
+
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Image;
 import java.awt.event.MouseAdapter;
@@ -21,6 +38,9 @@ import tools.Tool;
 import tools.ToolEvent;
 import tools.ToolListener;
 
+/**
+ * This panel graphically represents a single cell within a level.
+ */
 public class CellPanel extends JPanel implements ToolListener {
 
     private final Color VERY_LIGHT_GRAY = new Color(224, 224, 224);
@@ -127,17 +147,6 @@ public class CellPanel extends JPanel implements ToolListener {
     }
 
     /**
-     * Returns the preferred size of the MapSquare, as dictated by the
-     * parameters passed to the constructor.
-     *
-     * @return - Dimension object corresponding to the size of the cell.
-     */
-    @Override
-    public Dimension getPreferredSize() {
-        return new Dimension(SIZE, SIZE);
-    }
-
-    /**
      * Fires when the currently selected Tool is changed in the MapToolbar.
      *
      * @param event - The ToolEvent containing a reference to the newly selected
@@ -147,4 +156,5 @@ public class CellPanel extends JPanel implements ToolListener {
     public void toolChanged(ToolEvent event) {
         this.selectedTool = event.getTool();
     }
+    
 }
