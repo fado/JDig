@@ -18,7 +18,7 @@ public class LevelView extends JPanel {
         for(Cell cell : level.getAllCells()) {
             constraints.gridx = cell.X;
             constraints.gridy = cell.Y;
-            CellPanel cellUi = new CellPanel(cell);
+            CellView cellUi = new CellView(cell);
             add(cellUi, constraints);
             toolbar.addToolListener(cellUi);
         }

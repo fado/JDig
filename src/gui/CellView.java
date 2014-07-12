@@ -21,7 +21,7 @@ import tools.Tool;
 import tools.ToolEvent;
 import tools.ToolListener;
 
-public class CellPanel extends JPanel implements ToolListener {
+public class CellView extends JPanel implements ToolListener {
 
     private final Color VERY_LIGHT_GRAY = new Color(224, 224, 224);
     private final int SIZE = 15;
@@ -35,7 +35,7 @@ public class CellPanel extends JPanel implements ToolListener {
      *
      * @param cellObject - The Cell object associated with this Cell panel.
      */
-    public CellPanel(final Cell cellObject) {
+    public CellView(final Cell cellObject) {
         this.defaultBorder = BorderFactory.createLineBorder(VERY_LIGHT_GRAY);
         this.setBorder(defaultBorder);
         this.setBackground(Color.WHITE);
@@ -51,8 +51,8 @@ public class CellPanel extends JPanel implements ToolListener {
             @Override
             public void mouseExited(MouseEvent event) {
                 if (!cellObject.isFilled()) {
-                    CellPanel.this.removeImage();
-                    CellPanel.this.restoreDefaultBorder();
+                    CellView.this.removeImage();
+                    CellView.this.restoreDefaultBorder();
                 }
             }
 
