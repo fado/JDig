@@ -46,16 +46,8 @@ public class Cell {
         this.room = new Room();
     }
 
-    public void setFilled(boolean bool) {
-        this.filled = bool;
-    }
-
     public boolean isRoom() {
         return currentEntity == Entity.ROOM && this.isInBounds();
-    }
-    
-    public boolean isFilled() {
-        return filled;
     }
 
     private boolean isInBounds() {

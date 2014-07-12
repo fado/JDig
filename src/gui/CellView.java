@@ -16,6 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 import main.Cell;
+import main.entities.Entity;
 import tools.SelectionTool;
 import tools.Tool;
 import tools.ToolEvent;
@@ -50,7 +51,7 @@ public class CellView extends JPanel implements ToolListener {
 
             @Override
             public void mouseExited(MouseEvent event) {
-                if (!cell.isFilled()) {
+                if (cell.getEntity().equals(Entity.NO_ENTITY)) {
                     CellView.this.removeImage();
                     CellView.this.restoreDefaultBorder();
                 }

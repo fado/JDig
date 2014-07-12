@@ -16,7 +16,7 @@ public class ExitTool implements Tool {
         CellView cellPanel = (CellView)event.getSource();
         exitType = cell.getPotentialExitType();
         
-        if(!cell.isFilled()) {
+        if(cell.getEntity().equals(Entity.NO_ENTITY)) {
             if(exitType != null) {
                 cellPanel.addImage(exitType.getPath());
                 setBorder(cellPanel, exitType);    
@@ -27,7 +27,7 @@ public class ExitTool implements Tool {
     @Override
     public void mouseExited(Cell cell, MouseEvent event) {
         CellView cellPanel = (CellView)event.getSource();
-        if (!cell.isFilled()) {
+        if (cell.getEntity().equals(Entity.NO_ENTITY)) {
             cellPanel.removeImage();
             cellPanel.restoreDefaultBorder();
         }

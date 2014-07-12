@@ -13,7 +13,7 @@ public class RoomTool implements Tool {
     @Override
     public void mouseEntered(Cell cell, MouseEvent event) {
         CellView cellPanel = (CellView)event.getSource();
-        if (!cell.isFilled()) {
+        if (cell.getEntity().equals(Entity.NO_ENTITY)) {
             cellPanel.addImage(ROOM_IMAGE);
             cellPanel.removeBorder();
         }
@@ -22,7 +22,7 @@ public class RoomTool implements Tool {
     @Override
     public void mouseExited(Cell cell, MouseEvent event) {
         CellView cellPanel = (CellView) event.getSource();
-        if (!cell.isFilled()) {
+        if (cell.getEntity().equals(Entity.NO_ENTITY)) {
             cellPanel.removeImage();
             cellPanel.restoreDefaultBorder();
         }
