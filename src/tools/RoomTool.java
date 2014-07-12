@@ -4,7 +4,7 @@ import gui.CellPanel;
 import java.awt.event.MouseEvent;
 import javax.swing.SwingUtilities;
 import main.Cell;
-import main.entities.EntityType;
+import main.entities.Entity;
 
 public class RoomTool implements Tool {
 
@@ -31,9 +31,9 @@ public class RoomTool implements Tool {
     @Override
     public void mouseClicked(Cell cell, MouseEvent event) {
         if (SwingUtilities.isRightMouseButton(event)) {
-            cell.setEntityType(EntityType.NO_ENTITY);
+            cell.setEntityType(Entity.NO_ENTITY);
         } else if (SwingUtilities.isLeftMouseButton(event)) {
-            cell.setEntityType(EntityType.ROOM);
+            cell.setEntityType(Entity.ROOM);
             cell.setRoom();
         }
     }

@@ -2,7 +2,7 @@
 package main;
 
 import java.awt.Point;
-import main.entities.EntityType;
+import main.entities.Entity;
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,7 +17,7 @@ public class CellTest {
     private Cell testCellInBounds, testCellOutOfBounds, testCellXOutOfBounds,
             testCellYOutOfBounds;
     private Point validTestPoint, invalidTestPoint, invalidXPoint, invalidYPoint;
-    private Map testMap;
+    private Level testMap;
     
     @Before
     public void setUp() {
@@ -25,7 +25,7 @@ public class CellTest {
         validYCoord = 0;
         invalidXCoord = -1;
         invalidYCoord = -1;
-        testMap = new Map(1, 1);
+        testMap = new Level(1, 1);
         validTestPoint = new Point(validXCoord, validYCoord);
         invalidTestPoint = new Point(invalidXCoord, invalidYCoord);
         invalidXPoint = new Point(invalidXCoord, validYCoord);
@@ -53,7 +53,7 @@ public class CellTest {
     
     @Test
     public void testIsFilledReturnsTrueWhenFilled() {
-        testCellInBounds.setEntityType(EntityType.ROOM);
+        testCellInBounds.setEntityType(Entity.ROOM);
         assertTrue(testCellInBounds.isFilled());
     }
     
@@ -64,13 +64,13 @@ public class CellTest {
     
     @Test
     public void testIsRoomReturnsTrueWhenEntityIsRoomInBounds() {
-        testCellInBounds.setEntityType(EntityType.ROOM);
+        testCellInBounds.setEntityType(Entity.ROOM);
         assertTrue(testCellInBounds.isRoom());
     }
     
     @Test
     public void testIsRoomReturnsFalseWhenEntityIsRoomOutOfBounds() {
-        testCellOutOfBounds.setEntityType(EntityType.ROOM);
+        testCellOutOfBounds.setEntityType(Entity.ROOM);
         assertFalse(testCellOutOfBounds.isRoom());
     }
     
@@ -86,13 +86,13 @@ public class CellTest {
     
     @Test
     public void testIsRoomReturnsFalseWhenEntityIsRoomWithXOutOfBounds() {
-        testCellXOutOfBounds.setEntityType(EntityType.ROOM);
+        testCellXOutOfBounds.setEntityType(Entity.ROOM);
         assertFalse(testCellXOutOfBounds.isRoom());
     }
     
     @Test
     public void testIsRoomReturnsFalseWhenEntityIsRoomWithYOutOfBounds() {
-        testCellYOutOfBounds.setEntityType(EntityType.ROOM);
+        testCellYOutOfBounds.setEntityType(Entity.ROOM);
         assertFalse(testCellYOutOfBounds.isRoom());
     }
     

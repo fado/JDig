@@ -4,12 +4,12 @@ import gui.CellPanel;
 import java.awt.event.MouseEvent;
 import javax.swing.SwingUtilities;
 import main.Cell;
-import main.entities.EntityType;
-import main.entities.ExitType;
+import main.entities.Entity;
+import main.entities.Exit;
 
 public class ExitTool implements Tool {
     
-    ExitType exitType;
+    Exit exitType;
     
     @Override
     public void mouseEntered(Cell cell, MouseEvent event) {
@@ -36,16 +36,16 @@ public class ExitTool implements Tool {
     @Override
     public void mouseClicked(Cell cell, MouseEvent event) {
         if (SwingUtilities.isRightMouseButton(event)) {
-            cell.setEntityType(EntityType.NO_ENTITY);
+            cell.setEntityType(Entity.NO_ENTITY);
         } else if (SwingUtilities.isLeftMouseButton(event)) {
             cell.setFilled(true);
         }
     }
  
-    private void setBorder(CellPanel cellPanel, ExitType exitType) {
-        if (exitType == ExitType.VERTICAL_EXIT) {
+    private void setBorder(CellPanel cellPanel, Exit exit) {
+        if (exit == Exit.VERTICAL_EXIT) {
             cellPanel.setVerticalExitBorder();
-        } else if (exitType == ExitType.HORIZONTAL_EXIT) {            
+        } else if (exit == Exit.HORIZONTAL_EXIT) {            
             cellPanel.setHorizontalExitBorder();
         }
     }

@@ -1,7 +1,7 @@
 package main.entities;
 
 public class Room {
-
+    
     private String name;
     
     public void setName(String name) {

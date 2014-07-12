@@ -3,8 +3,8 @@ package main;
 import java.awt.Point;
 import java.util.HashMap;
 import java.util.Map;
-import main.entities.EntityType;
-import main.entities.ExitType;
+import main.entities.Entity;
+import main.entities.Exit;
 import main.entities.Room;
 
 public class Cell {
@@ -12,7 +12,7 @@ public class Cell {
     public final int X;
     public final int Y;
     private final Level parentMap;
-    private EntityType currentEntity;
+    private Entity currentEntity;
     private boolean filled;
     private Room room;
 
@@ -20,18 +20,18 @@ public class Cell {
         this.X = point.x;
         this.Y = point.y;
         this.parentMap = map;
-        this.currentEntity = EntityType.NO_ENTITY;
+        this.currentEntity = Entity.NO_ENTITY;
     }
 
     public Level getParentMap() {
         return this.parentMap;
     }
 
-    public void setEntityType(EntityType entity) {
-        if (entity == EntityType.NO_ENTITY) {
+    public void setEntityType(Entity entity) {
+        if (entity == Entity.NO_ENTITY) {
             this.setFilled(false);
         } else {
-            if (entity == EntityType.ROOM) {
+            if (entity == Entity.ROOM) {
                 room = new Room();
             }
             this.setFilled(true);
@@ -50,13 +50,13 @@ public class Cell {
     public void setFilled(boolean bool) {
         this.filled = bool;
     }
+
+    public boolean isRoom() {
+        return currentEntity == Entity.ROOM && this.isInBounds();
+    }
     
     public boolean isFilled() {
         return filled;
-    }
-
-    public boolean isRoom() {
-        return currentEntity == EntityType.ROOM && this.isInBounds();
     }
 
     private boolean isInBounds() {
@@ -69,28 +69,28 @@ public class Cell {
      *
      * @return - The potential Entity that could exist in the Cell.
      */
-    public ExitType getPotentialExitType() {
+    public Exit getPotentialExitType() {
         Map <String, Cell> cells = getAdjacentCells();
         // Check for rooms adjacent horizontally.
         if (cells.get("westCell").isRoom() && cells.get("eastCell").isRoom()) {
-            return ExitType.HORIZONTAL_EXIT;
+            return Exit.HORIZONTAL_EXIT;
         }
         // Check for rooms adjacent vertically.
         if (cells.get("northCell").isRoom() && cells.get("southCell").isRoom()) {
-            return ExitType.VERTICAL_EXIT;
+            return Exit.VERTICAL_EXIT;
         }
         // Check for rooms across both diagonal axis.
         if (cells.get("northwestCell").isRoom() && cells.get("northeastCell").isRoom()
                 && cells.get("southwestCell").isRoom() && cells.get("southeastCell").isRoom()) {
-            return ExitType.X_EXIT;
+            return Exit.X_EXIT;
         } 
         // Check for rooms on the southwest/northeast axis.
         else if (cells.get("southwestCell").isRoom() && cells.get("northeastCell").isRoom()) {
-            return ExitType.FORWARD_DIAGONAL_EXIT;
+            return Exit.FORWARD_DIAGONAL_EXIT;
         } 
         // Check for rooms on the southeast/northwest axis.
         else if (cells.get("southeastCell").isRoom() && cells.get("northwestCell").isRoom()) {
-            return ExitType.BACKWARD_DIAGONAL_EXIT;
+            return Exit.BACKWARD_DIAGONAL_EXIT;
         }
         return null;
     }

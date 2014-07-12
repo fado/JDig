@@ -1,6 +1,6 @@
 package main.entities;
 
-public enum EntityType {
+public enum Entity {
     NO_ENTITY,
     ROOM,
     EXIT;
