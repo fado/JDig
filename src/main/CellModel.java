@@ -11,7 +11,7 @@ public class CellModel {
     private final LevelModel parentMap;
     private Entity currentEntity;
     private boolean filled;
-    private Room room;
+    private RoomModel room;
 
     public CellModel(Point point, LevelModel map) {
         this.X = point.x;
@@ -26,7 +26,7 @@ public class CellModel {
 
     public void setEntityType(Entity entity) {
         if (entity == Entity.ROOM) {
-            room = new Room();
+            room = new RoomModel();
         }
         this.currentEntity = entity;
     }
@@ -35,12 +35,12 @@ public class CellModel {
         return this.currentEntity;
     }
 
-    public Room getRoom() {
+    public RoomModel getRoom() {
         return this.room;
     }
     
     public void setRoom() {
-        this.room = new Room();
+        this.room = new RoomModel();
     }
 
     public boolean isRoom() {

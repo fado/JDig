@@ -3,10 +3,10 @@ package main;
 public class ExitModel {
     
     private final Direction direction;
-    private final Room destination;
+    private final RoomModel destination;
     private final ExitType exitType;
     
-    public ExitModel(Direction direction, Room destination, ExitType exitType) {
+    public ExitModel(Direction direction, RoomModel destination, ExitType exitType) {
         this.direction = direction;
         this.destination = destination;
         this.exitType = exitType;
@@ -16,7 +16,7 @@ public class ExitModel {
         return this.direction;
     }
     
-    public Room getDestination() {
+    public RoomModel getDestination() {
         return this.destination;
     }
     

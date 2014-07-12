@@ -5,12 +5,12 @@ import gui.CellView;
 import gui.LevelView;
 import java.awt.event.MouseEvent;
 import main.CellModel;
-import main.Room;
+import main.RoomModel;
 
 public class SelectionTool implements Tool {
     
     private CellView currentCellPanel;
-    private Room currentRoom;
+    private RoomModel currentRoom;
     
     @Override
     public void mouseEntered(CellModel cell, MouseEvent event) {
@@ -37,7 +37,7 @@ public class SelectionTool implements Tool {
         return mapPanel.getAttributesPanel();
     }
     
-    public void loadRoom(Room room) {
+    public void loadRoom(RoomModel room) {
         getAttributesPanel()
                 .roomNameField.setText(room.getName());
     }
