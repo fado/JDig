@@ -4,7 +4,7 @@ import gui.CellView;
 import java.awt.event.MouseEvent;
 import javax.swing.SwingUtilities;
 import main.CellModel;
-import main.entities.Entity;
+import main.Entity;
 
 public class RoomTool implements Tool {
 

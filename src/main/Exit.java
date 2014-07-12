@@ -1,4 +1,4 @@
-package main.entities;
+package main;
 
 public enum Exit {
     HORIZONTAL_EXIT("./resources/images/horizontal_exit.png"),

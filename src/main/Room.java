@@ -1,4 +1,6 @@
-package main.entities;
+package main;
+
+import java.util.Map;
 
 public class Room {
     

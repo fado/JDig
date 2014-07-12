@@ -1,4 +1,4 @@
-package main.entities;
+package main;
 
 public enum ExitType {
     ROAD,

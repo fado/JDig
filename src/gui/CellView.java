@@ -16,7 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 import main.CellModel;
-import main.entities.Entity;
+import main.Entity;
 import tools.SelectionTool;
 import tools.Tool;
 import tools.ToolEvent;

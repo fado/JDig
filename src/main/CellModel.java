@@ -3,9 +3,6 @@ package main;
 import java.awt.Point;
 import java.util.HashMap;
 import java.util.Map;
-import main.entities.Entity;
-import main.entities.Exit;
-import main.entities.Room;
 
 public class CellModel {
 

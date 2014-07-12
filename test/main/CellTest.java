@@ -2,7 +2,6 @@
 package main;
 
 import java.awt.Point;
-import main.entities.Entity;
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;

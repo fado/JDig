@@ -4,8 +4,8 @@ import gui.CellView;
 import java.awt.event.MouseEvent;
 import javax.swing.SwingUtilities;
 import main.CellModel;
-import main.entities.Entity;
-import main.entities.Exit;
+import main.Entity;
+import main.Exit;
 
 public class ExitTool implements Tool {
     

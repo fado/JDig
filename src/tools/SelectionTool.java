@@ -5,7 +5,7 @@ import gui.CellView;
 import gui.LevelView;
 import java.awt.event.MouseEvent;
 import main.CellModel;
-import main.entities.Room;
+import main.Room;
 
 public class SelectionTool implements Tool {
     
