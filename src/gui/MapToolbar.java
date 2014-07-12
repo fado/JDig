@@ -25,7 +25,6 @@ public class MapToolbar extends JToolBar {
     private final String SELECTION_TOOL_ICON = IMAGES + "selection_tool_16.png";
     private final String ROOM_TOOL_ICON = IMAGES + "room_16.png";
     private final String EXIT_TOOL_ICON = IMAGES + "exit_tool_16.png";
-    private final List<JButton> buttons;
     private final List<ToolListener> listeners;
     private Tool selectedTool;
     private Tool selectionTool;
@@ -51,11 +50,6 @@ public class MapToolbar extends JToolBar {
         this.add(selectionToolButton);
         this.add(roomToolButton);
         this.add(exitToolButton);
-
-        buttons = new ArrayList<>();
-        buttons.add(selectionToolButton);
-        buttons.add(roomToolButton);
-        buttons.add(exitToolButton);
         
         selectionToolButton.addActionListener(new ActionListener() {
             @Override
