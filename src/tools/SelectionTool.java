@@ -2,7 +2,7 @@ package tools;
 
 import gui.AttributesPanel;
 import gui.CellPanel;
-import gui.LevelPanel;
+import gui.LevelView;
 import java.awt.event.MouseEvent;
 import main.Cell;
 import main.entities.Room;
@@ -33,7 +33,7 @@ public class SelectionTool implements Tool {
     }
     
     private AttributesPanel getAttributesPanel() {
-        LevelPanel mapPanel = (LevelPanel)currentCellPanel.getParent();
+        LevelView mapPanel = (LevelView)currentCellPanel.getParent();
         return mapPanel.getAttributesPanel();
     }
     

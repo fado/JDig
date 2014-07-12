@@ -6,11 +6,11 @@ import javax.swing.JPanel;
 import main.Cell;
 import main.LevelModel;
 
-public class LevelPanel extends JPanel {
+public class LevelView extends JPanel {
     
     private AttributesPanel attributesPanel;
     
-    public LevelPanel(LevelModel level, MapToolbar toolbar, AttributesPanel attributesPanel) {
+    public LevelView(LevelModel level, MapToolbar toolbar, AttributesPanel attributesPanel) {
         this.attributesPanel = attributesPanel;
         setLayout(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();

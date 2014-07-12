@@ -42,7 +42,7 @@ public class MainUI implements Runnable {
         constraints.gridy = 1;
         pane.add(attributesPanel, constraints);
         
-        LevelPanel mapPanel = new LevelPanel(this.map, toolbar, attributesPanel);
+        LevelView mapPanel = new LevelView(this.map, toolbar, attributesPanel);
         constraints.gridx = 0;
         constraints.gridy = 1;
         pane.add(mapPanel, constraints);
