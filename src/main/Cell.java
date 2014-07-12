@@ -28,17 +28,16 @@ public class Cell {
     }
 
     public void setEntityType(Entity entity) {
-        if (entity == Entity.NO_ENTITY) {
-            this.setFilled(false);
-        } else {
-            if (entity == Entity.ROOM) {
-                room = new Room();
-            }
-            this.setFilled(true);
+        if (entity == Entity.ROOM) {
+            room = new Room();
         }
         this.currentEntity = entity;
     }
     
+    public Entity getEntity() {
+        return this.currentEntity;
+    }
+
     public Room getRoom() {
         return this.room;
     }
