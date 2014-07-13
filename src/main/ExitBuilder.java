@@ -44,23 +44,23 @@ public class ExitBuilder {
             buildExit("southCell", Direction.NORTH, cell);
         }
         if (exitDirection == ExitDirection.BACKWARD_DIAGONAL_EXIT) {
-            buildBackwardDiagonal(cells, cell);
+            buildBackwardDiagonal(cell);
         }
         if (exitDirection == ExitDirection.FORWARD_DIAGONAL_EXIT) {
-            buildForwardDiagonal(cells, cell);
+            buildForwardDiagonal(cell);
         }
         if (exitDirection == ExitDirection.X_EXIT) {
-            buildBackwardDiagonal(cells, cell);
-            buildForwardDiagonal(cells, cell);
+            buildBackwardDiagonal(cell);
+            buildForwardDiagonal(cell);
         }
     }
     
-    private static void buildForwardDiagonal(Map <String, Cell> cells, Cell cell) {
+    private static void buildForwardDiagonal(Cell cell) {
         buildExit("northeastCell", Direction.SOUTHWEST, cell);
         buildExit("southwestCell", Direction.NORTHEAST, cell);
     }
     
-    private static void buildBackwardDiagonal(Map<String, Cell> cells, Cell cell) {
+    private static void buildBackwardDiagonal(Cell cell) {
         buildExit("northwestCell", Direction.SOUTHEAST, cell);
         buildExit("southeastCell", Direction.NORTHWEST, cell);
     }
