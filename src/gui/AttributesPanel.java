@@ -33,43 +33,46 @@ import net.miginfocom.swing.MigLayout;
 
 public class AttributesPanel extends JPanel {
     
-    public final JTextField roomNameField;
-    public final JComboBox streetNameField;
-    public final JButton addEditStreetsButton;
-    public final JPanel contentPanel = new JPanel();
+    public JTextField roomNameField;
+    public JComboBox streetNameField;
+    public JButton addEditStreetsButton;
+    //public JPanel contentPanel = new JPanel();
     public JPanel exitPanel = new JPanel();
     
     public AttributesPanel() {
         setLayout(new MigLayout());
-        setPreferredSize(new Dimension(400,400));
-        
-        contentPanel.setLayout(new MigLayout());
-        contentPanel.setOpaque(true);
-        contentPanel.setBorder(BorderFactory.createTitledBorder("Attributes"));
-        
-        roomNameField = new JTextField(20);
-        streetNameField = new JComboBox();
-        addEditStreetsButton = new JButton("Add/Edit Streets");
-        
-        JLabel roomNameLabel = new JLabel("Room name:", JLabel.RIGHT);
-        JLabel streetNameLabel = new JLabel("Street name:", JLabel.RIGHT);
-        roomNameLabel.setLabelFor(roomNameField);
-        streetNameLabel.setLabelFor(streetNameField);
-        
-        contentPanel.add(roomNameLabel);
-        contentPanel.add(roomNameField, "wrap");
-        contentPanel.add(streetNameLabel);
-        contentPanel.add(streetNameField);
-        contentPanel.add(addEditStreetsButton);
-        
-        exitPanel = drawExitPanel();
-        
-        this.add(contentPanel, "wrap");
+        this.add(createContentPanel(), "wrap");
+        exitPanel = createExitPanel();
         this.add(exitPanel);
-        
     }
     
-    private JPanel drawExitPanel() {
+    private JPanel createContentPanel() {
+        JPanel panel = new JPanel();
+        panel.setLayout(new MigLayout());
+        panel.setPreferredSize(new Dimension(400,200));
+        panel.setOpaque(true);
+        panel.setBorder(BorderFactory.createTitledBorder("Attributes"));
+        
+        roomNameField = new JTextField(20);
+        JLabel roomNameLabel = new JLabel("Room name:", JLabel.RIGHT);
+        roomNameLabel.setLabelFor(roomNameField);
+        
+        streetNameField = new JComboBox();
+        JLabel streetNameLabel = new JLabel("Street name:", JLabel.RIGHT);
+        streetNameLabel.setLabelFor(streetNameField);
+        
+        addEditStreetsButton = new JButton("Add/Edit Streets");
+        
+        panel.add(roomNameLabel);
+        panel.add(roomNameField, "wrap");
+        panel.add(streetNameLabel);
+        panel.add(streetNameField);
+        panel.add(addEditStreetsButton);
+        
+        return panel;
+    }
+    
+    private JPanel createExitPanel() {
         JPanel panel = new JPanel();
         panel.setLayout(new MigLayout());
         panel.setPreferredSize(new Dimension(400,200));
