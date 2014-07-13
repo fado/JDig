@@ -24,7 +24,7 @@ import java.util.HashMap;
 import java.util.Map;
 import main.Direction;
 import main.Entity;
-import main.ExitImage;
+import main.ExitDirection;
 
 public class Cell {
 
@@ -78,28 +78,28 @@ public class Cell {
      *
      * @return - The potential Entity that could exist in the Cell.
      */
-    public ExitImage getPotentialExitType() {
+    public ExitDirection getPotentialExitDirection() {
         Map <String, Cell> cells = getAdjacentCells();
         // Check for rooms adjacent horizontally.
         if (cells.get("westCell").isRoom() && cells.get("eastCell").isRoom()) {
-            return ExitImage.HORIZONTAL_EXIT;
+            return ExitDirection.HORIZONTAL_EXIT;
         }
         // Check for rooms adjacent vertically.
         if (cells.get("northCell").isRoom() && cells.get("southCell").isRoom()) {
-            return ExitImage.VERTICAL_EXIT;
+            return ExitDirection.VERTICAL_EXIT;
         }
         // Check for rooms across both diagonal axis.
         if (cells.get("northwestCell").isRoom() && cells.get("northeastCell").isRoom()
                 && cells.get("southwestCell").isRoom() && cells.get("southeastCell").isRoom()) {
-            return ExitImage.X_EXIT;
+            return ExitDirection.X_EXIT;
         } 
         // Check for rooms on the southwest/northeast axis.
         else if (cells.get("southwestCell").isRoom() && cells.get("northeastCell").isRoom()) {
-            return ExitImage.FORWARD_DIAGONAL_EXIT;
+            return ExitDirection.FORWARD_DIAGONAL_EXIT;
         } 
         // Check for rooms on the southeast/northwest axis.
         else if (cells.get("southeastCell").isRoom() && cells.get("northwestCell").isRoom()) {
-            return ExitImage.BACKWARD_DIAGONAL_EXIT;
+            return ExitDirection.BACKWARD_DIAGONAL_EXIT;
         }
         return null;
     }

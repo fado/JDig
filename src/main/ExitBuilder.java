@@ -10,10 +10,10 @@ public class ExitBuilder {
     }
     
     public static void build(Cell cell) {
-        ExitImage exit = cell.getPotentialExitType();
+        ExitDirection exit = cell.getPotentialExitDirection();
         
         
-        if (exit == ExitImage.HORIZONTAL_EXIT) {
+        if (exit == ExitDirection.HORIZONTAL_EXIT) {
             
         }
     }

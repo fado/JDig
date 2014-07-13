@@ -19,26 +19,26 @@ package tools;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+import data.Cell;
 import gui.CellView;
 import java.awt.event.MouseEvent;
 import javax.swing.SwingUtilities;
-import data.Cell;
 import main.Entity;
-import main.ExitImage;
+import main.ExitDirection;
 
 public class ExitTool implements Tool {
     
-    ExitImage exitType;
+    ExitDirection exitDirection;
     
     @Override
     public void mouseEntered(Cell cell, MouseEvent event) {
         CellView cellPanel = (CellView)event.getSource();
-        exitType = cell.getPotentialExitType();
+        exitDirection = cell.getPotentialExitDirection();
         
         if(cell.getEntity().equals(Entity.NO_ENTITY)) {
-            if(exitType != null) {
-                cellPanel.addImage(exitType.getPath());
-                setBorder(cellPanel, exitType);    
+            if(exitDirection != null) {
+                cellPanel.addImage(exitDirection.getPath());
+                setBorder(cellPanel, exitDirection);    
             }
         }
     }
@@ -61,10 +61,10 @@ public class ExitTool implements Tool {
         }
     }
  
-    private void setBorder(CellView cellPanel, ExitImage exit) {
-        if (exit == ExitImage.VERTICAL_EXIT) {
+    private void setBorder(CellView cellPanel, ExitDirection exit) {
+        if (exit == ExitDirection.VERTICAL_EXIT) {
             cellPanel.setVerticalExitBorder();
-        } else if (exit == ExitImage.HORIZONTAL_EXIT) {            
+        } else if (exit == ExitDirection.HORIZONTAL_EXIT) {            
             cellPanel.setHorizontalExitBorder();
         }
     }

@@ -19,7 +19,7 @@ package main;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-public enum ExitImage {
+public enum ExitDirection {
     HORIZONTAL_EXIT("./resources/images/horizontal_exit.png"),
     VERTICAL_EXIT("./resources/images/vertical_exit.png"),
     FORWARD_DIAGONAL_EXIT("./resources/images/forward_diagonal_exit.png"),
@@ -28,7 +28,7 @@ public enum ExitImage {
     
     private final String path;
     
-    ExitImage(String path) {
+    ExitDirection(String path) {
         this.path = path;
     }
     
