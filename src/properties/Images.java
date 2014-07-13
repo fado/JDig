@@ -19,6 +19,7 @@ package properties;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
@@ -29,7 +30,7 @@ public class Images {
     
     public Images() {
         try {
-            properties.load(Images.class.getResourceAsStream("images.properties"));
+            properties.load(new FileInputStream("./config/images.properties"));
         } catch (IOException e) {
             // TO-DO: Something.
         }

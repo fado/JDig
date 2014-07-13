@@ -1,5 +1,6 @@
 package properties;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
@@ -28,7 +29,7 @@ public class Localization {
     
     public Localization() {
         try {
-            properties.load(Localization.class.getResourceAsStream("./config/localization.properties"));
+            properties.load(new FileInputStream("./config/localization.properties"));
         } catch (IOException e) {
             // TO-DO: Something.
         }
