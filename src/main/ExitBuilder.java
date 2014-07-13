@@ -25,25 +25,23 @@ import java.util.Map;
 
 public class ExitBuilder {
     
+    private static Map <String, Cell> cells;
+    
     private ExitBuilder() {
         
     }
     
     public static void build(Cell cell) {
         ExitDirection exitDirection = cell.getPotentialExitDirection();
-        Map <String, Cell> cells = cell.getAdjacentCells();
+        cells = cell.getAdjacentCells();
         
         if (exitDirection == ExitDirection.HORIZONTAL_EXIT) {
-            cells.get("westCell").getRoom().addExit(new Exit(Direction.EAST, 
-                    cell.getRoom(), ExitType.PATH));
-            cells.get("eastCell").getRoom().addExit(new Exit(Direction.WEST, 
-                    cell.getRoom(), ExitType.PATH));
+            buildExit("westCell", Direction.EAST, cell);
+            buildExit("eastCell", Direction.WEST, cell);
         }
         if (exitDirection == ExitDirection.VERTICAL_EXIT) {
-            cells.get("northCell").getRoom().addExit(new Exit(Direction.SOUTH, 
-                    cell.getRoom(), ExitType.PATH));
-            cells.get("southCell").getRoom().addExit(new Exit(Direction.NORTH, 
-                    cell.getRoom(), ExitType.PATH));
+            buildExit("northCell", Direction.SOUTH, cell);
+            buildExit("southCell", Direction.NORTH, cell);
         }
         if (exitDirection == ExitDirection.BACKWARD_DIAGONAL_EXIT) {
             buildBackwardDiagonal(cells, cell);
@@ -58,16 +56,16 @@ public class ExitBuilder {
     }
     
     private static void buildForwardDiagonal(Map <String, Cell> cells, Cell cell) {
-        cells.get("northeastCell").getRoom().addExit(new Exit(Direction.SOUTHWEST, 
-                cell.getRoom(), ExitType.PATH));
-        cells.get("southwestCell").getRoom().addExit(new Exit(Direction.NORTHEAST, 
-                cell.getRoom(), ExitType.PATH));
+        buildExit("northeastCell", Direction.SOUTHWEST, cell);
+        buildExit("southwestCell", Direction.NORTHEAST, cell);
     }
     
     private static void buildBackwardDiagonal(Map<String, Cell> cells, Cell cell) {
-        cells.get("northwestCell").getRoom().addExit(new Exit(Direction.SOUTHEAST, 
-                cell.getRoom(), ExitType.PATH));
-        cells.get("southeastCell").getRoom().addExit(new Exit(Direction.NORTHWEST, 
-                cell.getRoom(), ExitType.PATH));
+        buildExit("northwestCell", Direction.SOUTHEAST, cell);
+        buildExit("southeastCell", Direction.NORTHWEST, cell);
+    }
+    
+    private static void buildExit(String exit, Direction direction, Cell cell) {
+        cells.get(exit).getRoom().addExit(new Exit(direction, cell.getRoom(), ExitType.PATH));
     }
 }
