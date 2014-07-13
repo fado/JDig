@@ -66,6 +66,7 @@ public class SelectionTool implements Tool {
         if (this.currentRoom != null) {
             this.currentRoom
                     .setName(attributesPanel.roomNameField.getText());
+                    
         }
     }
     
