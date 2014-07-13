@@ -36,8 +36,7 @@ public class AttributesPanel extends JPanel {
     public JTextField roomNameField;
     public JComboBox streetNameField;
     public JButton addEditStreetsButton;
-    //public JPanel contentPanel = new JPanel();
-    public JPanel exitPanel = new JPanel();
+    public JPanel exitPanel;
     
     public AttributesPanel() {
         setLayout(new MigLayout());
@@ -78,6 +77,7 @@ public class AttributesPanel extends JPanel {
         panel.setPreferredSize(new Dimension(400,200));
         panel.setOpaque(true);
         panel.setBorder(BorderFactory.createTitledBorder("Exits"));
+        
         return panel;
     }    
     
@@ -89,5 +89,6 @@ public class AttributesPanel extends JPanel {
             exitPanel.add(exitLabel, "wrap");
         }
         exitPanel.validate();
+        exitPanel.repaint();
     }
 }
