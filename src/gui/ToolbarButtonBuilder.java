@@ -24,12 +24,12 @@ import properties.Localization;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-public class ToolbarButton {
+public class ToolbarButtonBuilder {
 
     private static final Images images = new Images();
     private static final Localization localization = new Localization();
 
-    private ToolbarButton() {
+    private ToolbarButtonBuilder() {
 
     }
 

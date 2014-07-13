@@ -48,9 +48,9 @@ public class MapToolbar extends JToolBar {
         setDefaultProperties();
         setDefaultSelectionTool();
         
-        this.add(ToolbarButton.build("SelectionTool", getToolChangeAction(selectionTool)));
-        this.add(ToolbarButton.build("RoomTool", getToolChangeAction(roomTool)));
-        this.add(ToolbarButton.build("ExitTool", getToolChangeAction(exitTool)));
+        this.add(ToolbarButtonBuilder.build("SelectionTool", getToolChangeAction(selectionTool)));
+        this.add(ToolbarButtonBuilder.build("RoomTool", getToolChangeAction(roomTool)));
+        this.add(ToolbarButtonBuilder.build("ExitTool", getToolChangeAction(exitTool)));
     }
 
     private void setDefaultProperties() {
