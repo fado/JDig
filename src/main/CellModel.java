@@ -29,7 +29,6 @@ public class CellModel {
     public final int Y;
     private final LevelModel parentMap;
     private Entity currentEntity;
-    private boolean filled;
     private RoomModel room;
 
     public CellModel(Point point, LevelModel map) {
@@ -39,7 +38,7 @@ public class CellModel {
         this.currentEntity = Entity.NO_ENTITY;
     }
 
-    public LevelModel getParentMap() {
+    public LevelModel getParent() {
         return this.parentMap;
     }
 
