@@ -1,6 +1,6 @@
 package main;
 
-import data.CellModel;
+import data.Cell;
 
 /**
  * JDig, a tool for the automatic generation of LPC class files for Epitaph 
@@ -42,11 +42,11 @@ public enum Direction {
         this.yOffset = yOffset;
     }
     
-    public int translateX(CellModel cell) {
+    public int translateX(Cell cell) {
         return cell.X + this.xOffset;
     }
     
-    public int translateY(CellModel cell) {
+    public int translateY(Cell cell) {
         return cell.Y + this.yOffset;
     }
 }

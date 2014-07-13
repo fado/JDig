@@ -20,10 +20,10 @@ package tools;
  */
 
 import java.awt.event.MouseEvent;
-import data.CellModel;
+import data.Cell;
 
 public interface Tool {
-    public void mouseEntered(CellModel cell, MouseEvent event);
-    public void mouseExited(CellModel cell, MouseEvent event);
-    public void mouseClicked(CellModel cell, MouseEvent event);
+    public void mouseEntered(Cell cell, MouseEvent event);
+    public void mouseExited(Cell cell, MouseEvent event);
+    public void mouseClicked(Cell cell, MouseEvent event);
 }

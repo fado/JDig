@@ -22,16 +22,16 @@ package tools;
 import gui.CellView;
 import java.awt.event.MouseEvent;
 import javax.swing.SwingUtilities;
-import data.CellModel;
+import data.Cell;
 import main.Entity;
-import main.Exit;
+import main.ExitImage;
 
 public class ExitTool implements Tool {
     
-    Exit exitType;
+    ExitImage exitType;
     
     @Override
-    public void mouseEntered(CellModel cell, MouseEvent event) {
+    public void mouseEntered(Cell cell, MouseEvent event) {
         CellView cellPanel = (CellView)event.getSource();
         exitType = cell.getPotentialExitType();
         
@@ -44,7 +44,7 @@ public class ExitTool implements Tool {
     }
 
     @Override
-    public void mouseExited(CellModel cell, MouseEvent event) {
+    public void mouseExited(Cell cell, MouseEvent event) {
         CellView cellPanel = (CellView)event.getSource();
         if (cell.getEntity().equals(Entity.NO_ENTITY)) {
             cellPanel.removeImage();
@@ -53,7 +53,7 @@ public class ExitTool implements Tool {
     }
 
     @Override
-    public void mouseClicked(CellModel cell, MouseEvent event) {
+    public void mouseClicked(Cell cell, MouseEvent event) {
         if (SwingUtilities.isRightMouseButton(event)) {
             cell.setEntityType(Entity.NO_ENTITY);
         } else if (SwingUtilities.isLeftMouseButton(event)) {
@@ -61,10 +61,10 @@ public class ExitTool implements Tool {
         }
     }
  
-    private void setBorder(CellView cellPanel, Exit exit) {
-        if (exit == Exit.VERTICAL_EXIT) {
+    private void setBorder(CellView cellPanel, ExitImage exit) {
+        if (exit == ExitImage.VERTICAL_EXIT) {
             cellPanel.setVerticalExitBorder();
-        } else if (exit == Exit.HORIZONTAL_EXIT) {            
+        } else if (exit == ExitImage.HORIZONTAL_EXIT) {            
             cellPanel.setHorizontalExitBorder();
         }
     }

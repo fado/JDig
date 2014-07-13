@@ -1,8 +1,5 @@
 package data;
 
-import main.Direction;
-import main.ExitType;
-
 /**
  * JDig, a tool for the automatic generation of LPC class files for Epitaph 
  * developers.
@@ -22,27 +19,27 @@ import main.ExitType;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-public class ExitModel {
+import java.util.List;
+
+public class Room {
     
-    private final Direction direction;
-    private final RoomModel destination;
-    private final ExitType exitType;
+    private String name;
+    private List<Exit> exits;
     
-    public ExitModel(Direction direction, RoomModel destination, ExitType exitType) {
-        this.direction = direction;
-        this.destination = destination;
-        this.exitType = exitType;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+       return this.name;
     }
     
-    public Direction getDirection() {
-        return this.direction;
+    public void addExit(Exit exit) {
+        exits.add(exit);
     }
     
-    public RoomModel getDestination() {
-        return this.destination;
+    public List<Exit> getExits() {
+        return this.exits;
     }
     
-    public ExitType getExitType() {
-        return this.exitType;
-    }
 }

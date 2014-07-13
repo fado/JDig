@@ -1,6 +1,7 @@
 package main;
 
-import data.CellModel;
+import data.Cell;
+import data.Level;
 
 public class ExitBuilder {
     
@@ -8,7 +9,12 @@ public class ExitBuilder {
         
     }
     
-    public static void build(CellModel cell) {
+    public static void build(Cell cell) {
+        ExitImage exit = cell.getPotentialExitType();
         
+        
+        if (exit == ExitImage.HORIZONTAL_EXIT) {
+            
+        }
     }
 }

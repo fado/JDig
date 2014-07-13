@@ -22,19 +22,19 @@ package gui;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import javax.swing.JPanel;
-import data.CellModel;
-import data.LevelModel;
+import data.Cell;
+import data.Level;
 
 public class LevelView extends JPanel {
     
     private AttributesPanel attributesPanel;
     
-    public LevelView(LevelModel level, MapToolbar toolbar, AttributesPanel attributesPanel) {
+    public LevelView(Level level, MapToolbar toolbar, AttributesPanel attributesPanel) {
         this.attributesPanel = attributesPanel;
         setLayout(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
 
-        for(CellModel cell : level.getAllCells()) {
+        for(Cell cell : level.getAllCells()) {
             constraints.gridx = cell.X;
             constraints.gridy = cell.Y;
             CellView cellUi = new CellView(cell);

@@ -2,13 +2,13 @@ package tools;
 
 import gui.CellView;
 import java.awt.event.MouseEvent;
-import data.LevelModel;
+import data.Level;
 import org.junit.Before;
 import org.junit.Test;
 
 public class ExitToolTest {
     
-    LevelModel testMap;
+    Level testMap;
     CellView testPanel;
     MouseEvent testEvent;
     

@@ -1,8 +1,8 @@
 
 package main;
 
-import data.LevelModel;
-import data.CellModel;
+import data.Level;
+import data.Cell;
 import java.awt.Point;
 import static org.junit.Assert.*;
 import org.junit.Before;
@@ -15,10 +15,10 @@ import org.junit.Test;
 public class CellTest {
 
     private int validXCoord, validYCoord, invalidXCoord, invalidYCoord;
-    private CellModel testCellInBounds, testCellOutOfBounds, testCellXOutOfBounds,
+    private Cell testCellInBounds, testCellOutOfBounds, testCellXOutOfBounds,
             testCellYOutOfBounds;
     private Point validTestPoint, invalidTestPoint, invalidXPoint, invalidYPoint;
-    private LevelModel testMap;
+    private Level testMap;
     
     @Before
     public void setUp() {
@@ -26,15 +26,15 @@ public class CellTest {
         validYCoord = 0;
         invalidXCoord = -1;
         invalidYCoord = -1;
-        testMap = new LevelModel(1, 1);
+        testMap = new Level(1, 1);
         validTestPoint = new Point(validXCoord, validYCoord);
         invalidTestPoint = new Point(invalidXCoord, invalidYCoord);
         invalidXPoint = new Point(invalidXCoord, validYCoord);
         invalidYPoint = new Point(validXCoord, invalidYCoord);
-        testCellInBounds = new CellModel(validTestPoint, testMap);
-        testCellOutOfBounds = new CellModel(invalidTestPoint, testMap);
-        testCellXOutOfBounds = new CellModel(invalidXPoint, testMap);
-        testCellYOutOfBounds = new CellModel(invalidYPoint, testMap);
+        testCellInBounds = new Cell(validTestPoint, testMap);
+        testCellOutOfBounds = new Cell(invalidTestPoint, testMap);
+        testCellXOutOfBounds = new Cell(invalidXPoint, testMap);
+        testCellYOutOfBounds = new Cell(invalidYPoint, testMap);
     }
 
     @Test

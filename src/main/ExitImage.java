@@ -1,4 +1,4 @@
-package data;
+package main;
 
 /**
  * JDig, a tool for the automatic generation of LPC class files for Epitaph 
@@ -19,27 +19,20 @@ package data;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import java.util.List;
-
-public class RoomModel {
+public enum ExitImage {
+    HORIZONTAL_EXIT("./resources/images/horizontal_exit.png"),
+    VERTICAL_EXIT("./resources/images/vertical_exit.png"),
+    FORWARD_DIAGONAL_EXIT("./resources/images/forward_diagonal_exit.png"),
+    BACKWARD_DIAGONAL_EXIT("./resources/images/back_diagonal_exit.png"),
+    X_EXIT("./resources/images/x_exit.png");
     
-    private String name;
-    private List<ExitModel> exits;
+    private final String path;
     
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getName() {
-       return this.name;
+    ExitImage(String path) {
+        this.path = path;
     }
     
-    public void addExit(ExitModel exit) {
-        exits.add(exit);
+    public String getPath() {
+        return this.path;
     }
-    
-    public List<ExitModel> getExits() {
-        return this.exits;
-    }
-    
 }

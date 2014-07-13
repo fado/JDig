@@ -1,6 +1,6 @@
 package main;
 
-import data.CellModel;
+import data.Cell;
 import java.awt.Point;
 import static org.junit.Assert.*;
 import org.junit.Before;
@@ -10,7 +10,7 @@ public class DirectionTest {
     
     Point northOffset, southOffset, eastOffset, westOffset, northwestOffset,
         northeastOffset, southwestOffset, southeastOffset, testPoint;
-    CellModel testCell;
+    Cell testCell;
     
     @Before
     public void setUp() {
@@ -24,7 +24,7 @@ public class DirectionTest {
         southeastOffset = new Point(1, 1);
         
         testPoint = new Point(1, 1);
-        testCell = new CellModel(testPoint, null);
+        testCell = new Cell(testPoint, null);
     }
     
     /**

@@ -19,13 +19,15 @@ package main;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import data.LevelModel;
+
+
+import data.Level;
 import gui.MainUI;
 
 public class Jdig {
 
     public static void main(String[] args) {
-        MainUI ui = new MainUI(new LevelModel(40, 40));
+        MainUI ui = new MainUI(new Level(40, 40));
         ui.run();
     }
 }

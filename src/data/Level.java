@@ -24,18 +24,18 @@ import java.util.ArrayList;
 import java.util.List;
 import main.Direction;
 
-public class LevelModel {
+public class Level {
     
-    private final List<CellModel> allCells;
-    private final CellModel defaultCell;
+    private final List<Cell> allCells;
+    private final Cell defaultCell;
     
-    public LevelModel(int maxColumns, int maxRows) {
-        this.defaultCell = new CellModel(new Point(-1, -1), this);
+    public Level(int maxColumns, int maxRows) {
+        this.defaultCell = new Cell(new Point(-1, -1), this);
         this.allCells = new ArrayList<>();
         
         for (int rows = 0; rows < maxColumns; rows++) {
             for (int columns = 0; columns < maxRows; columns++) {
-                CellModel cell = new CellModel(new Point(columns, rows), this);
+                Cell cell = new Cell(new Point(columns, rows), this);
                 this.addCell(cell);
             }
         }
@@ -47,7 +47,7 @@ public class LevelModel {
      * 
      * @param cell - The Cell to be added.
      */
-    private void addCell(CellModel cell) {
+    private void addCell(Cell cell) {
         allCells.add(cell);
     }
     
@@ -57,8 +57,8 @@ public class LevelModel {
      * @param point - The Point at which the cell lies.
      * @return - The Cell at the specified point.
      */
-    public CellModel getCellAt(Point point) {
-        for (CellModel cell : allCells) {
+    public Cell getCellAt(Point point) {
+        for (Cell cell : allCells) {
             if (cell.X == point.x && cell.Y == point.y) {
                 return cell;
             }
@@ -71,7 +71,7 @@ public class LevelModel {
      * 
      * @return - A List containing all Cells in the Map.
      */
-    public List<CellModel> getAllCells() {
+    public List<Cell> getAllCells() {
         return this.allCells;
     }
     
@@ -83,8 +83,8 @@ public class LevelModel {
      * @param direction - The direction in which we are looking.
      * @return - The Cell found.
      */
-    public CellModel getCellAdjacentTo(CellModel referenceCell, Direction direction) {
-        for (CellModel cell : allCells) {
+    public Cell getCellAdjacentTo(Cell referenceCell, Direction direction) {
+        for (Cell cell : allCells) {
             if(cell.X == direction.translateX(referenceCell) && 
                     cell.Y == direction.translateY(referenceCell)) {
                 return cell;

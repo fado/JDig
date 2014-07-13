@@ -23,26 +23,26 @@ import gui.AttributesPanel;
 import gui.CellView;
 import gui.LevelView;
 import java.awt.event.MouseEvent;
-import data.CellModel;
-import data.RoomModel;
+import data.Cell;
+import data.Room;
 
 public class SelectionTool implements Tool {
     
     private CellView currentCellPanel;
-    private RoomModel currentRoom;
+    private Room currentRoom;
     
     @Override
-    public void mouseEntered(CellModel cell, MouseEvent event) {
+    public void mouseEntered(Cell cell, MouseEvent event) {
         
     }
     
     @Override
-    public void mouseExited(CellModel cell, MouseEvent event) {
+    public void mouseExited(Cell cell, MouseEvent event) {
         
     }
 
     @Override
-    public void mouseClicked(CellModel cell, MouseEvent event) {
+    public void mouseClicked(Cell cell, MouseEvent event) {
         this.currentCellPanel = (CellView)event.getSource();
         this.saveRoom();
         if(cell.isRoom()) {
@@ -56,7 +56,7 @@ public class SelectionTool implements Tool {
         return mapPanel.getAttributesPanel();
     }
     
-    public void loadRoom(RoomModel room) {
+    public void loadRoom(Room room) {
         getAttributesPanel()
                 .roomNameField.setText(room.getName());
     }
