@@ -57,16 +57,15 @@ public class SelectionTool implements Tool {
     }
     
     public void loadRoom(Room room) {
-        getAttributesPanel()
-                .roomNameField.setText(room.getName());
+        getAttributesPanel().roomNameField.setText(room.getName());
+        getAttributesPanel().updateExitPanel(room);
+               
     }
     
     public void saveRoom() {
         AttributesPanel attributesPanel = getAttributesPanel();
         if (this.currentRoom != null) {
-            this.currentRoom
-                    .setName(attributesPanel.roomNameField.getText());
-                    
+            this.currentRoom.setName(attributesPanel.roomNameField.getText());
         }
     }
     

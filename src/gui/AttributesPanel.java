@@ -19,7 +19,10 @@ package gui;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+import data.Exit;
+import data.Room;
 import java.awt.Dimension;
+import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -33,17 +36,16 @@ public class AttributesPanel extends JPanel {
     public final JTextField roomNameField;
     public final JComboBox streetNameField;
     public final JButton addEditStreetsButton;
+    public final JPanel contentPanel = new JPanel();
+    public JPanel exitPanel = new JPanel();
     
     public AttributesPanel() {
         setLayout(new MigLayout());
         setPreferredSize(new Dimension(400,400));
         
-        JPanel contentPanel = new JPanel();
         contentPanel.setLayout(new MigLayout());
         contentPanel.setOpaque(true);
-        //contentPanel.setBackground(Color.WHITE);
-        contentPanel.setBorder(
-                BorderFactory.createTitledBorder("Attributes"));
+        contentPanel.setBorder(BorderFactory.createTitledBorder("Attributes"));
         
         roomNameField = new JTextField(20);
         streetNameField = new JComboBox();
@@ -60,7 +62,29 @@ public class AttributesPanel extends JPanel {
         contentPanel.add(streetNameField);
         contentPanel.add(addEditStreetsButton);
         
-        this.add(contentPanel);
+        exitPanel = drawExitPanel();
+        
+        this.add(contentPanel, "wrap");
+        this.add(exitPanel);
+        
     }
     
+    private JPanel drawExitPanel() {
+        JPanel panel = new JPanel();
+        panel.setLayout(new MigLayout());
+        panel.setPreferredSize(new Dimension(400,200));
+        panel.setOpaque(true);
+        panel.setBorder(BorderFactory.createTitledBorder("Exits"));
+        return panel;
+    }    
+    
+    public void updateExitPanel(Room room) {
+        List<Exit> exits = room.getExits();
+        exitPanel.removeAll();
+        for(Exit exit : exits) {
+            JLabel exitLabel = new JLabel(exit.getDirection().toString(), JLabel.RIGHT);
+            exitPanel.add(exitLabel, "wrap");
+        }
+        exitPanel.validate();
+    }
 }
