@@ -19,12 +19,13 @@ package data;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Room {
     
     private String name;
-    private List<Exit> exits;
+    private List<Exit> exits = new ArrayList<>();
     
     public void setName(String name) {
         this.name = name;
