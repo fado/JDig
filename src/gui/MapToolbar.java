@@ -55,12 +55,12 @@ public class MapToolbar extends JToolBar {
 
     private void setDefaultProperties() {
         this.setFloatable(false);
-    }
-    
-    private void setDefaultSelectionTool() {
         this.selectionTool = new SelectionTool();
         this.roomTool = new RoomTool();
         this.exitTool = new ExitTool();
+    }
+    
+    private void setDefaultSelectionTool() {
         this.selectedTool = selectionTool;
     }
     
