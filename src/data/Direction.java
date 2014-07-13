@@ -1,4 +1,6 @@
-package main;
+package data;
+
+import data.Cell;
 
 /**
  * JDig, a tool for the automatic generation of LPC class files for Epitaph 
@@ -19,20 +21,32 @@ package main;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-public enum ExitDirection {
-    HORIZONTAL_EXIT("./resources/images/horizontal_exit.png"),
-    VERTICAL_EXIT("./resources/images/vertical_exit.png"),
-    FORWARD_DIAGONAL_EXIT("./resources/images/forward_diagonal_exit.png"),
-    BACKWARD_DIAGONAL_EXIT("./resources/images/back_diagonal_exit.png"),
-    X_EXIT("./resources/images/x_exit.png");
+/**
+ * Possible compass directions within the MUD's exit structure.
+ */
+public enum Direction {
+    NORTH(0, -1),
+    SOUTH(0, 1),
+    EAST(1, 0),
+    WEST(-1, 0),
+    NORTHEAST(1, -1),
+    NORTHWEST(-1, -1),
+    SOUTHEAST(1, 1),
+    SOUTHWEST(-1, 1);
     
-    private final String path;
+    public final int xOffset;
+    public final int yOffset;
     
-    ExitDirection(String path) {
-        this.path = path;
+    Direction (int xOffset, int yOffset) {
+        this.xOffset = xOffset;
+        this.yOffset = yOffset;
     }
     
-    public String getPath() {
-        return this.path;
+    public int translateX(Cell cell) {
+        return cell.X + this.xOffset;
+    }
+    
+    public int translateY(Cell cell) {
+        return cell.Y + this.yOffset;
     }
 }

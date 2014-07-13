@@ -1,4 +1,4 @@
-package main;
+package data;
 
 /**
  * JDig, a tool for the automatic generation of LPC class files for Epitaph 
@@ -19,8 +19,20 @@ package main;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-public enum Entity {
-    NO_ENTITY,
-    ROOM,
-    EXIT;
+public enum ExitDirection {
+    HORIZONTAL_EXIT("./resources/images/horizontal_exit.png"),
+    VERTICAL_EXIT("./resources/images/vertical_exit.png"),
+    FORWARD_DIAGONAL_EXIT("./resources/images/forward_diagonal_exit.png"),
+    BACKWARD_DIAGONAL_EXIT("./resources/images/back_diagonal_exit.png"),
+    X_EXIT("./resources/images/x_exit.png");
+    
+    private final String path;
+    
+    ExitDirection(String path) {
+        this.path = path;
+    }
+    
+    public String getPath() {
+        return this.path;
+    }
 }

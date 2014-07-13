@@ -22,7 +22,6 @@ package data;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
-import main.Direction;
 
 public class Level {
     

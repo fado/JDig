@@ -23,9 +23,8 @@ import data.Cell;
 import gui.CellView;
 import java.awt.event.MouseEvent;
 import javax.swing.SwingUtilities;
-import main.Entity;
-import main.ExitBuilder;
-import main.ExitDirection;
+import data.Entity;
+import data.ExitDirection;
 
 public class ExitTool implements Tool {
     

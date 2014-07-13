@@ -1,6 +1,7 @@
 
 package main;
 
+import data.Entity;
 import data.Level;
 import data.Cell;
 import java.awt.Point;

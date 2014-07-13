@@ -23,7 +23,7 @@ import gui.CellView;
 import java.awt.event.MouseEvent;
 import javax.swing.SwingUtilities;
 import data.Cell;
-import main.Entity;
+import data.Entity;
 
 public class RoomTool implements Tool {
 

@@ -1,5 +1,6 @@
 package main;
 
+import data.Direction;
 import data.Cell;
 import java.awt.Point;
 import static org.junit.Assert.*;

@@ -1,5 +1,8 @@
 package main;
 
+import data.Direction;
+import data.Entity;
+import data.ExitDirection;
 import data.Level;
 import data.Cell;
 import java.awt.Point;

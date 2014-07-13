@@ -22,9 +22,6 @@ package data;
 import java.awt.Point;
 import java.util.HashMap;
 import java.util.Map;
-import main.Direction;
-import main.Entity;
-import main.ExitDirection;
 
 public class Cell {
 
