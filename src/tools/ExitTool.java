@@ -24,6 +24,7 @@ import gui.CellView;
 import java.awt.event.MouseEvent;
 import javax.swing.SwingUtilities;
 import main.Entity;
+import main.ExitBuilder;
 import main.ExitDirection;
 
 public class ExitTool implements Tool {
@@ -58,6 +59,7 @@ public class ExitTool implements Tool {
             cell.setEntityType(Entity.NO_ENTITY);
         } else if (SwingUtilities.isLeftMouseButton(event)) {
             cell.setEntityType(Entity.EXIT);
+            ExitBuilder.build(cell);
         }
     }
  
