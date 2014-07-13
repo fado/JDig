@@ -20,7 +20,7 @@ package tools;
  */
 
 import java.awt.event.MouseEvent;
-import main.CellModel;
+import data.CellModel;
 
 public interface Tool {
     public void mouseEntered(CellModel cell, MouseEvent event);

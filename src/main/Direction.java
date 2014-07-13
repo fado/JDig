@@ -1,5 +1,7 @@
 package main;
 
+import data.CellModel;
+
 /**
  * JDig, a tool for the automatic generation of LPC class files for Epitaph 
  * developers.

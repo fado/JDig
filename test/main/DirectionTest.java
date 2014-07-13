@@ -1,5 +1,6 @@
 package main;
 
+import data.CellModel;
 import java.awt.Point;
 import static org.junit.Assert.*;
 import org.junit.Before;

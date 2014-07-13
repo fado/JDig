@@ -1,4 +1,4 @@
-package main;
+package data;
 
 /**
  * JDig, a tool for the automatic generation of LPC class files for Epitaph 
@@ -22,6 +22,7 @@ package main;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
+import main.Direction;
 
 public class LevelModel {
     

@@ -22,8 +22,8 @@ package gui;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import javax.swing.JPanel;
-import main.CellModel;
-import main.LevelModel;
+import data.CellModel;
+import data.LevelModel;
 
 public class LevelView extends JPanel {
     

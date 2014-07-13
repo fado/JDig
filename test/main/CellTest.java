@@ -1,6 +1,8 @@
 
 package main;
 
+import data.LevelModel;
+import data.CellModel;
 import java.awt.Point;
 import static org.junit.Assert.*;
 import org.junit.Before;
@@ -47,7 +49,7 @@ public class CellTest {
     
     @Test
     public void testdGetParentMapReturnsMap() {
-        assertEquals(testMap, testCellInBounds.getParentMap());
+        assertEquals(testMap, testCellInBounds.getParent());
     }
     
     @Test

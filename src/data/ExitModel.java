@@ -1,4 +1,7 @@
-package main;
+package data;
+
+import main.Direction;
+import main.ExitType;
 
 /**
  * JDig, a tool for the automatic generation of LPC class files for Epitaph 

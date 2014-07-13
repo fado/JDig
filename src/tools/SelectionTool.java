@@ -23,8 +23,8 @@ import gui.AttributesPanel;
 import gui.CellView;
 import gui.LevelView;
 import java.awt.event.MouseEvent;
-import main.CellModel;
-import main.RoomModel;
+import data.CellModel;
+import data.RoomModel;
 
 public class SelectionTool implements Tool {
     

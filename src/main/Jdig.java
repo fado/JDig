@@ -19,6 +19,7 @@ package main;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+import data.LevelModel;
 import gui.MainUI;
 
 public class Jdig {

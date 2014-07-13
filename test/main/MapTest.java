@@ -1,5 +1,7 @@
 package main;
 
+import data.LevelModel;
+import data.CellModel;
 import java.awt.Point;
 import java.util.List;
 import static org.junit.Assert.*;

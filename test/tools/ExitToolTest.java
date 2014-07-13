@@ -2,7 +2,7 @@ package tools;
 
 import gui.CellView;
 import java.awt.event.MouseEvent;
-import main.LevelModel;
+import data.LevelModel;
 import org.junit.Before;
 import org.junit.Test;
 

@@ -22,7 +22,7 @@ package tools;
 import gui.CellView;
 import java.awt.event.MouseEvent;
 import javax.swing.SwingUtilities;
-import main.CellModel;
+import data.CellModel;
 import main.Entity;
 import main.Exit;
 
