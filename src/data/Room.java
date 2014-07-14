@@ -24,7 +24,7 @@ import java.util.List;
 
 public class Room {
     
-    private String name;
+    private String name = "";
     private List<Exit> exits = new ArrayList<>();
     
     public void setName(String name) {
