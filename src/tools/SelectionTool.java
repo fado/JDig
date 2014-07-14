@@ -20,21 +20,14 @@ package tools;
  */
 
 import data.Cell;
-import data.Room;
-import gen.LpcBuilder;
 import gui.AttributesPanel;
 import gui.CellView;
 import gui.LevelView;
 import java.awt.event.MouseEvent;
-import java.io.FileNotFoundException;
-import java.io.UnsupportedEncodingException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class SelectionTool implements Tool {
     
-    private CellView currentCellPanel;
-    private Room currentRoom;
+    private CellView currentCellView;
     
     @Override
     public void mouseEntered(Cell cell, MouseEvent event) {
@@ -48,35 +41,15 @@ public class SelectionTool implements Tool {
 
     @Override
     public void mouseClicked(Cell cell, MouseEvent event) {
-        this.currentCellPanel = (CellView)event.getSource();
-        this.saveRoom();
+        currentCellView = (CellView)event.getSource();
         if(cell.isRoom()) {
-            this.currentRoom = cell.getRoom();
-            loadRoom(currentRoom);
-            try {
-                LpcBuilder builder = new LpcBuilder(cell.getRoom());
-            } catch (FileNotFoundException | UnsupportedEncodingException ex) {
-                
-            }
+            getAttributesPanel().load(cell.getRoom());
         }
     }
     
     private AttributesPanel getAttributesPanel() {
-        LevelView mapPanel = (LevelView)currentCellPanel.getParent();
+        LevelView mapPanel = (LevelView)currentCellView.getParent();
         return mapPanel.getAttributesPanel();
-    }
-    
-    public void loadRoom(Room room) {
-        getAttributesPanel().roomNameField.setText(room.getName());
-        getAttributesPanel().updateExitPanel(room);
-               
-    }
-    
-    public void saveRoom() {
-        AttributesPanel attributesPanel = getAttributesPanel();
-        if (this.currentRoom != null) {
-            this.currentRoom.setName(attributesPanel.roomNameField.getText());
-        }
     }
     
 }
