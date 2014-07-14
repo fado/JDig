@@ -20,7 +20,7 @@ package tools;
  */
 
 import data.Cell;
-import gui.CellView;
+import gui.CellPanel;
 import java.awt.event.MouseEvent;
 import javax.swing.SwingUtilities;
 import data.Entity;
@@ -32,7 +32,7 @@ public class ExitTool implements Tool {
     
     @Override
     public void mouseEntered(Cell cell, MouseEvent event) {
-        CellView cellPanel = (CellView)event.getSource();
+        CellPanel cellPanel = (CellPanel)event.getSource();
         exitDirection = cell.getPotentialExitDirection();
         
         if(cell.getEntity().equals(Entity.NO_ENTITY)) {
@@ -45,7 +45,7 @@ public class ExitTool implements Tool {
 
     @Override
     public void mouseExited(Cell cell, MouseEvent event) {
-        CellView cellPanel = (CellView)event.getSource();
+        CellPanel cellPanel = (CellPanel)event.getSource();
         if (cell.getEntity().equals(Entity.NO_ENTITY)) {
             cellPanel.removeImage();
             cellPanel.restoreDefaultBorder();
@@ -62,7 +62,7 @@ public class ExitTool implements Tool {
         }
     }
  
-    private void setBorder(CellView cellPanel, ExitDirection exit) {
+    private void setBorder(CellPanel cellPanel, ExitDirection exit) {
         if (exit == ExitDirection.VERTICAL_EXIT) {
             cellPanel.setVerticalExitBorder();
         } else if (exit == ExitDirection.HORIZONTAL_EXIT) {            
