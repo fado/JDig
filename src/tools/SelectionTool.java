@@ -20,14 +20,16 @@ package tools;
  */
 
 import data.Cell;
-import gui.AttributesPanel;
-import gui.CellView;
-import gui.LevelView;
+import gui.InfoPanel;
 import java.awt.event.MouseEvent;
 
 public class SelectionTool implements Tool {
     
-    private CellView currentCellView;
+    private InfoPanel infoPanel;
+    
+    public SelectionTool(InfoPanel infoPanel) {
+        this.infoPanel = infoPanel;
+    }
     
     @Override
     public void mouseEntered(Cell cell, MouseEvent event) {
@@ -41,15 +43,9 @@ public class SelectionTool implements Tool {
 
     @Override
     public void mouseClicked(Cell cell, MouseEvent event) {
-        currentCellView = (CellView)event.getSource();
         if(cell.isRoom()) {
-            getAttributesPanel().load(cell.getRoom());
+            infoPanel.load(cell.getRoom());
         }
-    }
-    
-    private AttributesPanel getAttributesPanel() {
-        LevelView mapPanel = (LevelView)currentCellView.getParent();
-        return mapPanel.getAttributesPanel();
     }
     
 }
