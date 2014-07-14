@@ -22,6 +22,8 @@ package gui;
 import data.Exit;
 import data.Room;
 import java.awt.Dimension;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -31,12 +33,13 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import net.miginfocom.swing.MigLayout;
 
-public class AttributesPanel extends JPanel {
+public class AttributesPanel extends JPanel implements FocusListener {
     
     public JTextField roomNameField;
     public JComboBox streetNameField;
     public JButton addEditStreetsButton;
     public JPanel exitPanel;
+    private Room currentRoom;
     
     public AttributesPanel() {
         setLayout(new MigLayout());
@@ -55,6 +58,7 @@ public class AttributesPanel extends JPanel {
         roomNameField = new JTextField(20);
         JLabel roomNameLabel = new JLabel("Room name:", JLabel.RIGHT);
         roomNameLabel.setLabelFor(roomNameField);
+        roomNameField.addFocusListener(this);
         
         streetNameField = new JComboBox();
         JLabel streetNameLabel = new JLabel("Street name:", JLabel.RIGHT);
@@ -90,5 +94,24 @@ public class AttributesPanel extends JPanel {
         }
         exitPanel.validate();
         exitPanel.repaint();
+    }
+    
+    public void load(Room room) {
+        this.currentRoom = room;
+        roomNameField.setText(currentRoom.getName());
+        updateExitPanel(room);
+    }
+
+    @Override
+    public void focusGained(FocusEvent fe) {
+        System.out.println("Focus gained.");
+    }
+
+    @Override
+    public void focusLost(FocusEvent fe) {
+        if (this.currentRoom != null) {
+            this.currentRoom.setName(roomNameField.getText());
+            System.out.println("Setting name...");
+        }
     }
 }
