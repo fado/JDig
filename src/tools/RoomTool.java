@@ -19,11 +19,12 @@ package tools;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+import data.Cell;
+import data.Entity;
+import data.Room;
 import gui.CellView;
 import java.awt.event.MouseEvent;
 import javax.swing.SwingUtilities;
-import data.Cell;
-import data.Entity;
 
 public class RoomTool implements Tool {
 
@@ -53,7 +54,7 @@ public class RoomTool implements Tool {
             cell.setEntityType(Entity.NO_ENTITY);
         } else if (SwingUtilities.isLeftMouseButton(event)) {
             cell.setEntityType(Entity.ROOM);
-            cell.setRoom();
+            cell.setRoom(new Room());
         }
     }
 }
