@@ -33,7 +33,7 @@ public class LevelView extends JPanel {
         this.attributesPanel = attributesPanel;
         setLayout(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
-
+        
         for(Cell cell : level.getAllCells()) {
             constraints.gridx = cell.X;
             constraints.gridy = cell.Y;
