@@ -22,7 +22,7 @@ package tools;
 import data.Cell;
 import data.Entity;
 import data.Room;
-import gui.CellView;
+import gui.CellPanel;
 import java.awt.event.MouseEvent;
 import javax.swing.SwingUtilities;
 
@@ -32,7 +32,7 @@ public class RoomTool implements Tool {
     
     @Override
     public void mouseEntered(Cell cell, MouseEvent event) {
-        CellView cellPanel = (CellView)event.getSource();
+        CellPanel cellPanel = (CellPanel)event.getSource();
         if (cell.getEntity().equals(Entity.NO_ENTITY)) {
             cellPanel.addImage(ROOM_IMAGE);
             cellPanel.removeBorder();
@@ -41,7 +41,7 @@ public class RoomTool implements Tool {
     
     @Override
     public void mouseExited(Cell cell, MouseEvent event) {
-        CellView cellPanel = (CellView) event.getSource();
+        CellPanel cellPanel = (CellPanel) event.getSource();
         if (cell.getEntity().equals(Entity.NO_ENTITY)) {
             cellPanel.removeImage();
             cellPanel.restoreDefaultBorder();
