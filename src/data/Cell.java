@@ -57,8 +57,8 @@ public class Cell {
         return this.room;
     }
     
-    public void setRoom() {
-        this.room = new Room();
+    public void setRoom(Room room) {
+        this.room = room;
     }
 
     public boolean isRoom() {
