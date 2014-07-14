@@ -19,11 +19,12 @@ package tools;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import data.ExitType;
-import data.ExitDirection;
-import data.Direction;
 import data.Cell;
+import data.Direction;
 import data.Exit;
+import data.ExitDirection;
+import data.ExitType;
+import data.Room;
 import java.util.Map;
 
 public class ExitBuilder {
@@ -39,36 +40,38 @@ public class ExitBuilder {
         cells = cell.getAdjacentCells();
         
         if (exitDirection == ExitDirection.HORIZONTAL_EXIT) {
-            buildExit("westCell", Direction.EAST, cell);
-            buildExit("eastCell", Direction.WEST, cell);
+            buildExit("westCell", "eastCell", Direction.EAST);
+            buildExit("eastCell", "westCell", Direction.WEST);
         }
         if (exitDirection == ExitDirection.VERTICAL_EXIT) {
-            buildExit("northCell", Direction.SOUTH, cell);
-            buildExit("southCell", Direction.NORTH, cell);
+            buildExit("northCell", "southCell", Direction.SOUTH);
+            buildExit("southCell", "northCell", Direction.NORTH);
         }
         if (exitDirection == ExitDirection.BACKWARD_DIAGONAL_EXIT) {
-            buildBackwardDiagonal(cell);
+            buildBackwardDiagonal();
         }
         if (exitDirection == ExitDirection.FORWARD_DIAGONAL_EXIT) {
-            buildForwardDiagonal(cell);
+            buildForwardDiagonal();
         }
         if (exitDirection == ExitDirection.X_EXIT) {
-            buildBackwardDiagonal(cell);
-            buildForwardDiagonal(cell);
+            buildBackwardDiagonal();
+            buildForwardDiagonal();
         }
     }
     
-    private static void buildForwardDiagonal(Cell cell) {
-        buildExit("northeastCell", Direction.SOUTHWEST, cell);
-        buildExit("southwestCell", Direction.NORTHEAST, cell);
+    private static void buildForwardDiagonal() {
+        buildExit("northeastCell", "southwestCell", Direction.SOUTHWEST);
+        buildExit("southwestCell", "northeastCell", Direction.NORTHEAST);
     }
     
-    private static void buildBackwardDiagonal(Cell cell) {
-        buildExit("northwestCell", Direction.SOUTHEAST, cell);
-        buildExit("southeastCell", Direction.NORTHWEST, cell);
+    private static void buildBackwardDiagonal() {
+        buildExit("northwestCell", "southeastCell", Direction.SOUTHEAST);
+        buildExit("southeastCell", "northwestCell", Direction.NORTHWEST);
     }
     
-    private static void buildExit(String exit, Direction direction, Cell cell) {
-        cells.get(exit).getRoom().addExit(new Exit(direction, cell.getRoom(), ExitType.PATH));
+    private static void buildExit(String origin, String destination, Direction direction) {
+        Room originRoom = cells.get(origin).getRoom();
+        Room destinationRoom = cells.get(destination).getRoom();
+        originRoom.addExit(new Exit(direction, destinationRoom, ExitType.PATH));
     }
 }
