@@ -43,10 +43,11 @@ public class MapToolbar extends JToolBar {
     private Tool selectionTool;
     private Tool roomTool;
     private Tool exitTool;
+    private final InfoPanel infoPanel;
     
-    public MapToolbar() {
+    public MapToolbar(InfoPanel infoPanel) {
+        this.infoPanel = infoPanel;
         setDefaultProperties();
-        setDefaultSelectionTool();
         
         this.add(ToolbarButtonBuilder.build("SelectionTool", getToolChangeAction(selectionTool)));
         this.add(ToolbarButtonBuilder.build("RoomTool", getToolChangeAction(roomTool)));
@@ -55,13 +56,13 @@ public class MapToolbar extends JToolBar {
 
     private void setDefaultProperties() {
         this.setFloatable(false);
-        this.selectionTool = new SelectionTool();
+        this.selectionTool = new SelectionTool(infoPanel);
         this.roomTool = new RoomTool();
         this.exitTool = new ExitTool();
     }
     
-    private void setDefaultSelectionTool() {
-        this.selectedTool = selectionTool;
+    public void setDefaultSelectionTool() {
+        setSelectedTool(selectionTool);
     }
     
     public Tool getSelectedTool() {
