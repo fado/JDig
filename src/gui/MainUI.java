@@ -51,20 +51,23 @@ public class MainUI implements Runnable {
         constraints.weighty = 0.1;
         constraints.fill = GridBagConstraints.BOTH;
 
-        MapToolbar toolbar = new MapToolbar();
+        InfoPanel infoPanel = new InfoPanel();
+        constraints.gridx = 1;
+        constraints.gridy = 1;
+        pane.add(infoPanel, constraints);
+
+        MapToolbar toolbar = new MapToolbar(infoPanel);
         constraints.gridx = 0;
         constraints.gridy = 0;
         pane.add(toolbar, constraints);
         
-        AttributesPanel attributesPanel = new AttributesPanel();
-        constraints.gridx = 1;
-        constraints.gridy = 1;
-        pane.add(attributesPanel, constraints);
         
-        LevelView mapPanel = new LevelView(this.map, toolbar, attributesPanel);
+        LevelPanel mapPanel = new LevelPanel(this.map, toolbar);
         constraints.gridx = 0;
         constraints.gridy = 1;
         pane.add(mapPanel, constraints);
+        
+        toolbar.setDefaultSelectionTool();
     }
     
     /**
