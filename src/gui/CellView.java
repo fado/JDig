@@ -46,7 +46,7 @@ public class CellView extends JPanel implements ToolListener {
     private final Color VERY_LIGHT_GRAY = new Color(224, 224, 224);
     private final int SIZE = 15;
     private JLabel entityImage;
-    private final Border defaultBorder;
+    private Border defaultBorder;
     private Tool selectedTool;
 
     /**
@@ -56,18 +56,13 @@ public class CellView extends JPanel implements ToolListener {
      * @param cell - The Cell object associated with this Cell panel.
      */
     public CellView(final Cell cell) {
-        this.defaultBorder = BorderFactory.createLineBorder(VERY_LIGHT_GRAY);
-        this.setBorder(defaultBorder);
-        this.setBackground(Color.WHITE);
-        this.selectedTool = new SelectionTool();
-        ((FlowLayout) this.getLayout()).setVgap(0);
-
+        setDefaultProperties();
+        
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent event) {
                 selectedTool.mouseEntered(cell, event);
             }
-
             @Override
             public void mouseExited(MouseEvent event) {
                 if (cell.getEntity().equals(Entity.NO_ENTITY)) {
@@ -75,7 +70,6 @@ public class CellView extends JPanel implements ToolListener {
                     CellView.this.restoreDefaultBorder();
                 }
             }
-
             @Override
             public void mouseClicked(MouseEvent event) {
                 selectedTool.mouseClicked(cell, event);
@@ -83,11 +77,14 @@ public class CellView extends JPanel implements ToolListener {
         });
     }
 
-    /**
-     * Adds the image at the passed-in path to the MapSquare.
-     *
-     * @param path - The path of the image to be added.
-     */
+    private void setDefaultProperties() {
+        this.defaultBorder = BorderFactory.createLineBorder(VERY_LIGHT_GRAY);
+        this.setBorder(defaultBorder);
+        this.setBackground(Color.WHITE);
+        this.selectedTool = new SelectionTool();
+        ((FlowLayout) this.getLayout()).setVgap(0);
+    }
+    
     public void addImage(String path) {
         try {
             BufferedImage image = ImageIO.read(new File(path));
@@ -103,9 +100,6 @@ public class CellView extends JPanel implements ToolListener {
         }
     }
 
-    /**
-     * Removes any entityImage that has been added to the MapSquare.
-     */
     public void removeImage() {
         if (entityImage != null) {
             this.remove(entityImage);
@@ -114,55 +108,27 @@ public class CellView extends JPanel implements ToolListener {
         }
     }
 
-    /**
-     * Sets a border appropriate to the presence of a vertical exit. The width
-     * of the top and bottom edges of the border become zero, while the right
-     * and left edges remain the same.
-     */
     public void setVerticalExitBorder() {
         this.setBorder(BorderFactory.createMatteBorder(0, 1, 0, 1, VERY_LIGHT_GRAY));
     }
 
-    /**
-     * Sets a border appropriate to the presence of a horizontal exit. The width
-     * of the right and left edges becomes zero, while the top and bottom edges
-     * remain the same.
-     */
     public void setHorizontalExitBorder() {
         this.setBorder(BorderFactory.createMatteBorder(1, 0, 1, 0, VERY_LIGHT_GRAY));
     }
 
-    /**
-     * Removes the current border applied to the MapSquare.
-     */
     public void removeBorder() {
         this.setBorder(BorderFactory.createEmptyBorder());
     }
 
-    /**
-     * Restores the default border of the MapSquare.
-     */
     public void restoreDefaultBorder() {
         this.setBorder(defaultBorder);
     }
 
-    /**
-     * Returns the preferred size of the MapSquare, as dictated by the
-     * parameters passed to the constructor.
-     *
-     * @return - Dimension object corresponding to the size of the cell.
-     */
     @Override
     public Dimension getPreferredSize() {
         return new Dimension(SIZE, SIZE);
     }
 
-    /**
-     * Fires when the currently selected Tool is changed in the MapToolbar.
-     *
-     * @param event - The ToolEvent containing a reference to the newly selected
-     * Tool.
-     */
     @Override
     public void toolChanged(ToolEvent event) {
         this.selectedTool = event.getTool();
