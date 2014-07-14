@@ -19,12 +19,17 @@ package tools;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+import data.Cell;
+import data.Room;
+import gen.LpcBuilder;
 import gui.AttributesPanel;
 import gui.CellView;
 import gui.LevelView;
 import java.awt.event.MouseEvent;
-import data.Cell;
-import data.Room;
+import java.io.FileNotFoundException;
+import java.io.UnsupportedEncodingException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class SelectionTool implements Tool {
     
@@ -48,6 +53,11 @@ public class SelectionTool implements Tool {
         if(cell.isRoom()) {
             this.currentRoom = cell.getRoom();
             loadRoom(currentRoom);
+            try {
+                LpcBuilder builder = new LpcBuilder(cell.getRoom());
+            } catch (FileNotFoundException | UnsupportedEncodingException ex) {
+                
+            }
         }
     }
     
