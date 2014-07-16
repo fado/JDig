@@ -29,6 +29,8 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import net.miginfocom.swing.MigLayout;
 
 public class InfoPanel extends JPanel {
@@ -38,6 +40,7 @@ public class InfoPanel extends JPanel {
     private JButton addEditStreetsButton;
     private JPanel contentPanel;
     private JPanel exitPanel;
+    private Room currentRoom;
     
     public InfoPanel() {
         setLayout(new MigLayout());
@@ -55,19 +58,32 @@ public class InfoPanel extends JPanel {
         panel.setBorder(BorderFactory.createTitledBorder("Attributes"));
         
         roomNameField = new JTextField(20);
+        roomNameField.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent event) {
+                currentRoom.setName(roomNameField.getText());
+            }
+            @Override
+            public void removeUpdate(DocumentEvent de) {
+                currentRoom.setName(roomNameField.getText());
+            }
+            @Override
+            public void changedUpdate(DocumentEvent de) {
+                currentRoom.setName(roomNameField.getText());
+            }
+        });
         JLabel roomNameLabel = new JLabel("Room name:", JLabel.RIGHT);
         roomNameLabel.setLabelFor(roomNameField);
+        panel.add(roomNameLabel);
+        panel.add(roomNameField, "wrap");
         
         streetNameField = new JComboBox();
         JLabel streetNameLabel = new JLabel("Street name:", JLabel.RIGHT);
         streetNameLabel.setLabelFor(streetNameField);
-        
-        addEditStreetsButton = new JButton("Add/Edit Streets");
-        
-        panel.add(roomNameLabel);
-        panel.add(roomNameField, "wrap");
         panel.add(streetNameLabel);
         panel.add(streetNameField);
+        
+        addEditStreetsButton = new JButton("Add/Edit Streets");
         panel.add(addEditStreetsButton);
         
         return panel;
@@ -103,6 +119,8 @@ public class InfoPanel extends JPanel {
     }
     
     public void load(Room room) {
+        this.currentRoom = room;
+        this.roomNameField.setText(room.getName());
         updateExitPanel(room);
     }
 

@@ -1,6 +1,6 @@
 package tools;
 
-import gui.CellView;
+import gui.CellPanel;
 import java.awt.event.MouseEvent;
 import data.Level;
 import org.junit.Before;
@@ -9,7 +9,7 @@ import org.junit.Test;
 public class ExitToolTest {
     
     Level testMap;
-    CellView testPanel;
+    CellPanel testPanel;
     MouseEvent testEvent;
     
     @Before
