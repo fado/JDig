@@ -20,8 +20,14 @@ package gui;
  */
 
 import data.Exit;
+import data.Level;
 import data.Room;
+import data.Street;
+import gui.streets.StreetEditor;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -38,11 +44,13 @@ public class InfoPanel extends JPanel {
     private JTextField roomNameField;
     private JComboBox streetNameField;
     private JButton addEditStreetsButton;
-    private JPanel contentPanel;
-    private JPanel exitPanel;
+    private final JPanel contentPanel;
+    private final JPanel exitPanel;
     private Room currentRoom;
+    private Level level;
     
-    public InfoPanel() {
+    public InfoPanel(Level level) {
+        this.level = level;
         setLayout(new MigLayout());
         contentPanel = createContentPanel();
         this.add(contentPanel, "wrap");
@@ -80,13 +88,33 @@ public class InfoPanel extends JPanel {
         streetNameField = new JComboBox();
         JLabel streetNameLabel = new JLabel("Street name:", JLabel.RIGHT);
         streetNameLabel.setLabelFor(streetNameField);
+        populateStreetNames();
+        streetNameField.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                if(currentRoom != null) {
+                    currentRoom.setStreet((String)streetNameField.getSelectedItem());
+                }
+            }            
+        });
         panel.add(streetNameLabel);
         panel.add(streetNameField);
         
         addEditStreetsButton = new JButton("Add/Edit Streets");
+        addEditStreetsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent event) {
+                StreetEditor editor = new StreetEditor(InfoPanel.this);
+                editor.run();
+            }
+        });
         panel.add(addEditStreetsButton);
         
         return panel;
+    }
+    
+    public Level getLevel() {
+        return this.level;
     }
     
     private JPanel createExitPanel() {
@@ -107,6 +135,13 @@ public class InfoPanel extends JPanel {
         return this.contentPanel;
     }
     
+    public void populateStreetNames() {
+        streetNameField.addItem("        ");
+        for(Street street : level.getStreets()) {
+            streetNameField.addItem(street.getName());
+        }
+    }
+    
     public void updateExitPanel(Room room) {
         List<Exit> exits = room.getExits();
         exitPanel.removeAll();
@@ -121,6 +156,7 @@ public class InfoPanel extends JPanel {
     public void load(Room room) {
         this.currentRoom = room;
         this.roomNameField.setText(room.getName());
+        this.streetNameField.setSelectedItem(room.getStreet());
         updateExitPanel(room);
     }
 
