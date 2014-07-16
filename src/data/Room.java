@@ -25,7 +25,8 @@ import java.util.List;
 public class Room {
     
     private String name = "";
-    private List<Exit> exits = new ArrayList<>();
+    private String street;
+    private final List<Exit> exits = new ArrayList<>();
     
     public void setName(String name) {
         this.name = name;
@@ -33,6 +34,14 @@ public class Room {
 
     public String getName() {
        return this.name;
+    }
+    
+    public void setStreet(String street) {
+        this.street = street;
+    }
+    
+    public String getStreet() {
+        return this.street;
     }
     
     public void addExit(Exit exit) {
