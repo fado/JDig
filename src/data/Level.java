@@ -27,6 +27,7 @@ public class Level {
     
     private final List<Cell> allCells;
     private final Cell defaultCell;
+    private final List<Street> streets = new ArrayList<>();
     
     public Level(int maxColumns, int maxRows) {
         this.defaultCell = new Cell(new Point(-1, -1), this);
@@ -41,21 +42,22 @@ public class Level {
         
     }
     
-    /**
-     * Adds a Cell to the Map.
-     * 
-     * @param cell - The Cell to be added.
-     */
+    public void addStreet(Street street) {
+        streets.add(street);
+    }
+    
+    public void removeStreet(Street street) {
+        streets.remove(street);
+    }
+    
+    public List<Street> getStreets() {
+        return this.streets;
+    }
+    
     private void addCell(Cell cell) {
         allCells.add(cell);
     }
-    
-    /**
-     * Gets the Cell at the specified Point.
-     * 
-     * @param point - The Point at which the cell lies.
-     * @return - The Cell at the specified point.
-     */
+
     public Cell getCellAt(Point point) {
         for (Cell cell : allCells) {
             if (cell.X == point.x && cell.Y == point.y) {
@@ -65,23 +67,10 @@ public class Level {
         return defaultCell;
     }
     
-    /**
-     * Returns a List of all Cells in the Map.
-     * 
-     * @return - A List containing all Cells in the Map.
-     */
     public List<Cell> getAllCells() {
         return this.allCells;
     }
     
-    /**
-     * Returns the Cell adjacent to the passed-in Cell that lies
-     * in the passed-in Direction.
-     * 
-     * @param referenceCell - The point of reference.
-     * @param direction - The direction in which we are looking.
-     * @return - The Cell found.
-     */
     public Cell getCellAdjacentTo(Cell referenceCell, Direction direction) {
         for (Cell cell : allCells) {
             if(cell.X == direction.translateX(referenceCell) && 
