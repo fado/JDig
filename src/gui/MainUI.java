@@ -33,17 +33,12 @@ import data.Level;
  */
 public class MainUI implements Runnable {
 
-    private final Level map;
+    private final Level level;
     
-    public MainUI(Level map) {
-        this.map = map;
+    public MainUI(Level level) {
+        this.level = level;
     }
 
-    /**
-     * Adds components to the passed-in Container.
-     *
-     * @param pane - The Container to which the components are to be added.
-     */
     private void addComponentsToPane(Container pane) throws IOException {
         pane.setLayout(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
@@ -51,7 +46,7 @@ public class MainUI implements Runnable {
         constraints.weighty = 0.1;
         constraints.fill = GridBagConstraints.BOTH;
 
-        InfoPanel infoPanel = new InfoPanel();
+        InfoPanel infoPanel = new InfoPanel(this.level);
         constraints.gridx = 1;
         constraints.gridy = 1;
         pane.add(infoPanel, constraints);
@@ -62,17 +57,14 @@ public class MainUI implements Runnable {
         pane.add(toolbar, constraints);
         
         
-        LevelPanel mapPanel = new LevelPanel(this.map, toolbar);
+        LevelPanel mapPanel = new LevelPanel(this.level, toolbar);
         constraints.gridx = 0;
         constraints.gridy = 1;
         pane.add(mapPanel, constraints);
         
         toolbar.setDefaultSelectionTool();
     }
-    
-    /**
-     * Creates a Gui object.
-     */
+  
     private void createAndShowGui() throws IOException {
         JFrame frame = new JFrame("JDig");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -81,9 +73,6 @@ public class MainUI implements Runnable {
         frame.pack();
     }
 
-    /**
-     * Sets the look and feel to the system default, then creates a Gui object.
-     */
     @Override
     public void run() {
         try {
