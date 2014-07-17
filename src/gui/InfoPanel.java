@@ -43,6 +43,9 @@ public class InfoPanel extends JPanel {
     private JTextField roomNameField;
     private JComboBox streetNameField;
     private JButton addEditStreetsButton;
+    private JTextField shortDescriptionField;
+    private JTextField determinateField;
+    private JTextField lightField;
     private final JPanel contentPanel;
     private final JPanel exitPanel;
     private JTextArea longDescriptionField;
@@ -61,7 +64,7 @@ public class InfoPanel extends JPanel {
     private JPanel createContentPanel() {
         JPanel panel = new JPanel();
         panel.setLayout(new MigLayout());
-        panel.setPreferredSize(new Dimension(400,200));
+        panel.setPreferredSize(new Dimension(400,250));
         panel.setOpaque(true);
         panel.setBorder(BorderFactory.createTitledBorder("Attributes"));
         
@@ -114,6 +117,73 @@ public class InfoPanel extends JPanel {
         });
         panel.add(addEditStreetsButton, "wrap");
         
+        shortDescriptionField = new JTextField();
+        dimension = shortDescriptionField.getPreferredSize();
+        shortDescriptionField.setPreferredSize(new Dimension(200, dimension.height));
+        shortDescriptionField.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent event) {
+                currentRoom.setShort(shortDescriptionField.getText());
+            }
+            @Override
+            public void removeUpdate(DocumentEvent de) {
+                currentRoom.setShort(shortDescriptionField.getText());
+            }
+            @Override
+            public void changedUpdate(DocumentEvent de) {
+                currentRoom.setShort(shortDescriptionField.getText());
+            }
+        });
+        JLabel shortDescriptionLabel = new JLabel("Short description:", JLabel.RIGHT);
+        shortDescriptionLabel.setLabelFor(shortDescriptionField);
+        panel.add(shortDescriptionLabel);
+        panel.add(shortDescriptionField, "span, grow, wrap");
+        
+        determinateField = new JTextField();
+        dimension = determinateField.getPreferredSize();
+        determinateField.setPreferredSize(new Dimension(200, dimension.height));
+        determinateField.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent event) {
+                currentRoom.setDeterminate(determinateField.getText());
+            }
+            @Override
+            public void removeUpdate(DocumentEvent de) {
+                currentRoom.setDeterminate(determinateField.getText());
+            }
+            @Override
+            public void changedUpdate(DocumentEvent de) {
+                currentRoom.setDeterminate(determinateField.getText());
+            }
+        });
+        JLabel determinateLabel = new JLabel("Determinate:", JLabel.RIGHT);
+        determinateLabel.setLabelFor(determinateField);
+        panel.add(determinateLabel);
+        panel.add(determinateField, "wrap");
+        
+        
+        lightField = new JTextField();
+        dimension = lightField.getPreferredSize();
+        lightField.setPreferredSize(new Dimension(200, dimension.height));
+        lightField.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent event) {
+                currentRoom.setLight(lightField.getText());
+            }
+            @Override
+            public void removeUpdate(DocumentEvent de) {
+                currentRoom.setLight(lightField.getText());
+            }
+            @Override
+            public void changedUpdate(DocumentEvent de) {
+                currentRoom.setLight(lightField.getText());
+            }
+        });
+        JLabel lightFieldLabel = new JLabel("Light:", JLabel.RIGHT);
+        lightFieldLabel.setLabelFor(lightField);
+        panel.add(lightFieldLabel);
+        panel.add(lightField, "wrap");
+        
         longDescriptionField = new JTextArea(5, 60);
         JLabel longDescriptionLabel = new JLabel("Long description: ", JLabel.RIGHT);
         longDescriptionLabel.setLabelFor(longDescriptionField);
@@ -122,17 +192,17 @@ public class InfoPanel extends JPanel {
         longDescriptionField.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent event) {
-                currentRoom.setLongDescription(longDescriptionField.getText());
+                currentRoom.setLong(longDescriptionField.getText());
             }
 
             @Override
             public void removeUpdate(DocumentEvent de) {
-                currentRoom.setLongDescription(longDescriptionField.getText());
+                currentRoom.setLong(longDescriptionField.getText());
             }
 
             @Override
             public void changedUpdate(DocumentEvent de) {
-                currentRoom.setLongDescription(longDescriptionField.getText());
+                currentRoom.setLong(longDescriptionField.getText());
             }
         });
         
@@ -184,7 +254,8 @@ public class InfoPanel extends JPanel {
         this.currentRoom = room;
         this.roomNameField.setText(room.getName());
         this.streetNameField.setSelectedItem(room.getStreet());
-        this.longDescriptionField.setText(room.getLongDescription());
+        this.shortDescriptionField.setText(room.getShort());
+        this.longDescriptionField.setText(room.getLong());
         updateExitPanel(room);
     }
 

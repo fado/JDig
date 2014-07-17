@@ -21,13 +21,22 @@ package data;
 
 import java.util.ArrayList;
 import java.util.List;
+import properties.Localization;
 
 public class Room {
     
     private String name = "";
-    private String street;
+    private String street = "";
     private String longDescription = "";
+    private String shortDescription = "";
+    private String determinate = "";
+    private int light;
     private final List<Exit> exits = new ArrayList<>();
+    private static final Localization localization = new Localization();
+    
+    public Room() {
+        this.longDescription = localization.get("DefaultLongDescription");
+    }
     
     public void setName(String name) {
         this.name = name;
@@ -45,11 +54,35 @@ public class Room {
         return this.street;
     }
     
-    public void setLongDescription(String description) {
+    public void setShort(String description) {
+        this.shortDescription = description;
+    }
+    
+    public String getShort() {
+        return this.shortDescription;
+    }
+    
+    public void setDeterminate(String determinate) {
+        this.determinate = determinate;
+    }
+    
+    public String getDeterminate() {
+        return this.determinate;
+    }
+    
+    public void setLight(String light) {
+        this.light = Integer.parseInt(light);
+    }
+    
+    public int getLight() {
+        return this.light;
+    }
+    
+    public void setLong(String description) {
         this.longDescription = description;
     }
     
-    public String getLongDescription() {
+    public String getLong() {
         return this.longDescription;
     }
     
