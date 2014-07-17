@@ -32,6 +32,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -44,6 +45,7 @@ public class InfoPanel extends JPanel {
     private JButton addEditStreetsButton;
     private final JPanel contentPanel;
     private final JPanel exitPanel;
+    private JTextArea longDescriptionField;
     private Room currentRoom;
     private Level level;
     
@@ -65,7 +67,7 @@ public class InfoPanel extends JPanel {
         
         roomNameField = new JTextField();
         Dimension dimension = roomNameField.getPreferredSize();
-        roomNameField.setPreferredSize(new Dimension(150, dimension.height));
+        roomNameField.setPreferredSize(new Dimension(200, dimension.height));
         roomNameField.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent event) {
@@ -87,7 +89,7 @@ public class InfoPanel extends JPanel {
         
         streetNameField = new JComboBox();
         dimension = streetNameField.getPreferredSize();
-        streetNameField.setPreferredSize(new Dimension(150, dimension.height));
+        streetNameField.setPreferredSize(new Dimension(200, dimension.height));
         JLabel streetNameLabel = new JLabel("Street name:", JLabel.RIGHT);
         streetNameLabel.setLabelFor(streetNameField);
         populateStreetNames();
@@ -110,7 +112,29 @@ public class InfoPanel extends JPanel {
                 editor.run();
             }
         });
-        panel.add(addEditStreetsButton);
+        panel.add(addEditStreetsButton, "wrap");
+        
+        longDescriptionField = new JTextArea(5, 60);
+        JLabel longDescriptionLabel = new JLabel("Long description: ", JLabel.RIGHT);
+        longDescriptionLabel.setLabelFor(longDescriptionField);
+        panel.add(longDescriptionLabel, "wrap");
+        panel.add(longDescriptionField, "span");
+        longDescriptionField.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent event) {
+                currentRoom.setLongDescription(longDescriptionField.getText());
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent de) {
+                currentRoom.setLongDescription(longDescriptionField.getText());
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent de) {
+                currentRoom.setLongDescription(longDescriptionField.getText());
+            }
+        });
         
         return panel;
     }
@@ -160,6 +184,7 @@ public class InfoPanel extends JPanel {
         this.currentRoom = room;
         this.roomNameField.setText(room.getName());
         this.streetNameField.setSelectedItem(room.getStreet());
+        this.longDescriptionField.setText(room.getLongDescription());
         updateExitPanel(room);
     }
 
