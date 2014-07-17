@@ -2,8 +2,7 @@ package gui;
 
 /**
  * JDig, a tool for the automatic generation of LPC class files for Epitaph 
- * developers.
- * Copyright (C) 2014 Fado@Epitaph.
+ * developers.  Copyright (C) 2014 Fado@Epitaph.
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -27,7 +26,6 @@ import gui.streets.StreetEditor;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -65,7 +63,9 @@ public class InfoPanel extends JPanel {
         panel.setOpaque(true);
         panel.setBorder(BorderFactory.createTitledBorder("Attributes"));
         
-        roomNameField = new JTextField(20);
+        roomNameField = new JTextField();
+        Dimension dimension = roomNameField.getPreferredSize();
+        roomNameField.setPreferredSize(new Dimension(150, dimension.height));
         roomNameField.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent event) {
@@ -86,6 +86,8 @@ public class InfoPanel extends JPanel {
         panel.add(roomNameField, "wrap");
         
         streetNameField = new JComboBox();
+        dimension = streetNameField.getPreferredSize();
+        streetNameField.setPreferredSize(new Dimension(150, dimension.height));
         JLabel streetNameLabel = new JLabel("Street name:", JLabel.RIGHT);
         streetNameLabel.setLabelFor(streetNameField);
         populateStreetNames();
@@ -136,6 +138,7 @@ public class InfoPanel extends JPanel {
     }
     
     public void populateStreetNames() {
+        streetNameField.removeAllItems();
         streetNameField.addItem("        ");
         for(Street street : level.getStreets()) {
             streetNameField.addItem(street.getName());
