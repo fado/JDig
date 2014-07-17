@@ -45,8 +45,8 @@ class AddListener implements ActionListener, DocumentListener {
 
     @Override
     public void actionPerformed(ActionEvent event) {
-        String name = editor.getStreetNameField().getText();
-        JTextField streetName = editor.getStreetNameField();
+        JTextField streetNameField = editor.getStreetNameField();
+        String name = streetNameField.getText();
         DefaultListModel listModel = editor.getListModel();
 
         if (listModel.contains(name)) {
@@ -57,10 +57,10 @@ class AddListener implements ActionListener, DocumentListener {
             return;
         }
 
-        listModel.insertElementAt(streetName.getText(), listModel.getSize());
-        level.addStreet(new Street(streetName.getText()));
-        streetName.requestFocusInWindow();
-        streetName.setText("");
+        listModel.insertElementAt(streetNameField.getText(), listModel.getSize());
+        level.addStreet(new Street(streetNameField.getText()));
+        streetNameField.requestFocusInWindow();
+        streetNameField.setText("");
     }
 
     private void showDialog(String message) throws HeadlessException {
