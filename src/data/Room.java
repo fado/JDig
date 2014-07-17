@@ -26,6 +26,7 @@ public class Room {
     
     private String name = "";
     private String street;
+    private String longDescription = "";
     private final List<Exit> exits = new ArrayList<>();
     
     public void setName(String name) {
@@ -42,6 +43,14 @@ public class Room {
     
     public String getStreet() {
         return this.street;
+    }
+    
+    public void setLongDescription(String description) {
+        this.longDescription = description;
+    }
+    
+    public String getLongDescription() {
+        return this.longDescription;
     }
     
     public void addExit(Exit exit) {
