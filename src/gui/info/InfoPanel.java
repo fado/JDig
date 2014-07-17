@@ -1,4 +1,4 @@
-package gui;
+package gui.info;
 
 /**
  * JDig, a tool for the automatic generation of LPC class files for Epitaph 
@@ -22,7 +22,7 @@ import data.Exit;
 import data.Level;
 import data.Room;
 import data.Street;
-import gui.streets.StreetEditor;
+import gui.info.streets.StreetEditor;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -34,8 +34,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 import net.miginfocom.swing.MigLayout;
 
 public class InfoPanel extends JPanel {
@@ -50,7 +48,7 @@ public class InfoPanel extends JPanel {
     private final JPanel exitPanel;
     private JTextArea longDescriptionField;
     private Room currentRoom;
-    private Level level;
+    private final Level level;
     
     public InfoPanel(Level level) {
         this.level = level;
@@ -68,149 +66,15 @@ public class InfoPanel extends JPanel {
         panel.setOpaque(true);
         panel.setBorder(BorderFactory.createTitledBorder("Attributes"));
         
-        roomNameField = new JTextField();
-        Dimension dimension = roomNameField.getPreferredSize();
-        roomNameField.setPreferredSize(new Dimension(200, dimension.height));
-        roomNameField.getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent event) {
-                currentRoom.setName(roomNameField.getText());
-            }
-            @Override
-            public void removeUpdate(DocumentEvent de) {
-                currentRoom.setName(roomNameField.getText());
-            }
-            @Override
-            public void changedUpdate(DocumentEvent de) {
-                currentRoom.setName(roomNameField.getText());
-            }
-        });
-        JLabel roomNameLabel = new JLabel("Room name:", JLabel.RIGHT);
-        roomNameLabel.setLabelFor(roomNameField);
-        panel.add(roomNameLabel);
-        panel.add(roomNameField, "wrap");
-        
-        streetNameField = new JComboBox();
-        dimension = streetNameField.getPreferredSize();
-        streetNameField.setPreferredSize(new Dimension(200, dimension.height));
-        JLabel streetNameLabel = new JLabel("Street name:", JLabel.RIGHT);
-        streetNameLabel.setLabelFor(streetNameField);
-        populateStreetNames();
-        streetNameField.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                if(currentRoom != null) {
-                    currentRoom.setStreet((String)streetNameField.getSelectedItem());
-                }
-            }            
-        });
-        panel.add(streetNameLabel);
-        panel.add(streetNameField);
-        
-        addEditStreetsButton = new JButton("Add/Edit Streets");
-        addEditStreetsButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent event) {
-                StreetEditor editor = new StreetEditor(InfoPanel.this);
-                editor.run();
-            }
-        });
-        panel.add(addEditStreetsButton, "wrap");
-        
-        shortDescriptionField = new JTextField();
-        dimension = shortDescriptionField.getPreferredSize();
-        shortDescriptionField.setPreferredSize(new Dimension(200, dimension.height));
-        shortDescriptionField.getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent event) {
-                currentRoom.setShort(shortDescriptionField.getText());
-            }
-            @Override
-            public void removeUpdate(DocumentEvent de) {
-                currentRoom.setShort(shortDescriptionField.getText());
-            }
-            @Override
-            public void changedUpdate(DocumentEvent de) {
-                currentRoom.setShort(shortDescriptionField.getText());
-            }
-        });
-        JLabel shortDescriptionLabel = new JLabel("Short description:", JLabel.RIGHT);
-        shortDescriptionLabel.setLabelFor(shortDescriptionField);
-        panel.add(shortDescriptionLabel);
-        panel.add(shortDescriptionField, "span, grow, wrap");
-        
-        determinateField = new JTextField();
-        dimension = determinateField.getPreferredSize();
-        determinateField.setPreferredSize(new Dimension(200, dimension.height));
-        determinateField.getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent event) {
-                currentRoom.setDeterminate(determinateField.getText());
-            }
-            @Override
-            public void removeUpdate(DocumentEvent de) {
-                currentRoom.setDeterminate(determinateField.getText());
-            }
-            @Override
-            public void changedUpdate(DocumentEvent de) {
-                currentRoom.setDeterminate(determinateField.getText());
-            }
-        });
-        JLabel determinateLabel = new JLabel("Determinate:", JLabel.RIGHT);
-        determinateLabel.setLabelFor(determinateField);
-        panel.add(determinateLabel);
-        panel.add(determinateField, "wrap");
-        
-        
-        lightField = new JTextField();
-        dimension = lightField.getPreferredSize();
-        lightField.setPreferredSize(new Dimension(200, dimension.height));
-        lightField.getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent event) {
-                currentRoom.setLight(lightField.getText());
-            }
-            @Override
-            public void removeUpdate(DocumentEvent de) {
-                currentRoom.setLight(lightField.getText());
-            }
-            @Override
-            public void changedUpdate(DocumentEvent de) {
-                currentRoom.setLight(lightField.getText());
-            }
-        });
-        JLabel lightFieldLabel = new JLabel("Light:", JLabel.RIGHT);
-        lightFieldLabel.setLabelFor(lightField);
-        panel.add(lightFieldLabel);
-        panel.add(lightField, "wrap");
-        
-        longDescriptionField = new JTextArea(5, 60);
-        JLabel longDescriptionLabel = new JLabel("Long description: ", JLabel.RIGHT);
-        longDescriptionLabel.setLabelFor(longDescriptionField);
-        panel.add(longDescriptionLabel, "wrap");
-        panel.add(longDescriptionField, "span");
-        longDescriptionField.getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent event) {
-                currentRoom.setLong(longDescriptionField.getText());
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent de) {
-                currentRoom.setLong(longDescriptionField.getText());
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent de) {
-                currentRoom.setLong(longDescriptionField.getText());
-            }
-        });
+        createRoomNameField(panel);
+        createStreetNameField(panel);
+        createAddEditStreetsButton(panel);
+        createShortDescriptionField(panel);
+        createDeterminateField(panel);
+        createLightField(panel);
+        createLongDescriptionField(panel);
         
         return panel;
-    }
-    
-    public Level getLevel() {
-        return this.level;
     }
     
     private JPanel createExitPanel() {
@@ -222,6 +86,115 @@ public class InfoPanel extends JPanel {
         
         return panel;
     }    
+    
+    public void createRoomNameField(JPanel panel) {
+        roomNameField = new JTextField();
+        Dimension dimension = roomNameField.getPreferredSize();
+        roomNameField.setPreferredSize(new Dimension(200, dimension.height));
+        roomNameField.getDocument().addDocumentListener(
+                new RoomNameListener(this));
+        JLabel roomNameLabel = new JLabel("Room name:", JLabel.RIGHT);
+        roomNameLabel.setLabelFor(roomNameField);
+        panel.add(roomNameLabel);
+        panel.add(roomNameField, "wrap");
+    }
+    
+    private void createStreetNameField(JPanel panel) {
+        streetNameField = new JComboBox();
+        Dimension dimension = streetNameField.getPreferredSize();
+        streetNameField.setPreferredSize(new Dimension(200, dimension.height));
+        streetNameField.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                if(currentRoom != null) {
+                    currentRoom.setStreet((String)streetNameField.getSelectedItem());
+                }
+            }            
+        });
+        populateStreetNames();
+        JLabel streetNameLabel = new JLabel("Street name:", JLabel.RIGHT);
+        streetNameLabel.setLabelFor(streetNameField);
+        panel.add(streetNameLabel);
+        panel.add(streetNameField);
+        
+    }
+    
+    private void createAddEditStreetsButton(JPanel panel) {
+        addEditStreetsButton = new JButton("Add/Edit Streets");
+        addEditStreetsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent event) {
+                StreetEditor editor = new StreetEditor(InfoPanel.this);
+                editor.run();
+            }
+        });
+        panel.add(addEditStreetsButton, "wrap");
+    }
+    
+    private void createShortDescriptionField(JPanel panel) {
+        shortDescriptionField = new JTextField();
+        Dimension dimension = shortDescriptionField.getPreferredSize();
+        shortDescriptionField.setPreferredSize(new Dimension(200, dimension.height));
+        shortDescriptionField.getDocument().addDocumentListener(
+                new ShortDescListener(this));
+        JLabel shortDescriptionLabel = new JLabel("Short description:", JLabel.RIGHT);
+        shortDescriptionLabel.setLabelFor(shortDescriptionField);
+        panel.add(shortDescriptionLabel);
+        panel.add(shortDescriptionField, "span, grow, wrap");
+    }
+    
+    public void createDeterminateField(JPanel panel) {
+        determinateField = new JTextField();
+        Dimension dimension = determinateField.getPreferredSize();
+        determinateField.setPreferredSize(new Dimension(200, dimension.height));
+        determinateField.getDocument().addDocumentListener(
+                new DeterminateListener(this));
+        JLabel determinateLabel = new JLabel("Determinate:", JLabel.RIGHT);
+        determinateLabel.setLabelFor(determinateField);
+        panel.add(determinateLabel);
+        panel.add(determinateField, "wrap");
+    }
+    
+    public void createLightField(JPanel panel) {
+        lightField = new JTextField();
+        Dimension dimension = lightField.getPreferredSize();
+        lightField.setPreferredSize(new Dimension(200, dimension.height));
+        lightField.getDocument().addDocumentListener(
+                new LightListener(this));
+        JLabel lightFieldLabel = new JLabel("Light:", JLabel.RIGHT);
+        lightFieldLabel.setLabelFor(lightField);
+        panel.add(lightFieldLabel);
+        panel.add(lightField, "wrap");
+    }
+    
+    public void createLongDescriptionField(JPanel panel) {
+        longDescriptionField = new JTextArea(5, 60);
+        longDescriptionField.getDocument().addDocumentListener(
+                new LongDescListener(this));
+        JLabel longDescriptionLabel = new JLabel("Long description: ", JLabel.RIGHT);
+        longDescriptionLabel.setLabelFor(longDescriptionField);
+        panel.add(longDescriptionLabel, "wrap");
+        panel.add(longDescriptionField, "span");
+    }
+    
+    public void updateExitPanel(Room room) {
+        List<Exit> exits = room.getExits();
+        exitPanel.removeAll();
+        for(Exit exit : exits) {
+            JLabel exitLabel = new JLabel(exit.getDirection().toString(), JLabel.RIGHT);
+            exitPanel.add(exitLabel, "wrap");
+        }
+        exitPanel.validate();
+        exitPanel.repaint();
+    }
+    
+    public Level getLevel() {
+        return this.level;
+    }
+    
+    public Room getCurrentRoom() {
+        return this.currentRoom;
+    }
     
     public JPanel getContentPanel() {
         return this.contentPanel;
@@ -237,17 +210,6 @@ public class InfoPanel extends JPanel {
         for(Street street : level.getStreets()) {
             streetNameField.addItem(street.getName());
         }
-    }
-    
-    public void updateExitPanel(Room room) {
-        List<Exit> exits = room.getExits();
-        exitPanel.removeAll();
-        for(Exit exit : exits) {
-            JLabel exitLabel = new JLabel(exit.getDirection().toString(), JLabel.RIGHT);
-            exitPanel.add(exitLabel, "wrap");
-        }
-        exitPanel.validate();
-        exitPanel.repaint();
     }
     
     public void load(Room room) {

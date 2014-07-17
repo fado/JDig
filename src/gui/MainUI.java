@@ -19,6 +19,8 @@ package gui;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+import gui.toolbar.MapToolbar;
+import gui.info.InfoPanel;
 import java.awt.Container;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;

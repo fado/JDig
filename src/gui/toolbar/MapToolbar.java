@@ -1,4 +1,4 @@
-package gui;
+package gui.toolbar;
 
 /**
  * JDig, a tool for the automatic generation of LPC class files for Epitaph 
@@ -19,6 +19,7 @@ package gui;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+import gui.info.InfoPanel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;

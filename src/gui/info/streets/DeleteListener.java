@@ -1,4 +1,4 @@
-package gui.streets;
+package gui.info.streets;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
