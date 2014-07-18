@@ -1,8 +1,8 @@
 package gui.infopanel;
 
 /**
- * JDig, a tool for the automatic generation of LPC class files for Epitaph 
- * developers.  Copyright (C) 2014 Fado@Epitaph.
+ * JDig, a tool for the automatic generation of LPC class files for Epitaph
+ * developers. Copyright (C) 2014 Fado@Epitaph.
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -17,7 +17,6 @@ package gui.infopanel;
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-
 import data.Exit;
 import data.Level;
 import data.Room;
@@ -41,7 +40,7 @@ import net.miginfocom.swing.MigLayout;
 import properties.Localization;
 
 public class InfoPanel extends JPanel {
-    
+
     private final LabeledComponent roomNameField;
     private JComboBox streetNameField;
     private JButton addEditStreetsButton;
@@ -54,43 +53,43 @@ public class InfoPanel extends JPanel {
     private Room currentRoom;
     private final Level level;
     private final Localization localization = new Localization();
-    
+
     public InfoPanel(Level level) {
         this.level = level;
         setLayout(new MigLayout());
         contentPanel = createContentPanel();
-        
-        roomNameField = LabeledComponent.textField(localization.get("RoomNameLabel"), 
+
+        roomNameField = LabeledComponent.textField(localization.get("RoomNameLabel"),
                 new InfoPanelDocListener(this, new SetName()));
         roomNameField.addtoPanel(contentPanel);
-        
+
         buildStreetNameField();
-        
+
         buildAddEditStreetsButton();
-        
-        shortDescriptionField = LabeledComponent.textField(localization.get("ShortDescLabel"), 
+
+        shortDescriptionField = LabeledComponent.textField(localization.get("ShortDescLabel"),
                 new InfoPanelDocListener(this, new SetShort()));
         contentPanel.add(shortDescriptionField.getLabel());
         contentPanel.add(shortDescriptionField.getComponent(), "span, grow, wrap");
-        
-        determinateField = LabeledComponent.textField(localization.get("DeterminateLabel"), 
+
+        determinateField = LabeledComponent.textField(localization.get("DeterminateLabel"),
                 new InfoPanelDocListener(this, new SetDeterminate()));
         determinateField.addtoPanel(contentPanel);
-        
-        lightField = LabeledComponent.textField(localization.get("LightLabel"), 
+
+        lightField = LabeledComponent.textField(localization.get("LightLabel"),
                 new InfoPanelDocListener(this, new SetLight()));
         lightField.addtoPanel(contentPanel);
-        
-        longDescriptionField = LabeledComponent.textArea(localization.get("LongDescLabel"), 
+
+        longDescriptionField = LabeledComponent.textArea(localization.get("LongDescLabel"),
                 new InfoPanelDocListener(this, new SetLong()));
         contentPanel.add(longDescriptionField.getLabel(), "wrap");
         contentPanel.add(longDescriptionField.getComponent(), "span, grow");
-        
+
         this.add(contentPanel, "wrap");
         exitPanel = createExitPanel();
         this.add(exitPanel);
     }
-    
+
     private void buildStreetNameField() {
         streetNameField = new JComboBox();
         Dimension dimension = streetNameField.getPreferredSize();
@@ -109,7 +108,7 @@ public class InfoPanel extends JPanel {
         contentPanel.add(streetNameLabel);
         contentPanel.add(streetNameField);
     }
-    
+
     private void buildAddEditStreetsButton() {
         addEditStreetsButton = new JButton(localization.get("EditStreetsLabel"));
         addEditStreetsButton.addActionListener(new ActionListener() {
@@ -121,60 +120,60 @@ public class InfoPanel extends JPanel {
         });
         contentPanel.add(addEditStreetsButton, "wrap");
     }
-    
+
     private JPanel createContentPanel() {
         JPanel panel = new JPanel();
         panel.setLayout(new MigLayout());
-        panel.setPreferredSize(new Dimension(400,250));
+        panel.setPreferredSize(new Dimension(400, 250));
         panel.setOpaque(true);
         panel.setBorder(BorderFactory.createTitledBorder("Attributes"));
         return panel;
     }
-    
+
     private JPanel createExitPanel() {
         JPanel panel = new JPanel();
         panel.setLayout(new MigLayout());
-        panel.setPreferredSize(new Dimension(400,200));
+        panel.setPreferredSize(new Dimension(400, 200));
         panel.setOpaque(true);
         panel.setBorder(BorderFactory.createTitledBorder("Exits"));
         return panel;
-    }    
-    
+    }
+
     public void updateExitPanel(Room room) {
         List<Exit> exits = room.getExits();
         exitPanel.removeAll();
-        for(Exit exit : exits) {
+        for (Exit exit : exits) {
             JLabel exitLabel = new JLabel(exit.getDirection().toString(), JLabel.RIGHT);
             exitPanel.add(exitLabel, "wrap");
         }
         exitPanel.validate();
         exitPanel.repaint();
     }
-    
+
     public Level getLevel() {
         return this.level;
     }
-    
+
     public Room getCurrentRoom() {
         return this.currentRoom;
     }
-    
+
     public JPanel getContentPanel() {
         return this.contentPanel;
     }
-    
+
     public JPanel getExitPanel() {
         return this.contentPanel;
     }
-    
+
     public void populateStreetNames() {
         streetNameField.removeAllItems();
-        streetNameField.addItem("        ");
-        for(Street street : level.getStreets()) {
+        streetNameField.addItem("");
+        for (Street street : level.getStreets()) {
             streetNameField.addItem(street.getName());
         }
     }
-    
+
     public void load(Room room) {
         this.currentRoom = room;
         this.roomNameField.setText(room.getName());
@@ -183,6 +182,5 @@ public class InfoPanel extends JPanel {
         this.longDescriptionField.setText(room.getLong());
         updateExitPanel(room);
     }
-
 
 }
