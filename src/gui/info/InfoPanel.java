@@ -92,7 +92,7 @@ public class InfoPanel extends JPanel {
         Dimension dimension = roomNameField.getPreferredSize();
         roomNameField.setPreferredSize(new Dimension(200, dimension.height));
         roomNameField.getDocument().addDocumentListener(
-                new RoomNameListener(this));
+                new InfoPanelDocListener(this, new SetNameCommand()));
         JLabel roomNameLabel = new JLabel("Room name:", JLabel.RIGHT);
         roomNameLabel.setLabelFor(roomNameField);
         panel.add(roomNameLabel);
@@ -136,7 +136,7 @@ public class InfoPanel extends JPanel {
         Dimension dimension = shortDescriptionField.getPreferredSize();
         shortDescriptionField.setPreferredSize(new Dimension(200, dimension.height));
         shortDescriptionField.getDocument().addDocumentListener(
-                new ShortDescListener(this));
+                new InfoPanelDocListener(this, new SetShortCommand()));
         JLabel shortDescriptionLabel = new JLabel("Short description:", JLabel.RIGHT);
         shortDescriptionLabel.setLabelFor(shortDescriptionField);
         panel.add(shortDescriptionLabel);
@@ -148,7 +148,7 @@ public class InfoPanel extends JPanel {
         Dimension dimension = determinateField.getPreferredSize();
         determinateField.setPreferredSize(new Dimension(200, dimension.height));
         determinateField.getDocument().addDocumentListener(
-                new DeterminateListener(this));
+                new InfoPanelDocListener(this, new SetDeterminateCommand()));
         JLabel determinateLabel = new JLabel("Determinate:", JLabel.RIGHT);
         determinateLabel.setLabelFor(determinateField);
         panel.add(determinateLabel);
@@ -160,7 +160,7 @@ public class InfoPanel extends JPanel {
         Dimension dimension = lightField.getPreferredSize();
         lightField.setPreferredSize(new Dimension(200, dimension.height));
         lightField.getDocument().addDocumentListener(
-                new LightListener(this));
+                new InfoPanelDocListener(this, new SetLightCommand()));
         JLabel lightFieldLabel = new JLabel("Light:", JLabel.RIGHT);
         lightFieldLabel.setLabelFor(lightField);
         panel.add(lightFieldLabel);
@@ -170,7 +170,7 @@ public class InfoPanel extends JPanel {
     public void createLongDescriptionField(JPanel panel) {
         longDescriptionField = new JTextArea(5, 60);
         longDescriptionField.getDocument().addDocumentListener(
-                new LongDescListener(this));
+                new InfoPanelDocListener(this, new SetLongCommand()));
         JLabel longDescriptionLabel = new JLabel("Long description: ", JLabel.RIGHT);
         longDescriptionLabel.setLabelFor(longDescriptionField);
         panel.add(longDescriptionLabel, "wrap");

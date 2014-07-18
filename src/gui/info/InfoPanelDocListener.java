@@ -1,16 +1,17 @@
 package gui.info;
 
-import gui.info.InfoPanel;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.text.BadLocationException;
 
-public class ShortDescListener implements DocumentListener {
+public class InfoPanelDocListener implements DocumentListener {
 
     private final InfoPanel infoPanel;
+    private final Command command;
     
-    public ShortDescListener(InfoPanel infoPanel) {
+    public InfoPanelDocListener(InfoPanel infoPanel, Command command) {
         this.infoPanel = infoPanel;
+        this.command = command;
     }
     
     @Override
@@ -32,7 +33,7 @@ public class ShortDescListener implements DocumentListener {
         try {
             String update = event.getDocument().getText(0, event.getDocument().getLength());
             if(infoPanel.getCurrentRoom() != null) {
-                infoPanel.getCurrentRoom().setShort(update);
+                command.set(infoPanel.getCurrentRoom(), update);
             }
         } catch (BadLocationException ex) {
             
