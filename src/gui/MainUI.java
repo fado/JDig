@@ -20,7 +20,7 @@ package gui;
  */
 
 import gui.toolbar.MapToolbar;
-import gui.info.InfoPanel;
+import gui.infopanel.InfoPanel;
 import java.awt.Container;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;

@@ -1,4 +1,4 @@
-package gui.info;
+package gui.infopanel;
 
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;

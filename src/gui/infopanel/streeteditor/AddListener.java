@@ -1,4 +1,4 @@
-package gui.info.streets;
+package gui.infopanel.streeteditor;
 
 /**
  * JDig, a tool for the automatic generation of LPC class files for Epitaph

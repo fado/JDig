@@ -20,7 +20,7 @@ package tools;
  */
 
 import data.Cell;
-import gui.info.InfoPanel;
+import gui.infopanel.InfoPanel;
 import java.awt.event.MouseEvent;
 
 public class SelectionTool implements Tool {

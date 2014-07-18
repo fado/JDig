@@ -1,4 +1,4 @@
-package gui.info;
+package gui.infopanel;
 
 import data.Room;
 

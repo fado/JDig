@@ -1,4 +1,4 @@
-package gui.info.streets;
+package gui.infopanel.streeteditor;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
