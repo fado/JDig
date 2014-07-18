@@ -1,13 +1,5 @@
 package gui.infopanel.streeteditor;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.DefaultListModel;
-import javax.swing.JButton;
-import javax.swing.JList;
-import javax.swing.JTextField;
-import javax.swing.ListModel;
-
 /**
  * JDig, a tool for the automatic generation of LPC class files for Epitaph
  * developers. Copyright (C) 2014 Fado@Epitaph.
@@ -25,6 +17,12 @@ import javax.swing.ListModel;
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.DefaultListModel;
+import javax.swing.JButton;
+import javax.swing.JList;
 
 public class DeleteListener implements ActionListener {
 
