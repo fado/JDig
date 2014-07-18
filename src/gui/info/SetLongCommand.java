@@ -2,7 +2,7 @@ package gui.info;
 
 import data.Room;
 
-public class SetLongCommand implements Command {
+public class SetLongCommand implements SetterCommand {
 
     @Override
     public void set(Room room, String text) {

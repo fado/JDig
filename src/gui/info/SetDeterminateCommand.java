@@ -2,7 +2,7 @@ package gui.info;
 
 import data.Room;
 
-public class SetDeterminateCommand implements Command {
+public class SetDeterminateCommand implements SetterCommand {
 
     @Override
     public void set(Room room, String text) {

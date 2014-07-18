@@ -7,9 +7,9 @@ import javax.swing.text.BadLocationException;
 public class InfoPanelDocListener implements DocumentListener {
 
     private final InfoPanel infoPanel;
-    private final Command command;
+    private final SetterCommand command;
     
-    public InfoPanelDocListener(InfoPanel infoPanel, Command command) {
+    public InfoPanelDocListener(InfoPanel infoPanel, SetterCommand command) {
         this.infoPanel = infoPanel;
         this.command = command;
     }
