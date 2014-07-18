@@ -18,6 +18,11 @@ package gui.infopanel;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+import gui.infopanel.commands.SetLong;
+import gui.infopanel.commands.SetLight;
+import gui.infopanel.commands.SetDeterminate;
+import gui.infopanel.commands.SetName;
+import gui.infopanel.commands.SetShort;
 import data.Exit;
 import data.Level;
 import data.Room;
@@ -32,21 +37,19 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
 import net.miginfocom.swing.MigLayout;
 
 public class InfoPanel extends JPanel {
     
-    private JTextField roomNameField;
+    private final LabeledComponent roomNameField;
     private JComboBox streetNameField;
     private JButton addEditStreetsButton;
-    private JTextField shortDescriptionField;
-    private JTextField determinateField;
-    private JTextField lightField;
+    private final LabeledComponent shortDescriptionField;
+    private final LabeledComponent determinateField;
+    private final LabeledComponent lightField;
     private final JPanel contentPanel;
     private final JPanel exitPanel;
-    private JTextArea longDescriptionField;
+    private final LabeledComponent longDescriptionField;
     private Room currentRoom;
     private final Level level;
     
@@ -54,72 +57,56 @@ public class InfoPanel extends JPanel {
         this.level = level;
         setLayout(new MigLayout());
         contentPanel = createContentPanel();
+        
+        roomNameField = LabeledComponent.textField("Room name: ", 
+                new InfoPanelDocListener(this, new SetName()));
+        roomNameField.addtoPanel(contentPanel);
+        
+        buildStreetNameField();
+        
+        buildAddEditStreetsButton();
+        
+        shortDescriptionField = LabeledComponent.textField("Short description: ", 
+                new InfoPanelDocListener(this, new SetShort()));
+        shortDescriptionField.addtoPanel(contentPanel);
+        
+        determinateField = LabeledComponent.textField("Determinate: ", 
+                new InfoPanelDocListener(this, new SetDeterminate()));
+        determinateField.addtoPanel(contentPanel);
+        
+        lightField = LabeledComponent.textField("Light: ", 
+                new InfoPanelDocListener(this, new SetLight()));
+        lightField.addtoPanel(contentPanel);
+        
+        longDescriptionField = LabeledComponent.textField("Long description: ", 
+                new InfoPanelDocListener(this, new SetLong()));
+        longDescriptionField.addtoPanel(contentPanel);     
+        
         this.add(contentPanel, "wrap");
         exitPanel = createExitPanel();
         this.add(exitPanel);
     }
     
-    private JPanel createContentPanel() {
-        JPanel panel = new JPanel();
-        panel.setLayout(new MigLayout());
-        panel.setPreferredSize(new Dimension(400,250));
-        panel.setOpaque(true);
-        panel.setBorder(BorderFactory.createTitledBorder("Attributes"));
-        
-        createRoomNameField(panel);
-        createStreetNameField(panel);
-        createAddEditStreetsButton(panel);
-        createShortDescriptionField(panel);
-        createDeterminateField(panel);
-        createLightField(panel);
-        createLongDescriptionField(panel);
-        
-        return panel;
-    }
-    
-    private JPanel createExitPanel() {
-        JPanel panel = new JPanel();
-        panel.setLayout(new MigLayout());
-        panel.setPreferredSize(new Dimension(400,200));
-        panel.setOpaque(true);
-        panel.setBorder(BorderFactory.createTitledBorder("Exits"));
-        
-        return panel;
-    }    
-    
-    public void createRoomNameField(JPanel panel) {
-        roomNameField = new JTextField();
-        Dimension dimension = roomNameField.getPreferredSize();
-        roomNameField.setPreferredSize(new Dimension(200, dimension.height));
-        roomNameField.getDocument().addDocumentListener(
-                new InfoPanelDocListener(this, new SetNameCommand()));
-        JLabel roomNameLabel = new JLabel("Room name:", JLabel.RIGHT);
-        roomNameLabel.setLabelFor(roomNameField);
-        panel.add(roomNameLabel);
-        panel.add(roomNameField, "wrap");
-    }
-    
-    private void createStreetNameField(JPanel panel) {
+    private void buildStreetNameField() {
         streetNameField = new JComboBox();
         Dimension dimension = streetNameField.getPreferredSize();
         streetNameField.setPreferredSize(new Dimension(200, dimension.height));
         streetNameField.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                if(currentRoom != null) {
-                    currentRoom.setStreet((String)streetNameField.getSelectedItem());
+                if (currentRoom != null) {
+                    currentRoom.setStreet((String) streetNameField.getSelectedItem());
                 }
-            }            
+            }
         });
         populateStreetNames();
         JLabel streetNameLabel = new JLabel("Street name:", JLabel.RIGHT);
         streetNameLabel.setLabelFor(streetNameField);
-        panel.add(streetNameLabel);
-        panel.add(streetNameField);
-        
+        contentPanel.add(streetNameLabel);
+        contentPanel.add(streetNameField);
     }
     
-    private void createAddEditStreetsButton(JPanel panel) {
+    private void buildAddEditStreetsButton() {
         addEditStreetsButton = new JButton("Add/Edit Streets");
         addEditStreetsButton.addActionListener(new ActionListener() {
             @Override
@@ -128,54 +115,26 @@ public class InfoPanel extends JPanel {
                 editor.run();
             }
         });
-        panel.add(addEditStreetsButton, "wrap");
+        contentPanel.add(addEditStreetsButton, "wrap");
     }
     
-    private void createShortDescriptionField(JPanel panel) {
-        shortDescriptionField = new JTextField();
-        Dimension dimension = shortDescriptionField.getPreferredSize();
-        shortDescriptionField.setPreferredSize(new Dimension(200, dimension.height));
-        shortDescriptionField.getDocument().addDocumentListener(
-                new InfoPanelDocListener(this, new SetShortCommand()));
-        JLabel shortDescriptionLabel = new JLabel("Short description:", JLabel.RIGHT);
-        shortDescriptionLabel.setLabelFor(shortDescriptionField);
-        panel.add(shortDescriptionLabel);
-        panel.add(shortDescriptionField, "span, grow, wrap");
+    private JPanel createContentPanel() {
+        JPanel conentPanel = new JPanel();
+        conentPanel.setLayout(new MigLayout());
+        conentPanel.setPreferredSize(new Dimension(400,250));
+        conentPanel.setOpaque(true);
+        conentPanel.setBorder(BorderFactory.createTitledBorder("Attributes"));
+        return conentPanel;
     }
     
-    public void createDeterminateField(JPanel panel) {
-        determinateField = new JTextField();
-        Dimension dimension = determinateField.getPreferredSize();
-        determinateField.setPreferredSize(new Dimension(200, dimension.height));
-        determinateField.getDocument().addDocumentListener(
-                new InfoPanelDocListener(this, new SetDeterminateCommand()));
-        JLabel determinateLabel = new JLabel("Determinate:", JLabel.RIGHT);
-        determinateLabel.setLabelFor(determinateField);
-        panel.add(determinateLabel);
-        panel.add(determinateField, "wrap");
-    }
-    
-    public void createLightField(JPanel panel) {
-        lightField = new JTextField();
-        Dimension dimension = lightField.getPreferredSize();
-        lightField.setPreferredSize(new Dimension(200, dimension.height));
-        lightField.getDocument().addDocumentListener(
-                new InfoPanelDocListener(this, new SetLightCommand()));
-        JLabel lightFieldLabel = new JLabel("Light:", JLabel.RIGHT);
-        lightFieldLabel.setLabelFor(lightField);
-        panel.add(lightFieldLabel);
-        panel.add(lightField, "wrap");
-    }
-    
-    public void createLongDescriptionField(JPanel panel) {
-        longDescriptionField = new JTextArea(5, 60);
-        longDescriptionField.getDocument().addDocumentListener(
-                new InfoPanelDocListener(this, new SetLongCommand()));
-        JLabel longDescriptionLabel = new JLabel("Long description: ", JLabel.RIGHT);
-        longDescriptionLabel.setLabelFor(longDescriptionField);
-        panel.add(longDescriptionLabel, "wrap");
-        panel.add(longDescriptionField, "span");
-    }
+    private JPanel createExitPanel() {
+        JPanel exitPanel = new JPanel();
+        exitPanel.setLayout(new MigLayout());
+        exitPanel.setPreferredSize(new Dimension(400,200));
+        exitPanel.setOpaque(true);
+        exitPanel.setBorder(BorderFactory.createTitledBorder("Exits"));
+        return exitPanel;
+    }    
     
     public void updateExitPanel(Room room) {
         List<Exit> exits = room.getExits();
@@ -220,5 +179,6 @@ public class InfoPanel extends JPanel {
         this.longDescriptionField.setText(room.getLong());
         updateExitPanel(room);
     }
+
 
 }

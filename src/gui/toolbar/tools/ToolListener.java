@@ -1,4 +1,4 @@
-package tools;
+package gui.toolbar.tools;
 
 /**
  * JDig, a tool for the automatic generation of LPC class files for Epitaph 
@@ -19,33 +19,8 @@ package tools;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import data.Cell;
-import gui.infopanel.InfoPanel;
-import java.awt.event.MouseEvent;
+import java.util.EventListener;
 
-public class SelectionTool implements Tool {
-    
-    private InfoPanel infoPanel;
-    
-    public SelectionTool(InfoPanel infoPanel) {
-        this.infoPanel = infoPanel;
-    }
-    
-    @Override
-    public void mouseEntered(Cell cell, MouseEvent event) {
-        
-    }
-    
-    @Override
-    public void mouseExited(Cell cell, MouseEvent event) {
-        
-    }
-
-    @Override
-    public void mouseClicked(Cell cell, MouseEvent event) {
-        if(cell.isRoom()) {
-            infoPanel.load(cell.getRoom());
-        }
-    }
-    
+public interface ToolListener extends EventListener {
+    public void toolChanged(ToolEvent event);
 }

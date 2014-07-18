@@ -1,8 +1,8 @@
-package gui.infopanel;
+package gui.infopanel.commands;
 
 import data.Room;
 
-public class SetShortCommand implements SetterCommand {
+public class SetShort implements SetterCommand {
     
     @Override
     public void set(Room room, String text) {

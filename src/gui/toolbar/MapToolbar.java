@@ -25,12 +25,12 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JToolBar;
-import tools.SelectionTool;
-import tools.ExitTool;
-import tools.RoomTool;
-import tools.Tool;
-import tools.ToolEvent;
-import tools.ToolListener;
+import gui.toolbar.tools.SelectionTool;
+import gui.toolbar.tools.ExitTool;
+import gui.toolbar.tools.RoomTool;
+import gui.toolbar.tools.Tool;
+import gui.toolbar.tools.ToolEvent;
+import gui.toolbar.tools.ToolListener;
 
 /**
  * The MapEditorToolbar class specifies the tool bar for the map editor.

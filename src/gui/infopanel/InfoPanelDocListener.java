@@ -1,5 +1,6 @@
 package gui.infopanel;
 
+import gui.infopanel.commands.SetterCommand;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.text.BadLocationException;

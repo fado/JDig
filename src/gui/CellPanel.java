@@ -36,9 +36,9 @@ import javax.swing.JPanel;
 import javax.swing.border.Border;
 import data.Cell;
 import data.Entity;
-import tools.Tool;
-import tools.ToolEvent;
-import tools.ToolListener;
+import gui.toolbar.tools.Tool;
+import gui.toolbar.tools.ToolEvent;
+import gui.toolbar.tools.ToolListener;
 
 public class CellPanel extends JPanel implements ToolListener {
 
