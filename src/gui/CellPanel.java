@@ -36,17 +36,17 @@ import javax.swing.JPanel;
 import javax.swing.border.Border;
 import data.Cell;
 import data.Entity;
-import gui.toolbar.tools.Tool;
-import gui.toolbar.tools.ToolEvent;
-import gui.toolbar.tools.ToolListener;
+import gui.toolbars.maptools.MapTool;
+import gui.toolbars.maptools.MapToolEvent;
+import gui.toolbars.maptools.MapToolListener;
 
-public class CellPanel extends JPanel implements ToolListener {
+public class CellPanel extends JPanel implements MapToolListener {
 
     private final Color VERY_LIGHT_GRAY = new Color(224, 224, 224);
     private final int SIZE = 15;
     private JLabel entityImage;
     private Border defaultBorder;
-    private Tool selectedTool;
+    private MapTool selectedMapTool;
 
     /**
      * Constructor takes as a parameter the Cell object associated with this
@@ -60,7 +60,7 @@ public class CellPanel extends JPanel implements ToolListener {
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent event) {
-                selectedTool.mouseEntered(cell, event);
+                selectedMapTool.mouseEntered(cell, event);
             }
             @Override
             public void mouseExited(MouseEvent event) {
@@ -71,7 +71,7 @@ public class CellPanel extends JPanel implements ToolListener {
             }
             @Override
             public void mouseClicked(MouseEvent event) {
-                selectedTool.mouseClicked(cell, event);
+                selectedMapTool.mouseClicked(cell, event);
             }
         });
     }
@@ -128,7 +128,7 @@ public class CellPanel extends JPanel implements ToolListener {
     }
 
     @Override
-    public void toolChanged(ToolEvent event) {
-        this.selectedTool = event.getTool();
+    public void toolChanged(MapToolEvent event) {
+        this.selectedMapTool = event.getMapTool();
     }
 }

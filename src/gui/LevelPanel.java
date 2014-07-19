@@ -19,7 +19,7 @@ package gui;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import gui.toolbar.MapToolbar;
+import gui.toolbars.MapToolbar;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import javax.swing.JPanel;
