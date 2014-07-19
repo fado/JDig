@@ -20,12 +20,15 @@ package gui.toolbars.maptools;
  */
 
 import data.Cell;
+import gui.CellPanel;
 import gui.infopanel.InfoPanel;
 import java.awt.event.MouseEvent;
 
 public class SelectionMapTool implements MapTool {
     
     private InfoPanel infoPanel;
+    private CellPanel lastPanel;
+    private CellPanel currentPanel;
     
     public SelectionMapTool(InfoPanel infoPanel) {
         this.infoPanel = infoPanel;
@@ -44,6 +47,12 @@ public class SelectionMapTool implements MapTool {
     @Override
     public void mouseClicked(Cell cell, MouseEvent event) {
         if(cell.isRoom()) {
+            if(currentPanel != null) {
+                lastPanel = currentPanel;
+                lastPanel.setDeselected();
+            }
+            currentPanel = (CellPanel)event.getSource();
+            currentPanel.setSelected();
             infoPanel.load(cell.getRoom());
         }
     }

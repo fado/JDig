@@ -158,14 +158,6 @@ public class InfoPanel extends JPanel {
         return this.currentRoom;
     }
 
-    public JPanel getContentPanel() {
-        return this.contentPanel;
-    }
-
-    public JPanel getExitPanel() {
-        return this.contentPanel;
-    }
-
     public void populateStreetNames() {
         streetNameField.removeAllItems();
         streetNameField.addItem("");

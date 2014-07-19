@@ -122,6 +122,14 @@ public class CellPanel extends JPanel implements MapToolListener {
         this.setBorder(defaultBorder);
     }
 
+    public void setSelected() {
+        this.setBackground(Color.GRAY);
+    }
+
+    public void setDeselected() {
+        this.setBackground(Color.WHITE);
+    }
+
     @Override
     public Dimension getPreferredSize() {
         return new Dimension(SIZE, SIZE);
