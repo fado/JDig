@@ -1,0 +1,100 @@
+package gui.toolbars;
+
+/**
+ * JDig, a tool for the automatic generation of LPC class files for Epitaph 
+ * developers.
+ * Copyright (C) 2014 Fado@Epitaph.
+ *
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation, either version 3 of the License, or (at your option) any later
+ * version.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ *
+ * You should have received a copy of the GNU General Public License along with
+ * this program. If not, see <http://www.gnu.org/licenses/>.
+ */
+
+import gui.infopanel.InfoPanel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JToolBar;
+
+import gui.toolbars.maptools.ExitMapTool;
+import gui.toolbars.maptools.MapTool;
+import gui.toolbars.maptools.MapToolEvent;
+import gui.toolbars.maptools.MapToolListener;
+import gui.toolbars.maptools.SelectionMapTool;
+import gui.toolbars.maptools.RoomMapTool;
+
+/**
+ * The MapEditorToolbar class specifies the tool bar for the map editor.
+ *
+ * @author Administrator
+ */
+public class MapToolbar extends JToolBar {
+
+    private final List<MapToolListener> listeners = new ArrayList<>();
+    private MapTool selectedMapTool;
+    private MapTool selectionMapTool;
+    private MapTool roomMapTool;
+    private MapTool exitMapTool;
+    private final InfoPanel infoPanel;
+    
+    public MapToolbar(InfoPanel infoPanel) {
+        this.infoPanel = infoPanel;
+        setDefaultProperties();
+        
+        this.add(ToolbarButtonBuilder.build("SelectionTool", getToolChangeAction(selectionMapTool)));
+        this.add(ToolbarButtonBuilder.build("RoomTool", getToolChangeAction(roomMapTool)));
+        this.add(ToolbarButtonBuilder.build("ExitTool", getToolChangeAction(exitMapTool)));
+    }
+
+    private void setDefaultProperties() {
+        this.setFloatable(false);
+        this.selectionMapTool = new SelectionMapTool(infoPanel);
+        this.roomMapTool = new RoomMapTool();
+        this.exitMapTool = new ExitMapTool();
+    }
+    
+    public void setDefaultSelectionTool() {
+        setSelectedMapTool(selectionMapTool);
+    }
+    
+    public MapTool getSelectedMapTool() {
+        return this.selectedMapTool;
+    }
+
+    public void setSelectedMapTool(MapTool mapTool) {
+        this.selectedMapTool = mapTool;
+        fireToolChanged();
+    }
+    
+    private ActionListener getToolChangeAction(final MapTool mapTool) {
+        ActionListener listener = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent event) {
+                setSelectedMapTool(mapTool);
+            }
+        };
+        return listener;
+    }
+    
+    public void addToolListener(MapToolListener obj) {
+        listeners.add(obj);
+    }
+
+    protected void fireToolChanged() {
+        MapToolEvent mapToolEvent = new MapToolEvent(this, getSelectedMapTool());
+        for (MapToolListener listener : listeners) {
+            listener.toolChanged(mapToolEvent);
+        }
+    }
+
+}
