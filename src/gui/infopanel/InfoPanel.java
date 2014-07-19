@@ -178,6 +178,8 @@ public class InfoPanel extends JPanel {
         this.currentRoom = room;
         this.roomNameField.setText(room.getName());
         this.streetNameField.setSelectedItem(room.getStreet());
+        this.determinateField.setText(room.getDeterminate());
+        this.lightField.setText(room.getLight());
         this.shortDescriptionField.setText(room.getShort());
         this.longDescriptionField.setText(room.getLong());
         updateExitPanel(room);
