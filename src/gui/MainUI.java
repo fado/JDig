@@ -19,7 +19,8 @@ package gui;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import gui.toolbar.MapToolbar;
+import gui.toolbars.InfoToolbar;
+import gui.toolbars.MapToolbar;
 import gui.infopanel.InfoPanel;
 import java.awt.Container;
 import java.awt.GridBagConstraints;
@@ -47,6 +48,11 @@ public class MainUI implements Runnable {
         constraints.weightx = 0.1;
         constraints.weighty = 0.1;
         constraints.fill = GridBagConstraints.BOTH;
+
+        InfoToolbar infoToolbar = new InfoToolbar(level);
+        constraints.gridx = 1;
+        constraints.gridy = 0;
+        pane.add(infoToolbar, constraints);
 
         InfoPanel infoPanel = new InfoPanel(this.level);
         constraints.gridx = 1;
