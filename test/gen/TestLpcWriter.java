@@ -22,7 +22,7 @@ public class TestLpcWriter {
     @Test
     public void testWrite() throws IOException {
         Room room = new Room();
-        room.setShort("test short.");
+        room.setShort("test short");
         room.setDeterminate("the");
         room.setLong("Test long.");
         room.setLight("100");
