@@ -30,7 +30,7 @@ public class Room {
     private String longDescription = "";
     private String shortDescription = "";
     private String determinate = "";
-    private int light;
+    private String light;
     private final List<Exit> exits = new ArrayList<>();
     private static final Localization localization = new Localization();
     
@@ -71,10 +71,10 @@ public class Room {
     }
     
     public void setLight(String light) {
-        this.light = Integer.parseInt(light);
+        this.light = light;
     }
     
-    public int getLight() {
+    public String getLight() {
         return this.light;
     }
     
