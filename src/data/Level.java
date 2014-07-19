@@ -70,6 +70,16 @@ public class Level {
     public List<Cell> getAllCells() {
         return this.allCells;
     }
+
+    public List<Room> getRooms() {
+        List<Room> rooms = new ArrayList<>();
+        for(Cell cell : allCells) {
+            if(cell.isRoom()) {
+                rooms.add(cell.getRoom());
+            }
+        }
+        return rooms;
+    }
     
     public Cell getCellAdjacentTo(Cell referenceCell, Direction direction) {
         for (Cell cell : allCells) {
