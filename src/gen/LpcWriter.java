@@ -19,7 +19,6 @@ package gen;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-
 import java.io.BufferedWriter;
 import java.io.FileOutputStream;
 import java.io.IOException;

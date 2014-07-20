@@ -19,6 +19,7 @@ package gui;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+import gui.menubar.MenuBar;
 import gui.toolbars.InfoToolbar;
 import gui.toolbars.MapToolbar;
 import gui.infopanel.InfoPanel;
@@ -49,7 +50,7 @@ public class MainUI implements Runnable {
         constraints.weighty = 0.1;
         constraints.fill = GridBagConstraints.BOTH;
 
-        InfoToolbar infoToolbar = new InfoToolbar(level);
+        InfoToolbar infoToolbar = new InfoToolbar(this.level);
         constraints.gridx = 1;
         constraints.gridy = 0;
         pane.add(infoToolbar, constraints);
@@ -77,6 +78,7 @@ public class MainUI implements Runnable {
         JFrame frame = new JFrame("JDig");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         addComponentsToPane(frame.getContentPane());
+        frame.setJMenuBar(new MenuBar(this.level));
         frame.setVisible(true);
         frame.pack();
     }
