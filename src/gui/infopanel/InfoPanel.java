@@ -22,6 +22,8 @@ import data.Level;
 import data.Room;
 import data.Street;
 import gui.infopanel.commands.SetDeterminate;
+import gui.infopanel.commands.SetInclude;
+import gui.infopanel.commands.SetInherit;
 import gui.infopanel.commands.SetLight;
 import gui.infopanel.commands.SetLong;
 import gui.infopanel.commands.SetName;
@@ -44,6 +46,8 @@ public class InfoPanel extends JPanel {
     private final LabeledComponent roomNameField;
     private JComboBox streetNameField;
     private JButton addEditStreetsButton;
+    private final LabeledComponent includeField;
+    private final LabeledComponent inheritField;
     private final LabeledComponent shortDescriptionField;
     private final LabeledComponent determinateField;
     private final LabeledComponent lightField;
@@ -62,6 +66,14 @@ public class InfoPanel extends JPanel {
         roomNameField = LabeledComponent.textField(localization.get("RoomNameLabel"),
                 new InfoPanelDocListener(this, new SetName()));
         roomNameField.addtoPanel(contentPanel);
+
+        includeField = LabeledComponent.textField(localization.get("IncludeLabel"),
+                new InfoPanelDocListener(this, new SetInclude()));
+        includeField.addtoPanel(contentPanel);
+
+        inheritField = LabeledComponent.textField(localization.get("InheritLabel"),
+                new InfoPanelDocListener(this, new SetInherit()));
+        inheritField.addtoPanel(contentPanel);
 
         buildStreetNameField();
 
@@ -124,7 +136,7 @@ public class InfoPanel extends JPanel {
     private JPanel createContentPanel() {
         JPanel panel = new JPanel();
         panel.setLayout(new MigLayout());
-        panel.setPreferredSize(new Dimension(400, 250));
+        panel.setPreferredSize(new Dimension(400, 300));
         panel.setOpaque(true);
         panel.setBorder(BorderFactory.createTitledBorder("Attributes"));
         return panel;
@@ -133,7 +145,7 @@ public class InfoPanel extends JPanel {
     private JPanel createExitPanel() {
         JPanel panel = new JPanel();
         panel.setLayout(new MigLayout());
-        panel.setPreferredSize(new Dimension(400, 200));
+        panel.setPreferredSize(new Dimension(400, 50));
         panel.setOpaque(true);
         panel.setBorder(BorderFactory.createTitledBorder("Exits"));
         return panel;
@@ -143,7 +155,7 @@ public class InfoPanel extends JPanel {
         List<Exit> exits = room.getExits();
         exitPanel.removeAll();
         for (Exit exit : exits) {
-            JLabel exitLabel = new JLabel(exit.getDirection().toString(), JLabel.RIGHT);
+            JLabel exitLabel = new JLabel(exit.getDirection().toString()+", ", JLabel.RIGHT);
             exitPanel.add(exitLabel, "wrap");
         }
         exitPanel.validate();
@@ -169,6 +181,8 @@ public class InfoPanel extends JPanel {
     public void load(Room room) {
         this.currentRoom = room;
         this.roomNameField.setText(room.getName());
+        this.includeField.setText(room.getInclude());
+        this.inheritField.setText(room.getInherit());
         this.streetNameField.setSelectedItem(room.getStreet());
         this.determinateField.setText(room.getDeterminate());
         this.lightField.setText(room.getLight());

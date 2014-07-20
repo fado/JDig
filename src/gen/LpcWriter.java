@@ -54,7 +54,7 @@ public class LpcWriter {
 
         String exits = "";
         for (Exit exit : room.getExits()) {
-            exits += MessageFormat.format("add_exit (\"{0}\", __DIR__ +\"{1}\", \"{2}\");\n",
+            exits += MessageFormat.format("add_exit (\"{0}\", __DIR__ +\"{1}\", \"{2}\");\n    ",
                     exit.getDirection().toString().toLowerCase(),
                     exit.getDestination().getName(),
                     exit.getExitType().toString().toLowerCase()

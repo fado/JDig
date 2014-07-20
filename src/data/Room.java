@@ -24,7 +24,9 @@ import java.util.List;
 import properties.Localization;
 
 public class Room {
-    
+
+    private String include = "";
+    private String inherit = "";
     private String name = "";
     private String street = "";
     private String longDescription = "";
@@ -35,6 +37,8 @@ public class Room {
     private static final Localization localization = new Localization();
     
     public Room() {
+        this.include = localization.get("DefaultInclude");
+        this.inherit = localization.get("DefaultInherit");
         this.longDescription = localization.get("DefaultLongDescription");
     }
     
@@ -44,6 +48,22 @@ public class Room {
 
     public String getName() {
        return this.name;
+    }
+
+    public void setInclude(String include) {
+        this.include = include;
+    }
+
+    public String getInclude() {
+        return this.include;
+    }
+
+    public void setInherit(String inherit) {
+        this.inherit = inherit;
+    }
+
+    public String getInherit() {
+        return this.inherit;
     }
     
     public void setStreet(String street) {
