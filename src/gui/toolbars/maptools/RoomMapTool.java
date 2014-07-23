@@ -29,13 +29,22 @@ import javax.swing.SwingUtilities;
 public class RoomMapTool implements MapTool {
 
     private final String ROOM_IMAGE = "./resources/images/room.png";
+    private final String INVALID_ROOM_IMAGE = "./resources/images/invalid_room.png";
+    private Cell firstRoomCell;
+    private boolean xEven = false;
+    private boolean yEven = false;
     
     @Override
     public void mouseEntered(Cell cell, MouseEvent event) {
         CellPanel cellPanel = (CellPanel)event.getSource();
         if (cell.getEntity().equals(Entity.NO_ENTITY)) {
-            cellPanel.addImage(ROOM_IMAGE);
-            cellPanel.removeBorder();
+            if(positionIsValid(cellPanel)) {
+                cellPanel.addImage(ROOM_IMAGE);
+                cellPanel.removeBorder();
+            } else {
+                cellPanel.addImage(INVALID_ROOM_IMAGE);
+                cellPanel.removeBorder();
+            }
         }
     }
     
@@ -50,11 +59,36 @@ public class RoomMapTool implements MapTool {
 
     @Override
     public void mouseClicked(Cell cell, MouseEvent event) {
+        CellPanel cellPanel = (CellPanel) event.getSource();
         if (SwingUtilities.isRightMouseButton(event)) {
             cell.setEntityType(Entity.NO_ENTITY);
-        } else if (SwingUtilities.isLeftMouseButton(event)) {
+        } else if (SwingUtilities.isLeftMouseButton(event) && positionIsValid(cellPanel)) {
             cell.setEntityType(Entity.ROOM);
             cell.setRoom(new Room());
+            if(firstRoomCell == null) {
+                setFirstRoomCell(cell);
+            }
         }
+    }
+
+    private boolean positionIsValid(CellPanel cellPanel) {
+        if (firstRoomCell == null) {
+            return true;
+        }
+        return isEven(cellPanel.getX()) == xEven && isEven(cellPanel.getY()) == yEven;
+    }
+
+    private void setFirstRoomCell(Cell cell) {
+        this.firstRoomCell = cell;
+        if (isEven(cell.X)) {
+            xEven = true;
+        }
+        if (isEven(cell.Y)) {
+            yEven = true;
+        }
+    }
+
+    private boolean isEven(int coordinate) {
+        return coordinate % 2 == 0;
     }
 }
