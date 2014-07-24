@@ -26,12 +26,18 @@ import data.Room;
 import data.Street;
 import gui.MainUI;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.List;
 
 public class LevelPersistence {
 
@@ -49,7 +55,7 @@ public class LevelPersistence {
 
         try {
             writer = new BufferedWriter(new OutputStreamWriter(
-                    new FileOutputStream(file), "UTF-8"));
+                    new FileOutputStream(file + ".xml"), "UTF-8"));
             writer.write(xml);
             writer.flush();
         } catch (IOException ex) {
@@ -57,8 +63,14 @@ public class LevelPersistence {
         }
     }
 
-    public void load(String path) throws IOException {
-        Level level = (Level)xStream.fromXML(path);
+    public void load(File file) throws IOException {
+        BufferedReader reader = new BufferedReader(new FileReader(file));
+        StringBuffer buffer = new StringBuffer();
+        String line;
+        while((line = reader.readLine()) !=  null) {
+            buffer.append(line);
+        }
+        Level level = (Level)xStream.fromXML(buffer.toString());
         MainUI ui = new MainUI(level);
         ui.run();
     }

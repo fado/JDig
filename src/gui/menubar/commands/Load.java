@@ -1,8 +1,5 @@
 package gui.menubar.commands;
 
-import data.Level;
-import persistence.LevelPersistence;
-
 /**
  * JDig, a tool for the automatic generation of LPC class files for Epitaph
  * developers.
@@ -22,11 +19,35 @@ import persistence.LevelPersistence;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+import persistence.LevelPersistence;
+
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import java.io.File;
+import java.io.IOException;
+
 public class Load extends MenuCommand {
+
+    private File file;
 
     @Override
     public void execute() {
-        LevelPersistence levelPersistence = new LevelPersistence();
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setCurrentDirectory(new File("./saves"));
+        FileFilter filter = new FileNameExtensionFilter("XML File", "xml");
+        fileChooser.setFileFilter(filter);
+        if (fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+            file = fileChooser.getSelectedFile();
+        }
+        if (file != null) {
+            LevelPersistence levelPersistence = new LevelPersistence();
+            try {
+                levelPersistence.load(file);
+            } catch (IOException e) {
+                //TO-DO: Something.
+            }
+        }
 
     }
 }

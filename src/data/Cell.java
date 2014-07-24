@@ -69,34 +69,42 @@ public class Cell {
         return this.X >= 0 && this.Y >= 0;
     }
 
+    public boolean isExit() {
+        return currentEntity == Entity.VERTICAL_EXIT ||
+                currentEntity == Entity.HORIZONTAL_EXIT ||
+                currentEntity == Entity.FORWARD_DIAGONAL_EXIT ||
+                currentEntity == Entity.BACKWARD_DIAGONAL_EXIT ||
+                currentEntity == Entity.X_EXIT;
+    }
+
     /**
      * Determines the potential Entity that could exist in the Cell, given its
      * surroundings.
      *
      * @return - The potential Entity that could exist in the Cell.
      */
-    public ExitDirection getPotentialExitDirection() {
+    public Entity getPotentialExitDirection() {
         Map <String, Cell> cells = getAdjacentCells();
         // Check for rooms adjacent horizontally.
         if (cells.get("westCell").isRoom() && cells.get("eastCell").isRoom()) {
-            return ExitDirection.HORIZONTAL_EXIT;
+            return Entity.HORIZONTAL_EXIT;
         }
         // Check for rooms adjacent vertically.
         if (cells.get("northCell").isRoom() && cells.get("southCell").isRoom()) {
-            return ExitDirection.VERTICAL_EXIT;
+            return Entity.VERTICAL_EXIT;
         }
         // Check for rooms across both diagonal axis.
         if (cells.get("northwestCell").isRoom() && cells.get("northeastCell").isRoom()
                 && cells.get("southwestCell").isRoom() && cells.get("southeastCell").isRoom()) {
-            return ExitDirection.X_EXIT;
+            return Entity.X_EXIT;
         } 
         // Check for rooms on the southwest/northeast axis.
         else if (cells.get("southwestCell").isRoom() && cells.get("northeastCell").isRoom()) {
-            return ExitDirection.FORWARD_DIAGONAL_EXIT;
+            return Entity.FORWARD_DIAGONAL_EXIT;
         } 
         // Check for rooms on the southeast/northwest axis.
         else if (cells.get("southeastCell").isRoom() && cells.get("northwestCell").isRoom()) {
-            return ExitDirection.BACKWARD_DIAGONAL_EXIT;
+            return Entity.BACKWARD_DIAGONAL_EXIT;
         }
         return null;
     }

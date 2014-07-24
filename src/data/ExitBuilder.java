@@ -19,12 +19,7 @@ package data;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import data.Cell;
-import data.Direction;
-import data.Exit;
-import data.ExitDirection;
-import data.ExitType;
-import data.Room;
+import java.util.List;
 import java.util.Map;
 
 public class ExitBuilder {
@@ -36,24 +31,24 @@ public class ExitBuilder {
     }
     
     public static void build(Cell cell) {
-        ExitDirection exitDirection = cell.getPotentialExitDirection();
+        Entity exitDirection = cell.getPotentialExitDirection();
         cells = cell.getAdjacentCells();
         
-        if (exitDirection == ExitDirection.HORIZONTAL_EXIT) {
+        if (exitDirection == Entity.HORIZONTAL_EXIT) {
             buildExit("westCell", "eastCell", Direction.EAST);
             buildExit("eastCell", "westCell", Direction.WEST);
         }
-        if (exitDirection == ExitDirection.VERTICAL_EXIT) {
+        if (exitDirection == Entity.VERTICAL_EXIT) {
             buildExit("northCell", "southCell", Direction.SOUTH);
             buildExit("southCell", "northCell", Direction.NORTH);
         }
-        if (exitDirection == ExitDirection.BACKWARD_DIAGONAL_EXIT) {
+        if (exitDirection == Entity.BACKWARD_DIAGONAL_EXIT) {
             buildBackwardDiagonal();
         }
-        if (exitDirection == ExitDirection.FORWARD_DIAGONAL_EXIT) {
+        if (exitDirection == Entity.FORWARD_DIAGONAL_EXIT) {
             buildForwardDiagonal();
         }
-        if (exitDirection == ExitDirection.X_EXIT) {
+        if (exitDirection == Entity.X_EXIT) {
             buildBackwardDiagonal();
             buildForwardDiagonal();
         }
@@ -71,6 +66,12 @@ public class ExitBuilder {
     
     private static void buildExit(String origin, String destination, Direction direction) {
         Room originRoom = cells.get(origin).getRoom();
+        List<Exit> exits = originRoom.getExits();
+        for(Exit exit : exits) {
+            if(exit.getDirection() == direction) {
+                return;
+            }
+        }
         Room destinationRoom = cells.get(destination).getRoom();
         originRoom.addExit(new Exit(direction, destinationRoom, ExitType.PATH));
     }

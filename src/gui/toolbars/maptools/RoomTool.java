@@ -24,7 +24,6 @@ import data.Entity;
 import data.Level;
 import data.Room;
 import gui.CellPanel;
-import gui.LevelPanel;
 
 import java.awt.event.MouseEvent;
 import javax.swing.SwingUtilities;

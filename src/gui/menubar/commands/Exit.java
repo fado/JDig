@@ -1,9 +1,5 @@
 package gui.menubar.commands;
 
-import data.Level;
-
-import javax.swing.JOptionPane;
-
 /**
  * JDig, a tool for the automatic generation of LPC class files for Epitaph
  * developers. Copyright (C) 2014 Fado@Epitaph.
@@ -21,6 +17,9 @@ import javax.swing.JOptionPane;
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
+
+import data.Level;
+import javax.swing.JOptionPane;
 
 public class Exit extends MenuCommand {
 

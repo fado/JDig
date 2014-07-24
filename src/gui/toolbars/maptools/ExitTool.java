@@ -25,21 +25,20 @@ import gui.CellPanel;
 import java.awt.event.MouseEvent;
 import javax.swing.SwingUtilities;
 import data.Entity;
-import data.ExitDirection;
 
 public class ExitTool implements MapTool {
-    
-    ExitDirection exitDirection;
+
+    Entity exitEntity;
     
     @Override
     public void mouseEntered(Cell cell, MouseEvent event) {
         CellPanel cellPanel = (CellPanel)event.getSource();
-        exitDirection = cell.getPotentialExitDirection();
+        exitEntity = cell.getPotentialExitDirection();
         
         if(cell.getEntity().equals(Entity.NO_ENTITY)) {
-            if(exitDirection != null) {
-                cellPanel.addImage(exitDirection.getPath());
-                setBorder(cellPanel, exitDirection);    
+            if(exitEntity != null) {
+                cellPanel.addImage(exitEntity.getPath());
+                cellPanel.setBorder(exitEntity);
             }
         }
     }
@@ -67,16 +66,8 @@ public class ExitTool implements MapTool {
         if (SwingUtilities.isRightMouseButton(event)) {
             cell.setEntityType(Entity.NO_ENTITY);
         } else if (SwingUtilities.isLeftMouseButton(event)) {
-            cell.setEntityType(Entity.EXIT);
+            cell.setEntityType(cell.getPotentialExitDirection());
             ExitBuilder.build(cell);
-        }
-    }
- 
-    private void setBorder(CellPanel cellPanel, ExitDirection exit) {
-        if (exit == ExitDirection.VERTICAL_EXIT) {
-            cellPanel.setVerticalExitBorder();
-        } else if (exit == ExitDirection.HORIZONTAL_EXIT) {            
-            cellPanel.setHorizontalExitBorder();
         }
     }
     

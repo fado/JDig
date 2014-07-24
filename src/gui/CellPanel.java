@@ -42,6 +42,7 @@ import gui.toolbars.maptools.MapToolListener;
 
 public class CellPanel extends JPanel implements MapToolListener {
 
+    private final String ROOM_IMAGE = "./resources/images/room.png";
     private final Color VERY_LIGHT_GRAY = new Color(224, 224, 224);
     private final int SIZE = 15;
     private JLabel entityImage;
@@ -57,7 +58,16 @@ public class CellPanel extends JPanel implements MapToolListener {
      */
     public CellPanel(final Cell cell) {
         setDefaultProperties();
-        
+
+        if(cell.isRoom()) {
+            this.addImage(ROOM_IMAGE);
+            this.removeBorder();
+        }
+        if(cell.isExit()) {
+            this.addImage(cell.getEntity().getPath());
+            this.setBorder((cell.getEntity()));
+        }
+
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent event) {
@@ -125,6 +135,14 @@ public class CellPanel extends JPanel implements MapToolListener {
 
     public void restoreDefaultBorder() {
         this.setBorder(defaultBorder);
+    }
+
+    public void setBorder(Entity exit) {
+        if (exit == Entity.VERTICAL_EXIT) {
+            setVerticalExitBorder();
+        } else if (exit == Entity.HORIZONTAL_EXIT) {
+            setHorizontalExitBorder();
+        }
     }
 
     public void setSelected() {

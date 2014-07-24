@@ -21,6 +21,7 @@ package gui.menubar;
 
 import data.Level;
 import gui.menubar.commands.Exit;
+import gui.menubar.commands.Load;
 import gui.menubar.commands.Save;
 
 import javax.swing.JMenu;
@@ -39,6 +40,7 @@ public class MenuBar extends JMenuBar {
         UIManager.getDefaults().put("Button.showMnemonics", Boolean.TRUE);
 
         JMenuItem open = new JMenuItem("Open");
+        open.addActionListener(new MenuActionListener(new Load()));
         open.setMnemonic(KeyEvent.VK_O);
         open.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.CTRL_MASK));
         fileMenu.add(open);

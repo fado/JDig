@@ -42,7 +42,7 @@ public class Save extends MenuCommand {
         fileChooser.setCurrentDirectory(new File("./saves"));
         FileFilter filter = new FileNameExtensionFilter("XML File", "xml");
         fileChooser.setFileFilter(filter);
-        if (fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+        if (fileChooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
             file = fileChooser.getSelectedFile();
         }
         if (file != null) {
