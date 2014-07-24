@@ -27,10 +27,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SelectionTool implements MapTool {
-    
+
     private InfoPanel infoPanel;
     private CellPanel lastPanel;
-    private List<CellPanel> lastPanels = new ArrayList<>();
+    private List<CellPanel> selectedPanels = new ArrayList<>();
     private CellPanel currentPanel;
     
     public SelectionTool(InfoPanel infoPanel) {
@@ -59,15 +59,16 @@ public class SelectionTool implements MapTool {
 
     private void doSelection(Cell cell, MouseEvent event) {
         if (event.isShiftDown()) {
+            CellPanel currentPanel = (CellPanel) event.getSource();
             if (cell.isRoom()) {
-                if(currentPanel != null) {
-                    lastPanels.add(currentPanel);
-                }
-                currentPanel = (CellPanel) event.getSource();
+                selectedPanels.add(currentPanel);
                 currentPanel.setSelected();
-                infoPanel.load(cell.getRoom());
             }
         } else if (cell.isRoom()) {
+            for(CellPanel panel : selectedPanels) {
+                panel.setDeselected();
+            }
+            selectedPanels.clear();
             if (currentPanel != null) {
                 lastPanel = currentPanel;
                 lastPanel.setDeselected();
