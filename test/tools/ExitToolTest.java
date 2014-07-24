@@ -6,7 +6,7 @@ import data.Level;
 import org.junit.Before;
 import org.junit.Test;
 
-public class ExitMapToolTest {
+public class ExitToolTest {
     
     Level testMap;
     CellPanel testPanel;

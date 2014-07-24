@@ -27,6 +27,7 @@ import data.Street;
 import gui.MainUI;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
@@ -37,7 +38,7 @@ public class LevelPersistence {
     private Writer writer;
     private XStream xStream = new XStream();
 
-    public void save(Level level) {
+    public void save(Level level, File file) {
         String xml = xStream.toXML(level);
 
         xStream.alias("level", Level.class);
@@ -48,7 +49,7 @@ public class LevelPersistence {
 
         try {
             writer = new BufferedWriter(new OutputStreamWriter(
-                    new FileOutputStream("./saves/"+ level +".xml"), "UTF-8"));
+                    new FileOutputStream(file), "UTF-8"));
             writer.write(xml);
             writer.flush();
         } catch (IOException ex) {

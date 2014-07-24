@@ -22,9 +22,15 @@ package gui.menubar.commands;
 import data.Level;
 import persistence.LevelPersistence;
 
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import java.io.File;
+
 public class Save extends MenuCommand {
 
     private Level level;
+    private File file;
 
     public Save(Level level) {
         this.level = level;
@@ -32,7 +38,16 @@ public class Save extends MenuCommand {
 
     @Override
     public void execute() {
-        LevelPersistence levelPersistence = new LevelPersistence();
-        levelPersistence.save(level);
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setCurrentDirectory(new File("./saves"));
+        FileFilter filter = new FileNameExtensionFilter("XML File", "xml");
+        fileChooser.setFileFilter(filter);
+        if (fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+            file = fileChooser.getSelectedFile();
+        }
+        if (file != null) {
+            LevelPersistence levelPersistence = new LevelPersistence();
+            levelPersistence.save(level, file);
+        }
     }
 }

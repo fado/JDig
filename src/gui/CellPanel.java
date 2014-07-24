@@ -47,6 +47,7 @@ public class CellPanel extends JPanel implements MapToolListener {
     private JLabel entityImage;
     private Border defaultBorder;
     private MapTool selectedMapTool;
+    private boolean selected = false;
 
     /**
      * Constructor takes as a parameter the Cell object associated with this
@@ -70,8 +71,12 @@ public class CellPanel extends JPanel implements MapToolListener {
                 }
             }
             @Override
-            public void mouseClicked(MouseEvent event) {
-                selectedMapTool.mouseClicked(cell, event);
+            public void mousePressed(MouseEvent event) {
+                selectedMapTool.mousePressed(cell, event);
+            }
+            @Override
+            public void mouseReleased(MouseEvent event) {
+                selectedMapTool.mouseReleased(cell, event);
             }
         });
     }
@@ -124,10 +129,16 @@ public class CellPanel extends JPanel implements MapToolListener {
 
     public void setSelected() {
         this.setBackground(Color.GRAY);
+        this.selected = true;
     }
 
     public void setDeselected() {
         this.setBackground(Color.WHITE);
+        this.selected = false;
+    }
+
+    public boolean isSelected() {
+        return this.selected;
     }
 
     @Override

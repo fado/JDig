@@ -26,12 +26,12 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JToolBar;
 
-import gui.toolbars.maptools.ExitMapTool;
+import gui.toolbars.maptools.ExitTool;
 import gui.toolbars.maptools.MapTool;
 import gui.toolbars.maptools.MapToolEvent;
 import gui.toolbars.maptools.MapToolListener;
-import gui.toolbars.maptools.SelectionMapTool;
-import gui.toolbars.maptools.RoomMapTool;
+import gui.toolbars.maptools.RoomTool;
+import gui.toolbars.maptools.SelectionTool;
 
 /**
  * The MapEditorToolbar class specifies the tool bar for the map editor.
@@ -58,9 +58,9 @@ public class MapToolbar extends JToolBar {
 
     private void setDefaultProperties() {
         this.setFloatable(false);
-        this.selectionMapTool = new SelectionMapTool(infoPanel);
-        this.roomMapTool = new RoomMapTool();
-        this.exitMapTool = new ExitMapTool();
+        this.selectionMapTool = new SelectionTool(infoPanel);
+        this.roomMapTool = new RoomTool(infoPanel.getLevel());
+        this.exitMapTool = new ExitTool();
     }
     
     public void setDefaultSelectionTool() {

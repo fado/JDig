@@ -23,14 +23,17 @@ import data.Cell;
 import gui.CellPanel;
 import gui.infopanel.InfoPanel;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.List;
 
-public class SelectionMapTool implements MapTool {
+public class SelectionTool implements MapTool {
     
     private InfoPanel infoPanel;
     private CellPanel lastPanel;
+    private List<CellPanel> lastPanels = new ArrayList<>();
     private CellPanel currentPanel;
     
-    public SelectionMapTool(InfoPanel infoPanel) {
+    public SelectionTool(InfoPanel infoPanel) {
         this.infoPanel = infoPanel;
     }
     
@@ -45,13 +48,31 @@ public class SelectionMapTool implements MapTool {
     }
 
     @Override
-    public void mouseClicked(Cell cell, MouseEvent event) {
-        if(cell.isRoom()) {
-            if(currentPanel != null) {
+    public void mousePressed(Cell cell, MouseEvent event) {
+        doSelection(cell, event);
+    }
+
+    @Override
+    public void mouseReleased(Cell cell, MouseEvent event) {
+        doSelection(cell, event);
+    }
+
+    private void doSelection(Cell cell, MouseEvent event) {
+        if (event.isShiftDown()) {
+            if (cell.isRoom()) {
+                if(currentPanel != null) {
+                    lastPanels.add(currentPanel);
+                }
+                currentPanel = (CellPanel) event.getSource();
+                currentPanel.setSelected();
+                infoPanel.load(cell.getRoom());
+            }
+        } else if (cell.isRoom()) {
+            if (currentPanel != null) {
                 lastPanel = currentPanel;
                 lastPanel.setDeselected();
             }
-            currentPanel = (CellPanel)event.getSource();
+            currentPanel = (CellPanel) event.getSource();
             currentPanel.setSelected();
             infoPanel.load(cell.getRoom());
         }

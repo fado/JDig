@@ -25,5 +25,6 @@ import data.Cell;
 public interface MapTool {
     public void mouseEntered(Cell cell, MouseEvent event);
     public void mouseExited(Cell cell, MouseEvent event);
-    public void mouseClicked(Cell cell, MouseEvent event);
+    public void mousePressed(Cell cell, MouseEvent event);
+    public void mouseReleased(Cell cell, MouseEvent event);
 }

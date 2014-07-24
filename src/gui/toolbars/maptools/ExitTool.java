@@ -27,7 +27,7 @@ import javax.swing.SwingUtilities;
 import data.Entity;
 import data.ExitDirection;
 
-public class ExitMapTool implements MapTool {
+public class ExitTool implements MapTool {
     
     ExitDirection exitDirection;
     
@@ -54,7 +54,16 @@ public class ExitMapTool implements MapTool {
     }
 
     @Override
-    public void mouseClicked(Cell cell, MouseEvent event) {
+    public void mousePressed(Cell cell, MouseEvent event) {
+        doExit(cell, event);
+    }
+
+    @Override
+    public void mouseReleased(Cell cell, MouseEvent event) {
+        doExit(cell, event);
+    }
+
+    private void doExit(Cell cell, MouseEvent event) {
         if (SwingUtilities.isRightMouseButton(event)) {
             cell.setEntityType(Entity.NO_ENTITY);
         } else if (SwingUtilities.isLeftMouseButton(event)) {

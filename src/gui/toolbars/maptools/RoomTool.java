@@ -21,18 +21,26 @@ package gui.toolbars.maptools;
 
 import data.Cell;
 import data.Entity;
+import data.Level;
 import data.Room;
 import gui.CellPanel;
+import gui.LevelPanel;
+
 import java.awt.event.MouseEvent;
 import javax.swing.SwingUtilities;
 
-public class RoomMapTool implements MapTool {
+public class RoomTool implements MapTool {
 
     private final String ROOM_IMAGE = "./resources/images/room.png";
     private final String INVALID_ROOM_IMAGE = "./resources/images/invalid_room.png";
     private Cell firstRoomCell;
     private boolean xEven = false;
     private boolean yEven = false;
+    private Level level;
+
+    public RoomTool(Level level) {
+        this.level = level;
+    }
     
     @Override
     public void mouseEntered(Cell cell, MouseEvent event) {
@@ -58,10 +66,28 @@ public class RoomMapTool implements MapTool {
     }
 
     @Override
-    public void mouseClicked(Cell cell, MouseEvent event) {
+    public void mousePressed(Cell cell, MouseEvent event) {
+        doRoom(cell, event);
+    }
+
+    @Override
+    public void mouseReleased(Cell cell, MouseEvent event) {
+        doRoom(cell, event);
+    }
+
+    private void doRoom(Cell cell, MouseEvent event) {
         CellPanel cellPanel = (CellPanel) event.getSource();
         if (SwingUtilities.isRightMouseButton(event)) {
             cell.setEntityType(Entity.NO_ENTITY);
+            // Visualise the delete immediately rather than waiting for mouseExited().
+            cellPanel.removeImage();
+            cellPanel.restoreDefaultBorder();
+            if(cellPanel.isSelected()) {
+                cellPanel.setDeselected();
+            }
+            if(level.getRooms().isEmpty()) {
+                firstRoomCell = null;
+            }
         } else if (SwingUtilities.isLeftMouseButton(event) && positionIsValid(cellPanel)) {
             cell.setEntityType(Entity.ROOM);
             cell.setRoom(new Room());
