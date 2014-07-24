@@ -1,6 +1,4 @@
-package gui.menubar.commands;
-
-import data.Level;
+package gui.commands;
 
 /**
  * JDig, a tool for the automatic generation of LPC class files for Epitaph
@@ -21,6 +19,6 @@ import data.Level;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-public abstract class MenuCommand {
+public abstract class Command {
     public abstract void execute();
 }

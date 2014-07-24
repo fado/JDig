@@ -1,4 +1,4 @@
-package gui.menubar.commands;
+package gui.commands;
 
 /**
  * JDig, a tool for the automatic generation of LPC class files for Epitaph
@@ -27,7 +27,7 @@ import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.File;
 
-public class Save extends MenuCommand {
+public class Save extends Command {
 
     private Level level;
     private File file;

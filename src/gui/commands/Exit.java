@@ -1,4 +1,4 @@
-package gui.menubar.commands;
+package gui.commands;
 
 /**
  * JDig, a tool for the automatic generation of LPC class files for Epitaph
@@ -21,7 +21,7 @@ package gui.menubar.commands;
 import data.Level;
 import javax.swing.JOptionPane;
 
-public class Exit extends MenuCommand {
+public class Exit extends Command {
 
     private final Level level;
     private final String EXIT_MESS = "Save the current level?";

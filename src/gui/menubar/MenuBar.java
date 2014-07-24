@@ -20,9 +20,9 @@ package gui.menubar;
  */
 
 import data.Level;
-import gui.menubar.commands.Exit;
-import gui.menubar.commands.Load;
-import gui.menubar.commands.Save;
+import gui.commands.Exit;
+import gui.commands.Load;
+import gui.commands.Save;
 
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;

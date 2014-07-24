@@ -19,16 +19,16 @@ package gui.menubar;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import gui.menubar.commands.MenuCommand;
+import gui.commands.Command;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class MenuActionListener implements ActionListener {
 
-    private final MenuCommand command;
+    private final Command command;
 
-    public MenuActionListener(MenuCommand command) {
+    public MenuActionListener(Command command) {
         this.command = command;
     }
 
