@@ -21,11 +21,15 @@ package gui.toolbars.maptools;
 
 import data.Cell;
 import data.Entity;
+import data.Exit;
 import data.Level;
 import data.Room;
 import gui.CellPanel;
 
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import javax.swing.SwingUtilities;
 
 public class RoomTool implements MapTool {
@@ -78,6 +82,9 @@ public class RoomTool implements MapTool {
         CellPanel cellPanel = (CellPanel) event.getSource();
         if (SwingUtilities.isRightMouseButton(event)) {
             cell.setEntityType(Entity.NO_ENTITY);
+
+            removeDeadExits(cell);
+
             // Visualise the delete immediately rather than waiting for mouseExited().
             cellPanel.removeImage();
             cellPanel.restoreDefaultBorder();
@@ -93,6 +100,28 @@ public class RoomTool implements MapTool {
             if(firstRoomCell == null) {
                 setFirstRoomCell(cell);
             }
+        }
+    }
+
+    private void removeDeadExits(Cell cell) {
+        List<Room> destinations = new ArrayList<>();
+        for(Exit exit : cell.getRoom().getExits()) {
+            destinations.add(exit.getDestination());
+        }
+        Exit exitToRemove = null;
+        for(Room room : destinations) {
+            for(Exit exit : room.getExits()) {
+                if(exit.getDestination().equals(cell.getRoom())) {
+                    exitToRemove = exit;
+                }
+            }
+            room.removeExit(exitToRemove);
+        }
+        Map<String, Cell> adjacentCells = cell.getAdjacentCells();
+        for(Cell aCell : adjacentCells.values()) {
+            aCell.getCellPanel().removeImage();
+            aCell.getCellPanel().restoreDefaultBorder();
+            aCell.setEntityType(Entity.NO_ENTITY);
         }
     }
 

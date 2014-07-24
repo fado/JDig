@@ -64,7 +64,9 @@ public class ExitTool implements MapTool {
 
     private void doExit(Cell cell, MouseEvent event) {
         if (SwingUtilities.isRightMouseButton(event)) {
-            cell.setEntityType(Entity.NO_ENTITY);
+            if(cell.isExit()) {
+                cell.setEntityType(Entity.NO_ENTITY);
+            }
         } else if (SwingUtilities.isLeftMouseButton(event)) {
             cell.setEntityType(cell.getPotentialExitDirection());
             ExitBuilder.build(cell);

@@ -19,6 +19,8 @@ package data;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+import gui.CellPanel;
+
 import java.awt.Point;
 import java.util.HashMap;
 import java.util.Map;
@@ -30,6 +32,7 @@ public class Cell {
     private final Level parentMap;
     private Entity currentEntity;
     private Room room;
+    private CellPanel cellPanel;
 
     public Cell(Point point, Level map) {
         this.X = point.x;
@@ -59,6 +62,14 @@ public class Cell {
     
     public void setRoom(Room room) {
         this.room = room;
+    }
+
+    public void setCellPanel(CellPanel cellPanel) {
+        this.cellPanel = cellPanel;
+    }
+
+    public CellPanel getCellPanel() {
+        return this.cellPanel;
     }
 
     public boolean isRoom() {

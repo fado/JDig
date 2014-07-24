@@ -36,6 +36,7 @@ public class LevelPanel extends JPanel {
             constraints.gridx = cell.X;
             constraints.gridy = cell.Y;
             CellPanel cellPanel = new CellPanel(cell);
+            cell.setCellPanel(cellPanel);
             add(cellPanel, constraints);
             toolbar.addToolListener(cellPanel);
         }

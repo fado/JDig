@@ -109,6 +109,10 @@ public class Room {
     public void addExit(Exit exit) {
         exits.add(exit);
     }
+
+    public void removeExit(Exit exit) {
+        exits.remove(exit);
+    }
     
     public List<Exit> getExits() {
         return this.exits;
