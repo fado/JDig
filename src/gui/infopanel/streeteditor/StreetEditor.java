@@ -120,6 +120,9 @@ public class StreetEditor implements Runnable {
         streetName.getDocument().addDocumentListener(addListener);
 
         deleteButton = new JButton(DELETE_STRING);
+        if(listModel.isEmpty()) {
+            deleteButton.setEnabled(false);
+        }
         deleteButton.setActionCommand(DELETE_STRING);
         deleteButton.addActionListener(new DeleteListener(this));
         
@@ -154,6 +157,10 @@ public class StreetEditor implements Runnable {
     
     public JButton getDeleteButton() {
         return this.deleteButton;
+    }
+
+    public Level getLevel() {
+        return this.level;
     }
     
 }

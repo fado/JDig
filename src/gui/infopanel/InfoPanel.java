@@ -29,6 +29,7 @@ import gui.infopanel.commands.SetLong;
 import gui.infopanel.commands.SetName;
 import gui.infopanel.commands.SetShort;
 import gui.infopanel.streeteditor.StreetEditor;
+
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

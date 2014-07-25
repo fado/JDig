@@ -28,7 +28,6 @@ import java.io.IOException;
 import data.Level;
 import data.Room;
 import gen.LpcWriter;
-import gui.infopanel.InfoPanel;
 
 /**
  * Created by Administrator on 19/07/2014.
