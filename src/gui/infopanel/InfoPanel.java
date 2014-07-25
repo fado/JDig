@@ -21,6 +21,7 @@ import data.Exit;
 import data.Level;
 import data.Room;
 import data.Street;
+import gui.CellPanel;
 import gui.infopanel.commands.SetDeterminate;
 import gui.infopanel.commands.SetInclude;
 import gui.infopanel.commands.SetInherit;
@@ -30,15 +31,21 @@ import gui.infopanel.commands.SetName;
 import gui.infopanel.commands.SetShort;
 import gui.infopanel.streeteditor.StreetEditor;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JColorChooser;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+
 import net.miginfocom.swing.MigLayout;
 import properties.Localization;
 
@@ -47,6 +54,7 @@ public class InfoPanel extends JPanel {
     private final LabeledComponent roomNameField;
     private JComboBox streetNameField;
     private JButton addEditStreetsButton;
+    private JLabel colorChooserButton;
     private final LabeledComponent includeField;
     private final LabeledComponent inheritField;
     private final LabeledComponent shortDescriptionField;
@@ -58,6 +66,9 @@ public class InfoPanel extends JPanel {
     private Room currentRoom;
     private final Level level;
     private final Localization localization = new Localization();
+    private Color color;
+    private CellPanel currentCellPanel;
+    private final String PROPEGATE_COLOR_MESS = "Assign color to all rooms in this street?";
 
     public InfoPanel(Level level) {
         this.level = level;
@@ -79,6 +90,8 @@ public class InfoPanel extends JPanel {
         buildStreetNameField();
 
         buildAddEditStreetsButton();
+
+        buildColorSelector();
 
         shortDescriptionField = LabeledComponent.textField(localization.get("ShortDescLabel"),
                 new InfoPanelDocListener(this, new SetShort()));
@@ -112,6 +125,10 @@ public class InfoPanel extends JPanel {
             public void actionPerformed(ActionEvent ae) {
                 if (currentRoom != null) {
                     currentRoom.setStreet((String) streetNameField.getSelectedItem());
+                    Street street = level.getStreet(currentRoom.getStreet());
+                    if(street != null) {
+                        street.addRoom(currentRoom);
+                    }
                 }
             }
         });
@@ -131,7 +148,40 @@ public class InfoPanel extends JPanel {
                 editor.run();
             }
         });
-        contentPanel.add(addEditStreetsButton, "wrap");
+        contentPanel.add(addEditStreetsButton);
+    }
+
+    private void buildColorSelector() {
+        colorChooserButton = new JLabel();
+        colorChooserButton.setPreferredSize(new Dimension(16, 16));
+        colorChooserButton.setVerticalAlignment(JLabel.CENTER);
+        colorChooserButton.setBackground(Color.WHITE);
+        colorChooserButton.setOpaque(true);
+        colorChooserButton.setBorder(BorderFactory.createLineBorder(Color.black));
+        colorChooserButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent event) {
+                color = JColorChooser.showDialog(null, "Choose", Color.WHITE);
+                colorChooserButton.setBackground(color);
+                currentCellPanel.setBackground(color);
+                currentCellPanel.getCell().setColor(color);
+                System.out.println("Street name: "+ currentRoom.getStreet().toString());
+                if(currentRoom.getStreet().toString() != null) {
+                    int value = JOptionPane.showOptionDialog(null,
+                            PROPEGATE_COLOR_MESS,
+                            "Hey, little buddy...",
+                            JOptionPane.YES_NO_OPTION,
+                            JOptionPane.QUESTION_MESSAGE, null, null, null);
+                    if(value == JOptionPane.YES_OPTION) {
+                        Street street = level.getStreet(currentRoom.getStreet());
+                        for (Room room : street.getRooms()) {
+                            room.getCellPanel().setBackground(color);
+                        }
+                    }
+                }
+            }
+        });
+        contentPanel.add(colorChooserButton, "wrap");
     }
 
     private JPanel createContentPanel() {
@@ -179,17 +229,19 @@ public class InfoPanel extends JPanel {
         }
     }
 
-    public void load(Room room) {
-        this.currentRoom = room;
-        this.roomNameField.setText(room.getName());
-        this.includeField.setText(room.getInclude());
-        this.inheritField.setText(room.getInherit());
-        this.streetNameField.setSelectedItem(room.getStreet());
-        this.determinateField.setText(room.getDeterminate());
-        this.lightField.setText(room.getLight());
-        this.shortDescriptionField.setText(room.getShort());
-        this.longDescriptionField.setText(room.getLong());
-        updateExitPanel(room);
+    public void load(CellPanel cellPanel) {
+        this.currentRoom = cellPanel.getCell().getRoom();
+        this.currentCellPanel = cellPanel;
+        this.roomNameField.setText(currentRoom.getName());
+        this.includeField.setText(currentRoom.getInclude());
+        this.inheritField.setText(currentRoom.getInherit());
+        this.streetNameField.setSelectedItem(currentRoom.getStreet());
+        this.colorChooserButton.setBackground(cellPanel.getBackground());
+        this.determinateField.setText(currentRoom.getDeterminate());
+        this.lightField.setText(currentRoom.getLight());
+        this.shortDescriptionField.setText(currentRoom.getShort());
+        this.longDescriptionField.setText(currentRoom.getLong());
+        updateExitPanel(currentRoom);
     }
 
 }

@@ -83,7 +83,7 @@ public class RoomTool implements MapTool {
             deleteRoom(cell, cellPanel);
         } else if (SwingUtilities.isLeftMouseButton(event) && positionIsValid(cellPanel)) {
             cell.setEntityType(Entity.ROOM);
-            cell.setRoom(new Room());
+            cell.setRoom(new Room(cellPanel));
             if(firstRoomCell == null) {
                 setFirstRoomCell(cell);
             }

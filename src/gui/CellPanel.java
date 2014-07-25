@@ -43,6 +43,7 @@ import gui.toolbars.maptools.MapToolListener;
 public class CellPanel extends JPanel implements MapToolListener {
 
     private final String ROOM_IMAGE = "./resources/images/room.png";
+    private final String SELECTED_ROOM_IMAGE = "./resources/images/selected_room.png";
     private final Color VERY_LIGHT_GRAY = new Color(224, 224, 224);
     private final int SIZE = 15;
     private JLabel entityImage;
@@ -50,6 +51,7 @@ public class CellPanel extends JPanel implements MapToolListener {
     private MapTool selectedMapTool;
     private boolean selected = false;
     private Cell cell;
+    private Color previousColor;
 
     /**
      * Constructor takes as a parameter the Cell object associated with this
@@ -63,6 +65,9 @@ public class CellPanel extends JPanel implements MapToolListener {
 
         if(cell.isRoom()) {
             this.addImage(ROOM_IMAGE);
+            if(cell.getColor() != null) {
+                this.setBackground(cell.getColor());
+            }
             this.removeBorder();
         }
         if(cell.isExit()) {
@@ -148,12 +153,14 @@ public class CellPanel extends JPanel implements MapToolListener {
     }
 
     public void setSelected() {
-        this.setBackground(Color.GRAY);
+        this.removeImage();
+        this.addImage(SELECTED_ROOM_IMAGE);
         this.selected = true;
     }
 
     public void setDeselected() {
-        this.setBackground(Color.WHITE);
+        this.removeImage();
+        this.addImage(ROOM_IMAGE);
         this.selected = false;
     }
 

@@ -53,6 +53,16 @@ public class Level {
     public List<Street> getStreets() {
         return this.streets;
     }
+
+    public Street getStreet(String streetName) {
+        Street streetToBeReturned = null;
+        for(Street street : streets) {
+            if(street.getName().equalsIgnoreCase(streetName)) {
+                streetToBeReturned = street;
+            }
+        }
+        return streetToBeReturned;
+    }
     
     private void addCell(Cell cell) {
         allCells.add(cell);

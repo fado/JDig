@@ -21,6 +21,7 @@ package data;
 
 import gui.CellPanel;
 
+import java.awt.Color;
 import java.awt.Point;
 import java.util.HashMap;
 import java.util.Map;
@@ -33,6 +34,7 @@ public class Cell {
     private Entity currentEntity;
     private Room room;
     private CellPanel cellPanel;
+    private Color color;
 
     public Cell(Point point, Level map) {
         this.X = point.x;
@@ -46,9 +48,6 @@ public class Cell {
     }
 
     public void setEntityType(Entity entity) {
-        if (entity == Entity.ROOM) {
-            room = new Room();
-        }
         this.currentEntity = entity;
     }
     
@@ -70,6 +69,14 @@ public class Cell {
 
     public CellPanel getCellPanel() {
         return this.cellPanel;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
+    }
+
+    public Color getColor() {
+        return this.color;
     }
 
     public boolean isRoom() {
@@ -117,7 +124,7 @@ public class Cell {
         else if (cells.get("southeastCell").isRoom() && cells.get("northwestCell").isRoom()) {
             return Entity.BACKWARD_DIAGONAL_EXIT;
         }
-        return null;
+        return Entity.NO_ENTITY;
     }
     
     public Map<String, Cell> getAdjacentCells() {

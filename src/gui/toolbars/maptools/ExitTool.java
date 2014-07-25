@@ -36,7 +36,7 @@ public class ExitTool implements MapTool {
         exitEntity = cell.getPotentialExitDirection();
         
         if(cell.getEntity().equals(Entity.NO_ENTITY)) {
-            if(exitEntity != null) {
+            if(exitEntity != Entity.NO_ENTITY) {
                 cellPanel.addImage(exitEntity.getPath());
                 cellPanel.setBorder(exitEntity);
             }
@@ -68,8 +68,11 @@ public class ExitTool implements MapTool {
                 cell.setEntityType(Entity.NO_ENTITY);
             }
         } else if (SwingUtilities.isLeftMouseButton(event)) {
-            cell.setEntityType(cell.getPotentialExitDirection());
-            ExitBuilder.build(cell);
+            Entity potentialEntity = cell.getPotentialExitDirection();
+            if(potentialEntity != Entity.NO_ENTITY) {
+                cell.setEntityType(cell.getPotentialExitDirection());
+                ExitBuilder.build(cell);
+            }
         }
     }
     

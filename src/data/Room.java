@@ -21,6 +21,8 @@ package data;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import gui.CellPanel;
 import properties.Localization;
 
 public class Room {
@@ -35,11 +37,17 @@ public class Room {
     private String light;
     private final List<Exit> exits = new ArrayList<>();
     private static final Localization localization = new Localization();
-    
-    public Room() {
+    private final CellPanel cellPanel;
+
+    public Room(CellPanel cellPanel) {
+        this.cellPanel = cellPanel;
         this.include = localization.get("DefaultInclude");
         this.inherit = localization.get("DefaultInherit");
         this.longDescription = localization.get("DefaultLongDescription");
+    }
+
+    public CellPanel getCellPanel() {
+        return this.cellPanel;
     }
     
     public void setName(String name) {

@@ -74,7 +74,7 @@ public class SelectionTool implements MapTool {
             }
             currentPanel = (CellPanel) event.getSource();
             currentPanel.setSelected();
-            infoPanel.load(cell.getRoom());
+            infoPanel.load(currentPanel);
         }
     }
 
