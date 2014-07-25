@@ -29,7 +29,7 @@ public class Cell {
 
     public final int X;
     public final int Y;
-    private final Level parentMap;
+    private final Level parentLevel;
     private Entity currentEntity;
     private Room room;
     private CellPanel cellPanel;
@@ -37,12 +37,12 @@ public class Cell {
     public Cell(Point point, Level map) {
         this.X = point.x;
         this.Y = point.y;
-        this.parentMap = map;
+        this.parentLevel = map;
         this.currentEntity = Entity.NO_ENTITY;
     }
 
     public Level getParent() {
-        return this.parentMap;
+        return this.parentLevel;
     }
 
     public void setEntityType(Entity entity) {
@@ -122,14 +122,14 @@ public class Cell {
     
     public Map<String, Cell> getAdjacentCells() {
         Map <String, Cell> cells = new HashMap<>();
-        cells.put("westCell", parentMap.getCellAdjacentTo(this, Direction.WEST));
-        cells.put("eastCell", parentMap.getCellAdjacentTo(this, Direction.EAST));
-        cells.put("northCell", parentMap.getCellAdjacentTo(this, Direction.NORTH));
-        cells.put("southCell", parentMap.getCellAdjacentTo(this, Direction.SOUTH));
-        cells.put("northwestCell", parentMap.getCellAdjacentTo(this, Direction.NORTHWEST));
-        cells.put("northeastCell", parentMap.getCellAdjacentTo(this, Direction.NORTHEAST));
-        cells.put("southwestCell", parentMap.getCellAdjacentTo(this, Direction.SOUTHWEST));
-        cells.put("southeastCell", parentMap.getCellAdjacentTo(this, Direction.SOUTHEAST));
+        cells.put("westCell", parentLevel.getCellAdjacentTo(this, Direction.WEST));
+        cells.put("eastCell", parentLevel.getCellAdjacentTo(this, Direction.EAST));
+        cells.put("northCell", parentLevel.getCellAdjacentTo(this, Direction.NORTH));
+        cells.put("southCell", parentLevel.getCellAdjacentTo(this, Direction.SOUTH));
+        cells.put("northwestCell", parentLevel.getCellAdjacentTo(this, Direction.NORTHWEST));
+        cells.put("northeastCell", parentLevel.getCellAdjacentTo(this, Direction.NORTHEAST));
+        cells.put("southwestCell", parentLevel.getCellAdjacentTo(this, Direction.SOUTHWEST));
+        cells.put("southeastCell", parentLevel.getCellAdjacentTo(this, Direction.SOUTHEAST));
         return cells;
     }
 

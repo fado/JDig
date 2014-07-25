@@ -49,6 +49,7 @@ public class CellPanel extends JPanel implements MapToolListener {
     private Border defaultBorder;
     private MapTool selectedMapTool;
     private boolean selected = false;
+    private Cell cell;
 
     /**
      * Constructor takes as a parameter the Cell object associated with this
@@ -57,6 +58,7 @@ public class CellPanel extends JPanel implements MapToolListener {
      * @param cell - The Cell object associated with this Cell panel.
      */
     public CellPanel(final Cell cell) {
+        this.cell = cell;
         setDefaultProperties();
 
         if(cell.isRoom()) {
@@ -157,6 +159,10 @@ public class CellPanel extends JPanel implements MapToolListener {
 
     public boolean isSelected() {
         return this.selected;
+    }
+
+    public Cell getCell() {
+        return this.cell;
     }
 
     @Override

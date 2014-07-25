@@ -21,11 +21,9 @@ package gui.toolbars.maptools;
 
 import data.Cell;
 import data.Entity;
-import data.Exit;
 import data.Level;
 import data.Room;
 import gui.CellPanel;
-import gui.commands.DeleteRoom;
 
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -82,8 +80,14 @@ public class RoomTool implements MapTool {
     private void doRoom(Cell cell, MouseEvent event) {
         CellPanel cellPanel = (CellPanel) event.getSource();
         if (SwingUtilities.isRightMouseButton(event)) {
-            DeleteRoom delete = new DeleteRoom();
-            delete.execute(cell, cellPanel);
+            cell.setEntityType(Entity.NO_ENTITY);
+            removeDeadExits(cell);
+            // Visualise the delete immediately rather than waiting for mouseExited().
+            cellPanel.removeImage();
+            cellPanel.restoreDefaultBorder();
+            if(cellPanel.isSelected()) {
+                cellPanel.setDeselected();
+            }
             if(level.getRooms().isEmpty()) {
                 firstRoomCell = null;
             }
@@ -93,6 +97,28 @@ public class RoomTool implements MapTool {
             if(firstRoomCell == null) {
                 setFirstRoomCell(cell);
             }
+        }
+    }
+
+    private void removeDeadExits(Cell cell) {
+        List<Room> destinations = new ArrayList<>();
+        for(data.Exit exit : cell.getRoom().getExits()) {
+            destinations.add(exit.getDestination());
+        }
+        data.Exit exitToRemove = null;
+        for(Room room : destinations) {
+            for(data.Exit exit : room.getExits()) {
+                if(exit.getDestination().equals(cell.getRoom())) {
+                    exitToRemove = exit;
+                }
+            }
+            room.removeExit(exitToRemove);
+        }
+        Map<String, Cell> adjacentCells = cell.getAdjacentCells();
+        for(Cell aCell : adjacentCells.values()) {
+            aCell.getCellPanel().removeImage();
+            aCell.getCellPanel().restoreDefaultBorder();
+            aCell.setEntityType(Entity.NO_ENTITY);
         }
     }
 

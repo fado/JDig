@@ -31,6 +31,7 @@ import javax.swing.JFrame;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import data.Level;
+import gui.toolbars.maptools.SelectionTool;
 
 /**
  * The Gui class specifies the user interface for JDig.
@@ -38,6 +39,7 @@ import data.Level;
 public class MainUI implements Runnable {
 
     private final Level level;
+    private LevelPanel levelPanel;
     
     public MainUI(Level level) {
         this.level = level;
@@ -66,10 +68,10 @@ public class MainUI implements Runnable {
         constraints.gridy = 0;
         pane.add(toolbar, constraints);
 
-        LevelPanel mapPanel = new LevelPanel(this.level, toolbar);
+        levelPanel = new LevelPanel(this.level, toolbar);
         constraints.gridx = 0;
         constraints.gridy = 1;
-        pane.add(mapPanel, constraints);
+        pane.add(levelPanel, constraints);
         
         toolbar.setDefaultSelectionTool();
     }

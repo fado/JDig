@@ -19,15 +19,20 @@ package gui;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+import data.Room;
 import gui.toolbars.MapToolbar;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JPanel;
 import data.Cell;
 import data.Level;
 
 public class LevelPanel extends JPanel {
-    
+
+    private List<CellPanel> selectedPanels = new ArrayList<>();
+
     public LevelPanel(Level level, MapToolbar toolbar) {
         setLayout(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
@@ -40,6 +45,20 @@ public class LevelPanel extends JPanel {
             add(cellPanel, constraints);
             toolbar.addToolListener(cellPanel);
         }
+    }
+
+    public void addSelectedPanel(CellPanel cellPanel) {
+        selectedPanels.add(cellPanel);
+    }
+
+    public void removeSelectedPanel(CellPanel cellPanel) {
+        if(!selectedPanels.isEmpty()) {
+            selectedPanels.remove(cellPanel);
+        }
+    }
+
+    public List<CellPanel> getSelectedPanels() {
+        return this.selectedPanels;
     }
     
 }
