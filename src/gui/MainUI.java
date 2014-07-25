@@ -19,6 +19,7 @@ package gui;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+import gui.commands.Exit;
 import gui.menubar.MenuBar;
 import gui.toolbars.InfoToolbar;
 import gui.toolbars.MapToolbar;
@@ -26,6 +27,8 @@ import gui.infopanel.InfoPanel;
 import java.awt.Container;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.IOException;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
@@ -79,6 +82,12 @@ public class MainUI implements Runnable {
     private void createAndShowGui() throws IOException {
         JFrame frame = new JFrame("JDig");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent event) {
+                new Exit(MainUI.this.level).execute();
+            }
+        });
         addComponentsToPane(frame.getContentPane());
         frame.setJMenuBar(new MenuBar(this.level, toolbar.getSelectionTool(),
                 toolbar.getRoomTool()));

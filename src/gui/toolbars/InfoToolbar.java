@@ -19,6 +19,7 @@ package gui.toolbars;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+import javax.swing.JOptionPane;
 import javax.swing.JToolBar;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -35,6 +36,9 @@ import gui.infopanel.InfoPanel;
 public class InfoToolbar extends JToolBar {
 
     private Level level;
+    private boolean showNotEmptyMessage = false;
+    private final String NOT_EMPTY_MESS = "All rooms must have names before "+
+            "generating LPC.";
 
     public InfoToolbar(Level level) {
         this.level = level;
@@ -50,6 +54,15 @@ public class InfoToolbar extends JToolBar {
         ActionListener listener = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent event) {
+                for(Room room : level.getRooms()) {
+                    if(room.getName().isEmpty()) {
+                        showNotEmptyMessage = true;
+                    }
+                }
+                if(showNotEmptyMessage) {
+                    JOptionPane.showMessageDialog(null, NOT_EMPTY_MESS, "Warning",
+                            JOptionPane.WARNING_MESSAGE);
+                }
                 LpcWriter writer = new LpcWriter();
                 for(Room room : level.getRooms()) {
                     try {
