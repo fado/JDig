@@ -80,23 +80,27 @@ public class RoomTool implements MapTool {
     private void doRoom(Cell cell, MouseEvent event) {
         CellPanel cellPanel = (CellPanel) event.getSource();
         if (SwingUtilities.isRightMouseButton(event)) {
-            cell.setEntityType(Entity.NO_ENTITY);
-            removeDeadExits(cell);
-            // Visualise the delete immediately rather than waiting for mouseExited().
-            cellPanel.removeImage();
-            cellPanel.restoreDefaultBorder();
-            if(cellPanel.isSelected()) {
-                cellPanel.setDeselected();
-            }
-            if(level.getRooms().isEmpty()) {
-                firstRoomCell = null;
-            }
+            deleteRoom(cell, cellPanel);
         } else if (SwingUtilities.isLeftMouseButton(event) && positionIsValid(cellPanel)) {
             cell.setEntityType(Entity.ROOM);
             cell.setRoom(new Room());
             if(firstRoomCell == null) {
                 setFirstRoomCell(cell);
             }
+        }
+    }
+
+    private void deleteRoom(Cell cell, CellPanel cellPanel) {
+        cell.setEntityType(Entity.NO_ENTITY);
+        removeDeadExits(cell);
+        // Visualise the delete immediately rather than waiting for mouseExited().
+        cellPanel.removeImage();
+        cellPanel.restoreDefaultBorder();
+        if(cellPanel.isSelected()) {
+            cellPanel.setDeselected();
+        }
+        if(level.getRooms().isEmpty()) {
+            firstRoomCell = null;
         }
     }
 
