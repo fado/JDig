@@ -20,15 +20,11 @@ package gui.toolbars.maptools;
  */
 
 import data.Cell;
-import data.Entity;
-import data.Room;
 import gui.CellPanel;
-import gui.LevelPanel;
 import gui.infopanel.InfoPanel;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class SelectionTool implements MapTool {
 
@@ -80,6 +76,14 @@ public class SelectionTool implements MapTool {
             currentPanel.setSelected();
             infoPanel.load(cell.getRoom());
         }
+    }
+
+    public List<CellPanel> getSelectedPanels() {
+        return this.selectedPanels;
+    }
+
+    public CellPanel getCurrentPanel() {
+        return this.currentPanel;
     }
 
     private void clearSelectedPanels() {

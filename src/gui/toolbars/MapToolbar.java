@@ -42,29 +42,29 @@ public class MapToolbar extends JToolBar {
 
     private final List<MapToolListener> listeners = new ArrayList<>();
     private MapTool selectedMapTool;
-    private MapTool selectionMapTool;
-    private MapTool roomMapTool;
-    private MapTool exitMapTool;
+    private MapTool selectionTool;
+    private MapTool roomTool;
+    private MapTool exitTool;
     private final InfoPanel infoPanel;
     
     public MapToolbar(InfoPanel infoPanel) {
         this.infoPanel = infoPanel;
         setDefaultProperties();
         
-        this.add(ToolbarButtonBuilder.build("SelectionTool", getToolChangeAction(selectionMapTool)));
-        this.add(ToolbarButtonBuilder.build("RoomTool", getToolChangeAction(roomMapTool)));
-        this.add(ToolbarButtonBuilder.build("ExitTool", getToolChangeAction(exitMapTool)));
+        this.add(ToolbarButtonBuilder.build("SelectionTool", getToolChangeAction(selectionTool)));
+        this.add(ToolbarButtonBuilder.build("RoomTool", getToolChangeAction(roomTool)));
+        this.add(ToolbarButtonBuilder.build("ExitTool", getToolChangeAction(exitTool)));
     }
 
     private void setDefaultProperties() {
         this.setFloatable(false);
-        this.selectionMapTool = new SelectionTool(infoPanel);
-        this.roomMapTool = new RoomTool(infoPanel.getLevel());
-        this.exitMapTool = new ExitTool();
+        this.selectionTool = new SelectionTool(infoPanel);
+        this.roomTool = new RoomTool(infoPanel.getLevel());
+        this.exitTool = new ExitTool();
     }
     
     public void setDefaultSelectionTool() {
-        setSelectedMapTool(selectionMapTool);
+        setSelectedMapTool(selectionTool);
     }
     
     public MapTool getSelectedMapTool() {
@@ -74,6 +74,14 @@ public class MapToolbar extends JToolBar {
     public void setSelectedMapTool(MapTool mapTool) {
         this.selectedMapTool = mapTool;
         fireToolChanged();
+    }
+
+    public SelectionTool getSelectionTool() {
+        return (SelectionTool)this.selectionTool;
+    }
+
+    public RoomTool getRoomTool() {
+        return (RoomTool)this.roomTool;
     }
     
     private ActionListener getToolChangeAction(final MapTool mapTool) {

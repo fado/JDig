@@ -39,8 +39,8 @@ import gui.toolbars.maptools.SelectionTool;
 public class MainUI implements Runnable {
 
     private final Level level;
-    private LevelPanel levelPanel;
-    
+    private MapToolbar toolbar;
+
     public MainUI(Level level) {
         this.level = level;
     }
@@ -63,12 +63,12 @@ public class MainUI implements Runnable {
         constraints.gridy = 0;
         pane.add(infoToolbar, constraints);
 
-        MapToolbar toolbar = new MapToolbar(infoPanel);
+        toolbar = new MapToolbar(infoPanel);
         constraints.gridx = 0;
         constraints.gridy = 0;
         pane.add(toolbar, constraints);
 
-        levelPanel = new LevelPanel(this.level, toolbar);
+        LevelPanel levelPanel = new LevelPanel(this.level, toolbar);
         constraints.gridx = 0;
         constraints.gridy = 1;
         pane.add(levelPanel, constraints);
@@ -80,7 +80,8 @@ public class MainUI implements Runnable {
         JFrame frame = new JFrame("JDig");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         addComponentsToPane(frame.getContentPane());
-        frame.setJMenuBar(new MenuBar(this.level));
+        frame.setJMenuBar(new MenuBar(this.level, toolbar.getSelectionTool(),
+                toolbar.getRoomTool()));
         frame.setVisible(true);
         frame.pack();
     }

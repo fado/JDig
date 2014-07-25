@@ -19,22 +19,33 @@ package gui.menubar;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+import data.Cell;
 import data.Level;
+import gui.CellPanel;
 import gui.commands.Exit;
 import gui.commands.Load;
 import gui.commands.Save;
+import gui.toolbars.maptools.MapTool;
+import gui.toolbars.maptools.RoomTool;
+import gui.toolbars.maptools.SelectionTool;
 
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 import javax.swing.UIManager;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 
 public class MenuBar extends JMenuBar {
 
-    public MenuBar(Level level) {
+    private RoomTool roomTool;
+
+    public MenuBar(Level level, final SelectionTool selectionTool, final RoomTool roomTool) {
+        this.roomTool = roomTool;
+
         JMenu fileMenu = new JMenu("File");
 
         UIManager.getDefaults().put("Button.showMnemonics", Boolean.TRUE);
@@ -63,6 +74,18 @@ public class MenuBar extends JMenuBar {
         JMenu editMenu = new JMenu("Edit");
 
         JMenuItem delete = new JMenuItem("Delete");
+        delete.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                if(selectionTool.getSelectedPanels().isEmpty()) {
+                    deleteRoom(selectionTool.getCurrentPanel());
+                } else {
+                    for(CellPanel cellPanel : selectionTool.getSelectedPanels()) {
+                        deleteRoom(cellPanel);
+                    }
+                }
+            }
+        });
         delete.setMnemonic(KeyEvent.VK_D);
         delete.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0));
         editMenu.add(delete);
@@ -70,5 +93,10 @@ public class MenuBar extends JMenuBar {
         this.add(editMenu);
 
         this.setVisible(true);
+    }
+
+    private void deleteRoom(CellPanel cellPanel) {
+        Cell cell = cellPanel.getCell();
+        roomTool.deleteRoom(cell, cellPanel);
     }
 }

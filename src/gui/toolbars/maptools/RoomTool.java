@@ -90,7 +90,7 @@ public class RoomTool implements MapTool {
         }
     }
 
-    private void deleteRoom(Cell cell, CellPanel cellPanel) {
+    public void deleteRoom(Cell cell, CellPanel cellPanel) {
         cell.setEntityType(Entity.NO_ENTITY);
         removeDeadExits(cell);
         // Visualise the delete immediately rather than waiting for mouseExited().
