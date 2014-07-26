@@ -29,9 +29,12 @@ import java.util.List;
 
 import data.Exit;
 import data.Room;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class LpcWriter {
-    
+
+    static final Logger logger = LoggerFactory.getLogger(LpcWriter.class);
     private final String TEMPLATE_PATH = "./resources/templates/room.template";
     private Writer writer;
     
@@ -39,7 +42,7 @@ public class LpcWriter {
         Template template = new Template();
         template.load(TEMPLATE_PATH);
         List<String> lines = template.getLines();
-        System.out.println("Getting lines...");
+        logger.info("Getting lines...");
 
         String output = "";
 
@@ -67,10 +70,9 @@ public class LpcWriter {
                     new FileOutputStream("./lpc/"+ room.getName() +".c"), "UTF-8"));
             writer.write(output);
             writer.flush();
-            System.out.println("Writing LPC file...");
+            logger.info("Writing LPC file for {0}", room.getName());
         } catch (IOException ex) {
-            // TO-DO: Something.
-            ex.printStackTrace();
+            logger.error(ex.toString());
         }
     }
     

@@ -1,6 +1,9 @@
 package gui.infopanel;
 
 import gui.infopanel.commands.SetterCommand;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.text.BadLocationException;
@@ -9,6 +12,7 @@ public class InfoPanelDocListener implements DocumentListener {
 
     private final InfoPanel infoPanel;
     private final SetterCommand command;
+    static final Logger logger = LoggerFactory.getLogger(InfoPanelDocListener.class);
     
     public InfoPanelDocListener(InfoPanel infoPanel, SetterCommand command) {
         this.infoPanel = infoPanel;
@@ -37,7 +41,7 @@ public class InfoPanelDocListener implements DocumentListener {
                 command.set(infoPanel.getCurrentRoom(), update);
             }
         } catch (BadLocationException ex) {
-            
+            logger.error(ex.toString());
         }
     }
     

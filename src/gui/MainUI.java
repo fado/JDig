@@ -35,6 +35,8 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import data.Level;
 import gui.toolbars.maptools.SelectionTool;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * The Gui class specifies the user interface for JDig.
@@ -43,6 +45,7 @@ public class MainUI implements Runnable {
 
     private final Level level;
     private MapToolbar toolbar;
+    static final Logger logger = LoggerFactory.getLogger(MainUI.class);
 
     public MainUI(Level level) {
         this.level = level;
@@ -103,7 +106,7 @@ public class MainUI implements Runnable {
         } catch (ClassNotFoundException | InstantiationException |
                 IllegalAccessException | UnsupportedLookAndFeelException |
                 IOException ex) {
-            // TO-DO: Stuff.
+            logger.error(ex.toString());
         }
     }
 

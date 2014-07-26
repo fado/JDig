@@ -1,5 +1,8 @@
 package properties;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
@@ -26,12 +29,13 @@ import java.util.Properties;
 public class Localization {
     
     private final Properties properties = new Properties();
+    static final Logger logger = LoggerFactory.getLogger(Localization.class);
     
     public Localization() {
         try {
             properties.load(new FileInputStream("./config/localization.properties"));
-        } catch (IOException e) {
-            // TO-DO: Something.
+        } catch (IOException ex) {
+            logger.error(ex.toString());
         }
     }
     

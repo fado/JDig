@@ -19,6 +19,8 @@ package gui.commands;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import persistence.LevelPersistence;
 
 import javax.swing.JFileChooser;
@@ -30,6 +32,7 @@ import java.io.IOException;
 public class Load extends Command {
 
     private File file;
+    static final Logger logger = LoggerFactory.getLogger(Load.class);
 
     @Override
     public void execute() {
@@ -44,8 +47,8 @@ public class Load extends Command {
             LevelPersistence levelPersistence = new LevelPersistence();
             try {
                 levelPersistence.load(file);
-            } catch (IOException e) {
-                //TO-DO: Something.
+            } catch (IOException ex) {
+                logger.error(ex.toString());
             }
         }
 

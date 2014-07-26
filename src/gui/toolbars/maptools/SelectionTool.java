@@ -31,7 +31,7 @@ public class SelectionTool implements MapTool {
     private InfoPanel infoPanel;
     private CellPanel lastPanel;
     private List<CellPanel> selectedPanels = new ArrayList<>();
-    private CellPanel currentPanel;
+    private CellPanel selectedPanel;
     
     public SelectionTool(InfoPanel infoPanel) {
         this.infoPanel = infoPanel;
@@ -54,39 +54,52 @@ public class SelectionTool implements MapTool {
 
     @Override
     public void mouseReleased(Cell cell, MouseEvent event) {
-        doSelection(cell, event);
+        //doSelection(cell, event);
     }
 
     private void doSelection(Cell cell, MouseEvent event) {
         if (event.isShiftDown()) {
-            CellPanel currentPanel = (CellPanel) event.getSource();
-            if (cell.isRoom()) {
-                selectedPanels.add(currentPanel);
-                currentPanel.setSelected();
-            }
+            shiftDownSelection(cell, event);
         } else if (cell.isRoom()) {
-            if(!selectedPanels.isEmpty()) {
-                clearSelectedPanels();
-            }
-            if (currentPanel != null) {
-                lastPanel = currentPanel;
-                lastPanel.setDeselected();
-            }
-            currentPanel = (CellPanel) event.getSource();
-            currentPanel.setSelected();
-            infoPanel.load(currentPanel);
+            normalSelection(cell, event);
         }
+    }
+
+    private void shiftDownSelection(Cell cell, MouseEvent event) {
+        if (selectedPanels.isEmpty()) {
+            selectedPanels.add(selectedPanel);
+        }
+        CellPanel currentPanel = (CellPanel) event.getSource();
+        if (cell.isRoom()) {
+            selectedPanels.add(currentPanel);
+            currentPanel.setSelected();
+        }
+        infoPanel.loadMultiple(currentPanel);
+    }
+
+    private void normalSelection(Cell cell, MouseEvent event) {
+        // Clear previously selected panels.
+        clearSelectedPanels();
+        infoPanel.unloadMultiple();
+
+        if (selectedPanel != null) {
+            lastPanel = selectedPanel;
+            lastPanel.setDeselected();
+        }
+        selectedPanel = (CellPanel) event.getSource();
+        selectedPanel.setSelected();
+        infoPanel.load(selectedPanel);
     }
 
     public List<CellPanel> getSelectedPanels() {
         return this.selectedPanels;
     }
 
-    public CellPanel getCurrentPanel() {
-        return this.currentPanel;
+    public CellPanel getSelectedPanel() {
+        return this.selectedPanel;
     }
 
-    private void clearSelectedPanels() {
+    public void clearSelectedPanels() {
         for(CellPanel panel : selectedPanels) {
             panel.setDeselected();
         }

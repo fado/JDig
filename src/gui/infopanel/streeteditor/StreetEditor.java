@@ -21,6 +21,9 @@ package gui.infopanel.streeteditor;
 import data.Level;
 import data.Street;
 import gui.infopanel.InfoPanel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.event.WindowAdapter;
@@ -54,6 +57,7 @@ public class StreetEditor implements Runnable {
     private JTextField streetName;
     private final Level level;
     private final InfoPanel infoPanel;
+    static final Logger logger = LoggerFactory.getLogger(StreetEditor.class);
 
     public StreetEditor(InfoPanel infoPanel) {
         this.infoPanel = infoPanel;
@@ -80,7 +84,7 @@ public class StreetEditor implements Runnable {
             createAndShowGui();
         } catch (ClassNotFoundException | InstantiationException | 
                 IllegalAccessException | UnsupportedLookAndFeelException ex) {
-            //TO-DO: Stuff.
+            logger.error(ex.toString());
         }
         
     }

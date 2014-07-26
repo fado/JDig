@@ -25,13 +25,13 @@ import gui.CellPanel;
 import gui.commands.Exit;
 import gui.commands.Load;
 import gui.commands.Save;
-import gui.toolbars.maptools.MapTool;
 import gui.toolbars.maptools.RoomTool;
 import gui.toolbars.maptools.SelectionTool;
 
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 import javax.swing.UIManager;
 import java.awt.event.ActionEvent;
@@ -42,6 +42,7 @@ import java.awt.event.KeyEvent;
 public class MenuBar extends JMenuBar {
 
     private RoomTool roomTool;
+    private final String DELETE_MESS = "Are you sure you want to delete this room?";
 
     public MenuBar(Level level, final SelectionTool selectionTool, final RoomTool roomTool) {
         this.roomTool = roomTool;
@@ -78,10 +79,15 @@ public class MenuBar extends JMenuBar {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 if(selectionTool.getSelectedPanels().isEmpty()) {
-                    deleteRoom(selectionTool.getCurrentPanel());
+                    if(showDeleteDialog() == JOptionPane.YES_OPTION) {
+                        deleteRoom(selectionTool.getSelectedPanel());
+                    }
                 } else {
-                    for(CellPanel cellPanel : selectionTool.getSelectedPanels()) {
-                        deleteRoom(cellPanel);
+                    if(showDeleteDialog(selectionTool.getSelectedPanels().size())
+                            == JOptionPane.YES_OPTION) {
+                        for(CellPanel cellPanel : selectionTool.getSelectedPanels()) {
+                            deleteRoom(cellPanel);
+                        }
                     }
                 }
             }
@@ -98,5 +104,22 @@ public class MenuBar extends JMenuBar {
     private void deleteRoom(CellPanel cellPanel) {
         Cell cell = cellPanel.getCell();
         roomTool.deleteRoom(cell, cellPanel);
+    }
+
+    private int showDeleteDialog() {
+        int option = JOptionPane.showOptionDialog(null, DELETE_MESS,
+                "Hold on there, little buddy...",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE, null, null, null);
+        return option;
+    }
+
+    private int showDeleteDialog(int numberOfRooms) {
+        int option = JOptionPane.showOptionDialog(null,
+                "Are you sure you want to delete "+ numberOfRooms +" rooms?",
+                "Hold on there, little buddy...",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE, null, null, null);
+        return option;
     }
 }

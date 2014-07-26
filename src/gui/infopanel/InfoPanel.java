@@ -37,6 +37,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -64,6 +65,7 @@ public class InfoPanel extends JPanel {
     private final JPanel exitPanel;
     private final LabeledComponent longDescriptionField;
     private Room currentRoom;
+    private List<Room> currentRooms = new ArrayList<>();
     private final Level level;
     private final Localization localization = new Localization();
     private Color color;
@@ -123,6 +125,15 @@ public class InfoPanel extends JPanel {
         streetNameField.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
+                if(!currentRooms.isEmpty()) {
+                    for(Room room : currentRooms) {
+                        room.setStreet((String) streetNameField.getSelectedItem());
+                        Street street = level.getStreet(room.getStreet());
+                        if(street != null) {
+                            street.addRoom(room);
+                        }
+                    }
+                }
                 if (currentRoom != null) {
                     currentRoom.setStreet((String) streetNameField.getSelectedItem());
                     Street street = level.getStreet(currentRoom.getStreet());
@@ -244,4 +255,11 @@ public class InfoPanel extends JPanel {
         updateExitPanel(currentRoom);
     }
 
+    public void loadMultiple(CellPanel cellPanel) {
+        this.currentRooms.add(cellPanel.getCell().getRoom());
+    }
+
+    public void unloadMultiple() {
+        this.currentRooms.clear();
+    }
 }

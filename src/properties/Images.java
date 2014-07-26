@@ -19,6 +19,9 @@ package properties;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
@@ -27,12 +30,13 @@ public class Images {
     
     private final Properties properties = new Properties();
     private final String BASE_PATH = "./resources/images/";
+    static final Logger logger = LoggerFactory.getLogger(Images.class);
     
     public Images() {
         try {
             properties.load(new FileInputStream("./config/images.properties"));
-        } catch (IOException e) {
-            // TO-DO: Something.
+        } catch (IOException ex) {
+            logger.error(ex.toString());
         }
     }
     

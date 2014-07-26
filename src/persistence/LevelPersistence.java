@@ -25,6 +25,8 @@ import data.Level;
 import data.Room;
 import data.Street;
 import gui.MainUI;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -43,6 +45,7 @@ public class LevelPersistence {
 
     private Writer writer;
     private XStream xStream = new XStream();
+    static final Logger logger = LoggerFactory.getLogger(LevelPersistence.class);
 
     public void save(Level level, File file) {
         String xml = xStream.toXML(level);
@@ -59,7 +62,7 @@ public class LevelPersistence {
             writer.write(xml);
             writer.flush();
         } catch (IOException ex) {
-            //TO-DO: Something.
+            logger.error(ex.toString());
         }
     }
 

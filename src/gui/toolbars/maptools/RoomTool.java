@@ -99,7 +99,7 @@ public class RoomTool implements MapTool {
         if(cellPanel.isSelected()) {
             cellPanel.setDeselected();
         }
-        if(level.getRooms().isEmpty()) {
+        if(level.getRooms() == null) {
             firstRoomCell = null;
         }
     }

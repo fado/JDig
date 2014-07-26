@@ -28,6 +28,8 @@ import java.io.IOException;
 import data.Level;
 import data.Room;
 import gen.LpcWriter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Created by Administrator on 19/07/2014.
@@ -38,6 +40,7 @@ public class InfoToolbar extends JToolBar {
     private boolean showNotEmptyMessage = false;
     private final String NOT_EMPTY_MESS = "All rooms must have names before "+
             "generating LPC.";
+    static final Logger logger = LoggerFactory.getLogger(InfoToolbar.class);
 
     public InfoToolbar(Level level) {
         this.level = level;
@@ -66,8 +69,8 @@ public class InfoToolbar extends JToolBar {
                 for(Room room : level.getRooms()) {
                     try {
                         writer.write(room);
-                    } catch (IOException e) {
-                        //TO-DO: Something.
+                    } catch (IOException ex) {
+                        logger.error(ex.toString());
                     }
                 }
             }

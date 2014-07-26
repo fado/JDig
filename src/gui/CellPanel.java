@@ -39,6 +39,8 @@ import data.Entity;
 import gui.toolbars.maptools.MapTool;
 import gui.toolbars.maptools.MapToolEvent;
 import gui.toolbars.maptools.MapToolListener;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class CellPanel extends JPanel implements MapToolListener {
 
@@ -52,6 +54,7 @@ public class CellPanel extends JPanel implements MapToolListener {
     private boolean selected = false;
     private Cell cell;
     private Color previousColor;
+    static final Logger logger = LoggerFactory.getLogger(CellPanel.class);
 
     /**
      * Constructor takes as a parameter the Cell object associated with this
@@ -115,8 +118,8 @@ public class CellPanel extends JPanel implements MapToolListener {
                 this.validate();
                 this.repaint();
             }
-        } catch (IOException e) {
-            // TO-DO: Something.
+        } catch (IOException ex) {
+            logger.error(ex.toString());
         }
     }
 
@@ -160,7 +163,9 @@ public class CellPanel extends JPanel implements MapToolListener {
 
     public void setDeselected() {
         this.removeImage();
-        this.addImage(ROOM_IMAGE);
+        if(cell.isRoom()) {
+            this.addImage(ROOM_IMAGE);
+        }
         this.selected = false;
     }
 

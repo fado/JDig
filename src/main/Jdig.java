@@ -23,10 +23,15 @@ package main;
 
 import data.Level;
 import gui.MainUI;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Jdig {
 
+    static final Logger logger = LoggerFactory.getLogger(Jdig.class);
+
     public static void main(String[] args) {
+        logger.info("Starting application...");
         MainUI ui = new MainUI(new Level(40, 40));
         ui.run();
     }
