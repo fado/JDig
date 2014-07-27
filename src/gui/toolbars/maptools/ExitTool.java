@@ -20,9 +20,13 @@ package gui.toolbars.maptools;
  */
 
 import data.Cell;
+import data.Direction;
+import data.Exit;
 import data.ExitBuilder;
+import data.Room;
 import gui.CellPanel;
 import java.awt.event.MouseEvent;
+import java.util.Map;
 import javax.swing.SwingUtilities;
 import data.Entity;
 
@@ -59,20 +63,51 @@ public class ExitTool implements MapTool {
 
     @Override
     public void mouseReleased(Cell cell, MouseEvent event) {
-        doExit(cell, event);
+        //doExit(cell, event);
     }
 
     private void doExit(Cell cell, MouseEvent event) {
         if (SwingUtilities.isRightMouseButton(event)) {
-            if(cell.isExit()) {
+            if (cell.isExit()) {
                 cell.setEntityType(Entity.NO_ENTITY);
             }
         } else if (SwingUtilities.isLeftMouseButton(event)) {
             Entity potentialEntity = cell.getPotentialExitDirection();
-            if(potentialEntity != Entity.NO_ENTITY) {
+            if (potentialEntity != Entity.NO_ENTITY && !cell.isExit()) {
                 cell.setEntityType(cell.getPotentialExitDirection());
                 ExitBuilder.build(cell);
+            } else {
+                CellPanel currentPanel = (CellPanel) event.getSource();
+                if (cell.getEntity() == Entity.X_EXIT) {
+                    setNewEntity(currentPanel, cell, Entity.FORWARD_DIAGONAL_EXIT);
+                } else if (cell.getEntity() == Entity.FORWARD_DIAGONAL_EXIT) {
+                    setNewEntity(currentPanel, cell, Entity.BACKWARD_DIAGONAL_EXIT);
+                } else if (cell.getEntity() == Entity.BACKWARD_DIAGONAL_EXIT) {
+                    setNewEntity(currentPanel, cell, Entity.X_EXIT);
+                }
             }
+        }
+    }
+
+    private void setNewEntity(CellPanel currentPanel, Cell cell, Entity entity) {
+        currentPanel.removeImage();
+        currentPanel.addImage(entity.getPath());
+        cell.setEntityType(entity);
+
+        Map<String, Cell> cells = cell.getAdjacentCells();
+
+        if(entity == Entity.FORWARD_DIAGONAL_EXIT) {
+            cells.get("northwestCell").getRoom().removeAllExits();
+            cells.get("southeastCell").getRoom().removeAllExits();
+            ExitBuilder.buildOnlyForwardDiagonal(cell);
+        }
+        if(entity == Entity.BACKWARD_DIAGONAL_EXIT) {
+            cells.get("northeastCell").getRoom().removeAllExits();
+            cells.get("southwestCell").getRoom().removeAllExits();
+            ExitBuilder.buildOnlyBackwardDiagonal(cell);
+        }
+        if(entity == Entity.X_EXIT) {
+            ExitBuilder.build(cell);
         }
     }
     

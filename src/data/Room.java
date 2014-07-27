@@ -121,6 +121,10 @@ public class Room {
     public void removeExit(Exit exit) {
         exits.remove(exit);
     }
+
+    public void removeAllExits() {
+        this.exits.clear();
+    }
     
     public List<Exit> getExits() {
         return this.exits;

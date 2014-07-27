@@ -53,6 +53,16 @@ public class ExitBuilder {
             buildForwardDiagonal();
         }
     }
+
+    public static void buildOnlyForwardDiagonal(Cell cell) {
+        cells = cell.getAdjacentCells();
+        buildForwardDiagonal();
+    }
+
+    public static void buildOnlyBackwardDiagonal(Cell cell) {
+        cells = cell.getAdjacentCells();
+        buildBackwardDiagonal();
+    }
     
     private static void buildForwardDiagonal() {
         buildExit("northeastCell", "southwestCell", Direction.SOUTHWEST);

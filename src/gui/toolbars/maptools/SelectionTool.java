@@ -20,11 +20,16 @@ package gui.toolbars.maptools;
  */
 
 import data.Cell;
+import data.Entity;
+import data.Exit;
+import data.ExitBuilder;
+import data.Room;
 import gui.CellPanel;
 import gui.infopanel.InfoPanel;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class SelectionTool implements MapTool {
 
@@ -58,7 +63,7 @@ public class SelectionTool implements MapTool {
     }
 
     private void doSelection(Cell cell, MouseEvent event) {
-        if (event.isShiftDown()) {
+        if (event.isShiftDown() && cell.isRoom()) {
             shiftDownSelection(cell, event);
         } else if (cell.isRoom()) {
             normalSelection(cell, event);
