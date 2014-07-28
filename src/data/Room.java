@@ -130,4 +130,14 @@ public class Room {
         return this.exits;
     }
 
+    public Exit getExit(Direction direction) {
+        Exit exitToBeReturned = null;
+        for (Exit exit : exits) {
+            if (exit.getDirection() == direction) {
+                exitToBeReturned = exit;
+            }
+        }
+        return exitToBeReturned;
+    }
+
 }

@@ -20,8 +20,10 @@ package gui.toolbars.maptools;
  */
 
 import data.Cell;
+import data.Direction;
 import data.ExitBuilder;
 import data.Entity;
+import data.Room;
 import gui.CellPanel;
 
 import java.awt.event.MouseEvent;
@@ -90,13 +92,17 @@ public class ExitTool implements MapTool {
         Map<String, Cell> cells = cell.getAdjacentCells();
 
         if(entity == Entity.FORWARD_DIAGONAL_EXIT) {
-            cells.get("northwestCell").getRoom().removeAllExits();
-            cells.get("southeastCell").getRoom().removeAllExits();
+            Room northwestRoom = cells.get("northwestCell").getRoom();
+            northwestRoom.removeExit(northwestRoom.getExit(Direction.SOUTHEAST));
+            Room southeastRoom = cells.get("southeastCell").getRoom();
+            southeastRoom.removeExit(southeastRoom.getExit(Direction.NORTHWEST));
             ExitBuilder.buildOnlyForwardDiagonal(cell);
         }
         if(entity == Entity.BACKWARD_DIAGONAL_EXIT) {
-            cells.get("northeastCell").getRoom().removeAllExits();
-            cells.get("southwestCell").getRoom().removeAllExits();
+            Room northeastRoom = cells.get("northeastCell").getRoom();
+            northeastRoom.removeExit(northeastRoom.getExit(Direction.SOUTHWEST));
+            Room southwestRoom = cells.get("southwestCell").getRoom();
+            southwestRoom.removeExit(southwestRoom.getExit(Direction.NORTHEAST));
             ExitBuilder.buildOnlyBackwardDiagonal(cell);
         }
         if(entity == Entity.X_EXIT) {
