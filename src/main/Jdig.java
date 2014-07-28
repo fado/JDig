@@ -19,10 +19,9 @@ package main;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-
-
 import data.Level;
 import gui.MainUI;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

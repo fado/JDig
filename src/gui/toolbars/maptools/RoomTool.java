@@ -21,6 +21,7 @@ package gui.toolbars.maptools;
 
 import data.Cell;
 import data.Entity;
+import data.Exit;
 import data.Level;
 import data.Room;
 import gui.CellPanel;
@@ -72,11 +73,6 @@ public class RoomTool implements MapTool {
         doRoom(cell, event);
     }
 
-    @Override
-    public void mouseReleased(Cell cell, MouseEvent event) {
-        doRoom(cell, event);
-    }
-
     private void doRoom(Cell cell, MouseEvent event) {
         CellPanel cellPanel = (CellPanel) event.getSource();
         if (SwingUtilities.isRightMouseButton(event)) {
@@ -106,12 +102,12 @@ public class RoomTool implements MapTool {
 
     private void removeDeadExits(Cell cell) {
         List<Room> destinations = new ArrayList<>();
-        for(data.Exit exit : cell.getRoom().getExits()) {
+        for(Exit exit : cell.getRoom().getExits()) {
             destinations.add(exit.getDestination());
         }
-        data.Exit exitToRemove = null;
+        Exit exitToRemove = null;
         for(Room room : destinations) {
-            for(data.Exit exit : room.getExits()) {
+            for(Exit exit : room.getExits()) {
                 if(exit.getDestination().equals(cell.getRoom())) {
                     exitToRemove = exit;
                 }

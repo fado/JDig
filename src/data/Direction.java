@@ -1,9 +1,7 @@
 package data;
 
-import data.Cell;
-
 /**
- * JDig, a tool for the automatic generation of LPC class files for Epitaph 
+ * JDig, a tool for the automatic generation of LPC class files for Epitaph
  * developers.
  * Copyright (C) 2014 Fado@Epitaph.
  *
@@ -21,9 +19,6 @@ import data.Cell;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
- * Possible compass directions within the MUD's exit structure.
- */
 public enum Direction {
     NORTH(0, -1),
     SOUTH(0, 1),
@@ -33,20 +28,21 @@ public enum Direction {
     NORTHWEST(-1, -1),
     SOUTHEAST(1, 1),
     SOUTHWEST(-1, 1);
-    
+
     public final int xOffset;
     public final int yOffset;
-    
-    Direction (int xOffset, int yOffset) {
+
+    Direction(int xOffset, int yOffset) {
         this.xOffset = xOffset;
         this.yOffset = yOffset;
     }
-    
+
     public int translateX(Cell cell) {
         return cell.X + this.xOffset;
     }
-    
+
     public int translateY(Cell cell) {
         return cell.Y + this.yOffset;
     }
+
 }

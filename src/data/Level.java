@@ -24,46 +24,46 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Level {
-    
+
     private final List<Cell> allCells;
     private final Cell defaultCell;
     private final List<Street> streets = new ArrayList<>();
-    
+
     public Level(int maxColumns, int maxRows) {
         this.defaultCell = new Cell(new Point(-1, -1), this);
         this.allCells = new ArrayList<>();
-        
+
         for (int rows = 0; rows < maxColumns; rows++) {
             for (int columns = 0; columns < maxRows; columns++) {
                 Cell cell = new Cell(new Point(columns, rows), this);
                 this.addCell(cell);
             }
         }
-        
+
     }
-    
+
     public void addStreet(Street street) {
         streets.add(street);
     }
-    
+
     public void removeStreet(Street street) {
         streets.remove(street);
     }
-    
+
     public List<Street> getStreets() {
         return this.streets;
     }
 
     public Street getStreet(String streetName) {
         Street streetToBeReturned = null;
-        for(Street street : streets) {
-            if(street.getName().equalsIgnoreCase(streetName)) {
+        for (Street street : streets) {
+            if (street.getName().equalsIgnoreCase(streetName)) {
                 streetToBeReturned = street;
             }
         }
         return streetToBeReturned;
     }
-    
+
     private void addCell(Cell cell) {
         allCells.add(cell);
     }
@@ -76,24 +76,24 @@ public class Level {
         }
         return defaultCell;
     }
-    
+
     public List<Cell> getAllCells() {
         return this.allCells;
     }
 
     public List<Room> getRooms() {
         List<Room> rooms = new ArrayList<>();
-        for(Cell cell : allCells) {
-            if(cell.isRoom()) {
+        for (Cell cell : allCells) {
+            if (cell.isRoom()) {
                 rooms.add(cell.getRoom());
             }
         }
         return rooms;
     }
-    
+
     public Cell getCellAdjacentTo(Cell referenceCell, Direction direction) {
         for (Cell cell : allCells) {
-            if(cell.X == direction.translateX(referenceCell) && 
+            if (cell.X == direction.translateX(referenceCell) &&
                     cell.Y == direction.translateY(referenceCell)) {
                 return cell;
             }

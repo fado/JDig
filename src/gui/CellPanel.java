@@ -41,11 +41,10 @@ import gui.toolbars.maptools.MapToolEvent;
 import gui.toolbars.maptools.MapToolListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import properties.Images;
 
 public class CellPanel extends JPanel implements MapToolListener {
 
-    private final String ROOM_IMAGE = "./resources/images/room.png";
-    private final String SELECTED_ROOM_IMAGE = "./resources/images/selected_room.png";
     private final Color VERY_LIGHT_GRAY = new Color(224, 224, 224);
     private final int SIZE = 15;
     private JLabel entityImage;
@@ -53,15 +52,11 @@ public class CellPanel extends JPanel implements MapToolListener {
     private MapTool selectedMapTool;
     private boolean selected = false;
     private Cell cell;
-    private Color previousColor;
+    private Images images = new Images();
+    private final String ROOM_IMAGE = images.getImage("Room");
+    private final String SELECTED_ROOM_IMAGE = images.getImage("SelectedRoom");
     static final Logger logger = LoggerFactory.getLogger(CellPanel.class);
 
-    /**
-     * Constructor takes as a parameter the Cell object associated with this
-     * CellPanel.
-     *
-     * @param cell - The Cell object associated with this Cell panel.
-     */
     public CellPanel(final Cell cell) {
         this.cell = cell;
         setDefaultProperties();
@@ -93,10 +88,6 @@ public class CellPanel extends JPanel implements MapToolListener {
             @Override
             public void mousePressed(MouseEvent event) {
                 selectedMapTool.mousePressed(cell, event);
-            }
-            @Override
-            public void mouseReleased(MouseEvent event) {
-                selectedMapTool.mouseReleased(cell, event);
             }
         });
     }
@@ -186,4 +177,5 @@ public class CellPanel extends JPanel implements MapToolListener {
     public void toolChanged(MapToolEvent event) {
         this.selectedMapTool = event.getMapTool();
     }
+
 }

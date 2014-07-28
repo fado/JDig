@@ -46,7 +46,8 @@ public class DeleteListener implements ActionListener {
 
         Street streetToBeRemoved = null;
         for(Street street : level.getStreets()) {
-            if (street.getName().equalsIgnoreCase(listModel.getElementAt(index).toString())) {
+            if (street.getName().equalsIgnoreCase(
+                    listModel.getElementAt(index).toString())) {
                 streetToBeRemoved = street;
             }
         }
@@ -63,4 +64,5 @@ public class DeleteListener implements ActionListener {
             list.ensureIndexIsVisible(index);
         }
     }
+
 }

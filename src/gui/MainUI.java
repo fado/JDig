@@ -19,11 +19,13 @@ package gui;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+import data.Level;
 import gui.commands.Exit;
 import gui.menubar.MenuBar;
 import gui.toolbars.InfoToolbar;
 import gui.toolbars.MapToolbar;
 import gui.infopanel.InfoPanel;
+
 import java.awt.Container;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -33,14 +35,10 @@ import java.io.IOException;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-import data.Level;
-import gui.toolbars.maptools.SelectionTool;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- * The Gui class specifies the user interface for JDig.
- */
 public class MainUI implements Runnable {
 
     private final Level level;

@@ -43,14 +43,10 @@ public class Cell {
         this.currentEntity = Entity.NO_ENTITY;
     }
 
-    public Level getParent() {
-        return this.parentLevel;
-    }
-
     public void setEntityType(Entity entity) {
         this.currentEntity = entity;
     }
-    
+
     public Entity getEntity() {
         return this.currentEntity;
     }
@@ -58,7 +54,7 @@ public class Cell {
     public Room getRoom() {
         return this.room;
     }
-    
+
     public void setRoom(Room room) {
         this.room = room;
     }
@@ -95,48 +91,34 @@ public class Cell {
                 currentEntity == Entity.X_EXIT;
     }
 
-    /**
-     * Determines the potential Entity that could exist in the Cell, given its
-     * surroundings.
-     *
-     * @return - The potential Entity that could exist in the Cell.
-     */
     public Entity getPotentialExitDirection() {
-        Map <String, Cell> cells = getAdjacentCells();
-        // Check for rooms adjacent horizontally.
+        Map<String, Cell> cells = getAdjacentCells();
         if (cells.get("westCell").isRoom() && cells.get("eastCell").isRoom()) {
             return Entity.HORIZONTAL_EXIT;
         }
-        // Check for rooms adjacent vertically.
         if (cells.get("northCell").isRoom() && cells.get("southCell").isRoom()) {
             return Entity.VERTICAL_EXIT;
         }
-        // Check for rooms across both diagonal axis.
         if (cells.get("northwestCell").isRoom() && cells.get("northeastCell").isRoom()
                 && cells.get("southwestCell").isRoom() && cells.get("southeastCell").isRoom()) {
             return Entity.X_EXIT;
-        } 
-        // Check for rooms on the southwest/northeast axis.
-        else if (cells.get("southwestCell").isRoom() && cells.get("northeastCell").isRoom()) {
+        } else if (cells.get("southwestCell").isRoom() && cells.get("northeastCell").isRoom()) {
             return Entity.FORWARD_DIAGONAL_EXIT;
-        } 
-        // Check for rooms on the southeast/northwest axis.
-        else if (cells.get("southeastCell").isRoom() && cells.get("northwestCell").isRoom()) {
+        } else if (cells.get("southeastCell").isRoom() && cells.get("northwestCell").isRoom()) {
             return Entity.BACKWARD_DIAGONAL_EXIT;
         }
         return Entity.NO_ENTITY;
     }
-    
+
     public Map<String, Cell> getAdjacentCells() {
-        Map <String, Cell> cells = new HashMap<>();
-        cells.put("westCell", parentLevel.getCellAdjacentTo(this, Direction.WEST));
-        cells.put("eastCell", parentLevel.getCellAdjacentTo(this, Direction.EAST));
-        cells.put("northCell", parentLevel.getCellAdjacentTo(this, Direction.NORTH));
-        cells.put("southCell", parentLevel.getCellAdjacentTo(this, Direction.SOUTH));
-        cells.put("northwestCell", parentLevel.getCellAdjacentTo(this, Direction.NORTHWEST));
-        cells.put("northeastCell", parentLevel.getCellAdjacentTo(this, Direction.NORTHEAST));
-        cells.put("southwestCell", parentLevel.getCellAdjacentTo(this, Direction.SOUTHWEST));
-        cells.put("southeastCell", parentLevel.getCellAdjacentTo(this, Direction.SOUTHEAST));
+        Map<String, Cell> cells = new HashMap<>();
+        Direction.values();
+        Direction[] directions = Direction.values();
+        String[] cellNames = {"northCell", "southCell", "eastCell", "westCell",
+                "northeastCell", "northwestCell", "southeastCell", "southwestCell"};
+        for (int counter = 0; counter < cellNames.length; counter++) {
+            cells.put(cellNames[counter], parentLevel.getCellAdjacentTo(this, directions[counter]));
+        }
         return cells;
     }
 

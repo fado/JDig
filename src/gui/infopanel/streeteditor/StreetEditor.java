@@ -21,8 +21,7 @@ package gui.infopanel.streeteditor;
 import data.Level;
 import data.Street;
 import gui.infopanel.InfoPanel;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import properties.Localization;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
@@ -46,12 +45,16 @@ import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class StreetEditor implements Runnable {
 
     private DefaultListModel listModel;
     private JList list;
-    private final String DELETE_STRING = "Delete";
-    private final String ADD_STRING = "Add";
+    private Localization localization = new Localization();
+    private final String DELETE_STRING = localization.get("DeleteString");
+    private final String ADD_STRING = localization.get("AddString");
     private JButton deleteButton;
     private JButton addButton;
     private JTextField streetName;
@@ -65,7 +68,7 @@ public class StreetEditor implements Runnable {
     }
     
     private void createAndShowGui() {
-        JFrame frame = new JFrame("Street Editor");
+        JFrame frame = new JFrame(localization.get("EditorWindowTitle"));
         addComponentsToPane(frame.getContentPane());
         frame.setVisible(true);
         frame.pack();

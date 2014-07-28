@@ -20,15 +20,13 @@ package gui.toolbars.maptools;
  */
 
 import data.Cell;
-import data.Direction;
-import data.Exit;
 import data.ExitBuilder;
-import data.Room;
+import data.Entity;
 import gui.CellPanel;
+
 import java.awt.event.MouseEvent;
 import java.util.Map;
 import javax.swing.SwingUtilities;
-import data.Entity;
 
 public class ExitTool implements MapTool {
 
@@ -59,11 +57,6 @@ public class ExitTool implements MapTool {
     @Override
     public void mousePressed(Cell cell, MouseEvent event) {
         doExit(cell, event);
-    }
-
-    @Override
-    public void mouseReleased(Cell cell, MouseEvent event) {
-        //doExit(cell, event);
     }
 
     private void doExit(Cell cell, MouseEvent event) {

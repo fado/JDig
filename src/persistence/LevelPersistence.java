@@ -18,15 +18,12 @@ package persistence;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import com.thoughtworks.xstream.XStream;
 import data.Cell;
 import data.Exit;
 import data.Level;
 import data.Room;
 import data.Street;
 import gui.MainUI;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -36,10 +33,10 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.List;
+
+import com.thoughtworks.xstream.XStream;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class LevelPersistence {
 
@@ -77,4 +74,5 @@ public class LevelPersistence {
         MainUI ui = new MainUI(level);
         ui.run();
     }
+
 }

@@ -19,16 +19,18 @@ package gen;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+import data.Exit;
+import data.Room;
+
 import java.io.BufferedWriter;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.nio.charset.Charset;
 import java.text.MessageFormat;
 import java.util.List;
 
-import data.Exit;
-import data.Room;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -56,9 +58,10 @@ public class LpcWriter {
 
         String exits = "";
         for (Exit exit : room.getExits()) {
-            exits += MessageFormat.format("add_exit (\"{0}\", __DIR__ +\"{1}\", \"{2}\");\n    ",
+            exits += MessageFormat.format(
+                    "add_exit (\"{0}\", __DIR__ +\"{1}\", \"{2}\");\n    ",
                     exit.getDirection().toString().toLowerCase(),
-                    exit.getDestination().getName(),
+                    exit.getDestination().getName() +".c",
                     exit.getExitType().toString().toLowerCase()
             );
         }
@@ -67,7 +70,8 @@ public class LpcWriter {
 
         try {
             writer = new BufferedWriter(new OutputStreamWriter(
-                    new FileOutputStream("./lpc/"+ room.getName() +".c"), "UTF-8"));
+                    new FileOutputStream("./lpc/"+ room.getName() +".c"),
+                    Charset.defaultCharset()));
             writer.write(output);
             writer.flush();
             logger.info("Writing LPC file for {0}", room.getName());

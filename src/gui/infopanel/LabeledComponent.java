@@ -19,8 +19,6 @@ package gui.infopanel;
  */
 
 import java.awt.Dimension;
-import java.awt.event.ActionListener;
-import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -40,7 +38,8 @@ public class LabeledComponent {
         label.setLabelFor(this.component);
     }
     
-    public static LabeledComponent textField(String labelText, DocumentListener documentListener) {
+    public static LabeledComponent textField(String labelText,
+                                             DocumentListener documentListener) {
         JTextField component = new JTextField();
         component.getDocument().addDocumentListener(documentListener);
         Dimension dimension = component.getPreferredSize();
@@ -48,17 +47,10 @@ public class LabeledComponent {
         return new LabeledComponent(component, labelText);
     }
     
-    public static LabeledComponent textArea(String labelText, DocumentListener documentListener) {
+    public static LabeledComponent textArea(String labelText,
+                                            DocumentListener documentListener) {
         JTextArea component = new JTextArea(5, 60);
         component.getDocument().addDocumentListener(documentListener);
-        return new LabeledComponent(component, labelText);
-    }
-    
-    public static LabeledComponent comboBox(String labelText, ActionListener actionListener) {
-        JComboBox component = new JComboBox();
-        component.addActionListener(actionListener);
-        Dimension dimension = component.getPreferredSize();
-        component.setPreferredSize(new Dimension(200, dimension.height));
         return new LabeledComponent(component, labelText);
     }
     

@@ -21,6 +21,7 @@ package gui.commands;
 
 import data.Level;
 import persistence.LevelPersistence;
+import properties.JdigProperties;
 
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
@@ -29,6 +30,8 @@ import java.io.File;
 
 public class Save extends Command {
 
+    private JdigProperties jdigProperties = new JdigProperties();
+    private final String SAVE_FILE_LOCATION = jdigProperties.get("SaveFileLocation");
     private Level level;
     private File file;
 
@@ -39,7 +42,7 @@ public class Save extends Command {
     @Override
     public void execute() {
         JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setCurrentDirectory(new File("./saves"));
+        fileChooser.setCurrentDirectory(new File(SAVE_FILE_LOCATION));
         FileFilter filter = new FileNameExtensionFilter("XML File", "xml");
         fileChooser.setFileFilter(filter);
         if (fileChooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {

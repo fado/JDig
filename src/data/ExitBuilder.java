@@ -23,17 +23,17 @@ import java.util.List;
 import java.util.Map;
 
 public class ExitBuilder {
-    
-    private static Map <String, Cell> cells;
-    
+
+    private static Map<String, Cell> cells;
+
     private ExitBuilder() {
-        
+
     }
-    
+
     public static void build(Cell cell) {
         Entity exitDirection = cell.getPotentialExitDirection();
         cells = cell.getAdjacentCells();
-        
+
         if (exitDirection == Entity.HORIZONTAL_EXIT) {
             buildExit("westCell", "eastCell", Direction.EAST);
             buildExit("eastCell", "westCell", Direction.WEST);
@@ -63,26 +63,27 @@ public class ExitBuilder {
         cells = cell.getAdjacentCells();
         buildBackwardDiagonal();
     }
-    
+
     private static void buildForwardDiagonal() {
         buildExit("northeastCell", "southwestCell", Direction.SOUTHWEST);
         buildExit("southwestCell", "northeastCell", Direction.NORTHEAST);
     }
-    
+
     private static void buildBackwardDiagonal() {
         buildExit("northwestCell", "southeastCell", Direction.SOUTHEAST);
         buildExit("southeastCell", "northwestCell", Direction.NORTHWEST);
     }
-    
+
     private static void buildExit(String origin, String destination, Direction direction) {
         Room originRoom = cells.get(origin).getRoom();
         List<Exit> exits = originRoom.getExits();
-        for(Exit exit : exits) {
-            if(exit.getDirection() == direction) {
+        for (Exit exit : exits) {
+            if (exit.getDirection() == direction) {
                 return;
             }
         }
         Room destinationRoom = cells.get(destination).getRoom();
         originRoom.addExit(new Exit(direction, destinationRoom, ExitType.PATH));
     }
+
 }

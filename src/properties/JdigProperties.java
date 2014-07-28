@@ -1,4 +1,4 @@
-package gen;
+package properties;
 
 /**
  * JDig, a tool for the automatic generation of LPC class files for Epitaph
@@ -19,27 +19,28 @@ package gen;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+import java.io.FileInputStream;
 import java.io.IOException;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Properties;
 
-public class Template {
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-    private List<String> lines;
+public class JdigProperties {
 
-    public Template() {
-        lines = new ArrayList<>();
+    private final Properties properties = new Properties();
+    private final Logger logger = LoggerFactory.getLogger(JdigProperties.class);
+
+    public JdigProperties() {
+        try {
+            properties.load(new FileInputStream("./config/config.properties"));
+        } catch (IOException ex) {
+            logger.error(ex.toString());
+        }
     }
 
-    public void load(String path) throws IOException {
-        lines = Files.readAllLines(Paths.get(path), Charset.defaultCharset());
-    }
-
-    public List<String> getLines() {
-        return this.lines;
+    public String get(String key) {
+        return properties.getProperty(key);
     }
 
 }

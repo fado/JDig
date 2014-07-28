@@ -23,25 +23,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Street {
-    
+
     private final String name;
     private final List<Room> rooms;
-    
+
     public Street(String name) {
         this.rooms = new ArrayList<>();
         this.name = name;
     }
-    
+
     public String getName() {
         return this.name;
     }
-    
+
     public void addRoom(Room room) {
         rooms.add(room);
         room.setStreet(this.name);
     }
-    
+
     public List<Room> getRooms() {
         return rooms;
     }
+
 }

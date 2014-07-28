@@ -1,14 +1,7 @@
 package properties;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.util.Properties;
-
 /**
- * JDig, a tool for the automatic generation of LPC class files for Epitaph 
+ * JDig, a tool for the automatic generation of LPC class files for Epitaph
  * developers.
  * Copyright (C) 2014 Fado@Epitaph.
  *
@@ -26,6 +19,13 @@ import java.util.Properties;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Properties;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class Localization {
     
     private final Properties properties = new Properties();
@@ -42,4 +42,5 @@ public class Localization {
     public String get(String key) {
         return properties.getProperty(key);
     }
+
 }

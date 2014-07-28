@@ -1,7 +1,7 @@
 package data;
 
 /**
- * JDig, a tool for the automatic generation of LPC class files for Epitaph 
+ * JDig, a tool for the automatic generation of LPC class files for Epitaph
  * developers.
  * Copyright (C) 2014 Fado@Epitaph.
  *
@@ -37,4 +37,5 @@ public enum Entity {
     public String getPath() {
         return this.path;
     }
+
 }

@@ -20,6 +20,8 @@ package gui.infopanel.streeteditor;
 
 import data.Level;
 import data.Street;
+import properties.Localization;
+
 import java.awt.HeadlessException;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -35,8 +37,9 @@ class AddListener implements ActionListener, DocumentListener {
 
     private final StreetEditor editor;
     private final Level level;
-    private final String ALREADY_EXISTS_MSG = "Street name already exists";
-    private final String NOT_EMPTY_MSG = "Street name cannot be empty.";
+    private final Localization localization = new Localization();
+    private final String ALREADY_EXISTS_MSG = localization.get("AlreadyExistsMessage");
+    private final String NOT_EMPTY_MSG = localization.get("NotEmptyMessage");
 
     public AddListener(StreetEditor editor, Level level) {
         this.editor = editor;
@@ -63,16 +66,6 @@ class AddListener implements ActionListener, DocumentListener {
         streetNameField.setText("");
     }
 
-    private void showDialog(String message) throws HeadlessException {
-        Toolkit.getDefaultToolkit().beep();
-        JOptionPane.showMessageDialog(null,
-                message,
-                "Error",
-                JOptionPane.WARNING_MESSAGE);
-        editor.getStreetNameField().requestFocusInWindow();
-        editor.getStreetNameField().selectAll();
-    }
-
     @Override
     public void insertUpdate(DocumentEvent event) {
         JButton button = editor.getAddButton();
@@ -97,6 +90,16 @@ class AddListener implements ActionListener, DocumentListener {
         } else {
             enableButton();
         }
+    }
+
+    private void showDialog(String message) throws HeadlessException {
+        Toolkit.getDefaultToolkit().beep();
+        JOptionPane.showMessageDialog(null,
+                message,
+                localization.get("ErrorTitle"),
+                JOptionPane.WARNING_MESSAGE);
+        editor.getStreetNameField().requestFocusInWindow();
+        editor.getStreetNameField().selectAll();
     }
 
     public boolean streetFieldIsEmpty() {

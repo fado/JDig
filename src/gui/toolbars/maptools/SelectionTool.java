@@ -57,11 +57,6 @@ public class SelectionTool implements MapTool {
         doSelection(cell, event);
     }
 
-    @Override
-    public void mouseReleased(Cell cell, MouseEvent event) {
-        //doSelection(cell, event);
-    }
-
     private void doSelection(Cell cell, MouseEvent event) {
         if (event.isShiftDown() && cell.isRoom()) {
             shiftDownSelection(cell, event);

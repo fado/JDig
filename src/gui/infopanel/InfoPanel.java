@@ -17,6 +17,7 @@ package gui.infopanel;
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
+
 import data.Exit;
 import data.Level;
 import data.Room;
@@ -30,6 +31,7 @@ import gui.infopanel.commands.SetLong;
 import gui.infopanel.commands.SetName;
 import gui.infopanel.commands.SetShort;
 import gui.infopanel.streeteditor.StreetEditor;
+import properties.Localization;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -48,7 +50,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import net.miginfocom.swing.MigLayout;
-import properties.Localization;
 
 public class InfoPanel extends JPanel {
 
@@ -67,10 +68,10 @@ public class InfoPanel extends JPanel {
     private Room currentRoom;
     private List<Room> currentRooms = new ArrayList<>();
     private final Level level;
-    private final Localization localization = new Localization();
     private Color color;
+    private final Localization localization = new Localization();
+    private final String PROPAGATE_COLOR_MESS = localization.get("PropagateColorMessage");
     private CellPanel currentCellPanel;
-    private final String PROPEGATE_COLOR_MESS = "Assign color to all rooms in this street?";
 
     public InfoPanel(Level level) {
         this.level = level;
@@ -95,12 +96,14 @@ public class InfoPanel extends JPanel {
 
         buildColorSelector();
 
-        shortDescriptionField = LabeledComponent.textField(localization.get("ShortDescLabel"),
+        shortDescriptionField =
+                LabeledComponent.textField(localization.get("ShortDescLabel"),
                 new InfoPanelDocListener(this, new SetShort()));
         contentPanel.add(shortDescriptionField.getLabel());
         contentPanel.add(shortDescriptionField.getComponent(), "span, grow, wrap");
 
-        determinateField = LabeledComponent.textField(localization.get("DeterminateLabel"),
+        determinateField =
+                LabeledComponent.textField(localization.get("DeterminateLabel"),
                 new InfoPanelDocListener(this, new SetDeterminate()));
         determinateField.addtoPanel(contentPanel);
 
@@ -108,7 +111,8 @@ public class InfoPanel extends JPanel {
                 new InfoPanelDocListener(this, new SetLight()));
         lightField.addtoPanel(contentPanel);
 
-        longDescriptionField = LabeledComponent.textArea(localization.get("LongDescLabel"),
+        longDescriptionField =
+                LabeledComponent.textArea(localization.get("LongDescLabel"),
                 new InfoPanelDocListener(this, new SetLong()));
         contentPanel.add(longDescriptionField.getLabel(), "wrap");
         contentPanel.add(longDescriptionField.getComponent(), "span, grow");
@@ -174,25 +178,37 @@ public class InfoPanel extends JPanel {
             public void mouseClicked(MouseEvent event) {
                 color = JColorChooser.showDialog(null, "Choose", Color.WHITE);
                 colorChooserButton.setBackground(color);
-                currentCellPanel.setBackground(color);
-                currentCellPanel.getCell().setColor(color);
-                System.out.println("Street name: "+ currentRoom.getStreet().toString());
-                if(currentRoom.getStreet().toString() != null) {
-                    int value = JOptionPane.showOptionDialog(null,
-                            PROPEGATE_COLOR_MESS,
-                            "Hey, little buddy...",
-                            JOptionPane.YES_NO_OPTION,
-                            JOptionPane.QUESTION_MESSAGE, null, null, null);
-                    if(value == JOptionPane.YES_OPTION) {
-                        Street street = level.getStreet(currentRoom.getStreet());
-                        for (Room room : street.getRooms()) {
-                            room.getCellPanel().setBackground(color);
-                        }
+                if (!currentRooms.isEmpty()) {
+                    for (Room room : currentRooms) {
+                        colorRoom(room, room.getCellPanel());
                     }
+                } else if (currentCellPanel != null) {
+                    colorRoom(currentRoom, currentCellPanel);
                 }
             }
         });
         contentPanel.add(colorChooserButton, "wrap");
+    }
+
+    private void colorRoom(Room room, CellPanel cellPanel) {
+        cellPanel.setBackground(color);
+        cellPanel.getCell().setColor(color);
+        if (room.getStreet() != null) {
+            colorStreet();
+        }
+    }
+
+    private void colorStreet() {
+        int value = JOptionPane.showOptionDialog(null, PROPAGATE_COLOR_MESS,
+                localization.get("SelectOptionTitle"),
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE, null, null, null);
+        if (value == JOptionPane.YES_OPTION) {
+            Street street = level.getStreet(currentRoom.getStreet());
+            for (Room room : street.getRooms()) {
+                room.getCellPanel().setBackground(color);
+            }
+        }
     }
 
     private JPanel createContentPanel() {
@@ -200,7 +216,8 @@ public class InfoPanel extends JPanel {
         panel.setLayout(new MigLayout());
         panel.setPreferredSize(new Dimension(400, 300));
         panel.setOpaque(true);
-        panel.setBorder(BorderFactory.createTitledBorder("Attributes"));
+        panel.setBorder(BorderFactory.createTitledBorder(
+                localization.get("AttributesTitle")));
         return panel;
     }
 
@@ -209,7 +226,8 @@ public class InfoPanel extends JPanel {
         panel.setLayout(new MigLayout());
         panel.setPreferredSize(new Dimension(400, 50));
         panel.setOpaque(true);
-        panel.setBorder(BorderFactory.createTitledBorder("Exits"));
+        panel.setBorder(BorderFactory.createTitledBorder(
+                localization.get("ExitsTitle")));
         return panel;
     }
 
@@ -217,19 +235,12 @@ public class InfoPanel extends JPanel {
         List<Exit> exits = room.getExits();
         exitPanel.removeAll();
         for (Exit exit : exits) {
-            JLabel exitLabel = new JLabel(exit.getDirection().toString()+", ", JLabel.RIGHT);
+            JLabel exitLabel = new JLabel(exit.getDirection().toString()
+                    +", ", JLabel.RIGHT);
             exitPanel.add(exitLabel, "wrap");
         }
         exitPanel.validate();
         exitPanel.repaint();
-    }
-
-    public Level getLevel() {
-        return this.level;
-    }
-
-    public Room getCurrentRoom() {
-        return this.currentRoom;
     }
 
     public void populateStreetNames() {
@@ -240,8 +251,17 @@ public class InfoPanel extends JPanel {
         }
     }
 
+    public Level getLevel() {
+        return this.level;
+    }
+
+    public Room getCurrentRoom() {
+        return this.currentRoom;
+    }
+
     public void load(CellPanel cellPanel) {
         this.currentRoom = cellPanel.getCell().getRoom();
+        this.currentRooms.add(cellPanel.getCell().getRoom());
         this.currentCellPanel = cellPanel;
         this.roomNameField.setText(currentRoom.getName());
         this.includeField.setText(currentRoom.getInclude());
@@ -262,4 +282,5 @@ public class InfoPanel extends JPanel {
     public void unloadMultiple() {
         this.currentRooms.clear();
     }
+
 }

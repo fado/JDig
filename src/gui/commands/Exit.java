@@ -19,12 +19,16 @@ package gui.commands;
  */
 
 import data.Level;
+import properties.Localization;
+
 import javax.swing.JOptionPane;
 
 public class Exit extends Command {
 
     private final Level level;
-    private final String EXIT_MESS = "Save the current level?";
+    private Localization localization = new Localization();
+    private final String EXIT_MESS = localization.get("ExitMess");
+    private final String EXIT_TITLE = localization.get("SaveTitle");
 
     public Exit(Level level) {
         this.level = level;
@@ -32,7 +36,7 @@ public class Exit extends Command {
 
     public void execute() {
         if(!level.getRooms().isEmpty()) {
-            int option = JOptionPane.showOptionDialog(null, EXIT_MESS, "Save",
+            int option = JOptionPane.showOptionDialog(null, EXIT_MESS, EXIT_TITLE,
                     JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE,
                     null, null, null);
             if(option == JOptionPane.YES_OPTION) {

@@ -19,18 +19,18 @@ package data;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import java.util.ArrayList;
-import java.util.List;
-
 import gui.CellPanel;
 import properties.Localization;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Room {
 
     private String include = "";
     private String inherit = "";
     private String name = "";
-    private String street = "";
+    private String street;
     private String longDescription = "";
     private String shortDescription = "";
     private String determinate = "";
@@ -49,13 +49,13 @@ public class Room {
     public CellPanel getCellPanel() {
         return this.cellPanel;
     }
-    
+
     public void setName(String name) {
         this.name = name;
     }
 
     public String getName() {
-       return this.name;
+        return this.name;
     }
 
     public void setInclude(String include) {
@@ -73,47 +73,47 @@ public class Room {
     public String getInherit() {
         return this.inherit;
     }
-    
+
     public void setStreet(String street) {
         this.street = street;
     }
-    
+
     public String getStreet() {
         return this.street;
     }
-    
+
     public void setShort(String description) {
         this.shortDescription = description;
     }
-    
+
     public String getShort() {
         return this.shortDescription;
     }
-    
+
     public void setDeterminate(String determinate) {
         this.determinate = determinate;
     }
-    
+
     public String getDeterminate() {
         return this.determinate;
     }
-    
+
     public void setLight(String light) {
         this.light = light;
     }
-    
+
     public String getLight() {
         return this.light;
     }
-    
+
     public void setLong(String description) {
         this.longDescription = description;
     }
-    
+
     public String getLong() {
         return this.longDescription;
     }
-    
+
     public void addExit(Exit exit) {
         exits.add(exit);
     }
@@ -125,9 +125,9 @@ public class Room {
     public void removeAllExits() {
         this.exits.clear();
     }
-    
+
     public List<Exit> getExits() {
         return this.exits;
     }
-    
+
 }

@@ -27,6 +27,7 @@ import gui.commands.Load;
 import gui.commands.Save;
 import gui.toolbars.maptools.RoomTool;
 import gui.toolbars.maptools.SelectionTool;
+import properties.Localization;
 
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -41,40 +42,49 @@ import java.awt.event.KeyEvent;
 
 public class MenuBar extends JMenuBar {
 
+    private Level level;
+    private SelectionTool selectionTool;
     private RoomTool roomTool;
-    private final String DELETE_MESS = "Are you sure you want to delete this room?";
+    private Localization localization = new Localization();
+    private final String DELETE_MESS = localization.get("DeleteMessage");
 
     public MenuBar(Level level, final SelectionTool selectionTool, final RoomTool roomTool) {
+        this.level = level;
+        this.selectionTool = selectionTool;
         this.roomTool = roomTool;
+        addComponentsToMenuBar(this);
+    }
 
-        JMenu fileMenu = new JMenu("File");
-
+    private void addComponentsToMenuBar(JMenuBar menuBar) {
         UIManager.getDefaults().put("Button.showMnemonics", Boolean.TRUE);
 
-        JMenuItem open = new JMenuItem("Open");
+        JMenu fileMenu = new JMenu(localization.get("File"));
+
+        JMenuItem open = new JMenuItem(localization.get("Open"));
         open.addActionListener(new MenuActionListener(new Load()));
         open.setMnemonic(KeyEvent.VK_O);
         open.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.CTRL_MASK));
         fileMenu.add(open);
 
-        JMenuItem save = new JMenuItem("Save As...");
+        JMenuItem save = new JMenuItem(localization.get("SaveAs"));
         save.addActionListener(new MenuActionListener( new Save(level)));
         save.setMnemonic(KeyEvent.VK_S);
-        save.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_MASK | InputEvent.ALT_MASK));
+        save.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S,
+                InputEvent.CTRL_MASK | InputEvent.ALT_MASK));
         fileMenu.add(save);
 
         fileMenu.addSeparator();
-        JMenuItem exit = new JMenuItem("Exit");
+        JMenuItem exit = new JMenuItem(localization.get("Exit"));
         exit.addActionListener(new MenuActionListener( new Exit(level)));
         exit.setMnemonic(KeyEvent.VK_X);
         exit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, InputEvent.CTRL_MASK));
         fileMenu.add(exit);
 
-        this.add(fileMenu);
+        menuBar.add(fileMenu);
 
-        JMenu editMenu = new JMenu("Edit");
+        JMenu editMenu = new JMenu(localization.get("Edit"));
 
-        JMenuItem delete = new JMenuItem("Delete");
+        JMenuItem delete = new JMenuItem(localization.get("Delete"));
         delete.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
@@ -96,9 +106,9 @@ public class MenuBar extends JMenuBar {
         delete.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0));
         editMenu.add(delete);
 
-        this.add(editMenu);
+        menuBar.add(editMenu);
 
-        this.setVisible(true);
+        menuBar.setVisible(true);
     }
 
     private void deleteRoom(CellPanel cellPanel) {
@@ -108,7 +118,7 @@ public class MenuBar extends JMenuBar {
 
     private int showDeleteDialog() {
         int option = JOptionPane.showOptionDialog(null, DELETE_MESS,
-                "Hold on there, little buddy...",
+                localization.get("SelectOptionTitle"),
                 JOptionPane.YES_NO_OPTION,
                 JOptionPane.WARNING_MESSAGE, null, null, null);
         return option;
@@ -117,9 +127,10 @@ public class MenuBar extends JMenuBar {
     private int showDeleteDialog(int numberOfRooms) {
         int option = JOptionPane.showOptionDialog(null,
                 "Are you sure you want to delete "+ numberOfRooms +" rooms?",
-                "Hold on there, little buddy...",
+                localization.get("SelectOptionTitle"),
                 JOptionPane.YES_NO_OPTION,
                 JOptionPane.WARNING_MESSAGE, null, null, null);
         return option;
     }
+
 }

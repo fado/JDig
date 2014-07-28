@@ -19,8 +19,6 @@ package gui.commands;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import persistence.LevelPersistence;
 
 import javax.swing.JFileChooser;
@@ -29,15 +27,21 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.File;
 import java.io.IOException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import properties.JdigProperties;
+
 public class Load extends Command {
 
     private File file;
+    private JdigProperties jdigProperties = new JdigProperties();
+    private final String SAVE_FILE_LOCATION = jdigProperties.get("SaveFileLocation");
     static final Logger logger = LoggerFactory.getLogger(Load.class);
 
     @Override
     public void execute() {
         JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setCurrentDirectory(new File("./saves"));
+        fileChooser.setCurrentDirectory(new File(SAVE_FILE_LOCATION));
         FileFilter filter = new FileNameExtensionFilter("XML File", "xml");
         fileChooser.setFileFilter(filter);
         if (fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
@@ -53,4 +57,5 @@ public class Load extends Command {
         }
 
     }
+
 }

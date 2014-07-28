@@ -19,12 +19,12 @@ package gui.toolbars.maptools;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import java.awt.event.MouseEvent;
 import data.Cell;
+
+import java.awt.event.MouseEvent;
 
 public interface MapTool {
     public void mouseEntered(Cell cell, MouseEvent event);
     public void mouseExited(Cell cell, MouseEvent event);
     public void mousePressed(Cell cell, MouseEvent event);
-    public void mouseReleased(Cell cell, MouseEvent event);
 }
