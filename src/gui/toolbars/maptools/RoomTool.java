@@ -26,7 +26,6 @@ import data.Level;
 import data.Room;
 import gui.CellPanel;
 
-import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;

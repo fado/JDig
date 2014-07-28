@@ -27,6 +27,9 @@ import gui.commands.Load;
 import gui.commands.Save;
 import gui.toolbars.maptools.RoomTool;
 import gui.toolbars.maptools.SelectionTool;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import properties.JdigProperties;
 import properties.Localization;
 
 import javax.swing.JMenu;
@@ -35,10 +38,15 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 import javax.swing.UIManager;
+import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
+import java.net.URL;
 
 public class MenuBar extends JMenuBar {
 
@@ -47,6 +55,7 @@ public class MenuBar extends JMenuBar {
     private RoomTool roomTool;
     private Localization localization = new Localization();
     private final String DELETE_MESS = localization.get("DeleteMessage");
+    static final Logger logger = LoggerFactory.getLogger(MenuBar.class);
 
     public MenuBar(Level level, final SelectionTool selectionTool, final RoomTool roomTool) {
         this.level = level;
@@ -107,6 +116,34 @@ public class MenuBar extends JMenuBar {
         editMenu.add(delete);
 
         menuBar.add(editMenu);
+
+        JMenu helpMenu = new JMenu(localization.get("Help"));
+
+        JMenuItem bugReport = new JMenuItem(localization.get("BugReport"));
+        bugReport.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                Desktop desktop = null;
+                if (Desktop.isDesktopSupported()) {
+                    desktop = Desktop.getDesktop();
+                }
+                if (desktop != null && desktop.isSupported(Desktop.Action.BROWSE)) {
+                    JdigProperties jdigProperties = new JdigProperties();
+                    URL url;
+                    try {
+                        url = new URL(jdigProperties.get("BugReportURL"));
+                        desktop.browse(url.toURI());
+                    } catch (URISyntaxException | IOException ex) {
+                        logger.error(ex.toString());
+                    }
+
+                }
+            }
+        });
+        bugReport.setMnemonic(KeyEvent.VK_R);
+        helpMenu.add(bugReport);
+
+        menuBar.add(helpMenu);
 
         menuBar.setVisible(true);
     }

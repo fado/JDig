@@ -19,27 +19,26 @@ package gui.toolbars;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+import data.Level;
+import data.Room;
+import gen.LpcWriter;
+
 import javax.swing.JOptionPane;
 import javax.swing.JToolBar;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
-import data.Level;
-import data.Room;
-import gen.LpcWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import properties.Localization;
 
-/**
- * Created by Administrator on 19/07/2014.
- */
 public class InfoToolbar extends JToolBar {
 
     private Level level;
-    private boolean showNotEmptyMessage = false;
-    private final String NOT_EMPTY_MESS = "All rooms must have names before "+
-            "generating LPC.";
+    private boolean showNotEmptyMessage;
+    private Localization localization = new Localization();
+    private final String NOT_EMPTY_MESS = localization.get("StreetNamesNotEmpty");
     static final Logger logger = LoggerFactory.getLogger(InfoToolbar.class);
 
     public InfoToolbar(Level level) {
@@ -56,22 +55,26 @@ public class InfoToolbar extends JToolBar {
         ActionListener listener = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent event) {
+                showNotEmptyMessage = false;
                 for(Room room : level.getRooms()) {
-                    if(room.getName().isEmpty()) {
+                    if(room.getName() == "") {
                         showNotEmptyMessage = true;
                     }
                 }
                 if(showNotEmptyMessage) {
-                    JOptionPane.showMessageDialog(null, NOT_EMPTY_MESS, "Warning",
-                            JOptionPane.WARNING_MESSAGE);
-                }
-                LpcWriter writer = new LpcWriter();
-                for(Room room : level.getRooms()) {
-                    try {
-                        writer.write(room);
-                    } catch (IOException ex) {
-                        logger.error(ex.toString());
+                    JOptionPane.showMessageDialog(null, NOT_EMPTY_MESS,
+                            localization.get("WarningTitle"), JOptionPane.WARNING_MESSAGE);
+                } else {
+                    LpcWriter writer = new LpcWriter();
+                    for(Room room : level.getRooms()) {
+                        try {
+                            writer.write(room);
+                        } catch (IOException ex) {
+                            logger.error(ex.toString());
+                        }
                     }
+                    JOptionPane.showMessageDialog(null, localization.get("LPCGeneratedMessage"),
+                            localization.get("InfoTitle"), JOptionPane.INFORMATION_MESSAGE);
                 }
             }
         };
