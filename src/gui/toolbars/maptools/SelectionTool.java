@@ -66,7 +66,9 @@ public class SelectionTool implements MapTool {
         if (event.isShiftDown() && cell.isRoom()) {
             shiftDownSelection(cell, event);
         } else if (cell.isRoom()) {
-            normalSelection(cell, event);
+            normalSelection(event);
+        } else {
+            doDeselect();
         }
     }
 
@@ -82,18 +84,20 @@ public class SelectionTool implements MapTool {
         infoPanel.loadMultiple(currentPanel);
     }
 
-    private void normalSelection(Cell cell, MouseEvent event) {
-        // Clear previously selected panels.
+    private void normalSelection(MouseEvent event) {
+        doDeselect();
+        selectedPanel = (CellPanel) event.getSource();
+        selectedPanel.setSelected();
+        infoPanel.load(selectedPanel);
+    }
+
+    private void doDeselect() {
         clearSelectedPanels();
         infoPanel.unloadMultiple();
-
         if (selectedPanel != null) {
             lastPanel = selectedPanel;
             lastPanel.setDeselected();
         }
-        selectedPanel = (CellPanel) event.getSource();
-        selectedPanel.setSelected();
-        infoPanel.load(selectedPanel);
     }
 
     public List<CellPanel> getSelectedPanels() {
