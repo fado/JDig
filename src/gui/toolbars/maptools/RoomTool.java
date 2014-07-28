@@ -26,6 +26,7 @@ import data.Level;
 import data.Room;
 import gui.CellPanel;
 
+import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
@@ -116,9 +117,11 @@ public class RoomTool implements MapTool {
         }
         Map<String, Cell> adjacentCells = cell.getAdjacentCells();
         for(Cell aCell : adjacentCells.values()) {
-            aCell.getCellPanel().removeImage();
-            aCell.getCellPanel().restoreDefaultBorder();
-            aCell.setEntityType(Entity.NO_ENTITY);
+            if(aCell.X != -1 && aCell.Y != -1) {
+                aCell.getCellPanel().removeImage();
+                aCell.getCellPanel().restoreDefaultBorder();
+                aCell.setEntityType(Entity.NO_ENTITY);
+            }
         }
     }
 
