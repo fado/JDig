@@ -78,7 +78,6 @@ public class RoomTool implements MapTool {
         if (SwingUtilities.isRightMouseButton(event)) {
             deleteRoom(cell, cellPanel);
         } else if (SwingUtilities.isLeftMouseButton(event) && positionIsValid(cellPanel)) {
-            cell.setEntityType(Entity.ROOM);
             cell.setRoom(new Room(cellPanel));
             if(firstRoomCell == null) {
                 setFirstRoomCell(cell);
@@ -87,7 +86,7 @@ public class RoomTool implements MapTool {
     }
 
     public void deleteRoom(Cell cell, CellPanel cellPanel) {
-        cell.setEntityType(Entity.NO_ENTITY);
+        cell.setEntity(Entity.NO_ENTITY);
         removeDeadExits(cell);
         // Visualise the delete immediately rather than waiting for mouseExited().
         cellPanel.removeImage();
@@ -119,7 +118,7 @@ public class RoomTool implements MapTool {
             if(aCell.X != -1 && aCell.Y != -1) {
                 aCell.getCellPanel().removeImage();
                 aCell.getCellPanel().restoreDefaultBorder();
-                aCell.setEntityType(Entity.NO_ENTITY);
+                aCell.setEntity(Entity.NO_ENTITY);
             }
         }
     }

@@ -37,7 +37,7 @@ public class ExitTool implements MapTool {
     @Override
     public void mouseEntered(Cell cell, MouseEvent event) {
         CellPanel cellPanel = (CellPanel)event.getSource();
-        exitEntity = cell.getPotentialExitDirection();
+        exitEntity = cell.getPotentialEntity();
         
         if(cell.getEntity().equals(Entity.NO_ENTITY)) {
             if(exitEntity != Entity.NO_ENTITY) {
@@ -64,12 +64,12 @@ public class ExitTool implements MapTool {
     private void doExit(Cell cell, MouseEvent event) {
         if (SwingUtilities.isRightMouseButton(event)) {
             if (cell.isExit()) {
-                cell.setEntityType(Entity.NO_ENTITY);
+                cell.setEntity(Entity.NO_ENTITY);
             }
         } else if (SwingUtilities.isLeftMouseButton(event)) {
-            Entity potentialEntity = cell.getPotentialExitDirection();
+            Entity potentialEntity = cell.getPotentialEntity();
             if (potentialEntity != Entity.NO_ENTITY && !cell.isExit()) {
-                cell.setEntityType(cell.getPotentialExitDirection());
+                cell.setEntity(cell.getPotentialEntity());
                 ExitBuilder.build(cell);
             } else {
                 CellPanel currentPanel = (CellPanel) event.getSource();
@@ -87,7 +87,7 @@ public class ExitTool implements MapTool {
     private void setNewEntity(CellPanel currentPanel, Cell cell, Entity entity) {
         currentPanel.removeImage();
         currentPanel.addImage(entity.getPath());
-        cell.setEntityType(entity);
+        cell.setEntity(entity);
 
         Map<String, Cell> cells = cell.getAdjacentCells();
 

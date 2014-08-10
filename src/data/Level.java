@@ -131,7 +131,7 @@ public class Level {
     public List<Room> getRooms() {
         List<Room> rooms = new ArrayList<>();
         for (Cell cell : allCells) {
-            if (cell.hasRoom()) {
+            if (cell.isRoom()) {
                 rooms.add(cell.getRoom());
             }
         }

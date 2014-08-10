@@ -31,7 +31,7 @@ public class ExitBuilder {
     }
 
     public static void build(Cell cell) {
-        Entity exitDirection = cell.getPotentialExitDirection();
+        Entity exitDirection = cell.getPotentialEntity();
         cells = cell.getAdjacentCells();
 
         if (exitDirection == Entity.HORIZONTAL_EXIT) {

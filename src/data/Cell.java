@@ -43,7 +43,7 @@ public class Cell {
         this.currentEntity = Entity.NO_ENTITY;
     }
 
-    public void setEntityType(Entity entity) {
+    public void setEntity(Entity entity) {
         this.currentEntity = entity;
     }
 
@@ -57,6 +57,12 @@ public class Cell {
 
     public void setRoom(Room room) {
         this.room = room;
+        this.setEntity(Entity.ROOM);
+    }
+
+    public void deleteRoom() {
+        this.room = null;
+        this.setEntity(Entity.NO_ENTITY);
     }
 
     public void setCellPanel(CellPanel cellPanel) {
@@ -91,7 +97,7 @@ public class Cell {
                 currentEntity == Entity.X_EXIT;
     }
 
-    public Entity getPotentialExitDirection() {
+    public Entity getPotentialEntity() {
         Map<String, Cell> cells = getAdjacentCells();
         if (cells.get("westCell").isRoom() && cells.get("eastCell").isRoom()) {
             return Entity.HORIZONTAL_EXIT;
