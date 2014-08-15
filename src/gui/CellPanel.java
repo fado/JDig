@@ -19,6 +19,13 @@ package gui;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+import data.Cell;
+import data.Entity;
+import gui.toolbars.maptools.MapTool;
+import gui.toolbars.maptools.MapToolEvent;
+import gui.toolbars.maptools.MapToolListener;
+import properties.Images;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -34,14 +41,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
-import data.Cell;
-import data.Entity;
-import gui.toolbars.maptools.MapTool;
-import gui.toolbars.maptools.MapToolEvent;
-import gui.toolbars.maptools.MapToolListener;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import properties.Images;
 
 public class CellPanel extends JPanel implements MapToolListener {
 
@@ -53,15 +55,14 @@ public class CellPanel extends JPanel implements MapToolListener {
     private boolean selected = false;
     private Cell cell;
     private Images images = new Images();
-    private final String ROOM_IMAGE = images.getImage("Room");
-    private final String SELECTED_ROOM_IMAGE = images.getImage("SelectedRoom");
+    private final String ROOM_IMAGE = images.getImagePath("Room");
     static final Logger logger = LoggerFactory.getLogger(CellPanel.class);
 
     public CellPanel(final Cell cell) {
         this.cell = cell;
         setDefaultProperties();
 
-        if(cell.isRoom()) {
+        if(cell.isConnectible()) {
             this.addImage(ROOM_IMAGE);
             if(cell.getColor() != null) {
                 this.setBackground(cell.getColor());
@@ -69,7 +70,7 @@ public class CellPanel extends JPanel implements MapToolListener {
             this.removeBorder();
         }
         if(cell.isExit()) {
-            this.addImage(cell.getEntity().getPath());
+            this.addImage(cell.getEntity().getNormalImage());
             this.setBorder((cell.getEntity()));
         }
 
@@ -80,7 +81,7 @@ public class CellPanel extends JPanel implements MapToolListener {
             }
             @Override
             public void mouseExited(MouseEvent event) {
-                if (cell.getEntity().equals(Entity.NO_ENTITY)) {
+                if (cell.getEntity() == null) {
                     CellPanel.this.removeImage();
                     CellPanel.this.restoreDefaultBorder();
                 }
@@ -111,6 +112,7 @@ public class CellPanel extends JPanel implements MapToolListener {
             }
         } catch (IOException ex) {
             logger.error(ex.toString());
+            ex.printStackTrace();
         }
     }
 
@@ -122,14 +124,6 @@ public class CellPanel extends JPanel implements MapToolListener {
         }
     }
 
-    public void setVerticalExitBorder() {
-        this.setBorder(BorderFactory.createMatteBorder(0, 1, 0, 1, VERY_LIGHT_GRAY));
-    }
-
-    public void setHorizontalExitBorder() {
-        this.setBorder(BorderFactory.createMatteBorder(1, 0, 1, 0, VERY_LIGHT_GRAY));
-    }
-
     public void removeBorder() {
         this.setBorder(BorderFactory.createEmptyBorder());
     }
@@ -138,24 +132,20 @@ public class CellPanel extends JPanel implements MapToolListener {
         this.setBorder(defaultBorder);
     }
 
-    public void setBorder(Entity exit) {
-        if (exit == Entity.VERTICAL_EXIT) {
-            setVerticalExitBorder();
-        } else if (exit == Entity.HORIZONTAL_EXIT) {
-            setHorizontalExitBorder();
-        }
+    public void setBorder(Entity entity) {
+        this.setBorder(entity.getBorder());
     }
 
     public void setSelected() {
         this.removeImage();
-        this.addImage(SELECTED_ROOM_IMAGE);
+        this.addImage(cell.getEntity().getSelectedImage());
         this.selected = true;
     }
 
     public void setDeselected() {
         this.removeImage();
-        if(cell.isRoom()) {
-            this.addImage(ROOM_IMAGE);
+        if(cell.isConnectible()) {
+            this.addImage(cell.getEntity().getNormalImage());
         }
         this.selected = false;
     }
