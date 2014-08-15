@@ -34,7 +34,7 @@ public class ToolbarButtonBuilder {
     }
 
     public static JButton build(String buttonName, ActionListener actionListener) {
-        JButton button = new JButton(new ImageIcon(images.getImage(buttonName)));
+        JButton button = new JButton(new ImageIcon(images.getImagePath(buttonName)));
         button.setToolTipText(localization.get(buttonName));
         button.addActionListener(actionListener);
         return button;
