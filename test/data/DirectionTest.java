@@ -26,9 +26,9 @@ import org.junit.Test;
 
 public class DirectionTest {
     
-    Point northOffset, southOffset, eastOffset, westOffset, northwestOffset,
+    private Point northOffset, southOffset, eastOffset, westOffset, northwestOffset,
         northeastOffset, southwestOffset, southeastOffset, testPoint;
-    Cell testCell;
+    private Cell testCell;
     
     @Before
     public void setUp() {
