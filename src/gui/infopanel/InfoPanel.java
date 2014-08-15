@@ -260,8 +260,8 @@ public class InfoPanel extends JPanel {
     }
 
     public void load(CellPanel cellPanel) {
-        this.currentRoom = cellPanel.getCell().getRoom();
-        this.currentRooms.add(cellPanel.getCell().getRoom());
+        this.currentRoom = (Room)cellPanel.getCell().getEntity();
+        this.currentRooms.add((Room)cellPanel.getCell().getEntity());
         this.currentCellPanel = cellPanel;
         this.roomNameField.setText(currentRoom.getName());
         this.includeField.setText(currentRoom.getInclude());
@@ -276,7 +276,7 @@ public class InfoPanel extends JPanel {
     }
 
     public void loadMultiple(CellPanel cellPanel) {
-        this.currentRooms.add(cellPanel.getCell().getRoom());
+        this.currentRooms.add((Room)cellPanel.getCell().getEntity());
     }
 
     public void unloadMultiple() {
