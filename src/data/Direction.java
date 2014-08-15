@@ -19,6 +19,9 @@ package data;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**
+ * Describes each possible direction along which a Connection can be made.
+ */
 public enum Direction {
     NORTH(0, -1),
     SOUTH(0, 1),
@@ -32,15 +35,34 @@ public enum Direction {
     public final int xOffset;
     public final int yOffset;
 
+    /**
+     * Each value of this enumerator describes an offset along the x and y axis
+     * that should be applied to a Cell in order to derive the Cell that lies
+     * in the named direction.
+     * @param xOffset The coordinate offset on the x axis.
+     * @param yOffset The coordinate offset on the y axis.
+     */
     Direction(int xOffset, int yOffset) {
         this.xOffset = xOffset;
         this.yOffset = yOffset;
     }
 
+    /**
+     * Returns the x coordinate of the Cell that lies in the named Direction from
+     * the passed-in Cell.
+     * @param cell The reference Cell.
+     * @return the x coordinate that lies in the named Direction.
+     */
     public int translateX(Cell cell) {
         return cell.X + this.xOffset;
     }
 
+    /**
+     * Returns the y coordinate of the Cell that lies in the named Direction from
+     * the passed-in Cell.
+     * @param cell The reference Cell.
+     * @return the y coordinate that lies in the named Direction.
+     */
     public int translateY(Cell cell) {
         return cell.Y + this.yOffset;
     }
