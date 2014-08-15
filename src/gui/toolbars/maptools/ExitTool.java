@@ -20,29 +20,31 @@ package gui.toolbars.maptools;
  */
 
 import data.Cell;
-import data.Direction;
+import data.Connection;
+import data.ConnectionType;
 import data.ExitBuilder;
 import data.Entity;
-import data.Room;
 import gui.CellPanel;
 
 import java.awt.event.MouseEvent;
-import java.util.Map;
 import javax.swing.SwingUtilities;
+import javax.swing.border.Border;
 
 public class ExitTool implements MapTool {
 
-    Entity exitEntity;
+    ConnectionType connectionType;
     
     @Override
     public void mouseEntered(Cell cell, MouseEvent event) {
         CellPanel cellPanel = (CellPanel)event.getSource();
-        exitEntity = cell.getPotentialEntity();
+        Entity entity = cell.getEntity();
+        connectionType = cell.getPotentialConnectionType();
         
-        if(cell.getEntity().equals(Entity.NO_ENTITY)) {
-            if(exitEntity != Entity.NO_ENTITY) {
-                cellPanel.addImage(exitEntity.getPath());
-                cellPanel.setBorder(exitEntity);
+        if(entity == null) {
+            if(connectionType != ConnectionType.NONE) {
+                cellPanel.addImage(connectionType.getPath());
+                Border border = new Connection(connectionType).getBorder();
+                cellPanel.setBorder(border);
             }
         }
     }
@@ -50,7 +52,8 @@ public class ExitTool implements MapTool {
     @Override
     public void mouseExited(Cell cell, MouseEvent event) {
         CellPanel cellPanel = (CellPanel)event.getSource();
-        if (cell.getEntity().equals(Entity.NO_ENTITY)) {
+        Entity entity = cell.getEntity();
+        if (entity == null) {
             cellPanel.removeImage();
             cellPanel.restoreDefaultBorder();
         }
@@ -64,49 +67,14 @@ public class ExitTool implements MapTool {
     private void doExit(Cell cell, MouseEvent event) {
         if (SwingUtilities.isRightMouseButton(event)) {
             if (cell.isExit()) {
-                cell.setEntity(Entity.NO_ENTITY);
+                cell.setEntity(null);
             }
         } else if (SwingUtilities.isLeftMouseButton(event)) {
-            Entity potentialEntity = cell.getPotentialEntity();
-            if (potentialEntity != Entity.NO_ENTITY && !cell.isExit()) {
-                cell.setEntity(cell.getPotentialEntity());
+            ConnectionType connectionType = cell.getPotentialConnectionType();
+            if (connectionType != ConnectionType.NONE && !cell.isExit()) {
+                cell.setEntity(new Connection(cell.getPotentialConnectionType()));
                 ExitBuilder.build(cell);
-            } else {
-                CellPanel currentPanel = (CellPanel) event.getSource();
-                if (cell.getEntity() == Entity.X_EXIT) {
-                    setNewEntity(currentPanel, cell, Entity.FORWARD_DIAGONAL_EXIT);
-                } else if (cell.getEntity() == Entity.FORWARD_DIAGONAL_EXIT) {
-                    setNewEntity(currentPanel, cell, Entity.BACKWARD_DIAGONAL_EXIT);
-                } else if (cell.getEntity() == Entity.BACKWARD_DIAGONAL_EXIT) {
-                    setNewEntity(currentPanel, cell, Entity.X_EXIT);
-                }
             }
-        }
-    }
-
-    private void setNewEntity(CellPanel currentPanel, Cell cell, Entity entity) {
-        currentPanel.removeImage();
-        currentPanel.addImage(entity.getPath());
-        cell.setEntity(entity);
-
-        Map<String, Cell> cells = cell.getAdjacentCells();
-
-        if(entity == Entity.FORWARD_DIAGONAL_EXIT) {
-            Room northwestRoom = cells.get("northwestCell").getRoom();
-            northwestRoom.removeExit(northwestRoom.getExit(Direction.SOUTHEAST));
-            Room southeastRoom = cells.get("southeastCell").getRoom();
-            southeastRoom.removeExit(southeastRoom.getExit(Direction.NORTHWEST));
-            ExitBuilder.buildOnlyForwardDiagonal(cell);
-        }
-        if(entity == Entity.BACKWARD_DIAGONAL_EXIT) {
-            Room northeastRoom = cells.get("northeastCell").getRoom();
-            northeastRoom.removeExit(northeastRoom.getExit(Direction.SOUTHWEST));
-            Room southwestRoom = cells.get("southwestCell").getRoom();
-            southwestRoom.removeExit(southwestRoom.getExit(Direction.NORTHEAST));
-            ExitBuilder.buildOnlyBackwardDiagonal(cell);
-        }
-        if(entity == Entity.X_EXIT) {
-            ExitBuilder.build(cell);
         }
     }
     

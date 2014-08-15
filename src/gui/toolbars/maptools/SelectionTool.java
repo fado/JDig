@@ -20,16 +20,11 @@ package gui.toolbars.maptools;
  */
 
 import data.Cell;
-import data.Entity;
-import data.Exit;
-import data.ExitBuilder;
-import data.Room;
 import gui.CellPanel;
 import gui.infopanel.InfoPanel;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class SelectionTool implements MapTool {
 
@@ -58,9 +53,9 @@ public class SelectionTool implements MapTool {
     }
 
     private void doSelection(Cell cell, MouseEvent event) {
-        if (event.isShiftDown() && cell.isRoom()) {
+        if (event.isShiftDown() && cell.isConnectible()) {
             shiftDownSelection(cell, event);
-        } else if (cell.isRoom()) {
+        } else if (cell.isConnectible()) {
             normalSelection(event);
         } else {
             doDeselect();
@@ -72,7 +67,7 @@ public class SelectionTool implements MapTool {
             selectedPanels.add(selectedPanel);
         }
         CellPanel currentPanel = (CellPanel) event.getSource();
-        if (cell.isRoom()) {
+        if (cell.isConnectible()) {
             selectedPanels.add(currentPanel);
             currentPanel.setSelected();
         }
@@ -83,7 +78,9 @@ public class SelectionTool implements MapTool {
         doDeselect();
         selectedPanel = (CellPanel) event.getSource();
         selectedPanel.setSelected();
-        infoPanel.load(selectedPanel);
+        if (selectedPanel.getCell().isConnectible()) {
+            infoPanel.load(selectedPanel);
+        }
     }
 
     private void doDeselect() {
