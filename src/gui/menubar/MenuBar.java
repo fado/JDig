@@ -19,15 +19,14 @@ package gui.menubar;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import data.Cell;
 import data.Level;
 import gui.CellPanel;
 import gui.commands.Exit;
 import gui.commands.Load;
 import gui.commands.Save;
-import gui.toolbars.maptools.DeleteEntity;
-import gui.toolbars.maptools.RoomTool;
-import gui.toolbars.maptools.SelectionTool;
+import gui.maptools.DeleteEntity;
+import gui.maptools.RoomTool;
+import gui.maptools.SelectionTool;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import properties.JdigProperties;
@@ -45,7 +44,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
 
