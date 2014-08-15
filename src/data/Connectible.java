@@ -19,6 +19,9 @@ package data;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**
+ * Marker interface. Determines if an Exit can point to the object.
+ */
 public interface Connectible {
 
 }
