@@ -25,14 +25,20 @@ import java.util.List;
 
 /**
  * The Level class represents a collection of Cells that make up a single area.
- * @author Padraig Donnelly
  */
 public class Level {
 
     private final List<Cell> allCells;
     private final Cell defaultCell;
+    private final List<Room> rooms = new ArrayList<>();
     private final List<Street> streets = new ArrayList<>();
 
+    /**
+     * Constructor builds a Level comprised of a number of Cells, spanning
+     * the number of rows and columns passed in.
+     * @param maxColumns The number of columns wide the Level should be.
+     * @param maxRows The number of rows deep the Level should be.
+     */
     public Level(int maxColumns, int maxRows) {
         this.defaultCell = new Cell(new Point(-1, -1), this);
         this.allCells = new ArrayList<>();
@@ -55,7 +61,7 @@ public class Level {
 
     /**
      * Add a new Cell to the Level.
-     * @param cell The Cell to be added.
+     * @param cell The new Cell.
      */
     private void addCell(Cell cell) {
         allCells.add(cell);
@@ -63,7 +69,7 @@ public class Level {
 
     /**
      * Add a Street to the Level.
-     * @param street The Street to be added.
+     * @param street The new Street.
      */
     public void addStreet(Street street) {
         streets.add(street);
@@ -78,7 +84,7 @@ public class Level {
     }
 
     /**
-     * Get a List of Streets in the Level.
+     * Return a List of Streets in the Level.
      * @return a List of Streets in the Level.
      */
     public List<Street> getStreets() {
@@ -86,8 +92,8 @@ public class Level {
     }
 
     /**
-     * Get a single Street from the List of Streets contained within the Level.
-     * Matches the Street by its name.
+     * Returns a single Street from the List of Streets contained within the Level
+     * that matches the String passed-in.
      * @param streetName The name of the Street to be retrieved.
      * @return the Street whose name matches the one supplied.
      */
@@ -102,9 +108,10 @@ public class Level {
     }
 
     /**
-     * Get a Cell at a specified point within the Level.
+     * Returns the Cell at a specified Point within the Level.
      * @param point The point at which the Cell exists.
-     * @return the Cell that exits at the point supplied.
+     * @return the Cell found, or if no Cell is found which matches the coordinates
+     * contained within the Point, the default Cell is returned.
      */
     public Cell getCellAt(Point point) {
         for (Cell cell : allCells) {
@@ -116,31 +123,41 @@ public class Level {
     }
 
     /**
-     * Get a list of all Cells within the Level.
-     * @return a list of all Cells within the Level.
+     * Returns a list of all Cells within the Level.
+     * @return all Cells within the Level.
      */
     public List<Cell> getAllCells() {
         return this.allCells;
     }
 
     /**
-     * Iterates through all Cells in the Level and returns those that contain
-     * Rooms.
+     * Registers a Room with the Level.
+     * @param room The Room to be registered.
+     */
+    public void registerRoom(Room room) {
+        rooms.add(room);
+    }
+
+    /**
+     * Unregister a Room from the Level.
+     * @param room The Room to be unregistered.
+     */
+    public void unregisterRoom(Room room) {
+        rooms.remove(room);
+    }
+
+    /**
+     * Returns a list of all Rooms registered to the Level.
      * @return a list of all Cells within the Level that contain Rooms.
      */
     public List<Room> getRooms() {
-        List<Room> rooms = new ArrayList<>();
-        for (Cell cell : allCells) {
-            if (cell.isRoom()) {
-                rooms.add(cell.getRoom());
-            }
-        }
         return rooms;
     }
 
     /**
      * Finds the Cell that lies adjacent to the pass-in Cell, in the passed-in
-     * Direction.
+     * Direction.  A method within the Direction enumerator is used to perform
+     * the necessary coordinate translation for the given Direction.
      * @param referenceCell The Cell that is used as the reference point.
      * @param direction The direction in which you want to look for an adjacent Cell.
      * @return the Cell found.
