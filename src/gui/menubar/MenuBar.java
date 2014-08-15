@@ -25,6 +25,7 @@ import gui.CellPanel;
 import gui.commands.Exit;
 import gui.commands.Load;
 import gui.commands.Save;
+import gui.toolbars.maptools.DeleteEntity;
 import gui.toolbars.maptools.RoomTool;
 import gui.toolbars.maptools.SelectionTool;
 import org.slf4j.Logger;
@@ -149,8 +150,7 @@ public class MenuBar extends JMenuBar {
     }
 
     private void deleteRoom(CellPanel cellPanel) {
-        Cell cell = cellPanel.getCell();
-        roomTool.deleteRoom(cell, cellPanel);
+        new DeleteEntity(cellPanel);
     }
 
     private int showDeleteDialog() {
