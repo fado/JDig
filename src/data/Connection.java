@@ -23,37 +23,70 @@ import java.awt.Color;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**
+ * A connection (i.e. an exit) connecting two or more rooms.
+ */
 public class Connection implements Entity {
 
     private final Color VERY_LIGHT_GRAY = new Color(224, 224, 224);
     private ConnectionType connectionType;
 
+    /**
+     * Constructor takes a ConnectionType.
+     * @param connectionType Type of connection this object represents.
+     */
     public Connection(ConnectionType connectionType) {
         this.connectionType = connectionType;
     }
 
+    /**
+     * Sets the ConnectionType of this Connection.
+     * @param connectionType to be set.
+     */
     public void setConnectionType(ConnectionType connectionType) {
         this.connectionType = connectionType;
     }
 
+    /**
+     * Gets the ConnectionType of this Connection.
+     * @return the ConnectionType of this Connection.
+     */
     public ConnectionType getConnectionType() {
         return this.connectionType;
     }
 
+    /**
+     * Gets the path of hte image for the current ConnectionType.
+     * @return the path of the image as a String.
+     */
     public String getPath() {
         return connectionType.getPath();
     }
 
+    /**
+     * Required method from the Entity interface.
+     * @return always null.
+     */
     @Override
     public String getNormalImage() {
         return null;
     }
 
+    /**
+     * Required method from the Entity interface.
+     * @return always null.
+     */
     @Override
     public String getSelectedImage() {
         return null;
     }
 
+    /**
+     * Returns the appropriate border for the ConnectionType.  The border has to
+     * change for vertical and horizontal exits or else the images done line up
+     * against the adjacent cells correctly.
+     * @return the border appropriate for the ConnectionType.
+     */
     @Override
     public Border getBorder() {
         if (connectionType.equals(ConnectionType.VERTICAL)) {
@@ -65,3 +98,4 @@ public class Connection implements Entity {
         return BorderFactory.createEmptyBorder();
     }
 }
+
