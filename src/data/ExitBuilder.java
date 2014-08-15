@@ -31,24 +31,24 @@ public class ExitBuilder {
     }
 
     public static void build(Cell cell) {
-        Entity exitDirection = cell.getPotentialEntity();
+        ConnectionType connectionType = cell.getPotentialConnectionType();
         cells = cell.getAdjacentCells();
 
-        if (exitDirection == Entity.HORIZONTAL_EXIT) {
+        if (connectionType == ConnectionType.HORIZONTAL) {
             buildExit("westCell", "eastCell", Direction.EAST);
             buildExit("eastCell", "westCell", Direction.WEST);
         }
-        if (exitDirection == Entity.VERTICAL_EXIT) {
+        if (connectionType == ConnectionType.VERTICAL) {
             buildExit("northCell", "southCell", Direction.SOUTH);
             buildExit("southCell", "northCell", Direction.NORTH);
         }
-        if (exitDirection == Entity.BACKWARD_DIAGONAL_EXIT) {
+        if (connectionType == ConnectionType.BACKWARD_DIAGONAL) {
             buildBackwardDiagonal();
         }
-        if (exitDirection == Entity.FORWARD_DIAGONAL_EXIT) {
+        if (connectionType == ConnectionType.FORWARD_DIAGONAL) {
             buildForwardDiagonal();
         }
-        if (exitDirection == Entity.X_EXIT) {
+        if (connectionType == ConnectionType.X) {
             buildBackwardDiagonal();
             buildForwardDiagonal();
         }
@@ -75,14 +75,14 @@ public class ExitBuilder {
     }
 
     private static void buildExit(String origin, String destination, Direction direction) {
-        Room originRoom = cells.get(origin).getRoom();
+        Room originRoom = (Room)cells.get(origin).getEntity();
         List<Exit> exits = originRoom.getExits();
         for (Exit exit : exits) {
             if (exit.getDirection() == direction) {
                 return;
             }
         }
-        Room destinationRoom = cells.get(destination).getRoom();
+        Room destinationRoom = (Room)cells.get(destination).getEntity();
         originRoom.addExit(new Exit(direction, destinationRoom, ExitType.PATH));
     }
 
