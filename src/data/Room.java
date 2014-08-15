@@ -20,12 +20,14 @@ package data;
  */
 
 import gui.CellPanel;
+import properties.Images;
 import properties.Localization;
 
+import javax.swing.border.Border;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Room {
+public class Room implements Entity, Connectible {
 
     private String include = "";
     private String inherit = "";
@@ -37,6 +39,7 @@ public class Room {
     private String light;
     private final List<Exit> exits = new ArrayList<>();
     private static final Localization localization = new Localization();
+    private final Images images = new Images();
     private final CellPanel cellPanel;
 
     public Room(CellPanel cellPanel) {
@@ -122,10 +125,6 @@ public class Room {
         exits.remove(exit);
     }
 
-    public void removeAllExits() {
-        this.exits.clear();
-    }
-
     public List<Exit> getExits() {
         return this.exits;
     }
@@ -140,4 +139,18 @@ public class Room {
         return exitToBeReturned;
     }
 
+    @Override
+    public String getNormalImage() {
+        return images.getImagePath("Room");
+    }
+
+    @Override
+    public String getSelectedImage() {
+        return images.getImagePath("SelectedRoom");
+    }
+
+    @Override
+    public Border getBorder() {
+        return null;
+    }
 }

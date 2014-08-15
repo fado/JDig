@@ -26,49 +26,59 @@ import java.awt.Point;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * This is one Cell within the Level.
+ */
+
 public class Cell {
 
     public final int X;
     public final int Y;
-    private final Level parentLevel;
-    private Entity currentEntity;
-    private Room room;
+    private final Level level;
+    private Entity entity;
     private CellPanel cellPanel;
     private Color color;
 
-    public Cell(Point point, Level map) {
+    /**
+     * Constructor requires the Level in which the Cell exists, and the Point
+     * within that Level where the Cell lies.
+     * @param point The Point at which the Cell lies.
+     * @param level The Level in which the Cell is contained.
+     */
+    public Cell(Point point, Level level) {
         this.X = point.x;
         this.Y = point.y;
-        this.parentLevel = map;
-        this.currentEntity = Entity.NO_ENTITY;
+        this.level = level;
     }
 
+    /**
+     * Sets the current Entity contained by the Cell.
+     * @param entity The new Entity.
+     */
     public void setEntity(Entity entity) {
-        this.currentEntity = entity;
+        this.entity = entity;
     }
 
+    /**
+     * Returns the Entity contained by the Cell.
+     * @return the Entity contained by the Cell, or null if no Entity has been set.
+     */
     public Entity getEntity() {
-        return this.currentEntity;
+        return this.entity;
     }
 
-    public Room getRoom() {
-        return this.room;
-    }
-
-    public void setRoom(Room room) {
-        this.room = room;
-        this.setEntity(Entity.ROOM);
-    }
-
-    public void deleteRoom() {
-        this.room = null;
-        this.setEntity(Entity.NO_ENTITY);
-    }
-
+    /**
+     * Sets the CellPanel that corresponds to this Cell.
+     * @param cellPanel The corresponding CellPanel.
+     */
     public void setCellPanel(CellPanel cellPanel) {
         this.cellPanel = cellPanel;
     }
 
+    /**
+     * Gets the CellPanel that corresponds to this Cell.
+     * @return the corresponding CellPanel.
+     */
     public CellPanel getCellPanel() {
         return this.cellPanel;
     }
@@ -81,41 +91,61 @@ public class Cell {
         return this.color;
     }
 
-    public boolean isRoom() {
-        return currentEntity == Entity.ROOM && this.isInBounds();
-    }
-
-    private boolean isInBounds() {
-        return this.X >= 0 && this.Y >= 0;
+    /**
+     * Tests for the presence of the marker interface Connectible on the Entity
+     * contained by the Cell.
+     * @return true if the marker interface is present, otherwise false.
+     */
+    public boolean isConnectible() {
+        return entity != null && entity instanceof Connectible;
     }
 
     public boolean isExit() {
-        return currentEntity == Entity.VERTICAL_EXIT ||
-                currentEntity == Entity.HORIZONTAL_EXIT ||
-                currentEntity == Entity.FORWARD_DIAGONAL_EXIT ||
-                currentEntity == Entity.BACKWARD_DIAGONAL_EXIT ||
-                currentEntity == Entity.X_EXIT;
+        return !isConnectible();
     }
 
-    public Entity getPotentialEntity() {
+    /**
+     * Tests whether or not this Cell is within valid bounds.
+     * @return true if in bounds, false otherwise.
+     */
+    public boolean isInBounds() {
+        return this.X >= 0 && this.Y >= 0;
+    }
+
+    /**
+     * Gets the potential connection type for the Cell based on the Entities
+     * in the surrounding Cells.
+     * @return the potential connection type.
+     */
+    public ConnectionType getPotentialConnectionType() {
         Map<String, Cell> cells = getAdjacentCells();
-        if (cells.get("westCell").isRoom() && cells.get("eastCell").isRoom()) {
-            return Entity.HORIZONTAL_EXIT;
+        if (cells.get("westCell").isConnectible()
+                && cells.get("eastCell").isConnectible()) {
+            return ConnectionType.HORIZONTAL;
         }
-        if (cells.get("northCell").isRoom() && cells.get("southCell").isRoom()) {
-            return Entity.VERTICAL_EXIT;
+        if (cells.get("northCell").isConnectible()
+                && cells.get("southCell").isConnectible()) {
+            return ConnectionType.VERTICAL;
         }
-        if (cells.get("northwestCell").isRoom() && cells.get("northeastCell").isRoom()
-                && cells.get("southwestCell").isRoom() && cells.get("southeastCell").isRoom()) {
-            return Entity.X_EXIT;
-        } else if (cells.get("southwestCell").isRoom() && cells.get("northeastCell").isRoom()) {
-            return Entity.FORWARD_DIAGONAL_EXIT;
-        } else if (cells.get("southeastCell").isRoom() && cells.get("northwestCell").isRoom()) {
-            return Entity.BACKWARD_DIAGONAL_EXIT;
+        if (cells.get("northwestCell").isConnectible()
+                && cells.get("northeastCell").isConnectible()
+                && cells.get("southwestCell").isConnectible()
+                && cells.get("southeastCell").isConnectible()) {
+            return ConnectionType.X;
+        } else if (cells.get("southwestCell").isConnectible()
+                && cells.get("northeastCell").isConnectible()) {
+            return ConnectionType.FORWARD_DIAGONAL;
+        } else if (cells.get("southeastCell").isConnectible()
+                && cells.get("northwestCell").isConnectible()) {
+            return ConnectionType.BACKWARD_DIAGONAL;
         }
-        return Entity.NO_ENTITY;
+        return ConnectionType.NONE;
     }
 
+    /**
+     * Gets a Map of all Cells adjacent to this Cell.
+     * @return a Map of all adjacent Cells.
+     */
     public Map<String, Cell> getAdjacentCells() {
         Map<String, Cell> cells = new HashMap<>();
         Direction.values();
@@ -123,7 +153,7 @@ public class Cell {
         String[] cellNames = {"northCell", "southCell", "eastCell", "westCell",
                 "northeastCell", "northwestCell", "southeastCell", "southwestCell"};
         for (int counter = 0; counter < cellNames.length; counter++) {
-            cells.put(cellNames[counter], parentLevel.getCellAdjacentTo(this, directions[counter]));
+            cells.put(cellNames[counter], level.getCellAdjacentTo(this, directions[counter]));
         }
         return cells;
     }

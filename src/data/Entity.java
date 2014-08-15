@@ -1,5 +1,7 @@
 package data;
 
+import javax.swing.border.Border;
+
 /**
  * JDig, a tool for the automatic generation of LPC class files for Epitaph
  * developers.
@@ -19,23 +21,10 @@ package data;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-public enum Entity {
-    NO_ENTITY(null),
-    ROOM("./resources/images/room.png"),
-    HORIZONTAL_EXIT("./resources/images/horizontal_exit.png"),
-    VERTICAL_EXIT("./resources/images/vertical_exit.png"),
-    FORWARD_DIAGONAL_EXIT("./resources/images/forward_diagonal_exit.png"),
-    BACKWARD_DIAGONAL_EXIT("./resources/images/back_diagonal_exit.png"),
-    X_EXIT("./resources/images/x_exit.png");
+public interface Entity {
 
-    private final String path;
-
-    Entity(String path) {
-        this.path = path;
-    }
-
-    public String getPath() {
-        return this.path;
-    }
+    public String getNormalImage();
+    public String getSelectedImage();
+    public Border getBorder();
 
 }
