@@ -40,7 +40,7 @@ public class Images {
         }
     }
     
-    public String getImage(String key) {
+    public String getImagePath(String key) {
         return BASE_PATH + properties.getProperty(key);
     }
     
