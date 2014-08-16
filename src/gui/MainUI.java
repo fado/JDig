@@ -22,9 +22,7 @@ package gui;
 import data.Level;
 import gui.commands.Exit;
 import gui.menubar.MenuBar;
-import gui.infopanel.InfoToolbar;
 import gui.toolbars.MapToolbar;
-import gui.infopanel.InfoPanel;
 
 import java.awt.Container;
 import java.awt.GridBagConstraints;

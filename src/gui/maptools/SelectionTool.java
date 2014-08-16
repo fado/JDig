@@ -21,7 +21,7 @@ package gui.maptools;
 
 import data.Cell;
 import gui.CellPanel;
-import gui.infopanel.InfoPanel;
+import gui.InfoPanel;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;

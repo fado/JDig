@@ -1,4 +1,4 @@
-package gui.infopanel.commands;
+package gui.infopanel.infocommands;
 
 /**
  * JDig, a tool for the automatic generation of LPC class files for Epitaph
@@ -20,11 +20,10 @@ package gui.infopanel.commands;
 
 import data.Room;
 
-public class SetInclude implements SetterCommand {
+public class SetInherit implements SetterCommand {
 
     @Override
     public void set(Room room, String text) {
-        room.setInclude(text);
+        room.setInherit(text);
     }
-
 }

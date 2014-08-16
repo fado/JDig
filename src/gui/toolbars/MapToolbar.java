@@ -19,7 +19,7 @@ package gui.toolbars;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import gui.infopanel.InfoPanel;
+import gui.InfoPanel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
