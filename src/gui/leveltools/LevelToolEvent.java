@@ -1,7 +1,7 @@
 package gui.leveltools;
 
 /**
- * JDig, a tool for the automatic generation of LPC class files for Epitaph 
+ * JDig, a mapTool for the automatic generation of LPC class files for Epitaph
  * developers.
  * Copyright (C) 2014 Fado@Epitaph.
  *
@@ -19,8 +19,17 @@ package gui.leveltools;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import java.util.EventListener;
+import java.util.EventObject;
 
-public interface MapToolListener extends EventListener {
-    public void toolChanged(MapToolEvent event);
+public class LevelToolEvent extends EventObject {
+    private final LevelTool levelTool;
+    
+    public LevelToolEvent(Object source, LevelTool levelTool) {
+        super(source);
+        this.levelTool = levelTool;
+    }
+    
+    public LevelTool getLevelTool() {
+        return levelTool;
+    }
 }

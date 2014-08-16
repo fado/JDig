@@ -26,9 +26,9 @@ import java.util.List;
 import javax.swing.JToolBar;
 
 import gui.leveltools.ExitTool;
-import gui.leveltools.MapTool;
-import gui.leveltools.MapToolEvent;
-import gui.leveltools.MapToolListener;
+import gui.leveltools.LevelTool;
+import gui.leveltools.LevelToolEvent;
+import gui.leveltools.LevelToolListener;
 import gui.leveltools.RoomTool;
 import gui.leveltools.SelectionTool;
 
@@ -39,11 +39,11 @@ import gui.leveltools.SelectionTool;
  */
 public class LevelToolbar extends JToolBar {
 
-    private final List<MapToolListener> listeners = new ArrayList<>();
-    private MapTool selectedMapTool;
-    private MapTool selectionTool;
-    private MapTool roomTool;
-    private MapTool exitTool;
+    private final List<LevelToolListener> listeners = new ArrayList<>();
+    private LevelTool selectedLevelTool;
+    private LevelTool selectionTool;
+    private LevelTool roomTool;
+    private LevelTool exitTool;
     private final InfoPanel infoPanel;
     
     public LevelToolbar(InfoPanel infoPanel) {
@@ -63,15 +63,15 @@ public class LevelToolbar extends JToolBar {
     }
     
     public void setDefaultSelectionTool() {
-        setSelectedMapTool(selectionTool);
+        setSelectedLevelTool(selectionTool);
     }
     
-    public MapTool getSelectedMapTool() {
-        return this.selectedMapTool;
+    public LevelTool getSelectedLevelTool() {
+        return this.selectedLevelTool;
     }
 
-    public void setSelectedMapTool(MapTool mapTool) {
-        this.selectedMapTool = mapTool;
+    public void setSelectedLevelTool(LevelTool levelTool) {
+        this.selectedLevelTool = levelTool;
         fireToolChanged();
     }
 
@@ -83,24 +83,24 @@ public class LevelToolbar extends JToolBar {
         return (RoomTool)this.roomTool;
     }
     
-    private ActionListener getToolChangeAction(final MapTool mapTool) {
+    private ActionListener getToolChangeAction(final LevelTool levelTool) {
         ActionListener listener = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent event) {
-                setSelectedMapTool(mapTool);
+                setSelectedLevelTool(levelTool);
             }
         };
         return listener;
     }
     
-    public void addToolListener(MapToolListener obj) {
+    public void addToolListener(LevelToolListener obj) {
         listeners.add(obj);
     }
 
     protected void fireToolChanged() {
-        MapToolEvent mapToolEvent = new MapToolEvent(this, getSelectedMapTool());
-        for (MapToolListener listener : listeners) {
-            listener.toolChanged(mapToolEvent);
+        LevelToolEvent levelToolEvent = new LevelToolEvent(this, getSelectedLevelTool());
+        for (LevelToolListener listener : listeners) {
+            listener.toolChanged(levelToolEvent);
         }
     }
 

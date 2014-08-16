@@ -23,7 +23,7 @@ import data.Cell;
 
 import java.awt.event.MouseEvent;
 
-public interface MapTool {
+public interface LevelTool {
     public void mouseEntered(Cell cell, MouseEvent event);
     public void mouseExited(Cell cell, MouseEvent event);
     public void mousePressed(Cell cell, MouseEvent event);

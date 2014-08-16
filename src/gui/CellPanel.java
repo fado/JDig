@@ -21,9 +21,9 @@ package gui;
 
 import data.Cell;
 import data.Entity;
-import gui.leveltools.MapTool;
-import gui.leveltools.MapToolEvent;
-import gui.leveltools.MapToolListener;
+import gui.leveltools.LevelTool;
+import gui.leveltools.LevelToolEvent;
+import gui.leveltools.LevelToolListener;
 import properties.Images;
 
 import java.awt.Color;
@@ -45,13 +45,13 @@ import javax.swing.border.Border;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class CellPanel extends JPanel implements MapToolListener {
+public class CellPanel extends JPanel implements LevelToolListener {
 
     private final Color VERY_LIGHT_GRAY = new Color(224, 224, 224);
     private final int SIZE = 15;
     private JLabel entityImage;
     private Border defaultBorder;
-    private MapTool selectedMapTool;
+    private LevelTool selectedLevelTool;
     private boolean selected = false;
     private Cell cell;
     private Images images = new Images();
@@ -77,7 +77,7 @@ public class CellPanel extends JPanel implements MapToolListener {
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent event) {
-                selectedMapTool.mouseEntered(cell, event);
+                selectedLevelTool.mouseEntered(cell, event);
             }
             @Override
             public void mouseExited(MouseEvent event) {
@@ -88,7 +88,7 @@ public class CellPanel extends JPanel implements MapToolListener {
             }
             @Override
             public void mousePressed(MouseEvent event) {
-                selectedMapTool.mousePressed(cell, event);
+                selectedLevelTool.mousePressed(cell, event);
             }
         });
     }
@@ -164,8 +164,8 @@ public class CellPanel extends JPanel implements MapToolListener {
     }
 
     @Override
-    public void toolChanged(MapToolEvent event) {
-        this.selectedMapTool = event.getMapTool();
+    public void toolChanged(LevelToolEvent event) {
+        this.selectedLevelTool = event.getLevelTool();
     }
 
 }

@@ -30,7 +30,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
 
-public class ExitTool implements MapTool {
+public class ExitTool implements LevelTool {
 
     ConnectionType connectionType;
     

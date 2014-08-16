@@ -22,13 +22,7 @@ import data.Exit;
 import data.Level;
 import data.Room;
 import data.Street;
-import gui.infosetters.SetDeterminate;
-import gui.infosetters.SetInclude;
-import gui.infosetters.SetInherit;
-import gui.infosetters.SetLight;
-import gui.infosetters.SetLong;
-import gui.infosetters.SetName;
-import gui.infosetters.SetShort;
+import gui.infosetters.*;
 import gui.streeteditor.StreetEditor;
 import properties.Localization;
 
