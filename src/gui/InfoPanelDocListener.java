@@ -18,7 +18,7 @@ package gui;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import gui.infopanel.infocommands.SetterCommand;
+import gui.infosetters.SetterCommand;
 
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;

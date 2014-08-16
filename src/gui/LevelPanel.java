@@ -21,7 +21,6 @@ package gui;
 
 import data.Cell;
 import data.Level;
-import gui.toolbars.MapToolbar;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -29,7 +28,7 @@ import javax.swing.JPanel;
 
 public class LevelPanel extends JPanel {
 
-    public LevelPanel(Level level, MapToolbar toolbar) {
+    public LevelPanel(Level level, LevelToolbar toolbar) {
         setLayout(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
         

@@ -29,7 +29,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
-import gui.toolbars.ToolbarButtonBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import properties.Localization;

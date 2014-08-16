@@ -22,7 +22,6 @@ package gui;
 import data.Level;
 import gui.commands.Exit;
 import gui.menubar.MenuBar;
-import gui.toolbars.MapToolbar;
 
 import java.awt.Container;
 import java.awt.GridBagConstraints;
@@ -40,7 +39,7 @@ import org.slf4j.LoggerFactory;
 public class MainUI implements Runnable {
 
     private final Level level;
-    private MapToolbar toolbar;
+    private LevelToolbar toolbar;
     static final Logger logger = LoggerFactory.getLogger(MainUI.class);
 
     public MainUI(Level level) {
@@ -65,7 +64,7 @@ public class MainUI implements Runnable {
         constraints.gridy = 0;
         pane.add(infoToolbar, constraints);
 
-        toolbar = new MapToolbar(infoPanel);
+        toolbar = new LevelToolbar(infoPanel);
         constraints.gridx = 0;
         constraints.gridy = 0;
         pane.add(toolbar, constraints);

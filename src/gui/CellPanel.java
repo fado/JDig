@@ -21,9 +21,9 @@ package gui;
 
 import data.Cell;
 import data.Entity;
-import gui.maptools.MapTool;
-import gui.maptools.MapToolEvent;
-import gui.maptools.MapToolListener;
+import gui.leveltools.MapTool;
+import gui.leveltools.MapToolEvent;
+import gui.leveltools.MapToolListener;
 import properties.Images;
 
 import java.awt.Color;

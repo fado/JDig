@@ -1,8 +1,9 @@
-package gui.infopanel.infocommands;
+package gui.leveltools;
 
 /**
- * JDig, a tool for the automatic generation of LPC class files for Epitaph
- * developers.  Copyright (C) 2014 Fado@Epitaph.
+ * JDig, a mapTool for the automatic generation of LPC class files for Epitaph
+ * developers.
+ * Copyright (C) 2014 Fado@Epitaph.
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -18,13 +19,17 @@ package gui.infopanel.infocommands;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import data.Room;
+import java.util.EventObject;
 
-public class SetInclude implements SetterCommand {
-
-    @Override
-    public void set(Room room, String text) {
-        room.setInclude(text);
+public class MapToolEvent extends EventObject {
+    private final MapTool mapTool;
+    
+    public MapToolEvent(Object source, MapTool mapTool) {
+        super(source);
+        this.mapTool = mapTool;
     }
-
+    
+    public MapTool getMapTool() {
+        return mapTool;
+    }
 }

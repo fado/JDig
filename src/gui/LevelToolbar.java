@@ -1,4 +1,4 @@
-package gui.toolbars;
+package gui;
 
 /**
  * JDig, a tool for the automatic generation of LPC class files for Epitaph 
@@ -19,26 +19,25 @@ package gui.toolbars;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import gui.InfoPanel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JToolBar;
 
-import gui.maptools.ExitTool;
-import gui.maptools.MapTool;
-import gui.maptools.MapToolEvent;
-import gui.maptools.MapToolListener;
-import gui.maptools.RoomTool;
-import gui.maptools.SelectionTool;
+import gui.leveltools.ExitTool;
+import gui.leveltools.MapTool;
+import gui.leveltools.MapToolEvent;
+import gui.leveltools.MapToolListener;
+import gui.leveltools.RoomTool;
+import gui.leveltools.SelectionTool;
 
 /**
  * The MapEditorToolbar class specifies the tool bar for the map editor.
  *
  * @author Administrator
  */
-public class MapToolbar extends JToolBar {
+public class LevelToolbar extends JToolBar {
 
     private final List<MapToolListener> listeners = new ArrayList<>();
     private MapTool selectedMapTool;
@@ -47,7 +46,7 @@ public class MapToolbar extends JToolBar {
     private MapTool exitTool;
     private final InfoPanel infoPanel;
     
-    public MapToolbar(InfoPanel infoPanel) {
+    public LevelToolbar(InfoPanel infoPanel) {
         this.infoPanel = infoPanel;
         setDefaultProperties();
         

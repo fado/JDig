@@ -1,4 +1,4 @@
-package gui.toolbars;
+package gui;
 
 import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;

@@ -1,9 +1,8 @@
-package gui.maptools;
+package gui.infosetters;
 
 /**
  * JDig, a tool for the automatic generation of LPC class files for Epitaph 
- * developers.
- * Copyright (C) 2014 Fado@Epitaph.
+ * developers.  Copyright (C) 2014 Fado@Epitaph.
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -19,12 +18,13 @@ package gui.maptools;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import data.Cell;
+import data.Room;
 
-import java.awt.event.MouseEvent;
+public class SetDeterminate implements SetterCommand {
 
-public interface MapTool {
-    public void mouseEntered(Cell cell, MouseEvent event);
-    public void mouseExited(Cell cell, MouseEvent event);
-    public void mousePressed(Cell cell, MouseEvent event);
+    @Override
+    public void set(Room room, String text) {
+        room.setDeterminate(text);
+    }
+    
 }
