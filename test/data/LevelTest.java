@@ -94,36 +94,6 @@ public class LevelTest {
     }
 
     @Test
-    public void testGetAndAddStreet() {
-        testLevel.addStreet(testStreet);
-        assertEquals(testStreet, testLevel.getStreets().get(0));
-    }
-
-    @Test
-    public void testRemoveStreet() {
-        testLevel.removeStreet(testStreet);
-        assertTrue(testLevel.getStreets().size() == 0);
-    }
-
-    @Test
-    public void testGetStreetByName() {
-        Street actual = testLevel3.getStreet(testStreetName);
-        Street expected = testStreet;
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    public void testRegisterRoom() {
-        assertEquals(testRoom, testLevel4.getRooms().get(0));
-    }
-
-    @Test
-    public void testUnregisterRoom() {
-        testLevel4.unregisterRoom(testRoom);
-        assertTrue(testLevel4.getRooms().size() == 0);
-    }
-
-    @Test
     public void testGetNorthAdjacent() {
         Cell cell = testLevel5.getCellAdjacentTo(testCellCenter, Direction.NORTH);
         Point actual = new Point(cell.X, cell.Y);

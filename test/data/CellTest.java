@@ -19,7 +19,6 @@ package data;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import java.awt.Color;
 import java.awt.Point;
 import java.util.Map;
 
@@ -31,55 +30,25 @@ import org.junit.Test;
 
 public class CellTest {
 
-    private Level testLevel1, testLevel2;
-    private ConnectionType testConnectionType;
+    private Level testLevel2;
     private Entity testConnection;
     private Entity testRoom;
-    private Point testPoint, testPointInvalidX, testPointInvalidY;
     private Cell testCell1, testCell2, testCell3;
-    private CellPanel testCellPanel;
-    private Color testColor;
 
     @Before
     public void setUp() {
-        testLevel1 = new Level(1, 1);
-        testConnectionType = ConnectionType.NONE;
+        Level testLevel1 = new Level(1, 1);
+        ConnectionType testConnectionType = ConnectionType.NONE;
         testConnection = new Connection(testConnectionType);
-        testPoint = new Point(1, 1);
-        testPointInvalidX = new Point(-1, 1);
-        testPointInvalidY = new Point(1, -1);
+        Point testPoint = new Point(1, 1);
+        Point testPointInvalidX = new Point(-1, 1);
+        Point testPointInvalidY = new Point(1, -1);
         testCell1 = new Cell(testPoint, testLevel1);
         testCell2 = new Cell(testPointInvalidX, testLevel1);
         testCell3 = new Cell(testPointInvalidY, testLevel1);
-        testCellPanel = new CellPanel(testCell1);
+        CellPanel testCellPanel = new CellPanel(testCell1);
         testRoom = new Room(testCellPanel);
-        testColor = new Color(0, 0, 0);
-
         testLevel2 = new Level(3, 3);
-    }
-
-    @Test
-    public void testGetAndSetConnectionEntity() {
-        testCell1.setEntity(testConnection);
-        assertEquals(testConnection, testCell1.getEntity());
-    }
-
-    @Test
-    public void testGetAndSetRoomEntity() {
-        testCell1.setEntity(testRoom);
-        assertEquals(testRoom, testCell1.getEntity());
-    }
-
-    @Test
-    public void testGetAndSetCellPanel() {
-        testCell1.setCellPanel(testCellPanel);
-        assertEquals(testCellPanel, testCell1.getCellPanel());
-    }
-
-    @Test
-    public void testGetAndSetColor() {
-        testCell1.setColor(testColor);
-        assertEquals(testColor, testCell1.getColor());
     }
 
     @Test
