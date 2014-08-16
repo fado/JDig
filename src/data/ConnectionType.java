@@ -26,6 +26,7 @@ public enum ConnectionType {
     FORWARD_DIAGONAL("./resources/images/forward_diagonal_exit.png"),
     BACKWARD_DIAGONAL("./resources/images/back_diagonal_exit.png"),
     X("./resources/images/x_exit.png");
+
     private final String path;
 
     ConnectionType(String path) {
