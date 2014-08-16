@@ -155,7 +155,7 @@ public class Level {
     }
 
     /**
-     * Finds the Cell that lies adjacent to the pass-in Cell, in the passed-in
+     * Finds the Cell that lies adjacent to the passin Cell, in the passed-in
      * Direction.  A method within the Direction enumerator is used to perform
      * the necessary coordinate translation for the given Direction.
      * @param referenceCell The Cell that is used as the reference point.
