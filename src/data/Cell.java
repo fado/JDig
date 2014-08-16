@@ -101,7 +101,7 @@ public class Cell {
     }
 
     public boolean isExit() {
-        return !isConnectible();
+        return entity != null && !isConnectible();
     }
 
     /**
