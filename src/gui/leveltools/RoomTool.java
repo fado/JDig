@@ -31,7 +31,7 @@ import javax.swing.SwingUtilities;
 /**
  * This class controls the addition and removal of Rooms from a Level.
  */
-public class RoomTool implements LevelTool {
+public class RoomTool extends LevelTool {
 
     private Cell firstRoomCell;
     private boolean xEven = false;

@@ -26,7 +26,7 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SelectionTool implements LevelTool {
+public class SelectionTool extends LevelTool {
 
     private InfoPanel infoPanel;
     private CellPanel lastPanel;
