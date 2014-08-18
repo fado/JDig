@@ -22,25 +22,44 @@ package data;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A Street within a Level.  A named collection of Rooms.
+ */
 public class Street {
 
     private final String name;
     private final List<Room> rooms;
 
+    /**
+     * Default constructor.
+     * @param name The name of the Street.
+     */
     public Street(String name) {
         this.rooms = new ArrayList<>();
         this.name = name;
     }
 
+    /**
+     * Get the name of the Street.
+     * @return the name of the Street.
+     */
     public String getName() {
         return this.name;
     }
 
+    /**
+     * Add a Room to the Street.
+     * @param room The Room to be added.
+     */
     public void addRoom(Room room) {
         rooms.add(room);
         room.setStreet(this.name);
     }
 
+    /**
+     * Returns a list of all Rooms in the Street.
+     * @return a list of all Rooms in the Street.
+     */
     public List<Room> getRooms() {
         return rooms;
     }

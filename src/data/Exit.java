@@ -19,26 +19,47 @@ package data;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**
+ * An Exit, linking one Room to another Room.
+ */
 public class Exit {
 
     private final Direction direction;
     private final Room destination;
     private final ExitType exitType;
 
+    /**
+     * Default constructor.
+     * @param direction The Direction the Exit is pointing.
+     * @param destination The Room to which the Exit is pointing.
+     * @param exitType The type of Exit, in MUD terms.
+     */
     public Exit(Direction direction, Room destination, ExitType exitType) {
         this.direction = direction;
         this.destination = destination;
         this.exitType = exitType;
     }
 
+    /**
+     * Gets the Direction of the Exit.
+     * @return the Direction of the Exit.
+     */
     public Direction getDirection() {
         return this.direction;
     }
 
+    /**
+     * Gets the Room that is the Destination of the Exit.
+     * @return the Room that is the Destination of the Exit.
+     */
     public Room getDestination() {
         return this.destination;
     }
 
+    /**
+     * Gets the ExitType.
+     * @return the ExitType
+     */
     public ExitType getExitType() {
         return this.exitType;
     }
