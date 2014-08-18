@@ -23,7 +23,7 @@ import data.Cell;
 
 import java.awt.event.MouseEvent;
 
-public abstract class LevelTool {
+public interface LevelTool {
     public abstract void mouseEntered(Cell cell, MouseEvent event);
     public abstract void mouseExited(Cell cell, MouseEvent event);
     public abstract void mousePressed(Cell cell, MouseEvent event);
