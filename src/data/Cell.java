@@ -83,6 +83,10 @@ public class Cell {
         return this.cellPanel;
     }
 
+    public Level getLevel() {
+        return this.level;
+    }
+
     public void setColor(Color color) {
         this.color = color;
     }
