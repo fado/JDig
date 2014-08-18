@@ -22,11 +22,13 @@ package data;
 import gui.CellPanel;
 import properties.Images;
 import properties.Localization;
-
 import javax.swing.border.Border;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A single Room within the Level.
+ */
 public class Room implements Entity, Connectible {
 
     private String include = "";
@@ -42,6 +44,11 @@ public class Room implements Entity, Connectible {
     private final Images images = new Images();
     private final CellPanel cellPanel;
 
+    /**
+     * Default constructor.
+     * @param cellPanel The CellPanel that represents the Cell containing this room
+     *                  in the UI.
+     */
     public Room(CellPanel cellPanel) {
         this.cellPanel = cellPanel;
         this.include = localization.get("DefaultInclude");
@@ -49,86 +56,177 @@ public class Room implements Entity, Connectible {
         this.longDescription = localization.get("DefaultLongDescription");
     }
 
+    /**
+     * Returns the CellPanel corresponding to the Cell object that contains
+     * this room.
+     * @return the CellPanel that 'contains' this Room.  See description.
+     */
     public CellPanel getCellPanel() {
         return this.cellPanel;
     }
 
+    /**
+     * Sets the name of this Room.
+     * @param name The name to be set.
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * Gets the name of this Room.
+     * @return the name of the Room.
+     */
     public String getName() {
         return this.name;
     }
 
+    /**
+     * Sets the name of the #include file for this Room.
+     * @param include The name of the #include file for the Room.
+     */
     public void setInclude(String include) {
         this.include = include;
     }
 
+    /**
+     * Gets the name of the #include file for this Room.
+     * @return the name of the #include file for this Room.
+     */
     public String getInclude() {
         return this.include;
     }
 
+    /**
+     * Sets the name of the inheritable to be used by this Room.
+     * @param inherit The name of the inheritable to be used by this Room.
+     */
     public void setInherit(String inherit) {
         this.inherit = inherit;
     }
 
+    /**
+     * Get the name of the inheritable to be used by this Room.
+     * @return The name of the inheritable to be used by this Room.
+     */
     public String getInherit() {
         return this.inherit;
     }
 
+    /**
+     * Sets the name of the Street to which this Room belongs.
+     * @param street The name of the Street to which this Room belongs.
+     */
     public void setStreet(String street) {
         this.street = street;
     }
 
+    /**
+     * Gets the name of the Street to which this Room belongs.
+     * @return the name of the Street to which this Room belongs.
+     */
     public String getStreet() {
         return this.street;
     }
 
+    /**
+     * Sets the short description of this Room.
+     * @param description The short description to be set.
+     */
     public void setShort(String description) {
         this.shortDescription = description;
     }
 
+    /**
+     * Gets the short description of this Room.
+     * @return the short description of this Room.
+     */
     public String getShort() {
         return this.shortDescription;
     }
 
+    /**
+     * Sets the determinate for this Room.  This is the word that goes before
+     * the short description when the Room is viewed in the MUD, e.g. 'the',
+     * 'an' or 'a'.
+     * @param determinate The determinate to be set.
+     */
     public void setDeterminate(String determinate) {
         this.determinate = determinate;
     }
 
+    /**
+     * Gets the determinate for this Room.
+     * @return the determinate for this Room.
+     */
     public String getDeterminate() {
         return this.determinate;
     }
 
+    /**
+     * Sets the light level for this room.  Passed as a String within this
+     * application as our ultimate goal is to write a file, not interact with
+     * the game engine.  Parsing as an int would be superfluous.
+     * @param light The light level to be set.
+     */
     public void setLight(String light) {
         this.light = light;
     }
 
+    /**
+     * Gets the light level for this Room.
+     * @return the light level for this Room.
+     */
     public String getLight() {
         return this.light;
     }
 
+    /**
+     * Sets the long description for this room.
+     * @param description The long description to be set.
+     */
     public void setLong(String description) {
         this.longDescription = description;
     }
 
+    /**
+     * Gets the long description for this Room.
+     * @return the long description for this Room.
+     */
     public String getLong() {
         return this.longDescription;
     }
 
+    /**
+     * Adds an Exit object to the Room.
+     * @param exit The Exit object to be added.
+     */
     public void addExit(Exit exit) {
         exits.add(exit);
     }
 
+    /**
+     * Removes an Exit object from the Room.
+     * @param exit The Exit object to be removed.
+     */
     public void removeExit(Exit exit) {
         exits.remove(exit);
     }
 
+    /**
+     * Gets a list of all Exit objects contained by the Room.
+     * @return a list of all Exit objects contained by the Room.
+     */
     public List<Exit> getExits() {
         return this.exits;
     }
 
+    /**
+     * Gets a specific Exit contained by the room, specified by Direction.
+     * @param direction Direction of the Exit you wish to get.
+     * @return the Exit contained by the Room that matches the passed-in Direction,
+     * otherwise null.
+     */
     public Exit getExit(Direction direction) {
         Exit exitToBeReturned = null;
         for (Exit exit : exits) {
@@ -139,16 +237,28 @@ public class Room implements Entity, Connectible {
         return exitToBeReturned;
     }
 
+    /**
+     * Returns the normal image for the Entity.
+     * @return the normal image for the Entity.
+     */
     @Override
     public String getNormalImage() {
         return images.getImagePath("Room");
     }
 
+    /**
+     * Returns the selected image for the Entity.
+     * @return the selected image for the Entity.
+     */
     @Override
     public String getSelectedImage() {
         return images.getImagePath("SelectedRoom");
     }
 
+    /**
+     * Returns the Border for the Entity.
+     * @return the Border for the Entity.
+     */
     @Override
     public Border getBorder() {
         return null;

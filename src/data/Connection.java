@@ -40,14 +40,6 @@ public class Connection implements Entity {
     }
 
     /**
-     * Sets the ConnectionType of this Connection.
-     * @param connectionType to be set.
-     */
-    public void setConnectionType(ConnectionType connectionType) {
-        this.connectionType = connectionType;
-    }
-
-    /**
      * Gets the ConnectionType of this Connection.
      * @return the ConnectionType of this Connection.
      */

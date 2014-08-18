@@ -19,6 +19,9 @@ package data;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**
+ * Represents the types of exit that can exist within the MUD.
+ */
 public enum ExitType {
     ROAD,
     PATH,

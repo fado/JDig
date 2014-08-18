@@ -21,10 +21,11 @@ import javax.swing.border.Border;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**
+ * Interface implemented by Entities within a Level.
+ */
 public interface Entity {
-
     public String getNormalImage();
     public String getSelectedImage();
     public Border getBorder();
-
 }

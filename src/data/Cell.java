@@ -20,7 +20,6 @@ package data;
  */
 
 import gui.CellPanel;
-
 import java.awt.Color;
 import java.awt.Point;
 import java.util.HashMap;
@@ -29,10 +28,15 @@ import java.util.Map;
 /**
  * This is one Cell within the Level.
  */
-
 public class Cell {
 
+    /**
+     * Position of this Cell within the Level, along the X axis.
+     */
     public final int X;
+    /**
+     * Position of this Cell within the Level, along the Y axis.
+     */
     public final int Y;
     private final Level level;
     private Entity entity;
@@ -83,14 +87,20 @@ public class Cell {
         return this.cellPanel;
     }
 
+    /**
+     * Returns the Level in which this Cell exists.
+     * @return the parent Level of the Cell.
+     */
     public Level getLevel() {
         return this.level;
     }
 
+    // TO-DO: Move this.
     public void setColor(Color color) {
         this.color = color;
     }
 
+    // TO-DO: Move this.
     public Color getColor() {
         return this.color;
     }
@@ -104,6 +114,7 @@ public class Cell {
         return entity != null && entity instanceof Connectible;
     }
 
+    // TO-DO: Remove this.
     public boolean isExit() {
         return entity != null && !isConnectible();
     }

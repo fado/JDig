@@ -19,6 +19,9 @@ package data;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**
+ * Represents the types of Connection that can exist between rooms.
+ */
 public enum ConnectionType {
     NONE(null),
     HORIZONTAL("./resources/images/horizontal_exit.png"),
@@ -33,6 +36,10 @@ public enum ConnectionType {
         this.path = path;
     }
 
+    /**
+     * Returns the path of the image that corresponds to the ConnectionType.
+     * @return the path of the image that corresponds to the ConnectionType.
+     */
     public String getPath() {
         return this.path;
     }
