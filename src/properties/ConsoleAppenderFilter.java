@@ -20,12 +20,14 @@ package properties;
 
 import java.util.Arrays;
 import java.util.List;
-
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.spi.LoggingEvent;
 import ch.qos.logback.core.filter.AbstractMatcherFilter;
 import ch.qos.logback.core.spi.FilterReply;
 
+/**
+ * Controls what logging events get appended to the console by Logback.
+ */
 public class ConsoleAppenderFilter extends AbstractMatcherFilter{
 
     @Override
@@ -33,11 +35,11 @@ public class ConsoleAppenderFilter extends AbstractMatcherFilter{
         if(!isStarted()) {
             return FilterReply.NEUTRAL;
         }
-
+        // Cast the passed-in event as a LoggingEvent.
         LoggingEvent loggingEvent = (LoggingEvent) event;
-
         List<Level> eventsToKeep =
                 Arrays.asList(Level.TRACE, Level.DEBUG, Level.INFO, Level.ERROR);
+        // Check the level of the passed-in event against what we want to keep.
         if(eventsToKeep.contains(loggingEvent.getLevel())) {
             return FilterReply.NEUTRAL;
         } else {
