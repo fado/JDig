@@ -22,7 +22,6 @@ package gui;
 import data.Level;
 import gui.commands.Exit;
 import gui.menubar.MenuBar;
-
 import java.awt.Container;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -32,7 +31,6 @@ import java.io.IOException;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -46,6 +44,12 @@ public class MainUI implements Runnable {
         this.level = level;
     }
 
+    /**
+     * Adds the Components to the passed-in Container.  Components are added
+     * in a grid bag layout.
+     * @param pane The Container to which the Components should be added.
+     * @throws IOException
+     */
     private void addComponentsToPane(Container pane) throws IOException {
         pane.setLayout(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
@@ -74,25 +78,34 @@ public class MainUI implements Runnable {
         constraints.gridy = 1;
         pane.add(levelPanel, constraints);
         
-        toolbar.setDefaultSelectionTool();
+        toolbar.setDefaultLevelTool();
     }
-  
+
+    /**
+     * Creates and displays the GUI.
+     * @throws IOException
+     */
     private void createAndShowGui() throws IOException {
         JFrame frame = new JFrame("JDig");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        addComponentsToPane(frame.getContentPane());
+        // Setup the menu bar.
+        frame.setJMenuBar(new MenuBar(this.level, toolbar.getSelectionTool(),
+                toolbar.getRoomTool()));
+        // Set custom window close behaviour.
         frame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent event) {
                 new Exit(MainUI.this.level).execute();
             }
         });
-        addComponentsToPane(frame.getContentPane());
-        frame.setJMenuBar(new MenuBar(this.level, toolbar.getSelectionTool(),
-                toolbar.getRoomTool()));
         frame.setVisible(true);
         frame.pack();
     }
 
+    /**
+     * Sets the interface to the system look-and-feel, then calls the methods
+     * necessary to setup the GUI.
+     */
     @Override
     public void run() {
         try {
