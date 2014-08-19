@@ -20,65 +20,20 @@ package gui;
  */
 
 import data.Level;
-import data.Room;
-import gen.LpcWriter;
-
-import javax.swing.JOptionPane;
 import javax.swing.JToolBar;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.IOException;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import properties.Localization;
 
 public class InfoToolbar extends JToolBar {
 
-    private Level level;
-    private boolean showNotEmptyMessage;
-    private Localization localization = new Localization();
-    private final String NOT_EMPTY_MESS = localization.get("StreetNamesNotEmpty");
-    static final Logger logger = LoggerFactory.getLogger(InfoToolbar.class);
-
     public InfoToolbar(Level level) {
-        this.level = level;
         setDefaultProperties();
-        this.add(ToolbarButtonBuilder.build("Generate", getGenerationListener()));
+        this.add(ToolbarButtonBuilder.build("Generate", new GenerationListener(level)));
     }
 
+    /**
+     * Sets up the default properties for the tool bar.
+     */
     private void setDefaultProperties() {
         this.setFloatable(false);
-    }
-
-    private ActionListener getGenerationListener() {
-        ActionListener listener = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent event) {
-                showNotEmptyMessage = false;
-                for(Room room : level.getRooms()) {
-                    if(room.getName() == "") {
-                        showNotEmptyMessage = true;
-                    }
-                }
-                if(showNotEmptyMessage) {
-                    JOptionPane.showMessageDialog(null, NOT_EMPTY_MESS,
-                            localization.get("WarningTitle"), JOptionPane.WARNING_MESSAGE);
-                } else {
-                    LpcWriter writer = new LpcWriter();
-                    for(Room room : level.getRooms()) {
-                        try {
-                            writer.write(room);
-                        } catch (IOException ex) {
-                            logger.error(ex.toString());
-                        }
-                    }
-                    JOptionPane.showMessageDialog(null, localization.get("LPCGeneratedMessage"),
-                            localization.get("InfoTitle"), JOptionPane.INFORMATION_MESSAGE);
-                }
-            }
-        };
-        return listener;
     }
 
 }
