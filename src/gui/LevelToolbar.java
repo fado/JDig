@@ -24,18 +24,15 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JToolBar;
-
-import gui.leveltools.ExitTool;
-import gui.leveltools.LevelTool;
-import gui.leveltools.LevelToolEvent;
-import gui.leveltools.LevelToolListener;
-import gui.leveltools.RoomTool;
-import gui.leveltools.SelectionTool;
+import tools.ConnectionTool;
+import tools.LevelTool;
+import tools.LevelToolEvent;
+import tools.LevelToolListener;
+import tools.RoomTool;
+import tools.SelectionTool;
 
 /**
- * The MapEditorToolbar class specifies the tool bar for the map editor.
- *
- * @author Administrator
+ * Toolbar for the level editor.
  */
 public class LevelToolbar extends JToolBar {
 
@@ -50,53 +47,93 @@ public class LevelToolbar extends JToolBar {
         this.infoPanel = infoPanel;
         setDefaultProperties();
         
-        this.add(ToolbarButtonBuilder.build("SelectionTool", getToolChangeAction(selectionTool)));
-        this.add(ToolbarButtonBuilder.build("RoomTool", getToolChangeAction(roomTool)));
-        this.add(ToolbarButtonBuilder.build("ExitTool", getToolChangeAction(exitTool)));
+        this.add(ToolbarButtonBuilder.build("SelectionTool",
+                getToolChangeAction(selectionTool)));
+        this.add(ToolbarButtonBuilder.build("RoomTool",
+                getToolChangeAction(roomTool)));
+        this.add(ToolbarButtonBuilder.build("ExitTool",
+                getToolChangeAction(exitTool)));
     }
 
+    /**
+     * Sets up the default properties for the tool bar, including the associated
+     * tools.
+     */
     private void setDefaultProperties() {
         this.setFloatable(false);
         this.selectionTool = new SelectionTool(infoPanel);
         this.roomTool = new RoomTool(infoPanel.getLevel());
-        this.exitTool = new ExitTool();
+        this.exitTool = new ConnectionTool();
     }
-    
-    public void setDefaultSelectionTool() {
+
+    /**
+     * Sets the default LevelTool to the SelectionTool setup in the default
+     * properties.
+     */
+    public void setDefaultLevelTool() {
         setSelectedLevelTool(selectionTool);
     }
-    
+
+    /**
+     * Returns the selected LevelTool.
+     * @return the selected LevelTool.
+     */
     public LevelTool getSelectedLevelTool() {
         return this.selectedLevelTool;
     }
 
+    /**
+     * Sets the selected LevelTool.
+     * @param levelTool The selected LevelTool.
+     */
     public void setSelectedLevelTool(LevelTool levelTool) {
         this.selectedLevelTool = levelTool;
         fireToolChanged();
     }
 
+    /**
+     * Returns the SelectionTool.
+     * @return the SelectionTool.
+     */
     public SelectionTool getSelectionTool() {
         return (SelectionTool)this.selectionTool;
     }
 
+    /**
+     * Returns the RoomTool.
+     * @return the RoomTool.
+     */
     public RoomTool getRoomTool() {
         return (RoomTool)this.roomTool;
     }
-    
+
+    /**
+     * Returns an ActionListener that sets the currently selected LevelTool
+     * in the LevelToolbar to the passed-in LevelTool.
+     * @param levelTool The LevelTool associated with the button.
+     * @return An ActionListener that will set the appropriate LevelTool for the
+     * button pressed.
+     */
     private ActionListener getToolChangeAction(final LevelTool levelTool) {
-        ActionListener listener = new ActionListener() {
+        return new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent event) {
                 setSelectedLevelTool(levelTool);
             }
         };
-        return listener;
-    }
-    
-    public void addToolListener(LevelToolListener obj) {
-        listeners.add(obj);
     }
 
+    /**
+     * Adds a ToolListener to the LevelToolbar.
+     * @param levelToolListener The ToolListener to add.
+     */
+    public void addToolListener(LevelToolListener levelToolListener) {
+        listeners.add(levelToolListener);
+    }
+
+    /**
+     * Fires whenever the selected tool is changed.
+     */
     protected void fireToolChanged() {
         LevelToolEvent levelToolEvent = new LevelToolEvent(this, getSelectedLevelTool());
         for (LevelToolListener listener : listeners) {
