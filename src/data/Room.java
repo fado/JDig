@@ -165,7 +165,7 @@ public class Room implements Entity, Connectible {
 
     /**
      * Sets the light level for this room.  Passed as a String within this
-     * application as our ultimate goal is to write a file, not interact with
+     * application as our ultimate goal is to generate a file, not interact with
      * the game engine.  Parsing as an int would be superfluous.
      * @param light The light level to be set.
      */
