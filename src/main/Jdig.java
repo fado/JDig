@@ -21,17 +21,27 @@ package main;
 
 import data.Level;
 import gui.MainUI;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import properties.JdigProperties;
 
 public class Jdig {
 
     static final Logger logger = LoggerFactory.getLogger(Jdig.class);
+    private static JdigProperties properties = new JdigProperties();
 
+    /**
+     * Start of the thread of execution.  Pulls the default number of
+     * rows and columns from config.properties and creates a new
+     * Level with those constraints.  That Level is passed to the MainUI
+     * class and the runnable is executed.
+     * @param args
+     */
     public static void main(String[] args) {
         logger.info("Starting application...");
-        MainUI ui = new MainUI(new Level(40, 40));
+        int defaultX = Integer.parseInt(properties.get("DefaultX"));
+        int defaultY = Integer.parseInt(properties.get("DefaultY"));
+        MainUI ui = new MainUI(new Level(defaultX, defaultY));
         ui.run();
     }
 }
