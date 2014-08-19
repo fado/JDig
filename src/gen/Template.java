@@ -26,18 +26,26 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * An LPC file template.
+ */
 public class Template {
 
-    private List<String> lines;
+    private List<String> lines = new ArrayList<>();
 
-    public Template() {
-        lines = new ArrayList<>();
-    }
-
+    /**
+     * Loads the template file at the passed-in path.
+     * @param path Path to the template file.
+     * @throws IOException
+     */
     public void load(String path) throws IOException {
         lines = Files.readAllLines(Paths.get(path), Charset.defaultCharset());
     }
 
+    /**
+     * Returns the contents of the template file as a List of Strings.
+     * @return the contents of the template file as a List of Strings
+     */
     public List<String> getLines() {
         return this.lines;
     }
