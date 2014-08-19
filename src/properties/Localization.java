@@ -22,15 +22,23 @@ package properties;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Provides a means by which we can reference text in a non-absolute fashion.
+ * Accessing text in this way makes it trivial to translate the application
+ * into other languages, simply by swapping out the localization.properties
+ * file.
+ */
 public class Localization {
     
     private final Properties properties = new Properties();
     static final Logger logger = LoggerFactory.getLogger(Localization.class);
-    
+
+    /**
+     * Constructor loads in the localization.properties file.
+     */
     public Localization() {
         try {
             properties.load(new FileInputStream("./config/localization.properties"));
@@ -38,7 +46,12 @@ public class Localization {
             logger.error(ex.toString());
         }
     }
-    
+
+    /**
+     * Returns the property corresponding to the passed-in key.
+     * @param key The key that corresponds to the desired property.
+     * @return the property corresponding to the passed-in key.
+     */
     public String get(String key) {
         return properties.getProperty(key);
     }
