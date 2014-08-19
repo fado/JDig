@@ -22,16 +22,22 @@ package properties;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+/**
+ * Allows us to reference images in a way that is not absolute, making it
+ * easier to make changes down the line.
+ */
 
 public class Images {
     
     private final Properties properties = new Properties();
-    private final String BASE_PATH = "./resources/images/";
     static final Logger logger = LoggerFactory.getLogger(Images.class);
-    
+
+    /**
+     * Constructor loads in the images.properties file.
+     */
     public Images() {
         try {
             properties.load(new FileInputStream("./config/images.properties"));
@@ -39,8 +45,14 @@ public class Images {
             logger.error(ex.toString());
         }
     }
-    
+
+    /**
+     * Returns the path of the image corresponding to the passed-in key.
+     * @param key The key that corresponds to the desired image.
+     * @return the path of the image corresponding to the passed-in key.
+     */
     public String getImagePath(String key) {
+        String BASE_PATH = "./resources/images/";
         return BASE_PATH + properties.getProperty(key);
     }
     
