@@ -20,72 +20,84 @@ package gui;
  */
 
 import data.Cell;
-import data.Entity;
-import gui.leveltools.LevelTool;
-import gui.leveltools.LevelToolEvent;
-import gui.leveltools.LevelToolListener;
+import tools.CellTool;
+import tools.LevelTool;
+import tools.LevelToolEvent;
+import tools.LevelToolListener;
 import properties.Images;
-
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
+/**
+ * Represents a single Cell within a Level.
+ */
 public class CellPanel extends JPanel implements LevelToolListener {
 
     private final Color VERY_LIGHT_GRAY = new Color(224, 224, 224);
-    private final int SIZE = 15;
-    private JLabel entityImage;
-    private Border defaultBorder;
     private LevelTool selectedLevelTool;
     private boolean selected = false;
     private Cell cell;
-    private Images images = new Images();
-    private final String ROOM_IMAGE = images.getImagePath("Room");
-    static final Logger logger = LoggerFactory.getLogger(CellPanel.class);
+    private JLabel entityImage;
 
-    public CellPanel(final Cell cell) {
+    public CellPanel(Cell cell) {
         this.cell = cell;
         setDefaultProperties();
+        // Check if the Cell already has an Entity.
+        if(cell.getEntity() != null) {
+            restoreCell(cell);
+        }
+    }
 
+    /**
+     * If we're loading a Level from memory and the Cell already has an Entity
+     * in it, this method controls how the CellPanel is rendered.
+     * @param cell The Cell corresponding to this CellPanel.
+     */
+    private void restoreCell(Cell cell) {
+        CellTool cellTool = new CellTool();
         if(cell.isConnectible()) {
-            this.addImage(ROOM_IMAGE);
+            Images images = new Images();
+            String ROOM_IMAGE = images.getImagePath("Room");
+            cellTool.addImage(this, ROOM_IMAGE);
             if(cell.getColor() != null) {
                 this.setBackground(cell.getColor());
             }
-            this.removeBorder();
+            cellTool.removeBorder(this);
         }
         if(cell.isExit()) {
-            this.addImage(cell.getEntity().getNormalImage());
-            this.setBorder((cell.getEntity()));
+            cellTool.addImage(this, cell.getEntity().getNormalImage());
+            cellTool.setBorder(this, (cell.getEntity()));
         }
+    }
 
-        addMouseListener(new MouseAdapter() {
+    /**
+     * Sets up the default properties for the CellPanel.  Sets up the border,
+     * background, layout and mouse listeners.
+     */
+    private void setDefaultProperties() {
+        Border defaultBorder = BorderFactory.createLineBorder(VERY_LIGHT_GRAY);
+        this.setBorder(defaultBorder);
+        this.setBackground(Color.WHITE);
+        ((FlowLayout) this.getLayout()).setVgap(0);
+
+        this.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent event) {
                 selectedLevelTool.mouseEntered(cell, event);
             }
+
             @Override
             public void mouseExited(MouseEvent event) {
-                if (cell.getEntity() == null) {
-                    CellPanel.this.removeImage();
-                    CellPanel.this.restoreDefaultBorder();
-                }
+                selectedLevelTool.mouseExited(cell, event);
             }
+
             @Override
             public void mousePressed(MouseEvent event) {
                 selectedLevelTool.mousePressed(cell, event);
@@ -93,76 +105,70 @@ public class CellPanel extends JPanel implements LevelToolListener {
         });
     }
 
-    private void setDefaultProperties() {
-        this.defaultBorder = BorderFactory.createLineBorder(VERY_LIGHT_GRAY);
-        this.setBorder(defaultBorder);
-        this.setBackground(Color.WHITE);
-        ((FlowLayout) this.getLayout()).setVgap(0);
-    }
-    
-    public void addImage(String path) {
-        try {
-            BufferedImage image = ImageIO.read(new File(path));
-            if (image != null) {
-                Image scaledImage = image.getScaledInstance(SIZE, SIZE, 1);
-                entityImage = new JLabel(new ImageIcon(scaledImage));
-                this.add(entityImage);
-                this.validate();
-                this.repaint();
-            }
-        } catch (IOException ex) {
-            logger.error(ex.toString());
-            ex.printStackTrace();
-        }
-    }
-
-    public void removeImage() {
-        if (entityImage != null) {
-            this.remove(entityImage);
-            this.validate();
-            this.repaint();
-        }
-    }
-
-    public void removeBorder() {
-        this.setBorder(BorderFactory.createEmptyBorder());
-    }
-
-    public void restoreDefaultBorder() {
-        this.setBorder(defaultBorder);
-    }
-
-    public void setBorder(Entity entity) {
-        this.setBorder(entity.getBorder());
-    }
-
-    public void setSelected() {
-        this.removeImage();
-        this.addImage(cell.getEntity().getSelectedImage());
-        this.selected = true;
-    }
-
-    public void setDeselected() {
-        this.removeImage();
-        if(cell.isConnectible()) {
-            this.addImage(cell.getEntity().getNormalImage());
-        }
-        this.selected = false;
-    }
-
+    /**
+     * Determines whether or not the CellPanel is selected.
+     * @return true if the CellPanel is selected, false otherwise.
+     */
     public boolean isSelected() {
         return this.selected;
     }
 
+    /**
+     * Returns the Cell that corresponds to this CellPanel.
+     * @return the Cell that corresponds to this CellPanel.
+     */
     public Cell getCell() {
         return this.cell;
     }
 
+    /**
+     * Sets whether or not the CellPanel is selected.
+     * @param bool True if the CellPanel is selected, false otherwise.
+     */
+    public void setSelected(Boolean bool) {
+        this.selected = bool;
+    }
+
+    /**
+     * Sets the image for the Entity contained by the Cell.
+     * @param image The image for the Entity contained by the Cell.
+     */
+    public void setEntityImage(JLabel image) {
+        this.entityImage = image;
+    }
+
+    /**
+     * Adds the entity image to the CellPanel component.
+     */
+    public void addEntityImage() {
+        if(entityImage != null) {
+            this.add(entityImage);
+        }
+    }
+
+    /**
+     * Removes the entity image from the CellPanel component.
+     */
+    public void removeEntityImage() {
+        if(entityImage != null) {
+            this.remove(entityImage);
+        }
+    }
+
+    /**
+     * Gets the preferred size of this component.
+     * @return the preferred size of this component.
+     */
     @Override
     public Dimension getPreferredSize() {
+        int SIZE = 15;
         return new Dimension(SIZE, SIZE);
     }
 
+    /**
+     * Fires when the LevelTool is changed.
+     * @param event The event originating the method call.
+     */
     @Override
     public void toolChanged(LevelToolEvent event) {
         this.selectedLevelTool = event.getLevelTool();
