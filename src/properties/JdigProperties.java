@@ -22,15 +22,20 @@ package properties;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Gives us access to the properties contained in config.properties.
+ */
 public class JdigProperties {
 
     private final Properties properties = new Properties();
     private final Logger logger = LoggerFactory.getLogger(JdigProperties.class);
 
+    /**
+     * Constructor loads in config.properties.
+     */
     public JdigProperties() {
         try {
             properties.load(new FileInputStream("./config/config.properties"));
@@ -39,6 +44,11 @@ public class JdigProperties {
         }
     }
 
+    /**
+     * Returns the property corresponding to the passed-in key.
+     * @param key The key that corresponds to the desired property.
+     * @return the property corresponding to the passed-in key.
+     */
     public String get(String key) {
         return properties.getProperty(key);
     }
