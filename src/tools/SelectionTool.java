@@ -1,4 +1,4 @@
-package gui.leveltools;
+package tools;
 
 /**
  * JDig, a tool for the automatic generation of LPC class files for Epitaph 
@@ -26,12 +26,12 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SelectionTool extends LevelTool {
+public class SelectionTool implements LevelTool {
 
     private InfoPanel infoPanel;
-    private CellPanel lastPanel;
     private List<CellPanel> selectedPanels = new ArrayList<>();
     private CellPanel selectedPanel;
+    private CellTool levelTool = new CellTool();
     
     public SelectionTool(InfoPanel infoPanel) {
         this.infoPanel = infoPanel;
@@ -69,7 +69,7 @@ public class SelectionTool extends LevelTool {
         CellPanel currentPanel = (CellPanel) event.getSource();
         if (cell.isConnectible()) {
             selectedPanels.add(currentPanel);
-            currentPanel.setSelected();
+            levelTool.setSelected(currentPanel);
         }
         infoPanel.loadMultiple(currentPanel);
     }
@@ -77,7 +77,7 @@ public class SelectionTool extends LevelTool {
     private void normalSelection(MouseEvent event) {
         doDeselect();
         selectedPanel = (CellPanel) event.getSource();
-        selectedPanel.setSelected();
+        levelTool.setSelected(selectedPanel);
         if (selectedPanel.getCell().isConnectible()) {
             infoPanel.load(selectedPanel);
         }
@@ -87,8 +87,8 @@ public class SelectionTool extends LevelTool {
         clearSelectedPanels();
         infoPanel.unloadMultiple();
         if (selectedPanel != null) {
-            lastPanel = selectedPanel;
-            lastPanel.setDeselected();
+            CellPanel lastPanel = selectedPanel;
+            levelTool.setDeselected(lastPanel);
         }
     }
 
@@ -102,7 +102,7 @@ public class SelectionTool extends LevelTool {
 
     public void clearSelectedPanels() {
         for(CellPanel panel : selectedPanels) {
-            panel.setDeselected();
+            levelTool.setDeselected(panel);
         }
         selectedPanels.clear();
     }
