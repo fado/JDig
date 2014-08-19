@@ -24,7 +24,6 @@ import data.Level;
 import data.Room;
 import data.Street;
 import gui.MainUI;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -33,28 +32,45 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
-
 import com.thoughtworks.xstream.XStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Uses the XStream library to convert a JDig Level object to XML.
+ */
 public class LevelPersistence {
 
-    private Writer writer;
     private XStream xStream = new XStream();
     static final Logger logger = LoggerFactory.getLogger(LevelPersistence.class);
 
+    /**
+     * Converts the passed-in Level to XML before passing it on to be written to
+     * the passed in File.
+     * @param level The Level to be converted to XML.
+     * @param file The File the XML should be written to.
+     */
     public void save(Level level, File file) {
+        // Create the XML String from the Level.
         String xml = xStream.toXML(level);
-
+        // Setup the class aliases XStream should use.
         xStream.alias("level", Level.class);
         xStream.alias("cell", Cell.class);
         xStream.alias("room", Room.class);
         xStream.alias("street", Street.class);
         xStream.alias("exit", Exit.class);
+        // Write the file.
+        write(xml, file);
+    }
 
+    /**
+     * Writes the passed-in XML String to the passed-in File.
+     * @param xml The XML String to be written.
+     * @param file The File to write the XML String to.
+     */
+    private void write(String xml, File file) {
         try {
-            writer = new BufferedWriter(new OutputStreamWriter(
+            Writer writer = new BufferedWriter(new OutputStreamWriter(
                     new FileOutputStream(file + ".xml"), "UTF-8"));
             writer.write(xml);
             writer.flush();
@@ -63,6 +79,11 @@ public class LevelPersistence {
         }
     }
 
+    /**
+     * Converts a File containing XML back into a Level object.
+     * @param file The XML File to be loaded.
+     * @throws IOException
+     */
     public void load(File file) throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader(file));
         StringBuffer buffer = new StringBuffer();
