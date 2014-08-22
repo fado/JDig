@@ -53,11 +53,10 @@ public class RoomTool implements LevelTool {
      * the Cell.  If not, it checks whether or not a Room can be placed within the
      * Cell.  This check is based upon the Cell position of the first Room to be
      * added to the level.
-     * @param cell
      * @param event The event that originated the method call.
      */
     @Override
-    public void mouseEntered(Cell cell, MouseEvent event) {
+    public void mouseEntered(MouseEvent event) {
         CellPanel cellPanel = (CellPanel)event.getSource();
         // Check that the Cell does not already contain an Entity.
         if (cellPanel.getCell().getEntity() == null) {
@@ -75,11 +74,10 @@ public class RoomTool implements LevelTool {
     /**
      * Removes the image and restores the default border to the Cell, if the
      * Cell contains no Entity.
-     * @param cell
      * @param event The event that originated the method call.
      */
     @Override
-    public void mouseExited(Cell cell, MouseEvent event) {
+    public void mouseExited(MouseEvent event) {
         CellPanel cellPanel = (CellPanel) event.getSource();
         if (cellPanel.getCell().getEntity() == null) {
             levelTool.removeImage(cellPanel);
@@ -89,12 +87,12 @@ public class RoomTool implements LevelTool {
 
     /**
      * Controls the behaviour of the tool when the user presses a mouse button.
-     * @param cell
      * @param event The event that originated the method call.
      */
     @Override
-    public void mousePressed(Cell cell, MouseEvent event) {
+    public void mousePressed(MouseEvent event) {
         CellPanel cellPanel = (CellPanel) event.getSource();
+        Cell cell = cellPanel.getCell();
         // Delete the Room from the Cell upon right mouse click.
         if (SwingUtilities.isRightMouseButton(event)) {
             new DeletionTool().deleteEntity(cellPanel);

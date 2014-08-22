@@ -112,7 +112,7 @@ public class ConnectionToolTest {
      */
     @Test
     public void testMouseEntered() {
-        connectionTool.mouseEntered(emptyCell, eventEntered);
+        connectionTool.mouseEntered(eventEntered);
         verify(emptyCellPanelSpy, never()).setBorder(any(Border.class));
     }
 
@@ -122,7 +122,7 @@ public class ConnectionToolTest {
     @Test
     public void testMouseEnteredWithEntity() {
         emptyCell.setEntity(new Room(emptyCellPanel));
-        connectionTool.mouseEntered(emptyCell, eventEntered);
+        connectionTool.mouseEntered(eventEntered);
         verify(emptyCellPanelSpy, never()).setBorder(any(Border.class));
     }
 
@@ -131,7 +131,7 @@ public class ConnectionToolTest {
      */
     @Test
     public void testMouseEnteredWithNoEntityAndConnection() {
-        connectionTool.mouseEntered(emptyMiddleCell, eventEnteredMiddle);
+        connectionTool.mouseEntered(eventEnteredMiddle);
         verify(emptyMiddleCellPanelSpy).setBorder(any(Border.class));
     }
 
@@ -140,7 +140,7 @@ public class ConnectionToolTest {
      */
     @Test
     public void testMouseExitedNoEntity() {
-        connectionTool.mouseExited(emptyCell, eventExited);
+        connectionTool.mouseExited(eventExited);
         verify(emptyCellPanelSpy).removeEntityImage();
     }
 
@@ -150,7 +150,7 @@ public class ConnectionToolTest {
     @Test
     public void testMouseExitedWithEntity() {
         emptyCell.setEntity(new Room(emptyCellPanel));
-        connectionTool.mouseExited(emptyCell, eventExited);
+        connectionTool.mouseExited(eventExited);
         verify(emptyCellPanelSpy, never()).removeEntityImage();
     }
 
@@ -159,7 +159,7 @@ public class ConnectionToolTest {
      */
     @Test
     public void testLeftMousePressed() {
-        connectionTool.mousePressed(emptyCell, eventLeftPressed);
+        connectionTool.mousePressed(eventLeftPressed);
         verify(emptyCellPanelSpy).getCell();
     }
 
@@ -168,7 +168,7 @@ public class ConnectionToolTest {
      */
     @Test
     public void testLeftMousePressedWithPotentialConnection() {
-        connectionTool.mousePressed(emptyMiddleCell, eventLeftPressedEntity);
+        connectionTool.mousePressed(eventLeftPressedEntity);
         verify(exitBuilderSpy).build(any(Cell.class));
     }
 
@@ -179,7 +179,7 @@ public class ConnectionToolTest {
     @Test
     public void testLeftMousePressedWithPotentialConnectionAndExit() {
         emptyMiddleCell.setEntity(new Connection(ConnectionType.VERTICAL));
-        connectionTool.mousePressed(emptyMiddleCell, eventLeftPressedEntity);
+        connectionTool.mousePressed(eventLeftPressedEntity);
         verify(exitBuilderSpy, never()).build(any(Cell.class));
     }
 
@@ -188,7 +188,7 @@ public class ConnectionToolTest {
      */
     @Test
     public void testRightMousePressed() {
-        connectionTool.mousePressed(emptyCell, eventRightPressed);
+        connectionTool.mousePressed(eventRightPressed);
         verify(deletionToolSpy).deleteEntity(any(CellPanel.class));
     }
 

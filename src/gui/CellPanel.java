@@ -89,17 +89,17 @@ public class CellPanel extends JPanel implements LevelToolListener {
         this.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent event) {
-                selectedLevelTool.mouseEntered(cell, event);
+                selectedLevelTool.mouseEntered(event);
             }
 
             @Override
             public void mouseExited(MouseEvent event) {
-                selectedLevelTool.mouseExited(cell, event);
+                selectedLevelTool.mouseExited(event);
             }
 
             @Override
             public void mousePressed(MouseEvent event) {
-                selectedLevelTool.mousePressed(cell, event);
+                selectedLevelTool.mousePressed(event);
             }
         });
     }

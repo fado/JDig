@@ -47,12 +47,12 @@ public class ConnectionTool implements LevelTool {
 
     /**
      * Controls what image should be displayed when the user mouses over the Cell.
-     * @param cell
      * @param event The event that originated the method call.
      */
     @Override
-    public void mouseEntered(Cell cell, MouseEvent event) {
+    public void mouseEntered(MouseEvent event) {
         CellPanel cellPanel = (CellPanel) event.getSource();
+        Cell cell = cellPanel.getCell();
         Entity entity = cell.getEntity();
         connectionType = cell.getPotentialConnectionType();
 
@@ -67,12 +67,12 @@ public class ConnectionTool implements LevelTool {
     /**
      * Removes the image and restores the default border to the Cell, if the Cell
      * contains no Entity.
-     * @param cell
      * @param event The event that originated the method call.
      */
     @Override
-    public void mouseExited(Cell cell, MouseEvent event) {
+    public void mouseExited(MouseEvent event) {
         CellPanel cellPanel = (CellPanel)event.getSource();
+        Cell cell = cellPanel.getCell();
         Entity entity = cell.getEntity();
         if (entity == null) {
             cellTool.removeImage(cellPanel);
@@ -82,11 +82,10 @@ public class ConnectionTool implements LevelTool {
 
     /**
      * Controls the behaviour of the tool when the user presses a mouse button.
-     * @param cell
      * @param event The event that originated the method call.
      */
     @Override
-    public void mousePressed(Cell cell, MouseEvent event) {
+    public void mousePressed(MouseEvent event) {
         CellPanel cellPanel = (CellPanel) event.getSource();
         if (SwingUtilities.isRightMouseButton(event)) {
             deleteConnection(cellPanel);

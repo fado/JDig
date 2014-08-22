@@ -19,12 +19,10 @@ package tools;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import data.Cell;
-
 import java.awt.event.MouseEvent;
 
 public interface LevelTool {
-    public abstract void mouseEntered(Cell cell, MouseEvent event);
-    public abstract void mouseExited(Cell cell, MouseEvent event);
-    public abstract void mousePressed(Cell cell, MouseEvent event);
+    public abstract void mouseEntered(MouseEvent event);
+    public abstract void mouseExited(MouseEvent event);
+    public abstract void mousePressed(MouseEvent event);
 }

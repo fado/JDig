@@ -23,47 +23,85 @@ import data.Cell;
 import gui.CellPanel;
 import gui.InfoPanel;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.List;
 
+/**
+ * Tool for selecting CellPanels within a Level.
+ */
 public class SelectionTool implements LevelTool {
 
     private InfoPanel infoPanel;
-    private CellPanel selectedPanel;
+    private List<CellPanel> selectedPanels = new ArrayList<>();
     private CellTool cellTool = new CellTool();
     
     public SelectionTool(InfoPanel infoPanel) {
         this.infoPanel = infoPanel;
     }
-    
+
+    /**
+     * Handles the behaviour of the tool on the mouse entering the CellPanel.
+     * @param event The event originating the call.
+     */
     @Override
-    public void mouseEntered(Cell cell, MouseEvent event) {
-        
-    }
-    
-    @Override
-    public void mouseExited(Cell cell, MouseEvent event) {
-        
+    public void mouseEntered(MouseEvent event) {
+        // No behaviour to be executed.
     }
 
+    /**
+     * Handles the behaviour of the tool on mouse exiting the CellPanel.
+     * @param event The event originating the call.
+     */
     @Override
-    public void mousePressed(Cell cell, MouseEvent event) {
+    public void mouseExited(MouseEvent event) {
+        // No behaviour to be executed.
+    }
+
+    /**
+     * Handles the behaviour of the tool when a mouse button is pressed.
+     * @param event The event originating the call.
+     */
+    @Override
+    public void mousePressed(MouseEvent event) {
+        CellPanel cellPanel = (CellPanel) event.getSource();
+        Cell cell = cellPanel.getCell();
         doSelection(cell, event);
     }
 
+    /**
+     * Handles the selection of CellPanels.  Checks to make sure that the
+     * CellPanel being selected contains a Room, otherwise deselects all
+     * currently selected panels.  If it does contain a Room, it then check
+     * to see if shift is down.  If not, it deselects any previously
+     * selected CellPanels before selecting the panel that is the event
+     * source.  If shift is down, CellPanels are continuously added to the
+     * list of selected panels.
+     * @param cell
+     * @param event The event originating the call.
+     */
     private void doSelection(Cell cell, MouseEvent event) {
         if (cell.isConnectible()) {
-            doDeselect();
-            selectedPanel = (CellPanel) event.getSource();
-            cellTool.setSelected(selectedPanel);
-            infoPanel.load(selectedPanel);
+            // Unless shift is down, deselect selected panels.
+            if(!event.isShiftDown()) {
+                doDeselect();
+            }
+            CellPanel lastSelectedPanel = (CellPanel) event.getSource();
+            selectedPanels.add(lastSelectedPanel);
+            cellTool.setSelected(lastSelectedPanel);
+            infoPanel.load(lastSelectedPanel);
         } else {
             doDeselect();
         }
     }
 
+    /**
+     * Deselects any currently selected panels and unloads them from the InfoPanel.
+     */
     private void doDeselect() {
-        if (selectedPanel != null) {
-            CellPanel lastPanel = selectedPanel;
-            cellTool.setDeselected(lastPanel);
+        if (!selectedPanels.isEmpty()) {
+            for(CellPanel panel : selectedPanels) {
+                cellTool.setDeselected(panel);
+            }
             infoPanel.unload();
         }
     }
