@@ -64,8 +64,7 @@ public class CellPanel extends JPanel implements LevelToolListener {
         CellTool cellTool = new CellTool();
         if(cell.isConnectible()) {
             Images images = new Images();
-            String ROOM_IMAGE = images.getImagePath("Room");
-            cellTool.addImage(this, ROOM_IMAGE);
+            cellTool.addImage(this, images.getImagePath("Room"));
             if(cell.getColor() != null) {
                 this.setBackground(cell.getColor());
             }
