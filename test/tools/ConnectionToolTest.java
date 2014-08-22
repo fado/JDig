@@ -20,6 +20,8 @@ package tools;
  */
 
 import data.Cell;
+import data.Connection;
+import data.ConnectionType;
 import data.Level;
 import data.Room;
 import gui.CellPanel;
@@ -31,7 +33,6 @@ import org.powermock.modules.junit4.PowerMockRunner;
 import javax.swing.border.Border;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
-
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
@@ -39,10 +40,13 @@ import static org.mockito.Mockito.verify;
 @RunWith(PowerMockRunner.class)
 public class ConnectionToolTest {
 
-    private Cell emptyCell, emptyMiddleCell;
+    private Cell emptyCell, emptyMiddleCell, emptyCellSpy, emptyMiddleCellSpy;
     private CellPanel emptyCellPanel, emptyCellPanelSpy, emptyMiddleCellPanelSpy;
     private ConnectionTool connectionTool;
-    private MouseEvent eventEntered, eventEnteredMiddle;
+    private MouseEvent eventEntered, eventEnteredMiddle, eventExited, eventLeftPressed,
+        eventLeftPressedEntity, eventRightPressed;
+    private ExitBuilder exitBuilderSpy;
+    private DeletionTool deletionToolSpy;
 
     @Before
     public void setUp() {
@@ -50,13 +54,17 @@ public class ConnectionToolTest {
         Level testLevel = new Level(1, 1);
         Point testPoint = new Point(0, 0);
         emptyCell = new Cell(testPoint, testLevel);
+        emptyCellSpy = Mockito.spy(emptyCell);
         emptyCellPanel = new CellPanel(emptyCell);
         emptyCellPanelSpy = Mockito.spy(emptyCellPanel);
 
         // ConnectionTool.
         CellTool cellTool = new CellTool();
         DeletionTool deletionTool = new DeletionTool();
-        connectionTool = new ConnectionTool(cellTool, deletionTool);
+        ExitBuilder exitBuilder = new ExitBuilder();
+        exitBuilderSpy = Mockito.spy(exitBuilder);
+        deletionToolSpy = Mockito.spy(deletionTool);
+        connectionTool = new ConnectionTool(cellTool, deletionToolSpy, exitBuilderSpy);
 
         // MouseEvent - Enter emptyCellPanel.
         eventEntered = new MouseEvent(emptyCellPanelSpy, MouseEvent.MOUSE_ENTERED,
@@ -70,9 +78,10 @@ public class ConnectionToolTest {
         // Middle Cell.  Remember you have to set up the CellPanel manually as it
         // only gets created when the GUI is launched.
         emptyMiddleCell = level.getCellAt(new Point(0, 1));
+        emptyMiddleCellSpy = Mockito.spy(emptyMiddleCell);
         CellPanel emptyMiddleCellPanel = new CellPanel(emptyMiddleCell);
         emptyMiddleCellPanelSpy = Mockito.spy(emptyMiddleCellPanel);
-        emptyMiddleCell.setCellPanel(emptyMiddleCellPanelSpy);
+        emptyMiddleCell.setCellPanel(emptyMiddleCellPanel);
         // South Cell.
         Cell southCell = level.getCellAt(new Point(0, 2));
         southCell.setEntity(new Room(southCell.getCellPanel()));
@@ -80,6 +89,22 @@ public class ConnectionToolTest {
         // MouseEvent - Enter emptyMiddleCellPanel.
         eventEnteredMiddle = new MouseEvent(emptyMiddleCellPanelSpy,
                 MouseEvent.MOUSE_ENTERED, 0, 0, 0, 0, 1, false);
+
+        // MouseEvent - Exit emptyCellPanel.
+        eventExited = new MouseEvent(emptyCellPanelSpy, MouseEvent.MOUSE_EXITED,
+                0, 0, 0, 0, 1, false);
+
+        // MouseEvent - Left mouse button pressed.
+        eventLeftPressed = new MouseEvent(emptyCellPanelSpy, MouseEvent.MOUSE_PRESSED,
+                0, 0, 0, 0, 1, false, MouseEvent.BUTTON1);
+
+        // MouseEvent - Left mouse button pressed with potential Connection.
+        eventLeftPressedEntity = new MouseEvent(emptyMiddleCellPanelSpy,
+                MouseEvent.MOUSE_PRESSED, 0, 0, 0, 0, 1, false, MouseEvent.BUTTON1);
+
+        // MouseEvent - Right mouse button pressed.
+        eventRightPressed = new MouseEvent(emptyCellPanelSpy, MouseEvent.MOUSE_PRESSED,
+                0, 0, 0, 0, 1, false, MouseEvent.BUTTON3);
     }
 
     /**
@@ -102,12 +127,69 @@ public class ConnectionToolTest {
     }
 
     /**
-     * Mouse entering Cell with Entity and valid ConnectionType.
+     * Mouse entering empty Cell and valid ConnectionType.
      */
     @Test
-    public void testMouseEnteredWithEntityAndConnection() {
+    public void testMouseEnteredWithNoEntityAndConnection() {
         connectionTool.mouseEntered(emptyMiddleCell, eventEnteredMiddle);
         verify(emptyMiddleCellPanelSpy).setBorder(any(Border.class));
+    }
+
+    /**
+     * Mouse exiting Cell with no Entity.
+     */
+    @Test
+    public void testMouseExitedNoEntity() {
+        connectionTool.mouseExited(emptyCell, eventExited);
+        verify(emptyCellPanelSpy).removeEntityImage();
+    }
+
+    /**
+     * Mouse exiting Cell with an Entity.
+     */
+    @Test
+    public void testMouseExitedWithEntity() {
+        emptyCell.setEntity(new Room(emptyCellPanel));
+        connectionTool.mouseExited(emptyCell, eventExited);
+        verify(emptyCellPanelSpy, never()).removeEntityImage();
+    }
+
+    /**
+     * Test left mouse button pressed with no potential connection.
+     */
+    @Test
+    public void testLeftMousePressed() {
+        connectionTool.mousePressed(emptyCell, eventLeftPressed);
+        verify(emptyCellPanelSpy).getCell();
+    }
+
+    /**
+     * Test left mouse pressed with potential connection.
+     */
+    @Test
+    public void testLeftMousePressedWithPotentialConnection() {
+        connectionTool.mousePressed(emptyMiddleCell, eventLeftPressedEntity);
+        verify(exitBuilderSpy).build(any(Cell.class));
+    }
+
+    /**
+     * Test left mouse pressed with potential connection but connection already placed
+     * in the Cell.
+     */
+    @Test
+    public void testLeftMousePressedWithPotentialConnectionAndExit() {
+        emptyMiddleCell.setEntity(new Connection(ConnectionType.VERTICAL));
+        connectionTool.mousePressed(emptyMiddleCell, eventLeftPressedEntity);
+        verify(exitBuilderSpy, never()).build(any(Cell.class));
+    }
+
+    /**
+     * Test right mouse pressed.
+     */
+    @Test
+    public void testRightMousePressed() {
+        connectionTool.mousePressed(emptyCell, eventRightPressed);
+        verify(deletionToolSpy).deleteEntity(any(CellPanel.class));
     }
 
 }
