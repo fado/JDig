@@ -23,7 +23,6 @@ import data.Entity;
 import gui.CellPanel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -37,6 +36,7 @@ import java.io.IOException;
 
 public class CellTool {
 
+    private final int SIZE = 15;
     private final Color VERY_LIGHT_GRAY = new Color(224, 224, 224);
     private final Border defaultBorder = BorderFactory.createLineBorder(VERY_LIGHT_GRAY);
     static final Logger logger = LoggerFactory.getLogger(LevelTool.class);
@@ -45,7 +45,6 @@ public class CellTool {
         try {
             BufferedImage image = ImageIO.read(new File(path));
             if (image != null) {
-                int SIZE = 15;
                 Image scaledImage = image.getScaledInstance(SIZE, SIZE, 1);
                 cellPanel.setEntityImage(new JLabel(new ImageIcon(scaledImage)));
                 cellPanel.addEntityImage();
