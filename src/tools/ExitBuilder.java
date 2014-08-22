@@ -41,7 +41,7 @@ public class ExitBuilder {
      * on the direction.
      * @param cell The cell around which exits should be built.
      */
-    public static void build(Cell cell) {
+    public void build(Cell cell) {
         ConnectionType connectionType = cell.getPotentialConnectionType();
         cells = cell.getAdjacentCells();
 
@@ -70,7 +70,7 @@ public class ExitBuilder {
      * axis (southwest/northeast).
      * @param cell
      */
-    public static void buildOnlyForwardDiagonal(Cell cell) {
+    public void buildOnlyForwardDiagonal(Cell cell) {
         cells = cell.getAdjacentCells();
         buildForwardDiagonal();
     }
@@ -80,7 +80,7 @@ public class ExitBuilder {
      * axis (southeast/northwest).
      * @param cell
      */
-    public static void buildOnlyBackwardDiagonal(Cell cell) {
+    public void buildOnlyBackwardDiagonal(Cell cell) {
         cells = cell.getAdjacentCells();
         buildBackwardDiagonal();
     }
@@ -88,7 +88,7 @@ public class ExitBuilder {
     /**
      * Builds a forward diagonal exit (southwest/northeast).
      */
-    private static void buildForwardDiagonal() {
+    private void buildForwardDiagonal() {
         buildExit("northeastCell", "southwestCell", Direction.SOUTHWEST);
         buildExit("southwestCell", "northeastCell", Direction.NORTHEAST);
     }
@@ -96,7 +96,7 @@ public class ExitBuilder {
     /**
      * Builds a backward diagonal exist (southeast/northwest).
      */
-    private static void buildBackwardDiagonal() {
+    private void buildBackwardDiagonal() {
         buildExit("northwestCell", "southeastCell", Direction.SOUTHEAST);
         buildExit("southeastCell", "northwestCell", Direction.NORTHWEST);
     }
@@ -107,7 +107,7 @@ public class ExitBuilder {
      * @param destination The name of the destination cell.
      * @param direction The direction in which the exit should travel.
      */
-    private static void buildExit(String origin, String destination, Direction direction) {
+    private void buildExit(String origin, String destination, Direction direction) {
         // Get the origin room from the list of adjacent cells.
         Room originRoom = (Room)cells.get(origin).getEntity();
         List<Exit> exits = originRoom.getExits();
