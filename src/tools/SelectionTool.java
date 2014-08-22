@@ -23,15 +23,12 @@ import data.Cell;
 import gui.CellPanel;
 import gui.InfoPanel;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-import java.util.List;
 
 public class SelectionTool implements LevelTool {
 
     private InfoPanel infoPanel;
-    private List<CellPanel> selectedPanels = new ArrayList<>();
     private CellPanel selectedPanel;
-    private CellTool levelTool = new CellTool();
+    private CellTool cellTool = new CellTool();
     
     public SelectionTool(InfoPanel infoPanel) {
         this.infoPanel = infoPanel;
@@ -53,57 +50,22 @@ public class SelectionTool implements LevelTool {
     }
 
     private void doSelection(Cell cell, MouseEvent event) {
-        if (event.isShiftDown() && cell.isConnectible()) {
-            shiftDownSelection(cell, event);
-        } else if (cell.isConnectible()) {
-            normalSelection(event);
+        if (cell.isConnectible()) {
+            doDeselect();
+            selectedPanel = (CellPanel) event.getSource();
+            cellTool.setSelected(selectedPanel);
+            infoPanel.load(selectedPanel);
         } else {
             doDeselect();
         }
     }
 
-    private void shiftDownSelection(Cell cell, MouseEvent event) {
-        if (selectedPanels.isEmpty()) {
-            selectedPanels.add(selectedPanel);
-        }
-        CellPanel currentPanel = (CellPanel) event.getSource();
-        if (cell.isConnectible()) {
-            selectedPanels.add(currentPanel);
-            levelTool.setSelected(currentPanel);
-        }
-        infoPanel.loadMultiple(currentPanel);
-    }
-
-    private void normalSelection(MouseEvent event) {
-        doDeselect();
-        selectedPanel = (CellPanel) event.getSource();
-        levelTool.setSelected(selectedPanel);
-        if (selectedPanel.getCell().isConnectible()) {
-            infoPanel.load(selectedPanel);
-        }
-    }
-
     private void doDeselect() {
-        clearSelectedPanels();
-        infoPanel.unloadMultiple();
         if (selectedPanel != null) {
             CellPanel lastPanel = selectedPanel;
-            levelTool.setDeselected(lastPanel);
+            cellTool.setDeselected(lastPanel);
+            infoPanel.unload();
         }
     }
 
-    public List<CellPanel> getSelectedPanels() {
-        return this.selectedPanels;
-    }
-
-    public CellPanel getSelectedPanel() {
-        return this.selectedPanel;
-    }
-
-    public void clearSelectedPanels() {
-        for(CellPanel panel : selectedPanels) {
-            levelTool.setDeselected(panel);
-        }
-        selectedPanels.clear();
-    }
 }
