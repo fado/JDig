@@ -34,7 +34,16 @@ import javax.swing.border.Border;
 public class ConnectionTool implements LevelTool {
 
     ConnectionType connectionType;
-    private CellTool cellTool = new CellTool();
+    private CellTool cellTool;
+    private DeletionTool deletionTool;
+    private ExitBuilder exitBuilder;
+
+    public ConnectionTool(CellTool cellTool, DeletionTool deletionTool,
+                          ExitBuilder exitBuilder) {
+        this.cellTool = cellTool;
+        this.deletionTool = deletionTool;
+        this.exitBuilder = exitBuilder;
+    }
 
     /**
      * Controls what image should be displayed when the user mouses over the Cell.
@@ -43,18 +52,15 @@ public class ConnectionTool implements LevelTool {
      */
     @Override
     public void mouseEntered(Cell cell, MouseEvent event) {
-        CellPanel cellPanel = (CellPanel)event.getSource();
+        CellPanel cellPanel = (CellPanel) event.getSource();
         Entity entity = cell.getEntity();
         connectionType = cell.getPotentialConnectionType();
 
         // Check there isn't an Entity in the Cell already.
-        if(entity == null) {
-            // Check the potential connection type isn't NONE.
-            if(connectionType != ConnectionType.NONE) {
-                cellTool.addImage(cellPanel, connectionType.getPath());
-                Border border = new Connection(connectionType).getBorder();
-                cellPanel.setBorder(border);
-            }
+        if (entity == null && connectionType != ConnectionType.NONE) {
+            cellTool.addImage(cellPanel, connectionType.getPath());
+            Border border = new Connection(connectionType).getBorder();
+            cellPanel.setBorder(border);
         }
     }
 
@@ -81,25 +87,33 @@ public class ConnectionTool implements LevelTool {
      */
     @Override
     public void mousePressed(Cell cell, MouseEvent event) {
-        doExit(cell, event);
+        CellPanel cellPanel = (CellPanel) event.getSource();
+        if (SwingUtilities.isRightMouseButton(event)) {
+            deleteConnection(cellPanel);
+        } else if (SwingUtilities.isLeftMouseButton(event)) {
+            createExits(cellPanel);
+        }
+    }
+
+    /**
+     * Delete the Connection from the passed-in CellPanel.
+     * @param cellPanel The CellPanel you're deleting the Connection from.
+     */
+    private void deleteConnection(CellPanel cellPanel) {
+        deletionTool.deleteEntity(cellPanel);
     }
 
     /**
      * Creates a new Connection in the Cell and instructs the ExitBuilder to
      * build appropriate Exits in the surrounding rooms.
-     * @param cell
-     * @param event The event that originated the method call.
+     * @param cellPanel The CellPanel you're adding the Connection to.
      */
-    private void doExit(Cell cell, MouseEvent event) {
-        if (SwingUtilities.isRightMouseButton(event)) {
-            CellPanel cellPanel = (CellPanel)event.getSource();
-            new DeletionTool().deleteEntity(cellPanel);
-        } else if (SwingUtilities.isLeftMouseButton(event)) {
-            ConnectionType connectionType = cell.getPotentialConnectionType();
-            if (connectionType != ConnectionType.NONE && !cell.isExit()) {
-                cell.setEntity(new Connection(cell.getPotentialConnectionType()));
-                ExitBuilder.build(cell);
-            }
+    private void createExits(CellPanel cellPanel) {
+        Cell cell = cellPanel.getCell();
+        ConnectionType connectionType = cell.getPotentialConnectionType();
+        if (connectionType != ConnectionType.NONE && !cell.isExit()) {
+            cell.setEntity(new Connection(cell.getPotentialConnectionType()));
+            exitBuilder.build(cell);
         }
     }
     
