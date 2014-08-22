@@ -24,7 +24,11 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JToolBar;
+
+import tools.CellTool;
 import tools.ConnectionTool;
+import tools.DeletionTool;
+import tools.ExitBuilder;
 import tools.LevelTool;
 import tools.LevelToolEvent;
 import tools.LevelToolListener;
@@ -63,7 +67,8 @@ public class LevelToolbar extends JToolBar {
         this.setFloatable(false);
         this.selectionTool = new SelectionTool(infoPanel);
         this.roomTool = new RoomTool(infoPanel.getLevel());
-        this.exitTool = new ConnectionTool();
+        this.exitTool = new ConnectionTool(new CellTool(), new DeletionTool(),
+                new ExitBuilder());
     }
 
     /**
