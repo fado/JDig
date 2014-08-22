@@ -19,6 +19,7 @@ package data;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+import tools.ExitBuilder;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -115,7 +116,7 @@ public class ExitBuilderTest {
         northCell.setEntity(new Room(northCell.getCellPanel()));
         middleCell.setEntity(new Room(middleCell.getCellPanel()));
         southCell.setEntity(new Room(southCell.getCellPanel()));
-        ExitBuilder.build(middleCell);
+        new ExitBuilder().build(middleCell);
     }
 
     /**
@@ -173,7 +174,7 @@ public class ExitBuilderTest {
         westCell.setEntity(new Room(westCell.getCellPanel()));
         middleCell.setEntity(new Room(middleCell.getCellPanel()));
         eastCell.setEntity(new Room(eastCell.getCellPanel()));
-        ExitBuilder.build(middleCell);
+        new ExitBuilder().build(middleCell);
     }
 
     /**
@@ -231,7 +232,7 @@ public class ExitBuilderTest {
         northwestCell.setEntity(new Room(northwestCell.getCellPanel()));
         middleCell.setEntity(new Room(middleCell.getCellPanel()));
         southeastCell.setEntity(new Room(southeastCell.getCellPanel()));
-        ExitBuilder.build(middleCell);
+        new ExitBuilder().build(middleCell);
     }
 
     /**
@@ -290,7 +291,7 @@ public class ExitBuilderTest {
         northeastCell.setEntity(new Room(northeastCell.getCellPanel()));
         middleCell.setEntity(new Room(middleCell.getCellPanel()));
         southwestCell.setEntity(new Room(southwestCell.getCellPanel()));
-        ExitBuilder.build(middleCell);
+        new ExitBuilder().build(middleCell);
     }
 
     /**
