@@ -37,7 +37,7 @@ import java.util.Map;
  */
 public class DeletionTool {
 
-    private CellTool cellTool = new CellTool();
+    private static CellTool cellTool = new CellTool();
 
     /**
      * Deletes the Entity in the passed-in CellPanel.
