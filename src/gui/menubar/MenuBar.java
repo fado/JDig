@@ -30,7 +30,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import properties.JdigProperties;
 import properties.Localization;
-
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -92,23 +91,7 @@ public class MenuBar extends JMenuBar {
         JMenu editMenu = new JMenu(localization.get("Edit"));
 
         JMenuItem delete = new JMenuItem(localization.get("Delete"));
-        delete.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                if(selectionTool.getSelectedPanels().isEmpty()) {
-                    if(showDeleteDialog() == JOptionPane.YES_OPTION) {
-                        deleteRoom(selectionTool.getSelectedPanel());
-                    }
-                } else {
-                    if(showDeleteDialog(selectionTool.getSelectedPanels().size())
-                            == JOptionPane.YES_OPTION) {
-                        for(CellPanel cellPanel : selectionTool.getSelectedPanels()) {
-                            deleteRoom(cellPanel);
-                        }
-                    }
-                }
-            }
-        });
+        // TO-DO: Add an ActionListener for this.
         delete.setMnemonic(KeyEvent.VK_D);
         delete.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0));
         editMenu.add(delete);
