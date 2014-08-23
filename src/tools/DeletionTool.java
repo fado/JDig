@@ -27,7 +27,6 @@ import data.Exit;
 import data.Level;
 import data.Room;
 import gui.CellPanel;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -37,7 +36,11 @@ import java.util.Map;
  */
 public class DeletionTool {
 
-    private static CellTool cellTool = new CellTool();
+    private CellTool cellTool;
+
+    public DeletionTool(CellTool cellTool) {
+        this.cellTool = cellTool;
+    }
 
     /**
      * Deletes the Entity in the passed-in CellPanel.
