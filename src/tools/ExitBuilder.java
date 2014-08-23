@@ -20,6 +20,7 @@ package tools;
  */
 
 import data.Cell;
+import data.Connection;
 import data.ConnectionType;
 import data.Direction;
 import data.Exit;
@@ -42,7 +43,8 @@ public class ExitBuilder {
      * @param cell The cell around which exits should be built.
      */
     public void build(Cell cell) {
-        ConnectionType connectionType = cell.getPotentialConnectionType();
+        Connection connection = (Connection) cell.getEntity();
+        ConnectionType connectionType = connection.getConnectionType();
         cells = cell.getAdjacentCells();
 
         if (connectionType == ConnectionType.HORIZONTAL) {
