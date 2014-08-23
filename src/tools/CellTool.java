@@ -19,6 +19,7 @@ package tools;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+import data.Cell;
 import data.Entity;
 import gui.CellPanel;
 import org.slf4j.Logger;
@@ -77,7 +78,11 @@ public class CellTool {
 
     public void setSelected(CellPanel cellPanel) {
         removeImage(cellPanel);
-        addImage(cellPanel, cellPanel.getCell().getEntity().getSelectedImage());
+        Entity entity = cellPanel.getCell().getEntity();
+        if(entity != null){
+            String path = entity.getSelectedImage();
+            addImage(cellPanel, path);
+        }
         cellPanel.setSelected(true);
     }
 
