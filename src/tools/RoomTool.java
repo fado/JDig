@@ -37,14 +37,17 @@ public class RoomTool implements LevelTool {
     private boolean yEven = false;
     private Level level;
     private Images images = new Images();
-    private CellTool levelTool = new CellTool();
+    private CellTool cellTool;
+    private DeletionTool deletionTool;
 
     /**
      * Default constructor.
      * @param level The Level on which the tool will be operating.
      */
-    public RoomTool(Level level) {
+    public RoomTool(Level level, CellTool cellTool, DeletionTool deletionTool) {
         this.level = level;
+        this.cellTool = cellTool;
+        this.deletionTool = deletionTool;
     }
 
     /**
@@ -62,11 +65,11 @@ public class RoomTool implements LevelTool {
         if (cellPanel.getCell().getEntity() == null) {
             // Check whether or not the Cell Panel can contain a Room.
             if(positionIsValid(cellPanel)) {
-                levelTool.addImage(cellPanel, images.getImagePath("Room"));
-                levelTool.removeBorder(cellPanel);
+                cellTool.addImage(cellPanel, images.getImagePath("Room"));
+                cellTool.removeBorder(cellPanel);
             } else {
-                levelTool.addImage(cellPanel, images.getImagePath("InvalidRoom"));
-                levelTool.removeBorder(cellPanel);
+                cellTool.addImage(cellPanel, images.getImagePath("InvalidRoom"));
+                cellTool.removeBorder(cellPanel);
             }
         }
     }
@@ -80,8 +83,8 @@ public class RoomTool implements LevelTool {
     public void mouseExited(MouseEvent event) {
         CellPanel cellPanel = (CellPanel) event.getSource();
         if (cellPanel.getCell().getEntity() == null) {
-            levelTool.removeImage(cellPanel);
-            levelTool.restoreDefaultBorder(cellPanel);
+            cellTool.removeImage(cellPanel);
+            cellTool.restoreDefaultBorder(cellPanel);
         }
     }
 
@@ -95,7 +98,7 @@ public class RoomTool implements LevelTool {
         Cell cell = cellPanel.getCell();
         // Delete the Room from the Cell upon right mouse click.
         if (SwingUtilities.isRightMouseButton(event)) {
-            new DeletionTool().deleteEntity(cellPanel);
+            deletionTool.deleteEntity(cellPanel);
             // If there are no more rooms left, reset room placement restriction.
             if(level.getRooms().isEmpty()) {
                 resetPlacementRestriction();
