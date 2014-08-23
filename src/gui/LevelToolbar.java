@@ -64,11 +64,13 @@ public class LevelToolbar extends JToolBar {
      * tools.
      */
     private void setDefaultProperties() {
+        CellTool cellTool = new CellTool();
+        DeletionTool deletionTool = new DeletionTool(cellTool);
+        ExitBuilder exitBuilder = new ExitBuilder();
         this.setFloatable(false);
         this.selectionTool = new SelectionTool(infoPanel);
-        this.roomTool = new RoomTool(infoPanel.getLevel());
-        this.exitTool = new ConnectionTool(new CellTool(), new DeletionTool(),
-                new ExitBuilder());
+        this.roomTool = new RoomTool(infoPanel.getLevel(), cellTool, deletionTool);
+        this.exitTool = new ConnectionTool(cellTool, deletionTool, exitBuilder);
     }
 
     /**
