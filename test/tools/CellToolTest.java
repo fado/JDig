@@ -38,6 +38,7 @@ public class CellToolTest {
 
     private Cell testCell;
     private CellPanel testCellPanel;
+    private CellTool testCellTool, testCellToolSpy;
 
     @Before
     public void setUp() {
@@ -45,6 +46,8 @@ public class CellToolTest {
         Point testPoint = new Point(0, 0);
         testCell = new Cell(testPoint, testLevel);
         testCellPanel = new CellPanel(testCell);
+        testCellTool = new CellTool();
+        testCellToolSpy = Mockito.spy(testCellTool);
     }
 
     /**
@@ -53,11 +56,9 @@ public class CellToolTest {
      */
     @Test
     public void testSetDeselectedConnectible() {
-        CellTool cellTool = new CellTool();
-        CellTool cellToolSpy = Mockito.spy(cellTool);
         testCell.setEntity(new Room(testCellPanel));
-        cellToolSpy.setDeselected(testCellPanel);
-        verify(cellToolSpy).addImage(testCellPanel, testCell.getEntity()
+        testCellToolSpy.setDeselected(testCellPanel);
+        verify(testCellToolSpy).addImage(testCellPanel, testCell.getEntity()
                 .getNormalImage());
     }
 
@@ -67,12 +68,24 @@ public class CellToolTest {
      */
     @Test
     public void testSetDeselectedNotConnectible() {
-        CellTool cellTool = new CellTool();
-        CellTool cellToolSpy = Mockito.spy(cellTool);
         testCell.setEntity(new Connection(ConnectionType.HORIZONTAL));
-        cellToolSpy.setDeselected(testCellPanel);
-        verify(cellToolSpy, never()).addImage(testCellPanel, testCell.getEntity()
+        testCellToolSpy.setDeselected(testCellPanel);
+        verify(testCellToolSpy, never()).addImage(testCellPanel, testCell.getEntity()
                 .getNormalImage());
+    }
+
+    @Test
+    public void testSetSelectedNoEntity() {
+        testCellToolSpy.setSelected(testCellPanel);
+        verify(testCellToolSpy, never()).addImage(any(CellPanel.class), any(String.class));
+    }
+
+    @Test
+    public void testSetSelectedWithEntity() {
+        testCell.setEntity(new Room(null));
+        testCellToolSpy.setSelected(testCellPanel);
+        verify(testCellToolSpy).addImage(testCellPanel, testCell.getEntity()
+               .getSelectedImage());
     }
 
 }

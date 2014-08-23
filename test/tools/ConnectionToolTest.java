@@ -60,7 +60,7 @@ public class ConnectionToolTest {
 
         // ConnectionTool.
         CellTool cellTool = new CellTool();
-        DeletionTool deletionTool = new DeletionTool();
+        DeletionTool deletionTool = new DeletionTool(cellTool);
         ExitBuilder exitBuilder = new ExitBuilder();
         exitBuilderSpy = Mockito.spy(exitBuilder);
         deletionToolSpy = Mockito.spy(deletionTool);

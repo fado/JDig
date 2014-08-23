@@ -1,4 +1,4 @@
-package data;
+package tools;
 
 /**
  * JDig, a tool for the automatic generation of LPC class files for Epitaph
@@ -19,6 +19,12 @@ package data;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+import data.Cell;
+import data.Direction;
+import data.Exit;
+import data.ExitType;
+import data.Level;
+import data.Room;
 import tools.ExitBuilder;
 import org.junit.Before;
 import org.junit.Test;
