@@ -32,9 +32,7 @@ import javax.swing.SwingUtilities;
  */
 public class RoomTool implements LevelTool {
 
-    private Cell firstRoomCell;
-    private boolean xEven = false;
-    private boolean yEven = false;
+    private PlacementRestriction placementRestriction = new PlacementRestriction();
     private Level level;
     private Images images = new Images();
     private CellTool cellTool;
@@ -61,10 +59,11 @@ public class RoomTool implements LevelTool {
     @Override
     public void mouseEntered(MouseEvent event) {
         CellPanel cellPanel = (CellPanel)event.getSource();
+        Cell cell = cellPanel.getCell();
         // Check that the Cell does not already contain an Entity.
         if (cellPanel.getCell().getEntity() == null) {
             // Check whether or not the Cell Panel can contain a Room.
-            if(positionIsValid(cellPanel)) {
+            if(placementRestriction.positionIsValid(cell)) {
                 cellTool.addImage(cellPanel, images.getImagePath("Room"));
                 cellTool.removeBorder(cellPanel);
             } else {
@@ -101,67 +100,20 @@ public class RoomTool implements LevelTool {
             deletionTool.deleteEntity(cellPanel);
             // If there are no more rooms left, reset room placement restriction.
             if(level.getRooms().isEmpty()) {
-                resetPlacementRestriction();
+                placementRestriction.resetPlacementRestriction();
             }
         // Add a new Room to the Cell upon left mouse click.
-        } else if (SwingUtilities.isLeftMouseButton(event) && positionIsValid(cellPanel)) {
+        } else if (SwingUtilities.isLeftMouseButton(event)
+                && placementRestriction.positionIsValid(cell)) {
             Room room = new Room(cellPanel);
             cell.setEntity(room);
             level.registerRoom(room);
             // Check if a Room has already been created.
-            if(firstRoomCell == null) {
+            if(!placementRestriction.isSet()) {
                 // Sets the first room, governing where future rooms can be placed.
-                setPlacementRestriction(cell);
+                placementRestriction.setPlacementRestriction(cell);
             }
         }
-    }
-
-    /**
-     * Resets the Cell containing the first room and the xEven and yEven booleans.
-     */
-    private void resetPlacementRestriction() {
-        firstRoomCell = null;
-        xEven = false;
-        yEven = false;
-    }
-
-    /**
-     * Prevents rooms from being placed side by side.  Records the position of
-     * the first room placed within the level the parity of each of the x and
-     * y coordinates.
-     * @param cell The new Cell which contains the first Room in the Level.
-     */
-    private void setPlacementRestriction(Cell cell) {
-        this.firstRoomCell = cell;
-        if (isEven(cell.X)) {
-            xEven = true;
-        }
-        if (isEven(cell.Y)) {
-            yEven = true;
-        }
-    }
-
-    /**
-     * Compares the parity of the coordinates of the CellPanel passed-in with
-     * the parity of the coordinates of the Cell which contains the first
-     * Room placed in the Level.
-     * @param cellPanel The CellPanel whose parity you want to test.
-     * @return True if the parity matches, otherwise false.
-     */
-    private boolean positionIsValid(CellPanel cellPanel) {
-        if (firstRoomCell == null) {
-            return true;
-        }
-        return isEven(cellPanel.getX()) == xEven && isEven(cellPanel.getY()) == yEven;
-    }
-
-    /**
-     * Determines the parity of the passed-in integer.
-     * @param coordinate The coordinate under test.
-     * @return True if parity is even, otherwise false.
-     */
-    private boolean isEven(int coordinate) {
-        return coordinate % 2 == 0;
     }
 
 }
