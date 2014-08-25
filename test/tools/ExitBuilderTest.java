@@ -20,6 +20,8 @@ package tools;
  */
 
 import data.Cell;
+import data.Connection;
+import data.ConnectionType;
 import data.Direction;
 import data.Exit;
 import data.ExitType;
@@ -120,7 +122,7 @@ public class ExitBuilderTest {
      */
     private void setupVerticalRooms() {
         northCell.setEntity(new Room(northCell.getCellPanel()));
-        middleCell.setEntity(new Room(middleCell.getCellPanel()));
+        middleCell.setEntity(new Connection(ConnectionType.VERTICAL));
         southCell.setEntity(new Room(southCell.getCellPanel()));
         new ExitBuilder().build(middleCell);
     }
@@ -178,7 +180,7 @@ public class ExitBuilderTest {
     */
     private void setupHorizontalRooms() {
         westCell.setEntity(new Room(westCell.getCellPanel()));
-        middleCell.setEntity(new Room(middleCell.getCellPanel()));
+        middleCell.setEntity(new Connection(ConnectionType.HORIZONTAL));
         eastCell.setEntity(new Room(eastCell.getCellPanel()));
         new ExitBuilder().build(middleCell);
     }
@@ -236,7 +238,7 @@ public class ExitBuilderTest {
      */
     private void setupBackwardDiagonalRooms() {
         northwestCell.setEntity(new Room(northwestCell.getCellPanel()));
-        middleCell.setEntity(new Room(middleCell.getCellPanel()));
+        middleCell.setEntity(new Connection(ConnectionType.BACKWARD_DIAGONAL));
         southeastCell.setEntity(new Room(southeastCell.getCellPanel()));
         new ExitBuilder().build(middleCell);
     }
@@ -295,7 +297,7 @@ public class ExitBuilderTest {
      */
     private void setupForwardDiagonalRooms() {
         northeastCell.setEntity(new Room(northeastCell.getCellPanel()));
-        middleCell.setEntity(new Room(middleCell.getCellPanel()));
+        middleCell.setEntity(new Connection(ConnectionType.FORWARD_DIAGONAL));
         southwestCell.setEntity(new Room(southwestCell.getCellPanel()));
         new ExitBuilder().build(middleCell);
     }
