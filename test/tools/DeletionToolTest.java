@@ -19,9 +19,12 @@ import static org.mockito.Mockito.verify;
 
 public class DeletionToolTest {
 
-    private Level testLevel, testLevelSpy, testLevel2;
+    private Level testLevel, testLevel3;
+    private Level testLevelSpy;
     private Cell testCell, northCell, southCell, eastCell, westCell, northwestCell,
-        northeastCell, southwestCell, southeastCell, middleCell;
+            northeastCell, southwestCell, southeastCell, middleCell, northCell2,
+            southCell2, eastCell2, westCell2, northwestCell2, northeastCell2,
+            southwestCell2, southeastCell2, middleCell2;
     private CellPanel testCellPanel;
     private DeletionTool testDeletionTool;
     private CellTool cellTool, cellToolSpy;
@@ -31,7 +34,7 @@ public class DeletionToolTest {
     @Before
     public void setUp() {
         testLevel = new Level(1, 1);
-        testLevel2 = new Level(3, 3);
+        Level testLevel2 = new Level(3, 3);
         testLevelSpy = Mockito.spy(testLevel);
         testCell = new Cell(new Point(0, 0), testLevel);
         testCellPanel = new CellPanel(testCell);
@@ -49,7 +52,21 @@ public class DeletionToolTest {
         southeastCell = testLevel2.getCellAt(new Point(2, 2));
         middleCell = testLevel2.getCellAt(new Point(1, 1));
         exitBuilder = new ExitBuilder();
-    }
+
+        testLevel3 = new Level(5, 5);
+        northCell2 = testLevel3.getCellAt(new Point(2, 0));
+        southCell2 = testLevel3.getCellAt(new Point(2, 4));
+        eastCell2 = testLevel3.getCellAt(new Point(4, 2));
+        westCell2 = testLevel3.getCellAt(new Point(0, 2));
+        northwestCell2 = testLevel3.getCellAt(new Point(0, 0));
+        northeastCell2 = testLevel3.getCellAt(new Point(4, 0));
+        southwestCell2 = testLevel3.getCellAt(new Point(0, 4));
+        southeastCell2 = testLevel3.getCellAt(new Point(4, 4));
+        middleCell2 = testLevel3.getCellAt(new Point(2, 2));
+        for(Cell cell : testLevel3.getAllCells()) {
+            cell.setCellPanel(new CellPanel(cell));
+        }
+     }
 
     /**
      * Test that the DeletionTool will unregister a Room if it exists
@@ -283,4 +300,118 @@ public class DeletionToolTest {
         exitBuilder.build(middleCell);
     }
 
+    /**
+     * Test removing dead exits vertically.
+     */
+    @Test
+    public void testRemoveDeadExitsNorth() {
+        buildThreeVerticalRooms();
+        testDeletionTool.deleteEntity(middleCell2.getCellPanel());
+        Room northRoom = (Room)northCell2.getEntity();
+        assertTrue(northRoom.getExits().isEmpty());
+    }
+
+    @Test
+    public void testRemoveDeadExitsSouth() {
+        buildThreeVerticalRooms();
+        testDeletionTool.deleteEntity(middleCell2.getCellPanel());
+        Room southRoom = (Room)southCell2.getEntity();
+        assertTrue(southRoom.getExits().isEmpty());
+    }
+
+    private void buildThreeVerticalRooms() {
+        northCell2.setEntity(new Room(null));
+        middleCell2.setEntity(new Room(null));
+        southCell2.setEntity(new Room(null));
+        Cell topConnector = testLevel3.getCellAt(new Point(2, 1));
+        topConnector.setEntity(new Connection(ConnectionType.VERTICAL));
+        exitBuilder.build(topConnector);
+        Cell bottomConnector = testLevel3.getCellAt(new Point(2, 3));
+        bottomConnector.setEntity(new Connection(ConnectionType.VERTICAL));
+        exitBuilder.build(bottomConnector);
+    }
+
+    @Test
+    public void testRemoveDeadExitsWest() {
+        buildThreeHorizontalRooms();
+        testDeletionTool.deleteEntity(middleCell2.getCellPanel());
+        Room westRoom = (Room)westCell2.getEntity();
+        assertTrue(westRoom.getExits().isEmpty());
+    }
+
+    @Test
+    public void testRemoveDeadExitsEast() {
+        buildThreeHorizontalRooms();
+        testDeletionTool.deleteEntity(middleCell2.getCellPanel());
+        Room eastRoom = (Room)eastCell2.getEntity();
+        assertTrue(eastRoom.getExits().isEmpty());
+    }
+
+    private void buildThreeHorizontalRooms() {
+        westCell2.setEntity(new Room(null));
+        middleCell2.setEntity(new Room(null));
+        eastCell2.setEntity(new Room(null));
+        Cell westConnector = testLevel3.getCellAt(new Point(1, 2));
+        westConnector.setEntity(new Connection(ConnectionType.HORIZONTAL));
+        exitBuilder.build(westConnector);
+        Cell eastConnector = testLevel3.getCellAt(new Point(3, 2));
+        eastConnector.setEntity(new Connection(ConnectionType.HORIZONTAL));
+        exitBuilder.build(eastConnector);
+    }
+
+    @Test
+    public void testRemoveDeadExitsNorthwest() {
+        buildThreeBackDiagonalRooms();
+        testDeletionTool.deleteEntity(middleCell2.getCellPanel());
+        Room northwestRoom = (Room)northwestCell2.getEntity();
+        assertTrue(northwestRoom.getExits().isEmpty());
+    }
+
+    @Test
+    public void testRemoveDeadExitsSoutheast() {
+        buildThreeBackDiagonalRooms();
+        testDeletionTool.deleteEntity(middleCell2.getCellPanel());
+        Room southeastRoom = (Room)southeastCell2.getEntity();
+        assertTrue(southeastRoom.getExits().isEmpty());
+    }
+
+    private void buildThreeBackDiagonalRooms() {
+        northwestCell2.setEntity(new Room(null));
+        middleCell2.setEntity(new Room(null));
+        southeastCell2.setEntity(new Room(null));
+        Cell northwestConnector = testLevel3.getCellAt(new Point(1, 1));
+        northwestConnector.setEntity(new Connection(ConnectionType.BACKWARD_DIAGONAL));
+        exitBuilder.build(northwestConnector);
+        Cell southeastConnector = testLevel3.getCellAt(new Point(3, 3));
+        southeastConnector.setEntity(new Connection(ConnectionType.BACKWARD_DIAGONAL));
+        exitBuilder.build(southeastConnector);
+    }
+
+    @Test
+    public void testRemoveDeadExitsNortheast() {
+        buildThreeFwdDiagonalRooms();
+        testDeletionTool.deleteEntity(middleCell2.getCellPanel());
+        Room northeastRoom = (Room)northeastCell2.getEntity();
+        assertTrue(northeastRoom.getExits().isEmpty());
+    }
+
+    @Test
+    public void testRemoveDeadExitsSouthwest() {
+        buildThreeFwdDiagonalRooms();
+        testDeletionTool.deleteEntity(middleCell2.getCellPanel());
+        Room southwestRoom = (Room)southwestCell2.getEntity();
+        assertTrue(southwestRoom.getExits().isEmpty());
+    }
+
+    public void buildThreeFwdDiagonalRooms() {
+        northeastCell2.setEntity(new Room(null));
+        middleCell2.setEntity(new Room(null));
+        southwestCell2.setEntity(new Room(null));
+        Cell northeastConnector = testLevel3.getCellAt(new Point(3, 1));
+        northeastConnector.setEntity(new Connection(ConnectionType.FORWARD_DIAGONAL));
+        exitBuilder.build(northeastConnector);
+        Cell southwestConnector = testLevel3.getCellAt(new Point(1, 3));
+        southwestConnector.setEntity(new Connection(ConnectionType.FORWARD_DIAGONAL));
+        exitBuilder.build(southwestConnector);
+    }
 }
