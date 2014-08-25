@@ -32,6 +32,7 @@ import tools.ExitBuilder;
 import tools.LevelTool;
 import tools.LevelToolEvent;
 import tools.LevelToolListener;
+import tools.PlacementRestriction;
 import tools.RoomTool;
 import tools.SelectionTool;
 
@@ -67,9 +68,11 @@ public class LevelToolbar extends JToolBar {
         CellTool cellTool = new CellTool();
         DeletionTool deletionTool = new DeletionTool(cellTool);
         ExitBuilder exitBuilder = new ExitBuilder();
+        PlacementRestriction placementRestriction = new PlacementRestriction();
         this.setFloatable(false);
         this.selectionTool = new SelectionTool(infoPanel);
-        this.roomTool = new RoomTool(infoPanel.getLevel(), cellTool, deletionTool);
+        this.roomTool = new RoomTool(infoPanel.getLevel(), cellTool, deletionTool,
+                placementRestriction);
         this.exitTool = new ConnectionTool(cellTool, deletionTool, exitBuilder);
     }
 
