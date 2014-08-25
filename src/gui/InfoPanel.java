@@ -173,16 +173,19 @@ public class InfoPanel extends JPanel {
         panel.setBorder(BorderFactory.createTitledBorder(
                 localization.get("AttributesTitle")));
 
-        roomNameField = LabeledComponent.textField(localization
-                .get("RoomNameLabel"), new InfoPanelDocListener(this, new SetName()));
+        roomNameField = LabeledComponent
+                .textField(localization.get("RoomNameLabel"),
+                        new InfoPanelDocListener(this, new SetName()));
         roomNameField.addtoPanel(panel);
 
-        includeField = LabeledComponent.textField(localization
-                .get("IncludeLabel"), new InfoPanelDocListener(this, new SetInclude()));
+        includeField = LabeledComponent
+                .textField(localization.get("IncludeLabel"),
+                        new InfoPanelDocListener(this, new SetInclude()));
         includeField.addtoPanel(panel);
 
-        inheritField = LabeledComponent.textField(localization
-                .get("InheritLabel"), new InfoPanelDocListener(this, new SetInherit()));
+        inheritField = LabeledComponent
+                .textField(localization.get("InheritLabel"),
+                        new InfoPanelDocListener(this, new SetInherit()));
         inheritField.addtoPanel(panel);
 
         buildStreetNameField(panel);
@@ -191,21 +194,25 @@ public class InfoPanel extends JPanel {
 
         buildColorSelector(panel);
 
-        shortDescriptionField = LabeledComponent.textField(localization
-                .get("ShortDescLabel"), new InfoPanelDocListener(this, new SetShort()));
+        shortDescriptionField = LabeledComponent
+                .textField(localization.get("ShortDescLabel"),
+                        new InfoPanelDocListener(this, new SetShort()));
         panel.add(shortDescriptionField.getLabel());
         panel.add(shortDescriptionField.getComponent(), "span, grow, wrap");
 
-        determinateField = LabeledComponent.textField(localization
-                .get("DeterminateLabel"), new InfoPanelDocListener(this, new SetDeterminate()));
+        determinateField = LabeledComponent
+                .textField(localization.get("DeterminateLabel"),
+                        new InfoPanelDocListener(this, new SetDeterminate()));
         determinateField.addtoPanel(panel);
 
-        lightField = LabeledComponent.textField(localization
-                .get("LightLabel"), new InfoPanelDocListener(this, new SetLight()));
+        lightField = LabeledComponent
+                .textField(localization.get("LightLabel"),
+                        new InfoPanelDocListener(this, new SetLight()));
         lightField.addtoPanel(panel);
 
-        longDescriptionField = LabeledComponent.textArea(localization
-                .get("LongDescLabel"), new InfoPanelDocListener(this, new SetLong()));
+        longDescriptionField = LabeledComponent
+                .textArea(localization.get("LongDescLabel"),
+                        new InfoPanelDocListener(this, new SetLong()));
         panel.add(longDescriptionField.getLabel(), "wrap");
         panel.add(longDescriptionField.getComponent(), "span, grow");
 
