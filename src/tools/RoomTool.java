@@ -32,20 +32,22 @@ import javax.swing.SwingUtilities;
  */
 public class RoomTool implements LevelTool {
 
-    private PlacementRestriction placementRestriction = new PlacementRestriction();
     private Level level;
     private Images images = new Images();
     private CellTool cellTool;
     private DeletionTool deletionTool;
+    private PlacementRestriction placementRestriction;
 
     /**
      * Default constructor.
      * @param level The Level on which the tool will be operating.
      */
-    public RoomTool(Level level, CellTool cellTool, DeletionTool deletionTool) {
+    public RoomTool(Level level, CellTool cellTool, DeletionTool deletionTool,
+                    PlacementRestriction placementRestriction) {
         this.level = level;
         this.cellTool = cellTool;
         this.deletionTool = deletionTool;
+        this.placementRestriction = placementRestriction;
     }
 
     /**
