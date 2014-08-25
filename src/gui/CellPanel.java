@@ -113,14 +113,6 @@ public class CellPanel extends JPanel implements LevelToolListener {
     }
 
     /**
-     * Returns the Cell that corresponds to this CellPanel.
-     * @return the Cell that corresponds to this CellPanel.
-     */
-    public Cell getCell() {
-        return this.cell;
-    }
-
-    /**
      * Sets whether or not the CellPanel is selected.
      * @param bool True if the CellPanel is selected, false otherwise.
      */
@@ -152,6 +144,14 @@ public class CellPanel extends JPanel implements LevelToolListener {
         if(entityImage != null) {
             this.remove(entityImage);
         }
+    }
+
+    /**
+     * Returns the Cell that corresponds to this CellPanel.
+     * @return the Cell that corresponds to this CellPanel.
+     */
+    public Cell getCell() {
+        return this.cell;
     }
 
     /**
