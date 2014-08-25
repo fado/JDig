@@ -48,20 +48,12 @@ public class Connection implements Entity {
     }
 
     /**
-     * Gets the path of hte image for the current ConnectionType.
-     * @return the path of the image as a String.
-     */
-    public String getPath() {
-        return connectionType.getPath();
-    }
-
-    /**
      * Required method from the Entity interface.
      * @return always null.
      */
     @Override
     public String getNormalImage() {
-        return null;
+        return connectionType.getPath();
     }
 
     /**
