@@ -1,8 +1,9 @@
-package gui.infosetters;
+package gui.menubar;
 
 /**
- * JDig, a tool for the automatic generation of LPC class files for Epitaph 
- * developers.  Copyright (C) 2014 Fado@Epitaph.
+ * JDig, a tool for the automatic generation of LPC class files for Epitaph
+ * developers.
+ * Copyright (C) 2014 Fado@Epitaph.
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -18,10 +19,6 @@ package gui.infosetters;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import data.Room;
-
-public interface SetterCommand {
-
-    public void set(Room room, String text);
-    
+public abstract class Command {
+    public abstract void execute();
 }

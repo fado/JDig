@@ -1,9 +1,8 @@
-package gui;
+package gui.infopanel.infosetters;
 
 /**
  * JDig, a tool for the automatic generation of LPC class files for Epitaph
- * developers.
- * Copyright (C) 2014 Fado@Epitaph.
+ * developers.  Copyright (C) 2014 Fado@Epitaph.
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -19,21 +18,13 @@ package gui;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import data.Level;
-import javax.swing.JToolBar;
+import data.Room;
 
-public class InfoToolbar extends JToolBar {
+public class SetInclude implements SetterCommand {
 
-    public InfoToolbar(Level level) {
-        setDefaultProperties();
-        this.add(ToolbarButtonBuilder.build("Generate", new GenerationListener(level)));
-    }
-
-    /**
-     * Sets up the default properties for the tool bar.
-     */
-    private void setDefaultProperties() {
-        this.setFloatable(false);
+    @Override
+    public void set(Room room, String text) {
+        room.setInclude(text);
     }
 
 }

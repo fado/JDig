@@ -20,10 +20,7 @@ package gui.menubar;
  */
 
 import data.Level;
-import gui.CellPanel;
-import gui.commands.Exit;
-import gui.commands.Load;
-import gui.commands.Save;
+import gui.levelpanel.CellPanel;
 import tools.RoomTool;
 import tools.SelectionTool;
 import org.slf4j.Logger;

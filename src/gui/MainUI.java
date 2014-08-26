@@ -20,7 +20,11 @@ package gui;
  */
 
 import data.Level;
-import gui.commands.Exit;
+import gui.infopanel.InfoPanel;
+import gui.infotoolbar.InfoToolbar;
+import gui.levelpanel.LevelPanel;
+import gui.leveltoolbar.LevelToolbar;
+import gui.menubar.Exit;
 import gui.menubar.MenuBar;
 import java.awt.Container;
 import java.awt.GridBagConstraints;

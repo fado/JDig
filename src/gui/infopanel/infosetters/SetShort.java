@@ -1,7 +1,7 @@
-package gui.infosetters;
+package gui.infopanel.infosetters;
 
 /**
- * JDig, a tool for the automatic generation of LPC class files for Epitaph
+ * JDig, a tool for the automatic generation of LPC class files for Epitaph 
  * developers.  Copyright (C) 2014 Fado@Epitaph.
  *
  * This program is free software: you can redistribute it and/or modify it under
@@ -20,10 +20,11 @@ package gui.infosetters;
 
 import data.Room;
 
-public class SetInherit implements SetterCommand {
-
+public class SetShort implements SetterCommand {
+    
     @Override
     public void set(Room room, String text) {
-        room.setInherit(text);
+        room.setShort(text);
     }
+    
 }

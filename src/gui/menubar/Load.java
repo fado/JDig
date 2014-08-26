@@ -1,4 +1,4 @@
-package gui.commands;
+package gui.menubar;
 
 /**
  * JDig, a tool for the automatic generation of LPC class files for Epitaph
@@ -19,25 +19,24 @@ package gui.commands;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import data.Level;
 import persistence.LevelPersistence;
-import properties.JdigProperties;
 
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.File;
+import java.io.IOException;
 
-public class Save extends Command {
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import properties.JdigProperties;
 
+public class Load extends Command {
+
+    private File file;
     private JdigProperties jdigProperties = new JdigProperties();
     private final String SAVE_FILE_LOCATION = jdigProperties.get("SaveFileLocation");
-    private Level level;
-    private File file;
-
-    public Save(Level level) {
-        this.level = level;
-    }
+    static final Logger logger = LoggerFactory.getLogger(Load.class);
 
     @Override
     public void execute() {
@@ -45,12 +44,18 @@ public class Save extends Command {
         fileChooser.setCurrentDirectory(new File(SAVE_FILE_LOCATION));
         FileFilter filter = new FileNameExtensionFilter("XML File", "xml");
         fileChooser.setFileFilter(filter);
-        if (fileChooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
+        if (fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
             file = fileChooser.getSelectedFile();
         }
         if (file != null) {
             LevelPersistence levelPersistence = new LevelPersistence();
-            levelPersistence.save(level, file);
+            try {
+                levelPersistence.load(file);
+            } catch (IOException ex) {
+                logger.error(ex.toString());
+            }
         }
+
     }
+
 }

@@ -1,4 +1,4 @@
-package gui;
+package gui.infopanel;
 
 /**
  * JDig, a tool for the automatic generation of LPC class files for Epitaph
@@ -22,8 +22,9 @@ import data.Exit;
 import data.Level;
 import data.Room;
 import data.Street;
-import gui.infosetters.*;
-import gui.streeteditor.StreetEditor;
+import gui.levelpanel.CellPanel;
+import gui.infopanel.infosetters.*;
+import gui.infopanel.streeteditor.StreetEditor;
 import properties.Localization;
 import java.awt.Color;
 import java.awt.Dimension;

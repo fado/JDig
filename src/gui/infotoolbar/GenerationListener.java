@@ -1,4 +1,4 @@
-package gui;
+package gui.infotoolbar;
 
 /**
  * JDig, a tool for the automatic generation of LPC class files for Epitaph

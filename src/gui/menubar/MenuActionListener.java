@@ -19,8 +19,6 @@ package gui.menubar;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import gui.commands.Command;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 

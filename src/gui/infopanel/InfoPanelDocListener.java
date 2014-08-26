@@ -1,4 +1,4 @@
-package gui;
+package gui.infopanel;
 
 /**
  * JDig, a tool for the automatic generation of LPC class files for Epitaph
@@ -18,7 +18,7 @@ package gui;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import gui.infosetters.SetterCommand;
+import gui.infopanel.infosetters.SetterCommand;
 
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
