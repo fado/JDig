@@ -30,18 +30,22 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.powermock.modules.junit4.PowerMockRunner;
+import properties.Images;
+
 import javax.swing.border.Border;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 
 @RunWith(PowerMockRunner.class)
 public class ConnectionToolTest {
 
     private Cell emptyCell, emptyMiddleCell, emptyCellSpy, emptyMiddleCellSpy;
-    private CellPanel emptyCellPanel, emptyCellPanelSpy, emptyMiddleCellPanelSpy;
+    private CellPanel emptyCellPanel, emptyCellPanelSpy, emptyMiddleCellPanel;
     private ConnectionTool connectionTool;
     private MouseEvent eventEntered, eventEnteredMiddle, eventExited, eventLeftPressed,
         eventLeftPressedEntity, eventRightPressed;
@@ -54,20 +58,15 @@ public class ConnectionToolTest {
         Level testLevel = new Level(1, 1);
         Point testPoint = new Point(0, 0);
         emptyCell = new Cell(testPoint, testLevel);
-        emptyCellSpy = Mockito.spy(emptyCell);
         emptyCellPanel = new CellPanel(emptyCell);
-        emptyCellPanelSpy = Mockito.spy(emptyCellPanel);
 
         // ConnectionTool.
-        CellTool cellTool = new CellTool();
-        DeletionTool deletionTool = new DeletionTool(cellTool);
+        DeletionTool deletionTool = new DeletionTool();
         ExitBuilder exitBuilder = new ExitBuilder();
-        exitBuilderSpy = Mockito.spy(exitBuilder);
-        deletionToolSpy = Mockito.spy(deletionTool);
-        connectionTool = new ConnectionTool(cellTool, deletionToolSpy, exitBuilderSpy);
+        connectionTool = new ConnectionTool(deletionTool, exitBuilder);
 
         // MouseEvent - Enter emptyCellPanel.
-        eventEntered = new MouseEvent(emptyCellPanelSpy, MouseEvent.MOUSE_ENTERED,
+        eventEntered = new MouseEvent(emptyCellPanel, MouseEvent.MOUSE_ENTERED,
                 0, 0, 0, 0, 1, false);
 
         // 1x3 Level with Rooms to North and South.
@@ -78,32 +77,30 @@ public class ConnectionToolTest {
         // Middle Cell.  Remember you have to set up the CellPanel manually as it
         // only gets created when the GUI is launched.
         emptyMiddleCell = level.getCellAt(new Point(0, 1));
-        emptyMiddleCellSpy = Mockito.spy(emptyMiddleCell);
-        CellPanel emptyMiddleCellPanel = new CellPanel(emptyMiddleCell);
-        emptyMiddleCellPanelSpy = Mockito.spy(emptyMiddleCellPanel);
+        emptyMiddleCellPanel = new CellPanel(emptyMiddleCell);
         emptyMiddleCell.setCellPanel(emptyMiddleCellPanel);
         // South Cell.
         Cell southCell = level.getCellAt(new Point(0, 2));
         southCell.setEntity(new Room(southCell.getCellPanel()));
 
         // MouseEvent - Enter emptyMiddleCellPanel.
-        eventEnteredMiddle = new MouseEvent(emptyMiddleCellPanelSpy,
+        eventEnteredMiddle = new MouseEvent(emptyMiddleCellPanel,
                 MouseEvent.MOUSE_ENTERED, 0, 0, 0, 0, 1, false);
 
         // MouseEvent - Exit emptyCellPanel.
-        eventExited = new MouseEvent(emptyCellPanelSpy, MouseEvent.MOUSE_EXITED,
+        eventExited = new MouseEvent(emptyCellPanel, MouseEvent.MOUSE_EXITED,
                 0, 0, 0, 0, 1, false);
 
         // MouseEvent - Left mouse button pressed.
-        eventLeftPressed = new MouseEvent(emptyCellPanelSpy, MouseEvent.MOUSE_PRESSED,
+        eventLeftPressed = new MouseEvent(emptyCellPanel, MouseEvent.MOUSE_PRESSED,
                 0, 0, 0, 0, 1, false, MouseEvent.BUTTON1);
 
         // MouseEvent - Left mouse button pressed with potential Connection.
-        eventLeftPressedEntity = new MouseEvent(emptyMiddleCellPanelSpy,
+        eventLeftPressedEntity = new MouseEvent(emptyMiddleCellPanel,
                 MouseEvent.MOUSE_PRESSED, 0, 0, 0, 0, 1, false, MouseEvent.BUTTON1);
 
         // MouseEvent - Right mouse button pressed.
-        eventRightPressed = new MouseEvent(emptyCellPanelSpy, MouseEvent.MOUSE_PRESSED,
+        eventRightPressed = new MouseEvent(emptyCellPanel, MouseEvent.MOUSE_PRESSED,
                 0, 0, 0, 0, 1, false, MouseEvent.BUTTON3);
     }
 
@@ -113,7 +110,7 @@ public class ConnectionToolTest {
     @Test
     public void testMouseEntered() {
         connectionTool.mouseEntered(eventEntered);
-        verify(emptyCellPanelSpy, never()).setBorder(any(Border.class));
+        assertFalse(emptyCellPanel.hasEntityImage());
     }
 
     /**
@@ -123,7 +120,7 @@ public class ConnectionToolTest {
     public void testMouseEnteredWithEntity() {
         emptyCell.setEntity(new Room(emptyCellPanel));
         connectionTool.mouseEntered(eventEntered);
-        verify(emptyCellPanelSpy, never()).setBorder(any(Border.class));
+        assertFalse(emptyCellPanel.hasEntityImage());
     }
 
     /**
@@ -132,7 +129,7 @@ public class ConnectionToolTest {
     @Test
     public void testMouseEnteredWithNoEntityAndConnection() {
         connectionTool.mouseEntered(eventEnteredMiddle);
-        verify(emptyMiddleCellPanelSpy).setBorder(any(Border.class));
+        assertTrue(emptyMiddleCellPanel.hasEntityImage());
     }
 
     /**
@@ -141,7 +138,7 @@ public class ConnectionToolTest {
     @Test
     public void testMouseExitedNoEntity() {
         connectionTool.mouseExited(eventExited);
-        verify(emptyCellPanelSpy).removeEntityImage();
+        assertFalse(emptyCellPanel.hasEntityImage());
     }
 
     /**
@@ -150,8 +147,9 @@ public class ConnectionToolTest {
     @Test
     public void testMouseExitedWithEntity() {
         emptyCell.setEntity(new Room(emptyCellPanel));
+        emptyCellPanel.addImage(new Images().getImagePath("Room"));
         connectionTool.mouseExited(eventExited);
-        verify(emptyCellPanelSpy, never()).removeEntityImage();
+        assertTrue(emptyCellPanel.hasEntityImage());
     }
 
     /**
@@ -160,7 +158,7 @@ public class ConnectionToolTest {
     @Test
     public void testLeftMousePressed() {
         connectionTool.mousePressed(eventLeftPressed);
-        verify(emptyCellPanelSpy).getCell();
+        assertTrue(emptyCell.getEntity() == null);
     }
 
     /**
@@ -169,7 +167,7 @@ public class ConnectionToolTest {
     @Test
     public void testLeftMousePressedWithPotentialConnection() {
         connectionTool.mousePressed(eventLeftPressedEntity);
-        verify(exitBuilderSpy).build(any(Cell.class));
+        assertFalse(emptyMiddleCell.getEntity() == null);
     }
 
     /**
@@ -178,9 +176,10 @@ public class ConnectionToolTest {
      */
     @Test
     public void testLeftMousePressedWithPotentialConnectionAndExit() {
-        emptyMiddleCell.setEntity(new Connection(ConnectionType.VERTICAL));
+        emptyMiddleCell.setEntity(new Connection(ConnectionType.HORIZONTAL));
         connectionTool.mousePressed(eventLeftPressedEntity);
-        verify(exitBuilderSpy, never()).build(any(Cell.class));
+        Connection actual = (Connection)emptyMiddleCell.getEntity();
+        assertFalse(actual.getConnectionType() == ConnectionType.VERTICAL);
     }
 
     /**
@@ -189,7 +188,7 @@ public class ConnectionToolTest {
     @Test
     public void testRightMousePressed() {
         connectionTool.mousePressed(eventRightPressed);
-        verify(deletionToolSpy).deleteEntity(any(CellPanel.class));
+        assertFalse(emptyCellPanel.hasEntityImage());
     }
 
 }

@@ -25,9 +25,8 @@ public class DeletionToolTest {
             northeastCell, southwestCell, southeastCell, middleCell, northCell2,
             southCell2, eastCell2, westCell2, northwestCell2, northeastCell2,
             southwestCell2, southeastCell2, middleCell2;
-    private CellPanel testCellPanel;
+    private CellPanel testCellPanel, testCellPanelSpy;
     private DeletionTool testDeletionTool;
-    private CellTool cellTool, cellToolSpy;
     private Room testRoom;
     ExitBuilder exitBuilder;
 
@@ -38,10 +37,9 @@ public class DeletionToolTest {
         testLevelSpy = Mockito.spy(testLevel);
         testCell = new Cell(new Point(0, 0), testLevel);
         testCellPanel = new CellPanel(testCell);
+        testCellPanelSpy = Mockito.spy(testCellPanel);
         testRoom = new Room(testCellPanel);
-        cellTool = new CellTool();
-        cellToolSpy = Mockito.spy(cellTool);
-        testDeletionTool = new DeletionTool(cellTool);
+        testDeletionTool = new DeletionTool();
         northCell = testLevel2.getCellAt(new Point(1, 0));
         southCell = testLevel2.getCellAt(new Point(1, 2));
         eastCell = testLevel2.getCellAt(new Point(2, 1));
@@ -81,34 +79,14 @@ public class DeletionToolTest {
     }
 
     /**
-     * Test that the DeletionTool won't attempt to unregister a Room
-     * that doesn't exist.
-     */
-    @Test
-    public void testDeleteEntityDoesNotUnregisterRoom() {
-        testDeletionTool.deleteEntity(testCellPanel);
-        verify(testLevelSpy, never()).unregisterRoom(any(Room.class));
-    }
-
-    /**
      * Test that the DeletionTool will deselect a CellPanel that's already
      * selected.
      */
     @Test
     public void testDeleteEntityDeselectsCellPanel() {
-        cellTool.setSelected(testCellPanel);
+        testCellPanel.select();
         testDeletionTool.deleteEntity(testCellPanel);
         assertFalse(testCellPanel.isSelected());
-    }
-
-    /**
-     * Test that the DeletionTool won't attempt to deselect a CellPanel that
-     * isn't selected.
-     */
-    @Test
-    public void testDeleteEntityCellPanelNotSelected() {
-        testDeletionTool.deleteEntity(testCellPanel);
-        verify(cellToolSpy, never()).setDeselected(testCellPanel);
     }
 
     /**

@@ -25,54 +25,40 @@ import data.Room;
 import gui.CellPanel;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mockito;
 import properties.Images;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
-
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertEquals;
 
 public class RoomToolTest {
 
-    Cell emptyCell, emptyCellSpy, oddCell, evenCell;
-    CellPanel emptyCellPanel, emptyCellPanelSpy, oddCellPanel, oddCellPanelSpy,
-        evenCellPanel, evenCellPanelSpy;
+    Cell emptyCell, oddCell, evenCell;
+    CellPanel emptyCellPanel, oddCellPanel, evenCellPanel;
     MouseEvent eventEntered, eventEnteredEven, eventEnteredOdd, eventExited, eventRightPressed,
         eventLeftPressed;
     RoomTool roomTool;
-    CellTool cellToolSpy;
     Images images;
-    PlacementRestriction placementRestriction, placementRestrictionSpy;
-    DeletionTool deletionToolSpy;
-    Level testLevel, testLevelSpy;
+    PlacementRestriction placementRestriction;
+    Level testLevel;
 
     @Before
     public void setUp() {
         // Empty Cell and CellPanel.
         testLevel = new Level(1, 1);
-        testLevelSpy = Mockito.spy(testLevel);
         Point testPoint = new Point(0, 0);
         emptyCell = new Cell(testPoint, testLevel);
-        emptyCellSpy = Mockito.spy(emptyCell);
         emptyCellPanel = new CellPanel(emptyCell);
-        emptyCellPanelSpy = Mockito.spy(emptyCellPanel);
 
         // MouseEvent - Enter emptyCellPanel.
         eventEntered = new MouseEvent(emptyCellPanel, MouseEvent.MOUSE_ENTERED,
                 0, 0, 0, 0, 1, false);
 
         // RoomTool.
-        CellTool cellTool = new CellTool();
-        cellToolSpy = Mockito.spy(cellTool);
-        DeletionTool deletionTool = new DeletionTool(cellTool);
-        deletionToolSpy = Mockito.spy(deletionTool);
+        DeletionTool deletionTool = new DeletionTool();
         placementRestriction = new PlacementRestriction();
-        placementRestrictionSpy = Mockito.spy(placementRestriction);
-        roomTool = new RoomTool(testLevelSpy, cellToolSpy, deletionToolSpy, placementRestrictionSpy);
+        roomTool = new RoomTool(testLevel, deletionTool, placementRestriction);
 
         // Images.
         images = new Images();
@@ -81,13 +67,11 @@ public class RoomToolTest {
         Point oddPoint = new Point(1, 1);
         oddCell = new Cell(oddPoint, testLevel);
         oddCellPanel = new CellPanel(oddCell);
-        oddCellPanelSpy = Mockito.spy(oddCellPanel);
 
         // Cell, even parity.
         Point evenPoint = new Point(2, 2);
-        evenCell = new Cell(evenPoint, testLevelSpy);
+        evenCell = new Cell(evenPoint, testLevel);
         evenCellPanel = new CellPanel(evenCell);
-        evenCellPanelSpy = Mockito.spy(evenCellPanel);
 
         // MouseEvent - Enter evenCellPanel.
         eventEnteredEven = new MouseEvent(evenCellPanel, MouseEvent.MOUSE_ENTERED,
@@ -113,7 +97,7 @@ public class RoomToolTest {
     @Test
     public void testMouseEntered() {
         roomTool.mouseEntered(eventEntered);
-        verify(cellToolSpy).addImage(emptyCellPanel, images.getImagePath("Room"));
+        assertTrue(emptyCellPanel.hasEntityImage());
     }
 
     /**
@@ -123,7 +107,9 @@ public class RoomToolTest {
     public void testMouseEnteredValidPosition() {
         placementRestriction.setPlacementRestriction(evenCell);
         roomTool.mouseEntered(eventEnteredEven);
-        verify(cellToolSpy).addImage(evenCellPanel, images.getImagePath("Room"));
+        String expected = images.getImagePath("Room");
+        String actual = evenCellPanel.getEntityImagePath();
+        assertEquals(expected, actual);
     }
 
     /**
@@ -131,9 +117,11 @@ public class RoomToolTest {
      */
     @Test
     public void testMouseEnteredInvalidPosition() {
-        placementRestrictionSpy.setPlacementRestriction(evenCell);
+        placementRestriction.setPlacementRestriction(evenCell);
         roomTool.mouseEntered(eventEnteredOdd);
-        verify(cellToolSpy).addImage(oddCellPanel, images.getImagePath("InvalidRoom"));
+        String expected = images.getImagePath("InvalidRoom");
+        String actual = oddCellPanel.getEntityImagePath();
+        assertEquals(expected, actual);
     }
 
     /**
@@ -143,17 +131,7 @@ public class RoomToolTest {
     public void testMouseEnteredEntityNotNullRoom() {
         emptyCellPanel.getCell().setEntity(new Room(null));
         roomTool.mouseEntered(eventEntered);
-        verify(cellToolSpy, never()).addImage(emptyCellPanel, images.getImagePath("Room"));
-    }
-
-    /**
-     * Test InvalidRoom not shown for Cell with Entity.
-     */
-    @Test
-    public void testMouseEnteredEntityNotNullInvalidRoom() {
-        emptyCellPanel.getCell().setEntity(new Room(null));
-        roomTool.mouseEntered(eventEntered);
-        verify(cellToolSpy, never()).addImage(emptyCellPanel, images.getImagePath("InvalidRoom"));
+        assertFalse(emptyCellPanel.hasEntityImage());
     }
 
     /**
@@ -162,7 +140,7 @@ public class RoomToolTest {
     @Test
     public void testMouseExited() {
         roomTool.mouseExited(eventExited);
-        verify(cellToolSpy).removeImage(emptyCellPanel);
+        assertFalse(emptyCellPanel.hasEntityImage());
     }
 
     /**
@@ -170,49 +148,51 @@ public class RoomToolTest {
      */
     @Test
     public void testMouseExitedWithEntity() {
+        roomTool.mouseEntered(eventEntered);
         emptyCell.setEntity(new Room(null));
         roomTool.mouseExited(eventExited);
-        verify(cellToolSpy, never()).removeImage(emptyCellPanel);
+        assertTrue(emptyCellPanel.hasEntityImage());
     }
 
     @Test
     public void testRightMousePressed() {
         roomTool.mousePressed(eventRightPressed);
-        verify(deletionToolSpy).deleteEntity(emptyCellPanel);
+        assertFalse(emptyCellPanel.hasEntityImage());
     }
 
     @Test
     public void testRightPressedNoRooms() {
         roomTool.mousePressed(eventRightPressed);
-        verify(placementRestrictionSpy).resetPlacementRestriction();
+        assertFalse(placementRestriction.isSet());
     }
 
     @Test
     public void testRightPressedWithRooms() {
         testLevel.registerRoom(new Room(null));
+        placementRestriction.setPlacementRestriction(emptyCell);
         roomTool.mousePressed(eventRightPressed);
-        verify(placementRestrictionSpy, never()).resetPlacementRestriction();
+        assertTrue(placementRestriction.isSet());
     }
 
     @Test
     public void testLeftPressedValidPosition() {
-        placementRestrictionSpy.setPlacementRestriction(evenCell);
+        placementRestriction.setPlacementRestriction(evenCell);
         roomTool.mousePressed(eventLeftPressed);
-        verify(testLevelSpy).registerRoom(any(Room.class));
+        assertFalse(testLevel.getRooms().isEmpty());
     }
 
     @Test
     public void testLeftPressedInvalidPosition() {
-        placementRestrictionSpy.setPlacementRestriction(oddCell);
+        placementRestriction.setPlacementRestriction(oddCell);
         roomTool.mousePressed(eventLeftPressed);
-        verify(testLevelSpy, never()).registerRoom(any(Room.class));
+        assertTrue(testLevel.getRooms().isEmpty());
     }
 
     @Test
     public void testLeftPressedRestrictionSet() {
-        placementRestrictionSpy.setPlacementRestriction(evenCell);
+        placementRestriction.setPlacementRestriction(evenCell);
         roomTool.mousePressed(eventLeftPressed);
-        verify(placementRestrictionSpy).setPlacementRestriction(any(Cell.class));
+        assertTrue(placementRestriction.isSet());
     }
 
 }

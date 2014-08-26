@@ -27,7 +27,6 @@ import data.Exit;
 import data.ExitType;
 import data.Level;
 import data.Room;
-import tools.ExitBuilder;
 import org.junit.Before;
 import org.junit.Test;
 
