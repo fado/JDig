@@ -19,22 +19,12 @@ package gui;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+import tools.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JToolBar;
-
-import tools.CellTool;
-import tools.ConnectionTool;
-import tools.DeletionTool;
-import tools.ExitBuilder;
-import tools.LevelTool;
-import tools.LevelToolEvent;
-import tools.LevelToolListener;
-import tools.PlacementRestriction;
-import tools.RoomTool;
-import tools.SelectionTool;
 
 /**
  * Toolbar for the level editor.
@@ -42,22 +32,21 @@ import tools.SelectionTool;
 public class LevelToolbar extends JToolBar {
 
     private final List<LevelToolListener> listeners = new ArrayList<>();
-    private LevelTool selectedLevelTool;
-    private LevelTool selectionTool;
-    private LevelTool roomTool;
-    private LevelTool exitTool;
-    private final InfoPanel infoPanel;
+    private LevelTool selectedLevelTool, selectionTool, roomTool, connectionTool;
     
-    public LevelToolbar(InfoPanel infoPanel) {
-        this.infoPanel = infoPanel;
+    public LevelToolbar(SelectionTool selectionTool, RoomTool roomTool,
+                        ConnectionTool connectionTool) {
+        this.selectionTool = selectionTool;
+        this.roomTool = roomTool;
+        this.connectionTool = connectionTool;
         setDefaultProperties();
         
         this.add(ToolbarButtonBuilder.build("SelectionTool",
-                getToolChangeAction(selectionTool)));
+                getToolChangeAction(this.selectionTool)));
         this.add(ToolbarButtonBuilder.build("RoomTool",
-                getToolChangeAction(roomTool)));
+                getToolChangeAction(this.roomTool)));
         this.add(ToolbarButtonBuilder.build("ExitTool",
-                getToolChangeAction(exitTool)));
+                getToolChangeAction(this.connectionTool)));
     }
 
     /**
@@ -65,15 +54,7 @@ public class LevelToolbar extends JToolBar {
      * tools.
      */
     private void setDefaultProperties() {
-        CellTool cellTool = new CellTool();
-        DeletionTool deletionTool = new DeletionTool(cellTool);
-        ExitBuilder exitBuilder = new ExitBuilder();
-        PlacementRestriction placementRestriction = new PlacementRestriction();
         this.setFloatable(false);
-        this.selectionTool = new SelectionTool(infoPanel);
-        this.roomTool = new RoomTool(infoPanel.getLevel(), cellTool, deletionTool,
-                placementRestriction);
-        this.exitTool = new ConnectionTool(cellTool, deletionTool, exitBuilder);
     }
 
     /**

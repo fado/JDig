@@ -33,12 +33,22 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import tools.ConnectionTool;
+import tools.DeletionTool;
+import tools.ExitBuilder;
+import tools.PlacementRestriction;
+import tools.RoomTool;
+import tools.SelectionTool;
 
 public class MainUI implements Runnable {
 
     private final Level level;
     private LevelToolbar toolbar;
     static final Logger logger = LoggerFactory.getLogger(MainUI.class);
+    private SelectionTool selectionTool;
+    private RoomTool roomTool;
+    private ConnectionTool connectionTool;
+    private InfoPanel infoPanel;
 
     public MainUI(Level level) {
         this.level = level;
@@ -57,8 +67,7 @@ public class MainUI implements Runnable {
         constraints.weighty = 0.1;
         constraints.fill = GridBagConstraints.BOTH;
 
-
-        InfoPanel infoPanel = new InfoPanel(this.level);
+        infoPanel = new InfoPanel(this.level);
         constraints.gridx = 1;
         constraints.gridy = 1;
         pane.add(infoPanel, constraints);
@@ -68,7 +77,9 @@ public class MainUI implements Runnable {
         constraints.gridy = 0;
         pane.add(infoToolbar, constraints);
 
-        toolbar = new LevelToolbar(infoPanel);
+        createTools();
+
+        toolbar = new LevelToolbar(selectionTool, roomTool, connectionTool);
         constraints.gridx = 0;
         constraints.gridy = 0;
         pane.add(toolbar, constraints);
@@ -79,6 +90,19 @@ public class MainUI implements Runnable {
         pane.add(levelPanel, constraints);
         
         toolbar.setDefaultLevelTool();
+    }
+
+    /**
+     * Creates the Tools for the toolbar.
+     */
+    private void createTools() {
+        selectionTool = new SelectionTool(infoPanel);
+        DeletionTool deletionTool = new DeletionTool();
+        ExitBuilder exitBuilder = new ExitBuilder();
+        PlacementRestriction placementRestriction = new PlacementRestriction();
+        roomTool = new RoomTool(infoPanel.getLevel(), deletionTool,
+                placementRestriction);
+        connectionTool = new ConnectionTool(deletionTool, exitBuilder);
     }
 
     /**
