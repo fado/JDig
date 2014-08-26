@@ -62,9 +62,7 @@ public class SelectionTool implements LevelTool {
      */
     @Override
     public void mousePressed(MouseEvent event) {
-        CellPanel cellPanel = (CellPanel) event.getSource();
-        Cell cell = cellPanel.getCell();
-        doSelection(cell, event);
+        doSelection(event);
     }
 
     /**
@@ -75,10 +73,11 @@ public class SelectionTool implements LevelTool {
      * selected CellPanels before selecting the panel that is the event
      * source.  If shift is down, CellPanels are continuously added to the
      * list of selected panels.
-     * @param cell
      * @param event The event originating the call.
      */
-    private void doSelection(Cell cell, MouseEvent event) {
+    private void doSelection(MouseEvent event) {
+        CellPanel cellPanel = (CellPanel) event.getSource();
+        Cell cell = cellPanel.getCell();
         if (cell.isConnectible()) {
             // Unless shift is down, deselect selected panels.
             if(!event.isShiftDown()) {
@@ -101,8 +100,17 @@ public class SelectionTool implements LevelTool {
             for(CellPanel panel : selectedPanels) {
                 panel.deselect();
             }
+            selectedPanels.clear();
             infoPanel.unload();
         }
+    }
+
+    /**
+     * Returns a List of all currently selected CellPanels.
+     * @return a List of all currently selected CellPanels.
+     */
+    public List<CellPanel> getSelectedPanels() {
+        return this.selectedPanels;
     }
 
 }
