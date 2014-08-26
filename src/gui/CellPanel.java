@@ -20,17 +20,25 @@ package gui;
  */
 
 import data.Cell;
-import tools.CellTool;
+import data.Entity;
 import tools.LevelTool;
 import tools.LevelToolEvent;
 import tools.LevelToolListener;
 import properties.Images;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
@@ -40,12 +48,20 @@ import javax.swing.border.Border;
  */
 public class CellPanel extends JPanel implements LevelToolListener {
 
+    private final int SIZE = 15;
     private final Color VERY_LIGHT_GRAY = new Color(224, 224, 224);
+    private final Border defaultBorder = BorderFactory.createLineBorder(VERY_LIGHT_GRAY);
     private LevelTool selectedLevelTool;
     private boolean selected = false;
     private Cell cell;
     private JLabel entityImage;
+    private String imagePath;
+    static final Logger logger = LoggerFactory.getLogger(CellPanel.class);
 
+    /**
+     * Constructor takes as an argument the Cell which this CellPanel represents.
+     * @param cell which this CellPanel represents.
+     */
     public CellPanel(Cell cell) {
         this.cell = cell;
         setDefaultProperties();
@@ -61,18 +77,17 @@ public class CellPanel extends JPanel implements LevelToolListener {
      * @param cell The Cell corresponding to this CellPanel.
      */
     private void restoreCell(Cell cell) {
-        CellTool cellTool = new CellTool();
         if(cell.isConnectible()) {
             Images images = new Images();
-            cellTool.addImage(this, images.getImagePath("Room"));
+            addImage(images.getImagePath("Room"));
             if(cell.getColor() != null) {
                 this.setBackground(cell.getColor());
             }
-            cellTool.removeBorder(this);
+            removeBorder();
         }
         if(cell.isExit()) {
-            cellTool.addImage(this, cell.getEntity().getNormalImage());
-            cellTool.setBorder(this, (cell.getEntity()));
+            addImage(cell.getEntity().getNormalImage());
+            setBorder(cell.getEntity());
         }
     }
 
@@ -121,29 +136,101 @@ public class CellPanel extends JPanel implements LevelToolListener {
     }
 
     /**
-     * Sets the image for the Entity contained by the Cell.
-     * @param image The image for the Entity contained by the Cell.
+     * Determines whether or not the CellPanel has an Entity image set.
+     * @return true if an Entity image has been set, otherwise false.
      */
-    public void setEntityImage(JLabel image) {
-        this.entityImage = image;
+    public boolean hasEntityImage() {
+        return entityImage != null;
     }
 
     /**
-     * Adds the entity image to the CellPanel component.
+     * Returns the path of the current entity image.
+     * @return the path of the current Entity image, or null if no image has
+     * been set.
      */
-    public void addEntityImage() {
-        if(entityImage != null) {
-            this.add(entityImage);
+    public String getEntityImagePath() {
+        return this.imagePath;
+    }
+
+    /**
+     * Select the CellPanel.
+     */
+    public void select() {
+        removeImage();
+        Entity entity = this.cell.getEntity();
+        if(entity != null) {
+            String path = entity.getSelectedImage();
+            addImage(path);
+        }
+        setSelected(true);
+    }
+
+    /**
+     * Deselect the CellPanel.
+     */
+    public void deselect() {
+        removeImage();
+        if(this.cell.isConnectible()) {
+            addImage(this.cell.getEntity().getNormalImage());
+        }
+        setSelected(false);
+    }
+
+    /**
+     * Adds the image at the passed-in path to the CellPanel.
+     * @param path The path of the image.
+     */
+    public void addImage(String path) {
+        this.imagePath = path;
+        try {
+            BufferedImage image = ImageIO.read(new File(path));
+            if (image != null) {
+                Image scaledImage = image.getScaledInstance(SIZE, SIZE, 1);
+                this.entityImage = new JLabel(new ImageIcon(scaledImage));
+                add(entityImage);
+                validate();
+                repaint();
+            }
+        } catch (IOException ex) {
+            logger.error(ex.toString());
+            ex.printStackTrace();
         }
     }
 
     /**
-     * Removes the entity image from the CellPanel component.
+     * Removes the entity image from the CellPanel.
      */
-    public void removeEntityImage() {
+    public void removeImage() {
         if(entityImage != null) {
-            this.remove(entityImage);
+            remove(entityImage);
+            validate();
+            repaint();
+            this.entityImage = null;
+            this.imagePath = null;
         }
+    }
+
+    /**
+     * Sets the border of the CellPanel to the border appropriate for the
+     * passed-in Entity.
+     * @param entity The Entity for which the border should be drawn.
+     */
+    public void setBorder(Entity entity) {
+        setBorder(entity.getBorder());
+    }
+
+    /**
+     * Removes any border currently applied to the CellPanel.
+     */
+    public void removeBorder() {
+        setBorder(BorderFactory.createEmptyBorder());
+    }
+
+    /**
+     * Restores the default border of the CellPanel.
+     */
+    public void restoreDefaultBorder() {
+        setBorder(defaultBorder);
     }
 
     /**
