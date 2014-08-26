@@ -46,8 +46,12 @@ public class Template {
      * Returns the contents of the template file as a List of Strings.
      * @return the contents of the template file as a List of Strings
      */
-    public List<String> getLines() {
-        return this.lines;
+    public String getLines() {
+        String linesAsString = "";
+        for(String line : this.lines) {
+            linesAsString += line + "\n";
+        }
+        return linesAsString;
     }
 
 }
