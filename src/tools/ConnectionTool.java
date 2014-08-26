@@ -23,7 +23,7 @@ import data.Cell;
 import data.Connection;
 import data.ConnectionType;
 import data.Entity;
-import gui.CellPanel;
+import gui.levelpanel.CellPanel;
 import java.awt.event.MouseEvent;
 import javax.swing.SwingUtilities;
 import javax.swing.border.Border;

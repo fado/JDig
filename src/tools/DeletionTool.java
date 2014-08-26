@@ -26,7 +26,7 @@ import data.Direction;
 import data.Exit;
 import data.Level;
 import data.Room;
-import gui.CellPanel;
+import gui.levelpanel.CellPanel;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;

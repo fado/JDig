@@ -22,7 +22,7 @@ package tools;
 import data.Cell;
 import data.Level;
 import data.Room;
-import gui.CellPanel;
+import gui.levelpanel.CellPanel;
 import org.junit.Before;
 import org.junit.Test;
 import properties.Images;

@@ -1,6 +1,6 @@
 package data;
 
-import gui.CellPanel;
+import gui.levelpanel.CellPanel;
 import org.junit.Before;
 import org.junit.Test;
 

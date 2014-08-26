@@ -19,7 +19,7 @@ package data;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import gui.CellPanel;
+import gui.levelpanel.CellPanel;
 import properties.Images;
 import properties.Localization;
 import javax.swing.border.Border;

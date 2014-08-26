@@ -22,7 +22,7 @@ package tools;
 import data.Cell;
 import data.Level;
 import data.Room;
-import gui.CellPanel;
+import gui.levelpanel.CellPanel;
 import properties.Images;
 import java.awt.event.MouseEvent;
 import javax.swing.SwingUtilities;
