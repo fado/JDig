@@ -36,12 +36,6 @@ import java.util.Map;
  */
 public class DeletionTool {
 
-    private CellTool cellTool;
-
-    public DeletionTool(CellTool cellTool) {
-        this.cellTool = cellTool;
-    }
-
     /**
      * Deletes the Entity in the passed-in CellPanel.
      * @param cellPanel The CellPanel you want to delete the Entity from.
@@ -56,10 +50,10 @@ public class DeletionTool {
         removeDeadExits(cell);
         cell.setEntity(null);
         // Visualise the delete immediately rather than waiting for mouse exit.
-        cellTool.removeImage(cellPanel);
-        cellTool.restoreDefaultBorder(cellPanel);
+        cellPanel.removeImage();
+        cellPanel.restoreDefaultBorder();
         if(cellPanel.isSelected()) {
-            cellTool.setDeselected(cellPanel);
+            cellPanel.deselect();
         }
     }
 
@@ -136,8 +130,8 @@ public class DeletionTool {
         for(Cell aCell : adjacentCells.values()) {
             // Ensure you're trying to remove a valid Cell.
             if(aCell.X != -1 && aCell.Y != -1) {
-                cellTool.removeImage(aCell.getCellPanel());
-                cellTool.restoreDefaultBorder(aCell.getCellPanel());
+                aCell.getCellPanel().removeImage();
+                aCell.getCellPanel().restoreDefaultBorder();
                 aCell.setEntity(null);
             }
         }

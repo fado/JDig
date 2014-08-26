@@ -33,7 +33,6 @@ public class SelectionTool implements LevelTool {
 
     private InfoPanel infoPanel;
     private List<CellPanel> selectedPanels = new ArrayList<>();
-    private CellTool cellTool = new CellTool();
     
     public SelectionTool(InfoPanel infoPanel) {
         this.infoPanel = infoPanel;
@@ -87,7 +86,7 @@ public class SelectionTool implements LevelTool {
             }
             CellPanel lastSelectedPanel = (CellPanel) event.getSource();
             selectedPanels.add(lastSelectedPanel);
-            cellTool.setSelected(lastSelectedPanel);
+            lastSelectedPanel.select();
             infoPanel.load(lastSelectedPanel);
         } else {
             doDeselect();
@@ -100,7 +99,7 @@ public class SelectionTool implements LevelTool {
     private void doDeselect() {
         if (!selectedPanels.isEmpty()) {
             for(CellPanel panel : selectedPanels) {
-                cellTool.setDeselected(panel);
+                panel.deselect();
             }
             infoPanel.unload();
         }

@@ -34,7 +34,6 @@ public class RoomTool implements LevelTool {
 
     private Level level;
     private Images images = new Images();
-    private CellTool cellTool;
     private DeletionTool deletionTool;
     private PlacementRestriction placementRestriction;
 
@@ -42,10 +41,9 @@ public class RoomTool implements LevelTool {
      * Default constructor.
      * @param level The Level on which the tool will be operating.
      */
-    public RoomTool(Level level, CellTool cellTool, DeletionTool deletionTool,
+    public RoomTool(Level level, DeletionTool deletionTool,
                     PlacementRestriction placementRestriction) {
         this.level = level;
-        this.cellTool = cellTool;
         this.deletionTool = deletionTool;
         this.placementRestriction = placementRestriction;
     }
@@ -66,11 +64,11 @@ public class RoomTool implements LevelTool {
         if (cellPanel.getCell().getEntity() == null) {
             // Check whether or not the Cell Panel can contain a Room.
             if(placementRestriction.positionIsValid(cell)) {
-                cellTool.addImage(cellPanel, images.getImagePath("Room"));
-                cellTool.removeBorder(cellPanel);
+                cellPanel.addImage(images.getImagePath("Room"));
+                cellPanel.removeBorder();
             } else {
-                cellTool.addImage(cellPanel, images.getImagePath("InvalidRoom"));
-                cellTool.removeBorder(cellPanel);
+                cellPanel.addImage(images.getImagePath("InvalidRoom"));
+                cellPanel.removeBorder();
             }
         }
     }
@@ -84,8 +82,8 @@ public class RoomTool implements LevelTool {
     public void mouseExited(MouseEvent event) {
         CellPanel cellPanel = (CellPanel) event.getSource();
         if (cellPanel.getCell().getEntity() == null) {
-            cellTool.removeImage(cellPanel);
-            cellTool.restoreDefaultBorder(cellPanel);
+            cellPanel.removeImage();
+            cellPanel.restoreDefaultBorder();
         }
     }
 

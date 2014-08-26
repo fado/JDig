@@ -34,13 +34,10 @@ import javax.swing.border.Border;
 public class ConnectionTool implements LevelTool {
 
     ConnectionType connectionType;
-    private CellTool cellTool;
     private DeletionTool deletionTool;
     private ExitBuilder exitBuilder;
 
-    public ConnectionTool(CellTool cellTool, DeletionTool deletionTool,
-                          ExitBuilder exitBuilder) {
-        this.cellTool = cellTool;
+    public ConnectionTool(DeletionTool deletionTool, ExitBuilder exitBuilder) {
         this.deletionTool = deletionTool;
         this.exitBuilder = exitBuilder;
     }
@@ -58,7 +55,7 @@ public class ConnectionTool implements LevelTool {
 
         // Check there isn't an Entity in the Cell already.
         if (entity == null && connectionType != ConnectionType.NONE) {
-            cellTool.addImage(cellPanel, connectionType.getPath());
+            cellPanel.addImage(connectionType.getPath());
             Border border = new Connection(connectionType).getBorder();
             cellPanel.setBorder(border);
         }
@@ -75,8 +72,8 @@ public class ConnectionTool implements LevelTool {
         Cell cell = cellPanel.getCell();
         Entity entity = cell.getEntity();
         if (entity == null) {
-            cellTool.removeImage(cellPanel);
-            cellTool.restoreDefaultBorder(cellPanel);
+            cellPanel.removeImage();
+            cellPanel.restoreDefaultBorder();
         }
     }
 
