@@ -19,49 +19,53 @@ package gui.infopanel.streeteditor;
  */
 
 import data.Level;
-import data.Street;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JList;
 
+/**
+ * Allows for the deletion of StreetNames from the list.
+ */
 public class DeleteListener implements ActionListener {
 
-    private final StreetEditor editor;
     private final Level level;
+    private final JList list;
+    private final DefaultListModel listModel;
+    private final JButton deleteButton;
+    private int selectedIndex;
 
     public DeleteListener(StreetEditor editor) {
-        this.editor = editor;
         this.level = editor.getLevel();
+        this.list = editor.getList();
+        this.listModel = editor.getListModel();
+        this.deleteButton = editor.getDeleteButton();
+        this.selectedIndex = list.getSelectedIndex();
     }
 
+    /**
+     * Determines the action performed when the DeleteButton is pressed.
+     * @param event The event originating the call.
+     */
     @Override
-    public void actionPerformed(ActionEvent e) {
-        JList list = editor.getList();
-        DefaultListModel listModel = editor.getListModel();
-        JButton button = editor.getDeleteButton();
-        int index = list.getSelectedIndex();
-
-        Street streetToBeRemoved = null;
-        for(Street street : level.getStreets()) {
-            if (street.getName().equalsIgnoreCase(
-                    listModel.getElementAt(index).toString())) {
-                streetToBeRemoved = street;
-            }
-        }
-        listModel.remove(index);
-        level.removeStreet(streetToBeRemoved);
-
+    public void actionPerformed(ActionEvent event) {
+        // Remove the street from the Level object.
+        String elementAtIndex = listModel.getElementAt(selectedIndex).toString();
+        level.removeStreet(level.getStreet(elementAtIndex));
+        // And remove it from the list model.
+        listModel.remove(selectedIndex);
+        // If the list model is empty, disable the delete button.
         if (listModel.getSize() == 0) {
-            button.setEnabled(false);
+            deleteButton.setEnabled(false);
         } else {
-            if (index == listModel.getSize()) {
-                index--;
+            // If the selected index has gone out of bounds, bring it back one.
+            if (selectedIndex == listModel.getSize()) {
+                selectedIndex--;
             }
-            list.setSelectedIndex(index);
-            list.ensureIndexIsVisible(index);
+            // Now set it, then make sure the user can see it.
+            list.setSelectedIndex(selectedIndex);
+            list.ensureIndexIsVisible(selectedIndex);
         }
     }
 

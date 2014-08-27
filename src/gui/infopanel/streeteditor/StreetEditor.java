@@ -22,7 +22,6 @@ import data.Level;
 import data.Street;
 import gui.infopanel.InfoPanel;
 import properties.Localization;
-
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.event.WindowAdapter;
@@ -44,14 +43,13 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class StreetEditor implements Runnable {
 
-    private DefaultListModel listModel;
-    private JList list;
+    private DefaultListModel<String> listModel;
+    private JList<String> list;
     private Localization localization = new Localization();
     private final String DELETE_STRING = localization.get("DeleteString");
     private final String ADD_STRING = localization.get("AddString");
@@ -66,7 +64,18 @@ public class StreetEditor implements Runnable {
         this.infoPanel = infoPanel;
         this.level = infoPanel.getLevel();
     }
-    
+
+    @Override
+    public void run() {
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            createAndShowGui();
+        } catch (ClassNotFoundException | InstantiationException |
+                IllegalAccessException | UnsupportedLookAndFeelException ex) {
+            logger.error(ex.toString());
+        }
+    }
+
     private void createAndShowGui() {
         JFrame frame = new JFrame(localization.get("EditorWindowTitle"));
         addComponentsToPane(frame.getContentPane());
@@ -75,38 +84,79 @@ public class StreetEditor implements Runnable {
         frame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent event) {
+                // Repopulate the street names in the info panel when this closes.
                 infoPanel.populateStreetNames();
             }
         });
     }
-    
-    @Override
-    public void run() {
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-            createAndShowGui();
-        } catch (ClassNotFoundException | InstantiationException | 
-                IllegalAccessException | UnsupportedLookAndFeelException ex) {
-            logger.error(ex.toString());
-        }
-        
-    }
-    
+
+    /**
+     * Creates and adds to the passed-in pane the components that actually make
+     * up the StreetEditor.
+     * @param pane The content pane to which the components should be added.
+     */
     public void addComponentsToPane(Container pane) {
         pane.setLayout(new BorderLayout());
-        listModel = new DefaultListModel();
 
+        // List of streets.
+        JScrollPane listScrollPane = new JScrollPane(getStreetNameList());
+
+        // Add the listScrollPane to the passed-in Container.
+        pane.add(listScrollPane, BorderLayout.CENTER);
+
+        JPanel buttonPane = new JPanel();
+        buttonPane.setLayout(new BoxLayout(buttonPane, BoxLayout.LINE_AXIS));
+        buttonPane.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
+
+        // Button to add streets to the list.
+        addButton = new JButton(ADD_STRING);
+        AddListener addListener = new AddListener(this);
+        addButton.addActionListener(addListener);
+        buttonPane.add(addButton);
+        buttonPane.add(Box.createHorizontalStrut(5));
+        buttonPane.add(new JSeparator(SwingConstants.VERTICAL));
+
+
+        // Field to input street names.
+        streetName = new JTextField(10);
+        streetName.addActionListener(addListener);
+        streetName.getDocument().addDocumentListener(addListener);
+        buttonPane.add(streetName);
+
+        // Button to remove streets from the list.
+        deleteButton = new JButton(DELETE_STRING);
+        // Disable if there are no streets to delete.
+        if(listModel.isEmpty()) {
+            deleteButton.setEnabled(false);
+        }
+        deleteButton.setActionCommand(DELETE_STRING);
+        deleteButton.addActionListener(new DeleteListener(this));
+        buttonPane.add(deleteButton);
+
+        // Add buttonPane to the passed-in Container.
+        pane.add(buttonPane, BorderLayout.PAGE_END);
+    }
+
+    /**
+     * Creates a list model containing all the street names within the level, then
+     * creates a new JList using that list model.  Adds an action listener, then
+     * returns the JList.
+     * @return a JList of objects that make up the street name list.
+     */
+    private JList<String> getStreetNameList() {
+        listModel = new DefaultListModel<>();
         for (Street street : level.getStreets()) {
             listModel.addElement(street.getName());
         }
-
-        list = new JList(listModel);
+        list = new JList<>(listModel);
         list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         list.setSelectedIndex(0);
         list.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent event) {
-                if (event.getValueIsAdjusting() == false) {
+                // Check changes aren't still being made.
+                if (!event.getValueIsAdjusting()) {
+                    // Check something is actually selected.
                     if (list.getSelectedIndex() == -1) {
                         deleteButton.setEnabled(false);
                     } else {
@@ -116,35 +166,9 @@ public class StreetEditor implements Runnable {
             }
         });
         list.setVisibleRowCount(5);
-        JScrollPane listScrollPane = new JScrollPane(list);
-
-        addButton = new JButton(ADD_STRING);
-        AddListener addListener = new AddListener(this, level);
-        addButton.addActionListener(addListener);
-
-        streetName = new JTextField(10);
-        streetName.addActionListener(addListener);
-        streetName.getDocument().addDocumentListener(addListener);
-
-        deleteButton = new JButton(DELETE_STRING);
-        if(listModel.isEmpty()) {
-            deleteButton.setEnabled(false);
-        }
-        deleteButton.setActionCommand(DELETE_STRING);
-        deleteButton.addActionListener(new DeleteListener(this));
-        
-        JPanel buttonPane = new JPanel();
-        buttonPane.setLayout(new BoxLayout(buttonPane, BoxLayout.LINE_AXIS));
-        buttonPane.add(addButton);
-        buttonPane.add(Box.createHorizontalStrut(5));
-        buttonPane.add(new JSeparator(SwingConstants.VERTICAL));
-        buttonPane.add(streetName);
-        buttonPane.add(deleteButton);
-        buttonPane.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
-        
-        pane.add(listScrollPane, BorderLayout.CENTER);
-        pane.add(buttonPane, BorderLayout.PAGE_END);
+        return list;
     }
+
 
     public JTextField getStreetNameField() {
         return this.streetName;
@@ -154,7 +178,7 @@ public class StreetEditor implements Runnable {
         return this.list;
     }
 
-    public DefaultListModel getListModel() {
+    public DefaultListModel<String> getListModel() {
         return this.listModel;
     }
 

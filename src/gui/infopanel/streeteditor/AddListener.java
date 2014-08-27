@@ -21,9 +21,7 @@ package gui.infopanel.streeteditor;
 import data.Level;
 import data.Street;
 import properties.Localization;
-
 import java.awt.HeadlessException;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.DefaultListModel;
@@ -33,84 +31,114 @@ import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
+/**
+ * Allows for the addition of street names to the list.
+ */
 class AddListener implements ActionListener, DocumentListener {
 
     private final StreetEditor editor;
     private final Level level;
+    private final JButton addButton;
+    private final JTextField streetNameField;
     private final Localization localization = new Localization();
     private final String ALREADY_EXISTS_MSG = localization.get("AlreadyExistsMessage");
     private final String NOT_EMPTY_MSG = localization.get("NotEmptyMessage");
 
-    public AddListener(StreetEditor editor, Level level) {
+    public AddListener(StreetEditor editor) {
         this.editor = editor;
-        this.level = level;
+        this.level = editor.getLevel();
+        this.addButton = editor.getAddButton();
+        this.streetNameField = editor.getStreetNameField();
     }
 
+    /**
+     * Determines the action performed when the AddButton is pressed.
+     * @param event The event originating the call.
+     */
     @Override
     public void actionPerformed(ActionEvent event) {
-        JTextField streetNameField = editor.getStreetNameField();
         String name = streetNameField.getText();
-        DefaultListModel listModel = editor.getListModel();
-
+        // Ensure we're getting the latest ListModel.
+        DefaultListModel<String> listModel = editor.getListModel();
+        // Check we're not adding a duplicate.
         if (listModel.contains(name)) {
             showDialog(ALREADY_EXISTS_MSG);
             return;
+        // Check we're not adding a street name with no characters.
         } else if (streetFieldIsEmpty()) {
             showDialog(NOT_EMPTY_MSG);
             return;
         }
-
-        listModel.insertElementAt(streetNameField.getText(), listModel.getSize());
+        // Add the street name to the next available index of the list.
+        listModel.add(listModel.getSize(), streetNameField.getText());
+        // Register the new street with the Level object while we're at it.
         level.addStreet(new Street(streetNameField.getText()));
+        // Now clear the text field.
         streetNameField.requestFocusInWindow();
         streetNameField.setText("");
     }
 
+    /**
+     * Enable to the AddButton in the StreetEditor if anything is entered into the
+     * StreetName field.
+     * @param event The event originating the call.
+     */
     @Override
     public void insertUpdate(DocumentEvent event) {
-        JButton button = editor.getAddButton();
-        if (!button.isEnabled()) {
-            button.setEnabled(true);
-        }
+        enableAddButton();
     }
 
+    /**
+     * Disable the AddButton if all text is removed from the StreetName field.
+     * @param event The event originating the call.
+     */
     @Override
     public void removeUpdate(DocumentEvent event) {
-        JButton button = editor.getAddButton();
         if (streetFieldIsEmpty()) {
-            button.setEnabled(false);
+            addButton.setEnabled(false);
         }
     }
 
+    /**
+     * If the Document changes, check to see if the StreetName field is empty. If
+     * it is, disable the AddButton, otherwise make sure it's still enabled.
+     * @param event The event originating the call.
+     */
     @Override
     public void changedUpdate(DocumentEvent event) {
-        JButton button = editor.getAddButton();
         if (streetFieldIsEmpty()) {
-            button.setEnabled(false);
+            addButton.setEnabled(false);
         } else {
-            enableButton();
+            enableAddButton();
         }
     }
 
+    /**
+     * Generic method for showing an error message.
+     * @param message The error message to be shown.
+     * @throws HeadlessException
+     */
     private void showDialog(String message) throws HeadlessException {
-        Toolkit.getDefaultToolkit().beep();
-        JOptionPane.showMessageDialog(null,
-                message,
-                localization.get("ErrorTitle"),
+        JOptionPane.showMessageDialog(null, message, localization.get("ErrorTitle"),
                 JOptionPane.WARNING_MESSAGE);
-        editor.getStreetNameField().requestFocusInWindow();
-        editor.getStreetNameField().selectAll();
+        streetNameField.requestFocusInWindow();
+        streetNameField.selectAll();
     }
 
-    public boolean streetFieldIsEmpty() {
-        JTextField streetField = editor.getStreetNameField();
-        return streetField.getText().length() <= 0;
+    /**
+     * Determines whether or not the StreetName field is empty.
+     * @return true if empty, otherwise false.
+     */
+    private boolean streetFieldIsEmpty() {
+        return streetNameField.getText().length() <= 0;
     }
 
-    public void enableButton() {
-        JButton button = editor.getAddButton();
-        if (!button.isEnabled()) {
-            button.setEnabled(true);
+    /**
+     * Enable the AddButton if it is not enabled already.
+     */
+    private void enableAddButton() {
+        if (!addButton.isEnabled()) {
+            addButton.setEnabled(true);
         }
     }
 }
