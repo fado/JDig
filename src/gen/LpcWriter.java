@@ -19,10 +19,8 @@ package gen;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import data.Room;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import properties.JdigProperties;
 import java.io.BufferedWriter;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -40,18 +38,16 @@ public class LpcWriter {
     /**
      * Writes an LPC file.
      * @param output The output String containing the contents of the LPC file.
-     * @param room The Room for which you are writing the LPC file.
+     * @param roomName The Room for which you are writing the LPC file.
      */
-    public void write(String output, Room room) {
+    public void write(String output, String roomName, String destinationPath) {
         try {
-            JdigProperties jdigProperties = new JdigProperties();
-            String destinationPath = jdigProperties.get("LpcOutputFolder");
             Writer writer = new BufferedWriter(new OutputStreamWriter(
-                    new FileOutputStream(destinationPath + room.getName() + ".c"),
+                    new FileOutputStream(destinationPath + roomName + ".c"),
                     Charset.defaultCharset()));
             writer.write(output);
             writer.flush();
-            logger.info("Writing LPC file for {0}", room.getName());
+            logger.info("Writing LPC file for {0}", roomName);
         } catch (IOException ex) {
             logger.error(ex.toString());
         }
