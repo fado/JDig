@@ -25,10 +25,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import properties.JdigProperties;
 
+import java.util.Properties;
+
 public class Jdig {
 
     static final Logger logger = LoggerFactory.getLogger(Jdig.class);
-    private static JdigProperties properties = new JdigProperties();
+    private static Properties properties = new JdigProperties();
 
     /**
      * Start of the thread of execution.  Pulls the default number of
@@ -39,8 +41,8 @@ public class Jdig {
      */
     public static void main(String[] args) {
         logger.info("Starting application...");
-        int defaultX = Integer.parseInt(properties.get("DefaultX"));
-        int defaultY = Integer.parseInt(properties.get("DefaultY"));
+        int defaultX = Integer.parseInt(properties.getProperty("DefaultX"));
+        int defaultY = Integer.parseInt(properties.getProperty("DefaultY"));
         MainUI ui = new MainUI(new Level(defaultX, defaultY));
         ui.run();
     }
