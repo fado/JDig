@@ -21,11 +21,14 @@ package gen;
 
 import data.Exit;
 import data.Room;
-import properties.JdigProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.text.MessageFormat;
+import java.util.List;
 
 /**
  * Formats Strings for inclusion in the final LPC file write.
@@ -58,12 +61,16 @@ public class StringFormatter {
      * @return a starting output String based on the template file.
      * @throws java.io.IOException
      */
-    public String getTemplateString() throws IOException {
-        Template template = new Template();
-        JdigProperties properties = new JdigProperties();
-        template.load(properties.get("Template"));
+    public String getTemplateString(String templatePath) throws IOException {
         logger.info("Getting lines...");
-        return template.getLines();
+        List<String> lines = Files.readAllLines(Paths.get(templatePath),
+                Charset.defaultCharset());
+        // Turn the List into a String and return it.
+        String output = "";
+        for(String line : lines) {
+            output += line;
+        }
+        return output;
     }
 
 }
