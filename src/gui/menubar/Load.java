@@ -35,7 +35,7 @@ public class Load extends Command {
 
     private File file;
     private JdigProperties jdigProperties = new JdigProperties();
-    private final String SAVE_FILE_LOCATION = jdigProperties.get("SaveFileLocation");
+    private final String SAVE_FILE_LOCATION = jdigProperties.getProperty("SaveFileLocation");
     static final Logger logger = LoggerFactory.getLogger(Load.class);
 
     @Override

@@ -31,7 +31,7 @@ import java.io.File;
 public class Save extends Command {
 
     private JdigProperties jdigProperties = new JdigProperties();
-    private final String SAVE_FILE_LOCATION = jdigProperties.get("SaveFileLocation");
+    private final String SAVE_FILE_LOCATION = jdigProperties.getProperty("SaveFileLocation");
     private Level level;
     private File file;
 

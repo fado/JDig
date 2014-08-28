@@ -109,7 +109,7 @@ public class MenuBar extends JMenuBar {
                     JdigProperties jdigProperties = new JdigProperties();
                     URL url;
                     try {
-                        url = new URL(jdigProperties.get("BugReportURL"));
+                        url = new URL(jdigProperties.getProperty("BugReportURL"));
                         desktop.browse(url.toURI());
                     } catch (URISyntaxException | IOException ex) {
                         logger.error(ex.toString());
