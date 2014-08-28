@@ -51,7 +51,9 @@ public class StreetNameListener implements ActionListener {
     public void actionPerformed(ActionEvent actionEvent) {
         if(!currentRooms.isEmpty()) {
             for(Room room : currentRooms) {
+                // Set the street name in the Room object.
                 room.setStreet((String) streetNameField.getSelectedItem());
+                // Add the room to the Street in the Level object.
                 Street street = level.getStreet(room.getStreet());
                 if(street != null) {
                     street.addRoom(room);
