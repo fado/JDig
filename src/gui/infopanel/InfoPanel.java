@@ -177,17 +177,17 @@ public class InfoPanel extends JPanel {
         roomNameField = LabeledComponent
                 .textField(localization.get("RoomNameLabel"),
                         new InfoPanelDocListener(this, new SetName()));
-        roomNameField.addtoPanel(panel);
+        roomNameField.addToPanel(panel);
 
         includeField = LabeledComponent
                 .textField(localization.get("IncludeLabel"),
                         new InfoPanelDocListener(this, new SetInclude()));
-        includeField.addtoPanel(panel);
+        includeField.addToPanel(panel);
 
         inheritField = LabeledComponent
                 .textField(localization.get("InheritLabel"),
                         new InfoPanelDocListener(this, new SetInherit()));
-        inheritField.addtoPanel(panel);
+        inheritField.addToPanel(panel);
 
         buildStreetNameField(panel);
 
@@ -204,12 +204,12 @@ public class InfoPanel extends JPanel {
         determinateField = LabeledComponent
                 .textField(localization.get("DeterminateLabel"),
                         new InfoPanelDocListener(this, new SetDeterminate()));
-        determinateField.addtoPanel(panel);
+        determinateField.addToPanel(panel);
 
         lightField = LabeledComponent
                 .textField(localization.get("LightLabel"),
                         new InfoPanelDocListener(this, new SetLight()));
-        lightField.addtoPanel(panel);
+        lightField.addToPanel(panel);
 
         longDescriptionField = LabeledComponent
                 .textArea(localization.get("LongDescLabel"),
