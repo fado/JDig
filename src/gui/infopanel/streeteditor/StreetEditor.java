@@ -110,7 +110,7 @@ public class StreetEditor implements Runnable {
 
         // Button to add streets to the list.
         addButton = new JButton(ADD_STRING);
-        AddListener addListener = new AddListener(this);
+        AddListener addListener = new AddListener(this, new ErrorDialog());
         addButton.addActionListener(addListener);
         buttonPane.add(addButton);
         buttonPane.add(Box.createHorizontalStrut(5));
@@ -120,7 +120,7 @@ public class StreetEditor implements Runnable {
         // Field to input street names.
         streetName = new JTextField(10);
         streetName.addActionListener(addListener);
-        streetName.getDocument().addDocumentListener(addListener);
+        streetName.getDocument().addDocumentListener(new StreetNameDocListener(this));
         buttonPane.add(streetName);
 
         // Button to remove streets from the list.
