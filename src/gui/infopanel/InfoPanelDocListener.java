@@ -19,14 +19,15 @@ package gui.infopanel;
  */
 
 import gui.infopanel.infosetters.SetterCommand;
-
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.text.BadLocationException;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Generic DocumentListener for the fields in the InfoPanel.
+ */
 public class InfoPanelDocListener implements DocumentListener {
 
     private final InfoPanel infoPanel;
@@ -37,28 +38,46 @@ public class InfoPanelDocListener implements DocumentListener {
         this.infoPanel = infoPanel;
         this.command = command;
     }
-    
+
+    /**
+     * Calls the update method if anything is added to the document.
+     * @param event The event originating the call.
+     */
     @Override
     public void insertUpdate(DocumentEvent event) {
         update(event);
     }
 
+    /**
+     * Calls the update method if anything is removed from the document.
+     * @param event The event originating the call.
+     */
     @Override
     public void removeUpdate(DocumentEvent event) {
         update(event);
     }
 
+    /**
+     * Calls the update method if the document is changed.
+     * @param event The event originating the call.
+     */
     @Override
     public void changedUpdate(DocumentEvent event) {
         update(event);
     }
-    
+
+    /**
+     * Pulls the text from the document that created the event and passes it to
+     * the setter command this listener was created with.
+     * @param event The event originating the call.
+     */
     private void update(DocumentEvent event) {
         try {
-            String update = event.getDocument().getText(0, event.getDocument()
-                    .getLength());
+            // Gets all text in the document that created the event.
+            String updateText = event.getDocument().getText(0, event.getDocument().getLength());
+            // Call the set method on the attached command for the current room.
             if(infoPanel.getCurrentRoom() != null) {
-                command.set(infoPanel.getCurrentRoom(), update);
+                command.set(infoPanel.getCurrentRoom(), updateText);
             }
         } catch (BadLocationException ex) {
             logger.error(ex.toString());
