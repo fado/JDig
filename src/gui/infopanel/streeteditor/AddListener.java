@@ -21,34 +21,27 @@ package gui.infopanel.streeteditor;
 import data.Level;
 import data.Street;
 import properties.Localization;
-import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.DefaultListModel;
-import javax.swing.JButton;
-import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 
 /**
  * Allows for the addition of street names to the list.
  */
-class AddListener implements ActionListener, DocumentListener {
+class AddListener implements ActionListener {
 
     private final StreetEditor editor;
     private final Level level;
-    private final JButton addButton;
-    private final JTextField streetNameField;
     private final Localization localization = new Localization();
     private final String ALREADY_EXISTS_MSG = localization.get("AlreadyExistsMessage");
     private final String NOT_EMPTY_MSG = localization.get("NotEmptyMessage");
+    private final MessageDialog messageDialog;
 
-    public AddListener(StreetEditor editor) {
+    public AddListener(StreetEditor editor, MessageDialog messageDialog) {
         this.editor = editor;
         this.level = editor.getLevel();
-        this.addButton = editor.getAddButton();
-        this.streetNameField = editor.getStreetNameField();
+        this.messageDialog = messageDialog;
     }
 
     /**
@@ -57,16 +50,17 @@ class AddListener implements ActionListener, DocumentListener {
      */
     @Override
     public void actionPerformed(ActionEvent event) {
+        JTextField streetNameField = editor.getStreetNameField();
         String name = streetNameField.getText();
         // Ensure we're getting the latest ListModel.
         DefaultListModel<String> listModel = editor.getListModel();
         // Check we're not adding a duplicate.
         if (listModel.contains(name)) {
-            showDialog(ALREADY_EXISTS_MSG);
+            messageDialog.showDialog(ALREADY_EXISTS_MSG, editor);
             return;
         // Check we're not adding a street name with no characters.
         } else if (streetFieldIsEmpty()) {
-            showDialog(NOT_EMPTY_MSG);
+            messageDialog.showDialog(NOT_EMPTY_MSG, editor);
             return;
         }
         // Add the street name to the next available index of the list.
@@ -79,66 +73,11 @@ class AddListener implements ActionListener, DocumentListener {
     }
 
     /**
-     * Enable to the AddButton in the StreetEditor if anything is entered into the
-     * StreetName field.
-     * @param event The event originating the call.
-     */
-    @Override
-    public void insertUpdate(DocumentEvent event) {
-        enableAddButton();
-    }
-
-    /**
-     * Disable the AddButton if all text is removed from the StreetName field.
-     * @param event The event originating the call.
-     */
-    @Override
-    public void removeUpdate(DocumentEvent event) {
-        if (streetFieldIsEmpty()) {
-            addButton.setEnabled(false);
-        }
-    }
-
-    /**
-     * If the Document changes, check to see if the StreetName field is empty. If
-     * it is, disable the AddButton, otherwise make sure it's still enabled.
-     * @param event The event originating the call.
-     */
-    @Override
-    public void changedUpdate(DocumentEvent event) {
-        if (streetFieldIsEmpty()) {
-            addButton.setEnabled(false);
-        } else {
-            enableAddButton();
-        }
-    }
-
-    /**
-     * Generic method for showing an error message.
-     * @param message The error message to be shown.
-     * @throws HeadlessException
-     */
-    private void showDialog(String message) throws HeadlessException {
-        JOptionPane.showMessageDialog(null, message, localization.get("ErrorTitle"),
-                JOptionPane.WARNING_MESSAGE);
-        streetNameField.requestFocusInWindow();
-        streetNameField.selectAll();
-    }
-
-    /**
      * Determines whether or not the StreetName field is empty.
      * @return true if empty, otherwise false.
      */
     private boolean streetFieldIsEmpty() {
-        return streetNameField.getText().length() <= 0;
+        return editor.getStreetNameField().getText().length() <= 0;
     }
 
-    /**
-     * Enable the AddButton if it is not enabled already.
-     */
-    private void enableAddButton() {
-        if (!addButton.isEnabled()) {
-            addButton.setEnabled(true);
-        }
-    }
 }
