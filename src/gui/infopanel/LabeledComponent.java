@@ -27,6 +27,9 @@ import javax.swing.JTextField;
 import javax.swing.event.DocumentListener;
 import javax.swing.text.JTextComponent;
 
+/**
+ * Generic LabeledComponent to make the creation of the InfoPanel cleaner.
+ */
 public class LabeledComponent {
     
     private final JComponent component;
@@ -37,7 +40,14 @@ public class LabeledComponent {
         label = new JLabel(labelText, JLabel.RIGHT);
         label.setLabelFor(this.component);
     }
-    
+
+    /**
+     * Static factory allowing for the creation of a new LabeledComponent based
+     * off a JTextField.
+     * @param labelText The text for the label.
+     * @param documentListener The document listener to be attached to the field.
+     * @return The new LabeledComponent.
+     */
     public static LabeledComponent textField(String labelText,
                                              DocumentListener documentListener) {
         JTextField component = new JTextField();
@@ -46,28 +56,52 @@ public class LabeledComponent {
         component.setPreferredSize(new Dimension(200, dimension.height));
         return new LabeledComponent(component, labelText);
     }
-    
+
+    /**
+     * Static factory allowing for the creation of a new LabeledComponent based
+     * off a JTextArea.
+     * @param labelText The text for the label.
+     * @param documentListener The document listener to be attached to the field.
+     * @return The new LabeledComponent.
+     */
     public static LabeledComponent textArea(String labelText,
                                             DocumentListener documentListener) {
         JTextArea component = new JTextArea(5, 60);
         component.getDocument().addDocumentListener(documentListener);
         return new LabeledComponent(component, labelText);
     }
-    
+
+    /**
+     * Return the base JComponent for this LabeledComponent.
+     * @return the base JComponent for this LabeledComponent.
+     */
     public JComponent getComponent() {
         return this.component;
     }
-    
+
+    /**
+     * Return the label for this LabeledComponent.
+     * @return the label for this LabeledComponent.
+     */
     public JLabel getLabel() {
         return this.label;
     }
-    
+
+    /**
+     * Set the text in the base JComponent for this LabeledComponent.  First
+     * casts it as a JTextComponent.
+     * @param string
+     */
     public void setText(String string) {
-        JTextComponent textField =(JTextComponent)this.component;
+        JTextComponent textField = (JTextComponent)this.component;
         textField.setText(string);
     }
-    
-    public void addtoPanel(JPanel panel) {
+
+    /**
+     * Adds this LabeledComponent to the passed-in panel.
+     * @param panel The panel the LabeledComponent should be added to.
+     */
+    public void addToPanel(JPanel panel) {
         panel.add(label);
         panel.add(component, "wrap");
     }
