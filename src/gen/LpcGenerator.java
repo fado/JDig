@@ -20,20 +20,18 @@ package gen;
  */
 
 import data.Room;
-import properties.JdigProperties;
-
 import java.io.IOException;
-import java.util.Properties;
 
 /**
  * Takes a Room object and produces an LPC file.
  */
 public class LpcGenerator {
 
-    private Properties jdigProperties;
+    private String templatePath, destinationPath;
 
-    public LpcGenerator() {
-        jdigProperties = new JdigProperties();
+    public LpcGenerator(String templatePath, String destinationPath) {
+        this.templatePath = templatePath;
+        this.destinationPath = destinationPath;
     }
 
     /**
@@ -44,7 +42,6 @@ public class LpcGenerator {
     public void generate(Room room) throws IOException {
         // Get the base output String.
         StringFormatter stringFormatter = new StringFormatter();
-        String templatePath = jdigProperties.getProperty("EpitaphTemplate");
         String output = stringFormatter.getTemplateString(templatePath);
         // Replace the main room variable Strings.
         StringReplacer stringReplacer = new StringReplacer();
@@ -54,7 +51,6 @@ public class LpcGenerator {
                 stringFormatter.getExitString(room));
         // Write the file.
         LpcWriter lpcWriter = new LpcWriter();
-        String destinationPath = jdigProperties.getProperty("LpcOutputFolder");
         lpcWriter.write(output, room.getName(), destinationPath);
     }
     
