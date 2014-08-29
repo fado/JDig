@@ -64,4 +64,12 @@ public class Street {
         return rooms;
     }
 
+    /**
+     * Returns the number of rooms in the Street.
+     * @return the number of rooms in the Street.
+     */
+    public int size() {
+        return rooms.size();
+    }
+
 }
