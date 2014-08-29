@@ -22,13 +22,11 @@ package gui.infotoolbar;
 import data.Level;
 import data.Room;
 import gen.LpcGenerator;
-import properties.JdigProperties;
 import properties.Localization;
 import javax.swing.JOptionPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.util.Properties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -41,10 +39,15 @@ public class GenerationListener implements ActionListener {
     private Localization localization = new Localization();
     static final Logger logger = LoggerFactory.getLogger(InfoToolbar.class);
     private final GenerationDialog generationMessage;
+    private String templatePath;
+    private String destinationPath;
 
-    public GenerationListener(Level level, GenerationMessage generationMessage) {
+    public GenerationListener(Level level, GenerationDialog generationMessage,
+                              String templatePath, String destinationPath) {
         this.level = level;
         this.generationMessage = generationMessage;
+        this.templatePath = templatePath;
+        this.destinationPath = destinationPath;
     }
 
     @Override
@@ -74,9 +77,6 @@ public class GenerationListener implements ActionListener {
      * Invokes the LPC Writer to write the Room into an LPC file.
      */
     private void writeRooms() {
-        Properties jdigProperties = new JdigProperties();
-        String templatePath = jdigProperties.getProperty("EpitaphTemplate");
-        String destinationPath = jdigProperties.getProperty("LpcOutputFolder");
         LpcGenerator writer = new LpcGenerator(templatePath, destinationPath);
         for(Room room : level.getRooms()) {
             try {

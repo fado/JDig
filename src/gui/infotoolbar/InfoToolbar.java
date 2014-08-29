@@ -21,14 +21,21 @@ package gui.infotoolbar;
 
 import data.Level;
 import gui.ToolbarButtonBuilder;
+import properties.JdigProperties;
 
 import javax.swing.JToolBar;
+import java.util.Properties;
 
 public class InfoToolbar extends JToolBar {
 
     public InfoToolbar(Level level) {
         setDefaultProperties();
-        this.add(ToolbarButtonBuilder.build("Generate", new GenerationListener(level)));
+        Properties jdigProperties = new JdigProperties();
+        String templatePath = jdigProperties.getProperty("EpitaphTemplate");
+        String destinationPath = jdigProperties.getProperty("LpcOutputFolder");
+        this.add(ToolbarButtonBuilder.build("Generate",
+                new GenerationListener(level, new GenerationMessage(),
+                        templatePath, destinationPath)));
     }
 
     /**
