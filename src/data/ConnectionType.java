@@ -19,29 +19,50 @@ package data;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+import properties.Images;
+import properties.JdigProperties;
+
 /**
  * Represents the types of Connection that can exist between rooms.
  */
 public enum ConnectionType {
-    NONE(null),
-    HORIZONTAL("./resources/images/horizontal_exit.png"),
-    VERTICAL("./resources/images/vertical_exit.png"),
-    FORWARD_DIAGONAL("./resources/images/forward_diagonal_exit.png"),
-    BACKWARD_DIAGONAL("./resources/images/back_diagonal_exit.png"),
-    X("./resources/images/x_exit.png");
+    NONE() {
+        @Override
+        public String getPath() {
+            return null;
+        }
+    },
+    HORIZONTAL() {
+        @Override
+        public String getPath() {
+            return new Images().getImagePath("HorizontalExit");
+        }
+    },
+    VERTICAL() {
+        @Override
+        public String getPath() {
+            return new Images().getImagePath("VerticalExit");
+        }
+    },
+    FORWARD_DIAGONAL() {
+        @Override
+        public String getPath() {
+            return new Images().getImagePath("ForwardDiagonalExit");
+        }
+    },
+    BACKWARD_DIAGONAL() {
+        @Override
+        public String getPath() {
+            return new Images().getImagePath("BackwardDiagonalExit");
+        }
+    },
+    X() {
+        @Override
+        public String getPath() {
+            return new Images().getImagePath("XExit");
+        }
+    };
 
-    private final String path;
-
-    ConnectionType(String path) {
-        this.path = path;
-    }
-
-    /**
-     * Returns the path of the image that corresponds to the ConnectionType.
-     * @return the path of the image that corresponds to the ConnectionType.
-     */
-    public String getPath() {
-        return this.path;
-    }
+    public abstract String getPath();
 
 }
