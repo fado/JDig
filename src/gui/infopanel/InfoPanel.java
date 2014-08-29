@@ -70,6 +70,7 @@ public class InfoPanel extends JPanel {
         this.level = level;
         setLayout(new MigLayout());
         JPanel contentPanel = createContentPanel();
+        contentPanel.setName("contentPanel");
         this.add(contentPanel, "wrap");
         exitPanel = createExitPanel();
         this.add(exitPanel);
@@ -81,9 +82,10 @@ public class InfoPanel extends JPanel {
      */
     private void buildStreetNameField(JPanel panel) {
         streetNameField = new JComboBox<>();
+        streetNameField.setName("streetNameField");
         Dimension dimension = streetNameField.getPreferredSize();
         streetNameField.setPreferredSize(new Dimension(200, dimension.height));
-        streetNameField.addActionListener(new StreetNameListener(currentRooms, level, streetNameField));
+        streetNameField.addActionListener(new StreetNameListener(currentRooms, level));
         populateStreetNames();
         JLabel streetNameLabel = new JLabel(localization.get("StreetName"), JLabel.RIGHT);
         streetNameLabel.setLabelFor(streetNameField);
