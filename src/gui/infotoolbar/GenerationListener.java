@@ -22,7 +22,6 @@ package gui.infotoolbar;
 import data.Level;
 import data.Room;
 import gen.LpcGenerator;
-import gui.infopanel.streeteditor.EditorDialog;
 import properties.JdigProperties;
 import properties.Localization;
 import javax.swing.JOptionPane;
@@ -30,7 +29,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.Properties;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -42,7 +40,7 @@ public class GenerationListener implements ActionListener {
     private Level level;
     private Localization localization = new Localization();
     static final Logger logger = LoggerFactory.getLogger(InfoToolbar.class);
-    private final GenerationMessage generationMessage;
+    private final GenerationDialog generationMessage;
 
     public GenerationListener(Level level, GenerationMessage generationMessage) {
         this.level = level;
