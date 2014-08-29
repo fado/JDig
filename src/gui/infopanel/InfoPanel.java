@@ -22,6 +22,7 @@ import data.Exit;
 import data.Level;
 import data.Room;
 import data.Street;
+import gui.infopanel.colorchooser.ColorChooserListener;
 import gui.levelpanel.CellPanel;
 import gui.infopanel.infosetters.*;
 import gui.infopanel.streeteditor.StreetEditor;
@@ -30,16 +31,12 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JColorChooser;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import net.miginfocom.swing.MigLayout;
 
@@ -62,9 +59,7 @@ public class InfoPanel extends JPanel {
     private LabeledComponent longDescriptionField;
     private List<Room> currentRooms = new ArrayList<>();
     private final Level level;
-    private Color color;
     private final Localization localization = new Localization();
-    private final String PROPAGATE_COLOR_MESS = localization.get("PropagateColorMessage");
 
     public InfoPanel(Level level) {
         this.level = level;
@@ -119,49 +114,8 @@ public class InfoPanel extends JPanel {
         colorChooserButton.setBackground(Color.WHITE);
         colorChooserButton.setOpaque(true);
         colorChooserButton.setBorder(BorderFactory.createLineBorder(Color.black));
-        colorChooserButton.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent event) {
-                color = JColorChooser.showDialog(null, "Choose", Color.WHITE);
-                colorChooserButton.setBackground(color);
-                if (!currentRooms.isEmpty()) {
-                    for (Room room : currentRooms) {
-                        colorRoom(room, room.getCellPanel());
-                    }
-                }
-            }
-        });
+        colorChooserButton.addMouseListener(new ColorChooserListener(this));
         panel.add(colorChooserButton, "wrap");
-    }
-
-    /**
-     * Sets the passed in Room/CellPanel to the selected color.
-     * @param room The Room whose color you want to change.
-     * @param cellPanel The CellPanel corresponding to the Room.
-     */
-    private void colorRoom(Room room, CellPanel cellPanel) {
-        cellPanel.setBackground(color);
-        cellPanel.getCell().setColor(color);
-        // Check and see if the Room is part of a Street.
-        if (room.getStreet() != null) {
-            colorStreet();
-        }
-    }
-
-    /**
-     * Allows the user to set an entire Street to the same color.
-     */
-    private void colorStreet() {
-        int value = JOptionPane.showOptionDialog(null, PROPAGATE_COLOR_MESS,
-                localization.get("SelectOptionTitle"),
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.QUESTION_MESSAGE, null, null, null);
-        if (value == JOptionPane.YES_OPTION) {
-            Street street = level.getStreet(getCurrentRoom().getStreet());
-            for (Room room : street.getRooms()) {
-                room.getCellPanel().setBackground(color);
-            }
-        }
     }
 
     /**
@@ -239,7 +193,7 @@ public class InfoPanel extends JPanel {
 
     /**
      * Updates the ExitPanel with the Exits in the passed-in Room.
-     * @param room The Room for which you want to load the Exits.
+     * @param room The Room for which you want to loadRoom the Exits.
      */
     public void updateExitPanel(Room room) {
         exitPanel.removeAll();
@@ -287,10 +241,18 @@ public class InfoPanel extends JPanel {
     }
 
     /**
+     * Returns all currently loaded rooms.
+     * @return all currently loaded rooms.
+     */
+    public List<Room> getCurrentRooms() {
+        return currentRooms;
+    }
+
+    /**
      * Checks the passed-in CellPanel for a connectible Entity.  If the Entity
      * is connectible, this method takes the information it needs from the CellPanel
      * before passing the Room on to be loaded into the InfoPanel.
-     * @param cellPanel The CellPanel from which you wish to load the data.
+     * @param cellPanel The CellPanel from which you wish to loadRoom the data.
      */
     public void load(CellPanel cellPanel) {
         // Double-check we're dealing with a Room.
@@ -299,15 +261,15 @@ public class InfoPanel extends JPanel {
             this.colorChooserButton.setBackground(cellPanel.getBackground());
             // Load the Room.
             Room room = (Room)cellPanel.getCell().getEntity();
-            load(room);
+            loadRoom(room);
         }
     }
 
     /**
      * Loads data from the passed-in Room into the InfoPanel.
-     * @param room The Room you wish to load into the InfoPanel.
+     * @param room The Room you wish to loadRoom into the InfoPanel.
      */
-    private void load(Room room) {
+    private void loadRoom(Room room) {
         if(currentRooms.isEmpty()) {
             // Add the passed-in Room to the list of selected Rooms.
             this.currentRooms.add(room);
@@ -315,7 +277,7 @@ public class InfoPanel extends JPanel {
             this.roomNameField.setText(room.getName());
             this.includeField.setText(room.getInclude());
             this.inheritField.setText(room.getInherit());
-            this.streetNameField.setSelectedItem(room.getStreet());
+            this.streetNameField.setSelectedItem(room.getStreetName());
             this.determinateField.setText(room.getDeterminate());
             this.lightField.setText(room.getLight());
             this.shortDescriptionField.setText(room.getShort());
