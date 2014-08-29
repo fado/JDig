@@ -20,7 +20,6 @@ package data;
  */
 
 import properties.Images;
-import properties.JdigProperties;
 
 /**
  * Represents the types of Connection that can exist between rooms.
