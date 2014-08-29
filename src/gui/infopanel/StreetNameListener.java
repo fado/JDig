@@ -33,13 +33,10 @@ public class StreetNameListener implements ActionListener {
 
     private List<Room> currentRooms;
     private Level level;
-    private JComboBox streetNameField;
 
-    public StreetNameListener(List<Room> currentRooms, Level level,
-                              JComboBox streetNameField) {
+    public StreetNameListener(List<Room> currentRooms, Level level) {
         this.currentRooms = currentRooms;
         this.level = level;
-        this.streetNameField = streetNameField;
     }
 
     /**
@@ -51,6 +48,7 @@ public class StreetNameListener implements ActionListener {
     public void actionPerformed(ActionEvent actionEvent) {
         if(!currentRooms.isEmpty()) {
             for(Room room : currentRooms) {
+                JComboBox streetNameField = (JComboBox)actionEvent.getSource();
                 // Set the street name in the Room object.
                 room.setStreet((String) streetNameField.getSelectedItem());
                 // Add the room to the Street in the Level object.
