@@ -25,43 +25,21 @@ import properties.Images;
  * Represents the types of Connection that can exist between rooms.
  */
 public enum ConnectionType {
-    NONE() {
-        @Override
-        public String getPath() {
-            return null;
-        }
-    },
-    HORIZONTAL() {
-        @Override
-        public String getPath() {
-            return new Images().getImagePath("HorizontalExit");
-        }
-    },
-    VERTICAL() {
-        @Override
-        public String getPath() {
-            return new Images().getImagePath("VerticalExit");
-        }
-    },
-    FORWARD_DIAGONAL() {
-        @Override
-        public String getPath() {
-            return new Images().getImagePath("ForwardDiagonalExit");
-        }
-    },
-    BACKWARD_DIAGONAL() {
-        @Override
-        public String getPath() {
-            return new Images().getImagePath("BackwardDiagonalExit");
-        }
-    },
-    X() {
-        @Override
-        public String getPath() {
-            return new Images().getImagePath("XExit");
-        }
-    };
+    NONE(null),
+    HORIZONTAL(new Images().getImagePath("HorizontalExit")),
+    VERTICAL(new Images().getImagePath("VerticalExit")),
+    FORWARD_DIAGONAL(new Images().getImagePath("ForwardDiagonalExit")),
+    BACKWARD_DIAGONAL(new Images().getImagePath("BackwardDiagonalExit")),
+    X(new Images().getImagePath("XExit"));
 
-    public abstract String getPath();
+    private String exitPath;
+
+    ConnectionType(String exitPath) {
+         this.exitPath = exitPath;
+    }
+
+    public String getPath() {
+        return this.exitPath;
+    }
 
 }
