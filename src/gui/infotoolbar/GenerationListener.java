@@ -22,6 +22,7 @@ package gui.infotoolbar;
 import data.Level;
 import data.Room;
 import gen.LpcGenerator;
+import gui.infopanel.streeteditor.EditorDialog;
 import properties.JdigProperties;
 import properties.Localization;
 import javax.swing.JOptionPane;
@@ -40,17 +41,19 @@ public class GenerationListener implements ActionListener {
 
     private Level level;
     private Localization localization = new Localization();
-    private final String NOT_EMPTY_MESS = localization.get("StreetNamesNotEmpty");
     static final Logger logger = LoggerFactory.getLogger(InfoToolbar.class);
+    private final GenerationMessage generationMessage;
 
-    public GenerationListener(Level level) {
+    public GenerationListener(Level level, GenerationMessage generationMessage) {
         this.level = level;
+        this.generationMessage = generationMessage;
     }
 
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
         if(roomsExistsWithoutName()) {
-            showNotEmptyMessage();
+            generationMessage.showDialog(localization.get("StreetNamesNotEmpty"),
+                    JOptionPane.WARNING_MESSAGE);
         } else {
             writeRooms();
         }
@@ -84,22 +87,7 @@ public class GenerationListener implements ActionListener {
                 logger.error(ex.toString());
             }
         }
-        showLpcGeneratedMessage();
-    }
-
-    /**
-     * Shows a message warning the user that room names cannot be empty.
-     */
-    private void showNotEmptyMessage() {
-        JOptionPane.showMessageDialog(null, NOT_EMPTY_MESS,
-                localization.get("WarningTitle"), JOptionPane.WARNING_MESSAGE);
-    }
-
-    /**
-     * Shows a message telling the user that the LPC file has been generated.
-     */
-    private void showLpcGeneratedMessage() {
-        JOptionPane.showMessageDialog(null, localization.get("LPCGeneratedMessage"),
-                localization.get("InfoTitle"), JOptionPane.INFORMATION_MESSAGE);
+        generationMessage.showDialog(localization.get("LPCGeneratedMessage"),
+                JOptionPane.INFORMATION_MESSAGE);
     }
 }
