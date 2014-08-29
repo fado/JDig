@@ -22,13 +22,20 @@ package gui.levelpanel;
 import data.Cell;
 import data.Level;
 import gui.leveltoolbar.LevelToolbar;
-
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import javax.swing.JPanel;
 
+/**
+ * Collection of CellPanels that make up the main level editor window.
+ */
 public class LevelPanel extends JPanel {
 
+    /**
+     * Constructor.
+     * @param level Currently loaded level.
+     * @param toolbar Toolbar associated with this LevelPanel.
+     */
     public LevelPanel(Level level, LevelToolbar toolbar) {
         setLayout(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
