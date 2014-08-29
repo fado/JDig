@@ -60,7 +60,7 @@ public class StreetNameListenerTest {
         streetNameField.addItem("foo");
         streetNameField.setSelectedItem("foo");
         streetNameListener.actionPerformed(testEvent);
-        assertTrue(room.getStreet().equals("foo"));
+        assertTrue(room.getStreetName().equals("foo"));
     }
 
     @Test
