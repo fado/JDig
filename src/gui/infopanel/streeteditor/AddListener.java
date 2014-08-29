@@ -20,6 +20,7 @@ package gui.infopanel.streeteditor;
 
 import data.Level;
 import data.Street;
+import gui.MessageDialog;
 import properties.Localization;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

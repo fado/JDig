@@ -1,5 +1,6 @@
-package gui.infopanel.streeteditor;
+package gui;
 
+import gui.infopanel.streeteditor.StreetEditor;
 import properties.Localization;
 
 import javax.swing.JOptionPane;

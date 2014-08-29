@@ -1,5 +1,7 @@
-package gui.infopanel.streeteditor;
+package gui;
 
+
+import gui.infopanel.streeteditor.StreetEditor;
 
 public interface MessageDialog {
 

@@ -20,6 +20,7 @@ package gui.infopanel.streeteditor;
 
 import data.Level;
 import data.Street;
+import gui.ErrorDialog;
 import gui.infopanel.InfoPanel;
 import properties.Localization;
 import java.awt.BorderLayout;
