@@ -117,7 +117,7 @@ public class Room implements Entity, Connectible {
      * Sets the name of the Street to which this Room belongs.
      * @param street The name of the Street to which this Room belongs.
      */
-    public void setStreet(String street) {
+    public void setStreetName(String street) {
         this.street = street;
     }
 
@@ -125,7 +125,7 @@ public class Room implements Entity, Connectible {
      * Gets the name of the Street to which this Room belongs.
      * @return the name of the Street to which this Room belongs.
      */
-    public String getStreet() {
+    public String getStreetName() {
         return this.street;
     }
 
