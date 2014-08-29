@@ -94,7 +94,7 @@ public class AddListenerTest {
  * Mock dialog class. Passed to AddListener so the okay button in
  * the dialog doesn't need to be clicked during the test.
  */
-class MockDialog implements MessageDialog {
+class MockDialog implements EditorDialog {
     @Override
     public void showDialog(String message, StreetEditor editor) { }
 }
