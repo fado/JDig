@@ -110,7 +110,7 @@ public class StreetEditor implements Runnable {
 
         // Button to add streets to the list.
         addButton = new JButton(ADD_STRING);
-        AddListener addListener = new AddListener(this, new EditorError());
+        AddListener addListener = new AddListener(this, new EditorErrorMessage());
         addButton.addActionListener(addListener);
         buttonPane.add(addButton);
         buttonPane.add(Box.createHorizontalStrut(5));

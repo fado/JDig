@@ -23,7 +23,7 @@ import properties.Localization;
 import javax.swing.JOptionPane;
 import java.awt.HeadlessException;
 
-public class EditorError implements EditorDialog {
+public class EditorErrorMessage implements EditorDialog {
 
     Localization localization = new Localization();
 
