@@ -53,7 +53,7 @@ public class Street {
      */
     public void addRoom(Room room) {
         rooms.add(room);
-        room.setStreet(this.name);
+        room.setStreetName(this.name);
     }
 
     /**
