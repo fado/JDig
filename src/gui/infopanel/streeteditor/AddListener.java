@@ -20,7 +20,6 @@ package gui.infopanel.streeteditor;
 
 import data.Level;
 import data.Street;
-import gui.MessageDialog;
 import properties.Localization;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -37,9 +36,9 @@ class AddListener implements ActionListener {
     private final Localization localization = new Localization();
     private final String ALREADY_EXISTS_MSG = localization.get("AlreadyExistsMessage");
     private final String NOT_EMPTY_MSG = localization.get("NotEmptyMessage");
-    private final MessageDialog messageDialog;
+    private final EditorDialog messageDialog;
 
-    public AddListener(StreetEditor editor, MessageDialog messageDialog) {
+    public AddListener(StreetEditor editor, EditorDialog messageDialog) {
         this.editor = editor;
         this.level = editor.getLevel();
         this.messageDialog = messageDialog;

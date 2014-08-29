@@ -20,7 +20,6 @@ package gui.infopanel.streeteditor;
 
 import data.Level;
 import data.Street;
-import gui.ErrorDialog;
 import gui.infopanel.InfoPanel;
 import properties.Localization;
 import java.awt.BorderLayout;
@@ -111,7 +110,7 @@ public class StreetEditor implements Runnable {
 
         // Button to add streets to the list.
         addButton = new JButton(ADD_STRING);
-        AddListener addListener = new AddListener(this, new ErrorDialog());
+        AddListener addListener = new AddListener(this, new EditorError());
         addButton.addActionListener(addListener);
         buttonPane.add(addButton);
         buttonPane.add(Box.createHorizontalStrut(5));
