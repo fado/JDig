@@ -19,28 +19,32 @@ package gui.menubar;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import persistence.LevelPersistence;
-
+import persistence.LevelLoader;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.File;
 import java.io.IOException;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import properties.JdigProperties;
 
-public class Load extends Command {
+public class LoadCommand extends Command {
 
+    private JFileChooser fileChooser;
+    private LevelLoader levelLoader;
     private File file;
     private JdigProperties jdigProperties = new JdigProperties();
     private final String SAVE_FILE_LOCATION = jdigProperties.getProperty("SaveFileLocation");
-    static final Logger logger = LoggerFactory.getLogger(Load.class);
+    static final Logger logger = LoggerFactory.getLogger(LoadCommand.class);
+
+    public LoadCommand(JFileChooser fileChooser, LevelLoader levelLoader) {
+        this.fileChooser = fileChooser;
+        this.levelLoader = levelLoader;
+    }
 
     @Override
     public void execute() {
-        JFileChooser fileChooser = new JFileChooser();
         fileChooser.setCurrentDirectory(new File(SAVE_FILE_LOCATION));
         FileFilter filter = new FileNameExtensionFilter("XML File", "xml");
         fileChooser.setFileFilter(filter);
@@ -48,9 +52,8 @@ public class Load extends Command {
             file = fileChooser.getSelectedFile();
         }
         if (file != null) {
-            LevelPersistence levelPersistence = new LevelPersistence();
             try {
-                levelPersistence.load(file);
+                levelLoader.load(file);
             } catch (IOException ex) {
                 logger.error(ex.toString());
             }
