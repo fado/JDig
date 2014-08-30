@@ -20,131 +20,89 @@ package gui.menubar;
  */
 
 import data.Level;
-import gui.levelpanel.CellPanel;
-import tools.RoomTool;
-import tools.SelectionTool;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import properties.JdigProperties;
+import persistence.LevelLoader;
 import properties.Localization;
+import tools.SelectionTool;
+
+import javax.swing.JFileChooser;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 import javax.swing.UIManager;
-import java.awt.Desktop;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.net.URL;
 
 public class MenuBar extends JMenuBar {
 
     private Level level;
     private SelectionTool selectionTool;
-    private RoomTool roomTool;
     private Localization localization = new Localization();
-    private final String DELETE_MESS = localization.get("DeleteMessage");
-    static final Logger logger = LoggerFactory.getLogger(MenuBar.class);
 
-    public MenuBar(Level level, final SelectionTool selectionTool, final RoomTool roomTool) {
+    public MenuBar(Level level, SelectionTool selectionTool) {
         this.level = level;
         this.selectionTool = selectionTool;
-        this.roomTool = roomTool;
         addComponentsToMenuBar(this);
     }
 
     private void addComponentsToMenuBar(JMenuBar menuBar) {
         UIManager.getDefaults().put("Button.showMnemonics", Boolean.TRUE);
 
+        // FILE MENU.
         JMenu fileMenu = new JMenu(localization.get("File"));
 
+        // Open - Open a Level.
         JMenuItem open = new JMenuItem(localization.get("Open"));
-        open.addActionListener(new MenuActionListener(new Load()));
+        open.addActionListener(new MenuActionListener(new LoadCommand(new JFileChooser(),
+                new LevelLoader())));
         open.setMnemonic(KeyEvent.VK_O);
         open.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.CTRL_MASK));
         fileMenu.add(open);
 
+        // Save - Save a Level.
         JMenuItem save = new JMenuItem(localization.get("SaveAs"));
-        save.addActionListener(new MenuActionListener( new Save(level)));
+        save.addActionListener(new MenuActionListener( new SaveCommand(level)));
         save.setMnemonic(KeyEvent.VK_S);
         save.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S,
                 InputEvent.CTRL_MASK | InputEvent.ALT_MASK));
         fileMenu.add(save);
 
         fileMenu.addSeparator();
+
+        // Exit - Exit the application.
         JMenuItem exit = new JMenuItem(localization.get("Exit"));
-        exit.addActionListener(new MenuActionListener( new Exit(level)));
+        exit.addActionListener(new MenuActionListener( new ExitCommand(level,
+                new DefaultLoadDialog(), new SaveCommand(level))));
         exit.setMnemonic(KeyEvent.VK_X);
         exit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, InputEvent.CTRL_MASK));
         fileMenu.add(exit);
 
         menuBar.add(fileMenu);
 
+        // EDIT MENU.
         JMenu editMenu = new JMenu(localization.get("Edit"));
 
+        // Delete - Delete a room or selected rooms.
         JMenuItem delete = new JMenuItem(localization.get("Delete"));
-        // TO-DO: Add an ActionListener for this.
+        delete.addActionListener(new MenuActionListener(new DeleteCommand(selectionTool)));
         delete.setMnemonic(KeyEvent.VK_D);
         delete.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0));
         editMenu.add(delete);
 
         menuBar.add(editMenu);
 
+        // HELP MENU.
         JMenu helpMenu = new JMenu(localization.get("Help"));
 
+        // Bug report - Report a bug in the system.
         JMenuItem bugReport = new JMenuItem(localization.get("BugReport"));
-        bugReport.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                Desktop desktop = null;
-                if (Desktop.isDesktopSupported()) {
-                    desktop = Desktop.getDesktop();
-                }
-                if (desktop != null && desktop.isSupported(Desktop.Action.BROWSE)) {
-                    JdigProperties jdigProperties = new JdigProperties();
-                    URL url;
-                    try {
-                        url = new URL(jdigProperties.getProperty("BugReportURL"));
-                        desktop.browse(url.toURI());
-                    } catch (URISyntaxException | IOException ex) {
-                        logger.error(ex.toString());
-                    }
-
-                }
-            }
-        });
-        bugReport.setMnemonic(KeyEvent.VK_R);
+        bugReport.addActionListener(new BugReportActionListener());
+                bugReport.setMnemonic(KeyEvent.VK_R);
         helpMenu.add(bugReport);
 
         menuBar.add(helpMenu);
 
         menuBar.setVisible(true);
-    }
-
-    private void deleteRoom(CellPanel cellPanel) {
-        //new DeletionTool(cellPanel);
-    }
-
-    private int showDeleteDialog() {
-        int option = JOptionPane.showOptionDialog(null, DELETE_MESS,
-                localization.get("SelectOptionTitle"),
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.WARNING_MESSAGE, null, null, null);
-        return option;
-    }
-
-    private int showDeleteDialog(int numberOfRooms) {
-        int option = JOptionPane.showOptionDialog(null,
-                "Are you sure you want to delete "+ numberOfRooms +" rooms?",
-                localization.get("SelectOptionTitle"),
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.WARNING_MESSAGE, null, null, null);
-        return option;
     }
 
 }
