@@ -21,6 +21,7 @@ package gui.menubar;
 
 import data.Level;
 import persistence.LevelLoader;
+import persistence.LevelSaver;
 import properties.Localization;
 import tools.SelectionTool;
 
@@ -61,7 +62,8 @@ public class MenuBar extends JMenuBar {
 
         // Save - Save a Level.
         JMenuItem save = new JMenuItem(localization.get("SaveAs"));
-        save.addActionListener(new MenuActionListener( new SaveCommand(level)));
+        save.addActionListener(new MenuActionListener( new SaveCommand(level, new JFileChooser(),
+                new LevelSaver())));
         save.setMnemonic(KeyEvent.VK_S);
         save.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S,
                 InputEvent.CTRL_MASK | InputEvent.ALT_MASK));
@@ -72,7 +74,8 @@ public class MenuBar extends JMenuBar {
         // Exit - Exit the application.
         JMenuItem exit = new JMenuItem(localization.get("Exit"));
         exit.addActionListener(new MenuActionListener( new ExitCommand(level,
-                new DefaultLoadDialog(), new SaveCommand(level))));
+                new DefaultLoadDialog(), new SaveCommand(level, new JFileChooser(),
+                new LevelSaver()))));
         exit.setMnemonic(KeyEvent.VK_X);
         exit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, InputEvent.CTRL_MASK));
         fileMenu.add(exit);

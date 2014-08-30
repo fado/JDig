@@ -33,6 +33,7 @@ import java.awt.GridBagLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -40,6 +41,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 import gui.menubar.SaveCommand;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import persistence.LevelSaver;
 import tools.ConnectionTool;
 import tools.DeletionTool;
 import tools.ExitBuilder;
@@ -126,7 +128,8 @@ public class MainUI implements Runnable {
             @Override
             public void windowClosing(WindowEvent event) {
                 new ExitCommand(MainUI.this.level, new DefaultLoadDialog(),
-                        new SaveCommand(level)).execute();
+                        new SaveCommand(level, new JFileChooser(),
+                                new LevelSaver())).execute();
             }
         });
         frame.setVisible(true);
