@@ -35,7 +35,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
-public class ExitBuilderTest {
+public class ExitCommandBuilderTest {
 
     Level testLevel;
     Point northPoint, southPoint, eastPoint, westPoint, northwestPoint,

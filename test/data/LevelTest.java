@@ -94,6 +94,13 @@ public class LevelTest {
     }
 
     @Test
+    public void testCellNotFoundReturnsDefaultCell() {
+        Cell cell = testLevel.getCellAt(new Point(100, 100));
+        assertTrue(cell.X == -1 && cell.Y == -1);
+    }
+
+
+    @Test
     public void testGetNorthAdjacent() {
         Cell cell = testLevel5.getCellAdjacentTo(testCellCenter, Direction.NORTH);
         Point actual = new Point(cell.X, cell.Y);

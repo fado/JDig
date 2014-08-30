@@ -27,10 +27,14 @@ import data.Room;
 import org.junit.Before;
 import org.junit.Test;
 import properties.Images;
+
+import java.awt.Color;
 import java.awt.Point;
 import static junit.framework.TestCase.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 public class CellPanelTest {
 
@@ -84,6 +88,14 @@ public class CellPanelTest {
     }
 
     @Test
+    public void testRestoreSetsBackgroundColor() {
+        cell.setEntity(new Room(null));
+        cell.setColor(Color.BLACK);
+        cellPanel = new CellPanel(cell);
+        assertEquals(cellPanel.getBackground(), Color.BLACK);
+    }
+
+    @Test
     public void testSelectWithEntityAddsImage() {
         Room room = new Room(null);
         cell.setEntity(room);
@@ -107,5 +119,26 @@ public class CellPanelTest {
         String expected = room.getNormalImage();
         String actual = selectedCellPanel.getEntityImagePath();
         assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testDeselectDoesNotAddImageForNonConnectible() {
+        cellPanel = new CellPanel(cell);
+        cellPanel.addImage(ConnectionType.VERTICAL.getPath());
+        cellPanel.deselect();
+        assertNull(cellPanel.getEntityImagePath());
+    }
+
+    @Test
+    public void testHasEntityImageReturnsFalseForNoEntityImage() {
+        cellPanel = new CellPanel(cell);
+        assertFalse(cellPanel.hasEntityImage());
+    }
+
+    @Test
+    public void testHasEntityImageReturnsTrueForEntityImage() {
+        cellPanel = new CellPanel(cell);
+        cellPanel.addImage(ConnectionType.VERTICAL.getPath());
+        assertTrue(cellPanel.hasEntityImage());
     }
 }

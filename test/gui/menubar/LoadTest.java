@@ -32,7 +32,7 @@ import static org.junit.Assert.assertTrue;
 
 public class LoadTest {
 
-    Load load;
+    LoadCommand loadCommand;
     JFileChooser fileChooser;
     LevelLoader levelLoader;
 
@@ -40,12 +40,12 @@ public class LoadTest {
     public void setUp() {
         fileChooser = new MockFileChooser();
         levelLoader = new MockLevelLoader();
-        load = new Load(fileChooser, levelLoader);
+        loadCommand = new LoadCommand(fileChooser, levelLoader);
     }
 
     @Test
     public void testCancelLoad() {
-        load.execute();
+        loadCommand.execute();
         MockLevelLoader loader = (MockLevelLoader)levelLoader;
         assertFalse(loader.fileLoaded());
     }
@@ -54,7 +54,7 @@ public class LoadTest {
     public void testApproveLoad() {
         MockFileChooser mockFileChooser = (MockFileChooser)fileChooser;
         mockFileChooser.setApprove(true);
-        load.execute();
+        loadCommand.execute();
         MockLevelLoader loader = (MockLevelLoader)levelLoader;
         assertTrue(loader.fileLoaded());
     }

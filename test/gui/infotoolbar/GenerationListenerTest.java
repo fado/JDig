@@ -76,7 +76,7 @@ class MockGenerationMessage implements GenerationDialog {
     boolean lpcGenerated = false;
 
     @Override
-    public void showDialog(String message, int type) {
+    public void showDialog(String message, String title, int type) {
         if (type == JOptionPane.INFORMATION_MESSAGE) {
             lpcGenerated = true;
         }

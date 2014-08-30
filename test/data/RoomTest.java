@@ -7,6 +7,7 @@ import org.junit.Test;
 import java.awt.Point;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 public class RoomTest {
 
@@ -31,6 +32,11 @@ public class RoomTest {
     @Test
     public void testGetExit() {
         assertEquals(testExit, testRoom.getExit(Direction.SOUTH));
+    }
+
+    @Test
+    public void testGetExitReturnsNullForNoExit() {
+        assertNull(testRoom.getExit(Direction.NORTH));
     }
 
 }
