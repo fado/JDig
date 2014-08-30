@@ -35,19 +35,23 @@ import java.util.List;
  */
 public class ColorChooserListener extends MouseAdapter {
 
-    private List<Room> currentRooms;
     private InfoPanel infoPanel;
     private List<Street> streets = new ArrayList<>();
     private ColorChooser colorChooser;
+    private RoomColorSetter roomColorSetter;
+    private StreetColorSetter streetColorSetter;
 
     /**
      * Constructor.
      * @param infoPanel the InfoPanel in which the color chooser is created.
      */
-    public ColorChooserListener(InfoPanel infoPanel, ColorChooser colorChooser) {
+    public ColorChooserListener(InfoPanel infoPanel, ColorChooser colorChooser,
+                                RoomColorSetter roomColorSetter,
+                                StreetColorSetter streetColorSetter) {
         this.infoPanel = infoPanel;
-        this.currentRooms = infoPanel.getCurrentRooms();
         this.colorChooser = colorChooser;
+        this.roomColorSetter = roomColorSetter;
+        this.streetColorSetter = streetColorSetter;
     }
 
     /**
@@ -61,9 +65,8 @@ public class ColorChooserListener extends MouseAdapter {
         JLabel colorChooserButton = (JLabel)event.getSource();
         colorChooserButton.setBackground(color);
         // Change the room color.
-        if (!currentRooms.isEmpty()) {
-            RoomColorSetter roomColorSetter = new RoomColorSetter();
-            for (Room room : currentRooms) {
+        if (!infoPanel.getCurrentRooms().isEmpty()) {
+            for (Room room : infoPanel.getCurrentRooms()) {
                 roomColorSetter.colorRoom(room, color);
                 getStreet(room);
             }
@@ -86,7 +89,7 @@ public class ColorChooserListener extends MouseAdapter {
         if(streetName != null) {
             street = infoPanel.getLevel().getStreet(streetName);
         }
-        if(!streets.contains(street)) {
+        if(street != null && !streets.contains(street)) {
             streets.add(street);
         }
     }
@@ -97,8 +100,6 @@ public class ColorChooserListener extends MouseAdapter {
      * @param color The color the Streets should be set to.
      */
     private void colorStreets(Color color) {
-        StreetColorSetter streetColorSetter =
-                new StreetColorSetter(new ColorStreetDialog());
         for(Street street : streets) {
             streetColorSetter.colorStreet(street, color);
         }
