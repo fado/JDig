@@ -20,28 +20,31 @@ package gui.menubar;
  */
 
 import data.Level;
-import persistence.LevelPersistence;
+import javafx.stage.FileChooser;
+import persistence.LevelSaver;
 import properties.JdigProperties;
-
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.File;
 
-public class Save extends Command {
+public class SaveCommand extends Command {
 
     private JdigProperties jdigProperties = new JdigProperties();
     private final String SAVE_FILE_LOCATION = jdigProperties.getProperty("SaveFileLocation");
     private Level level;
     private File file;
+    private JFileChooser fileChooser;
+    private LevelSaver levelSaver;
 
-    public Save(Level level) {
+    public SaveCommand(Level level, JFileChooser fileChooser, LevelSaver levelSaver) {
         this.level = level;
+        this.fileChooser = fileChooser;
+        this.levelSaver = levelSaver;
     }
 
     @Override
     public void execute() {
-        JFileChooser fileChooser = new JFileChooser();
         fileChooser.setCurrentDirectory(new File(SAVE_FILE_LOCATION));
         FileFilter filter = new FileNameExtensionFilter("XML File", "xml");
         fileChooser.setFileFilter(filter);
@@ -49,8 +52,8 @@ public class Save extends Command {
             file = fileChooser.getSelectedFile();
         }
         if (file != null) {
-            LevelPersistence levelPersistence = new LevelPersistence();
-            levelPersistence.save(level, file);
+            levelSaver.save(level, file);
         }
     }
+
 }
