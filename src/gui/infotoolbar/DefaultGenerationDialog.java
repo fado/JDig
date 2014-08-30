@@ -19,26 +19,16 @@ package gui.infotoolbar;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import properties.Localization;
 import javax.swing.JOptionPane;
 
+/**
+ * Default dialog box for LPC generation.
+ */
 public class DefaultGenerationDialog implements GenerationDialog {
 
-    Localization localization = new Localization();
-
     @Override
-    public void showDialog(String message, int type) {
-        JOptionPane.showMessageDialog(null, message, getTitle(type), type);
-    }
-
-    private String getTitle(int type) {
-        if (type == JOptionPane.WARNING_MESSAGE) {
-            return localization.get("InfoTitle");
-        }
-        if (type == JOptionPane.INFORMATION_MESSAGE) {
-            return localization.get("WarningTitle");
-        }
-        return null;
+    public void showDialog(String message, String title, int type) {
+        JOptionPane.showMessageDialog(null, message, title, type);
     }
 
 }

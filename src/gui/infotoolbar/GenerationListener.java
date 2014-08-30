@@ -54,6 +54,7 @@ public class GenerationListener implements ActionListener {
     public void actionPerformed(ActionEvent actionEvent) {
         if(roomsExistsWithoutName()) {
             generationMessage.showDialog(localization.get("StreetNamesNotEmpty"),
+                    localization.get("WarningTitle"),
                     JOptionPane.WARNING_MESSAGE);
         } else {
             writeRooms();
@@ -86,6 +87,7 @@ public class GenerationListener implements ActionListener {
             }
         }
         generationMessage.showDialog(localization.get("LPCGeneratedMessage"),
+                localization.get("InfoTitle"),
                 JOptionPane.INFORMATION_MESSAGE);
     }
 }

@@ -19,8 +19,11 @@ package gui.infotoolbar;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**
+ * Interface for LPC generation dialog box.
+ */
 public interface GenerationDialog {
 
-    void showDialog(String message, int type);
+    void showDialog(String message, String title, int type);
 
 }
