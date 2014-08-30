@@ -24,7 +24,8 @@ import gui.infopanel.InfoPanel;
 import gui.infotoolbar.InfoToolbar;
 import gui.levelpanel.LevelPanel;
 import gui.leveltoolbar.LevelToolbar;
-import gui.menubar.Exit;
+import gui.menubar.DefaultLoadDialog;
+import gui.menubar.ExitCommand;
 import gui.menubar.MenuBar;
 import java.awt.Container;
 import java.awt.GridBagConstraints;
@@ -35,6 +36,8 @@ import java.io.IOException;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+
+import gui.menubar.SaveCommand;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import tools.ConnectionTool;
@@ -117,13 +120,13 @@ public class MainUI implements Runnable {
         JFrame frame = new JFrame("JDig");
         addComponentsToPane(frame.getContentPane());
         // Setup the menu bar.
-        frame.setJMenuBar(new MenuBar(this.level, toolbar.getSelectionTool(),
-                toolbar.getRoomTool()));
+        frame.setJMenuBar(new MenuBar(this.level, toolbar.getSelectionTool()));
         // Set custom window close behaviour.
         frame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent event) {
-                new Exit(MainUI.this.level).execute();
+                new ExitCommand(MainUI.this.level, new DefaultLoadDialog(),
+                        new SaveCommand(level)).execute();
             }
         });
         frame.setVisible(true);
