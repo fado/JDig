@@ -22,7 +22,7 @@ package gui.infotoolbar;
 import properties.Localization;
 import javax.swing.JOptionPane;
 
-public class GenerationMessage implements GenerationDialog {
+public class DefaultGenerationDialog implements GenerationDialog {
 
     Localization localization = new Localization();
 

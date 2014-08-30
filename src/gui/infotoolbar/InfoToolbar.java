@@ -34,7 +34,7 @@ public class InfoToolbar extends JToolBar {
         String templatePath = jdigProperties.getProperty("EpitaphTemplate");
         String destinationPath = jdigProperties.getProperty("LpcOutputFolder");
         this.add(ToolbarButtonBuilder.build("Generate",
-                new GenerationListener(level, new GenerationMessage(),
+                new GenerationListener(level, new DefaultGenerationDialog(),
                         templatePath, destinationPath)));
     }
 
