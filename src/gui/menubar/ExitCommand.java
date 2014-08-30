@@ -19,29 +19,25 @@ package gui.menubar;
  */
 
 import data.Level;
-import properties.Localization;
-
 import javax.swing.JOptionPane;
 
-public class Exit extends Command {
+public class ExitCommand extends Command {
 
     private final Level level;
-    private Localization localization = new Localization();
-    private final String EXIT_MESS = localization.get("ExitMess");
-    private final String EXIT_TITLE = localization.get("SaveTitle");
+    private LoadDialog loadDialog;
+    private Command saveCommand;
 
-    public Exit(Level level) {
+    public ExitCommand(Level level, LoadDialog loadDialog, SaveCommand saveCommand) {
         this.level = level;
+        this.loadDialog = loadDialog;
+        this.saveCommand = saveCommand;
     }
 
     public void execute() {
         if(!level.getRooms().isEmpty()) {
-            int option = JOptionPane.showOptionDialog(null, EXIT_MESS, EXIT_TITLE,
-                    JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE,
-                    null, null, null);
+            int option = loadDialog.showDialog();
             if(option == JOptionPane.YES_OPTION) {
-                Save save = new Save(level);
-                save.execute();
+                saveCommand.execute();
             }
             if(option == JOptionPane.NO_OPTION) {
                 System.exit(0);
@@ -50,4 +46,5 @@ public class Exit extends Command {
             System.exit(0);
         }
     }
+
 }
