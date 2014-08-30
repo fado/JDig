@@ -34,7 +34,7 @@ public class Room implements Entity, Connectible {
     private String include = "";
     private String inherit = "";
     private String name = "";
-    private String street;
+    private String streetName;
     private String longDescription = "";
     private String shortDescription = "";
     private String determinate = "";
@@ -115,10 +115,10 @@ public class Room implements Entity, Connectible {
 
     /**
      * Sets the name of the Street to which this Room belongs.
-     * @param street The name of the Street to which this Room belongs.
+     * @param streetName The name of the Street to which this Room belongs.
      */
-    public void setStreetName(String street) {
-        this.street = street;
+    public void setStreetName(String streetName) {
+        this.streetName = streetName;
     }
 
     /**
@@ -126,7 +126,7 @@ public class Room implements Entity, Connectible {
      * @return the name of the Street to which this Room belongs.
      */
     public String getStreetName() {
-        return this.street;
+        return this.streetName;
     }
 
     /**
