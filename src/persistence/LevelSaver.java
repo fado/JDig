@@ -23,12 +23,9 @@ import data.Exit;
 import data.Level;
 import data.Room;
 import data.Street;
-import gui.MainUI;
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
@@ -39,10 +36,10 @@ import org.slf4j.LoggerFactory;
 /**
  * Uses the XStream library to convert a JDig Level object to XML.
  */
-public class LevelPersistence {
+public class LevelSaver {
 
     private XStream xStream = new XStream();
-    static final Logger logger = LoggerFactory.getLogger(LevelPersistence.class);
+    static final Logger logger = LoggerFactory.getLogger(LevelSaver.class);
 
     /**
      * Converts the passed-in Level to XML before passing it on to be written to
@@ -77,23 +74,6 @@ public class LevelPersistence {
         } catch (IOException ex) {
             logger.error(ex.toString());
         }
-    }
-
-    /**
-     * Converts a File containing XML back into a Level object.
-     * @param file The XML File to be loaded.
-     * @throws IOException
-     */
-    public void load(File file) throws IOException {
-        BufferedReader reader = new BufferedReader(new FileReader(file));
-        StringBuffer buffer = new StringBuffer();
-        String line;
-        while((line = reader.readLine()) !=  null) {
-            buffer.append(line);
-        }
-        Level level = (Level)xStream.fromXML(buffer.toString());
-        MainUI ui = new MainUI(level);
-        ui.run();
     }
 
 }
