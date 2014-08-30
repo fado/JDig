@@ -48,6 +48,7 @@ public class StreetColorSetter {
         if (value == JOptionPane.YES_OPTION) {
             for (Room room : street.getRooms()) {
                 room.getCellPanel().setBackground(color);
+                room.getCellPanel().getCell().setColor(color);
             }
         }
     }
