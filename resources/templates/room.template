@@ -1,0 +1,13 @@
+%include%
+
+%inherit%
+
+void setup() {
+    set_short ("%short%");
+    //add_property ("determinate", "%determinate%");
+    set_long ("%long%");
+    set_light ("%light%");
+   
+    %exit%
+   
+}
