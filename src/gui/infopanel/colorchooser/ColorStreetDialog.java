@@ -26,7 +26,7 @@ import javax.swing.JOptionPane;
  * Displays a JOptionPane that determines whether or not a selected
  * color should be propagated through all Rooms in a Street.
  */
-public class ColorStreetMessage implements ColorDialog {
+public class ColorStreetDialog implements ColorDialog {
 
     Localization localization = new Localization();
 

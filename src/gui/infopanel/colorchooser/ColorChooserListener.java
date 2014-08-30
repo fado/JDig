@@ -38,14 +38,16 @@ public class ColorChooserListener extends MouseAdapter {
     private List<Room> currentRooms;
     private InfoPanel infoPanel;
     private List<Street> streets = new ArrayList<>();
+    private ColorChooser colorChooser;
 
     /**
      * Constructor.
      * @param infoPanel the InfoPanel in which the color chooser is created.
      */
-    public ColorChooserListener(InfoPanel infoPanel) {
+    public ColorChooserListener(InfoPanel infoPanel, ColorChooser colorChooser) {
         this.infoPanel = infoPanel;
         this.currentRooms = infoPanel.getCurrentRooms();
+        this.colorChooser = colorChooser;
     }
 
     /**
@@ -54,7 +56,7 @@ public class ColorChooserListener extends MouseAdapter {
      */
     @Override
     public void mouseClicked(MouseEvent event) {
-        Color color = JColorChooser.showDialog(null, "Choose", Color.WHITE);
+        Color color = colorChooser.showDialog();
         // Set the colorChooserButton background to the chosen color.
         JLabel colorChooserButton = (JLabel)event.getSource();
         colorChooserButton.setBackground(color);
@@ -96,7 +98,7 @@ public class ColorChooserListener extends MouseAdapter {
      */
     private void colorStreets(Color color) {
         StreetColorSetter streetColorSetter =
-                new StreetColorSetter(new ColorStreetMessage());
+                new StreetColorSetter(new ColorStreetDialog());
         for(Street street : streets) {
             streetColorSetter.colorStreet(street, color);
         }
