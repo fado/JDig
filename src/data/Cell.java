@@ -19,7 +19,6 @@ package data;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import gui.levelpanel.CellPanel;
 import java.awt.Color;
 import java.awt.Point;
 import java.util.HashMap;
