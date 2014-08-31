@@ -1,6 +1,6 @@
-%include%
+include %include%;
 
-%inherit%
+inherit %inherit%;
 
 void setup() {
     set_short ("%short%");
