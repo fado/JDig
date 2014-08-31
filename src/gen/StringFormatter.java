@@ -68,7 +68,7 @@ public class StringFormatter {
         // Turn the List into a String and return it.
         String output = "";
         for(String line : lines) {
-            output += line;
+            output += line +"\n";
         }
         return output;
     }
