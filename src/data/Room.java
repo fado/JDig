@@ -45,7 +45,7 @@ public class Room implements Entity, Connectible {
     private final CellPanel cellPanel;
 
     /**
-     * Default constructor.
+     * Constructor.
      * @param cellPanel The CellPanel that represents the Cell containing this room
      *                  in the UI.
      */
