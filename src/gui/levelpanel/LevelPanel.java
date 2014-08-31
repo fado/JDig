@@ -21,33 +21,74 @@ package gui.levelpanel;
 
 import data.Cell;
 import data.Level;
-import gui.leveltoolbar.LevelToolbar;
+import gui.JdigComponent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Point;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JPanel;
 
 /**
  * Collection of CellPanels that make up the main level editor window.
  */
-public class LevelPanel extends JPanel {
+public class LevelPanel extends JPanel implements JdigComponent {
 
     /**
      * Constructor.
      * @param level Currently loaded level.
-     * @param toolbar Toolbar associated with this LevelPanel.
      */
-    public LevelPanel(Level level, LevelToolbar toolbar) {
+    public LevelPanel(Level level) {
         setLayout(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
-        
+
         for(Cell cell : level.getAllCells()) {
             constraints.gridx = cell.X;
             constraints.gridy = cell.Y;
             CellPanel cellPanel = new CellPanel(cell);
-            cell.setCellPanel(cellPanel);
             add(cellPanel, constraints);
-            toolbar.addToolListener(cellPanel);
         }
+    }
+
+    /**
+     * Get the GridBagConstraints for this object.
+     */
+    public GridBagConstraints getConstraints() {
+        GridBagConstraints constraints = new GridBagConstraints();
+        constraints.weightx = 0.1;
+        constraints.weighty = 0.1;
+        constraints.fill = GridBagConstraints.BOTH;
+        constraints.gridx = 0;
+        constraints.gridy = 1;
+        return constraints;
+    }
+
+    /**
+     * Gets the CellPanel at the passed in point.
+     * @param point The point at which the CellPanel lies.
+     * @return the CellPanel at the passed in point.
+     */
+    public CellPanel getCellPanel(Point point) {
+        CellPanel cellPanel = null;
+        for(Component component : this.getComponents()) {
+            CellPanel componentPanel = (CellPanel)component;
+            if(componentPanel.getPanelX() == point.x && componentPanel.getPanelY() == point.y) {
+                cellPanel = componentPanel;
+            }
+        }
+        return cellPanel;
+    }
+
+    public List<CellPanel> getAllCellPanels() {
+        List<CellPanel> cellPanels = new ArrayList<>();
+        for(Component component : this.getComponents()) {
+            cellPanels.add((CellPanel)component);
+        }
+        return cellPanels;
     }
     
 }
