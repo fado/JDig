@@ -40,7 +40,6 @@ public class Cell {
     public final int Y;
     private final Level level;
     private Entity entity;
-    private CellPanel cellPanel;
     private Color color;
 
     /**
