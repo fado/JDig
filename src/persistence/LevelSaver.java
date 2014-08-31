@@ -19,12 +19,8 @@ package persistence;
  */
 
 import data.Cell;
-import data.Connection;
-import data.Exit;
-import data.ExitType;
 import data.Level;
 import data.Room;
-import data.Street;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -35,7 +31,6 @@ import com.thoughtworks.xstream.XStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import properties.Localization;
-
 import javax.swing.JOptionPane;
 
 /**
@@ -54,15 +49,11 @@ public class LevelSaver {
      */
     public void save(Level level, File file) {
         // Create the XML String from the Level.
+        xStream.omitField(Cell.class, "level");
+        xStream.omitField(Room.class, "localization");
+        xStream.omitField(Room.class, "images");
+        xStream.omitField(Room.class, "cellPanel");
         String xml = xStream.toXML(level);
-        // Setup the class aliases XStream should use.
-        xStream.alias("level", Level.class);
-        xStream.alias("connection", Connection.class);
-        xStream.alias("exittype", ExitType.class);
-        xStream.alias("cell", Cell.class);
-        xStream.alias("room", Room.class);
-        xStream.alias("street", Street.class);
-        xStream.alias("exit", Exit.class);
         // Write the file.
         write(xml, file);
         Localization localization = new Localization();
@@ -77,8 +68,9 @@ public class LevelSaver {
      */
     private void write(String xml, File file) {
         try {
+            // Creating a new save file.
             Writer writer = new BufferedWriter(new OutputStreamWriter(
-                    new FileOutputStream(file + ".xml"), "UTF-8"));
+                    new FileOutputStream(file), "UTF-8"));
             writer.write(xml);
             writer.flush();
         } catch (IOException ex) {
