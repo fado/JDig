@@ -1,6 +1,7 @@
 package gui.menubar;
 
 import gui.levelpanel.CellPanel;
+import main.ApplicationFactory;
 import tools.DeletionTool;
 import tools.SelectionTool;
 
@@ -17,7 +18,7 @@ public class DeleteCommand extends Command {
     @Override
     public void execute() {
         List<CellPanel> selectedPanels = selectionTool.getSelectedPanels();
-        DeletionTool deletionTool = new DeletionTool();
+        DeletionTool deletionTool = ApplicationFactory.INSTANCE.getDeletionTool();
         for(CellPanel cellPanel : selectedPanels) {
             deletionTool.deleteEntity(cellPanel);
         }
