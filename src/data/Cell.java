@@ -72,22 +72,6 @@ public class Cell {
     }
 
     /**
-     * Sets the CellPanel that corresponds to this Cell.
-     * @param cellPanel The corresponding CellPanel.
-     */
-    public void setCellPanel(CellPanel cellPanel) {
-        this.cellPanel = cellPanel;
-    }
-
-    /**
-     * Gets the CellPanel that corresponds to this Cell.
-     * @return the corresponding CellPanel.
-     */
-    public CellPanel getCellPanel() {
-        return this.cellPanel;
-    }
-
-    /**
      * Returns the Level in which this Cell exists.
      * @return the parent Level of the Cell.
      */
