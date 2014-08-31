@@ -27,6 +27,9 @@ import data.Exit;
 import data.Level;
 import data.Room;
 import gui.levelpanel.CellPanel;
+import gui.levelpanel.LevelPanel;
+
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -35,6 +38,12 @@ import java.util.Map;
  * Deletes Entities from Cells in a safe and logical manner.
  */
 public class DeletionTool {
+
+    private LevelPanel levelPanel;
+
+    public DeletionTool(LevelPanel levelPanel) {
+        this.levelPanel = levelPanel;
+    }
 
     /**
      * Deletes the Entity in the passed-in CellPanel.
@@ -130,8 +139,9 @@ public class DeletionTool {
         for(Cell aCell : adjacentCells.values()) {
             // Ensure you're trying to remove a valid Cell.
             if(aCell.X != -1 && aCell.Y != -1) {
-                aCell.getCellPanel().removeImage();
-                aCell.getCellPanel().restoreDefaultBorder();
+                CellPanel cellPanel = levelPanel.getCellPanel(new Point(aCell.X, aCell.Y));
+                cellPanel.removeImage();
+                cellPanel.restoreDefaultBorder();
                 aCell.setEntity(null);
             }
         }
