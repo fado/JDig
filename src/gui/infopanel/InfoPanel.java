@@ -22,6 +22,7 @@ import data.Exit;
 import data.Level;
 import data.Room;
 import data.Street;
+import gui.JdigComponent;
 import gui.infopanel.colorchooser.ColorChooserListener;
 import gui.infopanel.colorchooser.ColorStreetDialog;
 import gui.infopanel.colorchooser.DefaultColorChooser;
@@ -33,6 +34,7 @@ import gui.infopanel.streeteditor.StreetEditor;
 import properties.Localization;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GridBagConstraints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -49,7 +51,7 @@ import net.miginfocom.swing.MigLayout;
  * currently selected CellPanel, and allowing the user to manipulate the data
  * contained within the corresponding Cell.
  */
-public class InfoPanel extends JPanel {
+public class InfoPanel extends JPanel implements JdigComponent {
 
     private LabeledComponent roomNameField;
     private JComboBox<String> streetNameField;
@@ -223,6 +225,19 @@ public class InfoPanel extends JPanel {
         for (Street street : level.getStreets()) {
             streetNameField.addItem(street.getName());
         }
+    }
+
+    /**
+     * Get the GridBagConstraints for this object.
+     */
+    public GridBagConstraints getConstraints() {
+        GridBagConstraints constraints = new GridBagConstraints();
+        constraints.weightx = 0.1;
+        constraints.weighty = 0.1;
+        constraints.fill = GridBagConstraints.BOTH;
+        constraints.gridx = 1;
+        constraints.gridy = 1;
+        return constraints;
     }
 
     /**
