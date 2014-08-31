@@ -19,45 +19,25 @@ package gui;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import data.Level;
-import gui.infopanel.InfoPanel;
-import gui.infotoolbar.InfoToolbar;
-import gui.levelpanel.LevelPanel;
-import gui.leveltoolbar.LevelToolbar;
-import gui.menubar.DefaultLoadDialog;
-import gui.menubar.ExitCommand;
-import gui.menubar.MenuBar;
+import java.awt.Component;
 import java.awt.Container;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-
-import gui.menubar.SaveCommand;
+import data.Level;
+import main.ApplicationFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import persistence.LevelSaver;
-import tools.ConnectionTool;
-import tools.DeletionTool;
-import tools.ExitBuilder;
-import tools.PlacementRestriction;
-import tools.RoomTool;
-import tools.SelectionTool;
 
 public class MainUI implements Runnable {
 
-    private final Level level;
-    private LevelToolbar toolbar;
     static final Logger logger = LoggerFactory.getLogger(MainUI.class);
-    private SelectionTool selectionTool;
-    private RoomTool roomTool;
-    private ConnectionTool connectionTool;
-    private InfoPanel infoPanel;
+    private Level level;
 
     public MainUI(Level level) {
         this.level = level;
@@ -70,48 +50,21 @@ public class MainUI implements Runnable {
      * @throws IOException
      */
     private void addComponentsToPane(Container pane) throws IOException {
+        pane = setupConstraints(pane);
+
+        JdigComponent[] components = ApplicationFactory.INSTANCE.getGuiComponents();
+        for(JdigComponent component : components) {
+            pane.add((Component)component, component.getConstraints());
+        }
+    }
+
+    private Container setupConstraints(Container pane) {
         pane.setLayout(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
         constraints.weightx = 0.1;
         constraints.weighty = 0.1;
         constraints.fill = GridBagConstraints.BOTH;
-
-        infoPanel = new InfoPanel(this.level);
-        constraints.gridx = 1;
-        constraints.gridy = 1;
-        pane.add(infoPanel, constraints);
-
-        InfoToolbar infoToolbar = new InfoToolbar(this.level);
-        constraints.gridx = 1;
-        constraints.gridy = 0;
-        pane.add(infoToolbar, constraints);
-
-        createTools();
-
-        toolbar = new LevelToolbar(selectionTool, roomTool, connectionTool);
-        constraints.gridx = 0;
-        constraints.gridy = 0;
-        pane.add(toolbar, constraints);
-
-        LevelPanel levelPanel = new LevelPanel(this.level, toolbar);
-        constraints.gridx = 0;
-        constraints.gridy = 1;
-        pane.add(levelPanel, constraints);
-        
-        toolbar.setDefaultLevelTool();
-    }
-
-    /**
-     * Creates the Tools for the toolbar.
-     */
-    private void createTools() {
-        selectionTool = new SelectionTool(infoPanel);
-        DeletionTool deletionTool = new DeletionTool();
-        ExitBuilder exitBuilder = new ExitBuilder();
-        PlacementRestriction placementRestriction = new PlacementRestriction();
-        roomTool = new RoomTool(infoPanel.getLevel(), deletionTool,
-                placementRestriction);
-        connectionTool = new ConnectionTool(deletionTool, exitBuilder);
+        return pane;
     }
 
     /**
@@ -120,16 +73,15 @@ public class MainUI implements Runnable {
      */
     private void createAndShowGui() throws IOException {
         JFrame frame = new JFrame("JDig");
+        ApplicationFactory.INSTANCE.buildApplication(level);
         addComponentsToPane(frame.getContentPane());
         // Setup the menu bar.
-        frame.setJMenuBar(new MenuBar(this.level, toolbar.getSelectionTool()));
+        frame.setJMenuBar(ApplicationFactory.INSTANCE.getNewMenuBar());
         // Set custom window close behaviour.
         frame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent event) {
-                new ExitCommand(MainUI.this.level, new DefaultLoadDialog(),
-                        new SaveCommand(level, new JFileChooser(),
-                                new LevelSaver())).execute();
+                ApplicationFactory.INSTANCE.getNewExitCommand().execute();
             }
         });
         frame.setVisible(true);
