@@ -314,6 +314,16 @@ public class InfoPanel extends JPanel implements JdigComponent {
      */
     public void unload() {
         this.currentRooms.clear();
+        // Zero the info panel.
+        this.roomNameField.setText("");
+        this.includeField.setText("");
+        this.inheritField.setText("");
+        this.streetNameField.setSelectedIndex(0);
+        this.determinateField.setText("");
+        this.lightField.setText("");
+        this.shortDescriptionField.setText("");
+        this.longDescriptionField.setText("");
+        this.exitPanel.removeAll();
     }
 
 }
