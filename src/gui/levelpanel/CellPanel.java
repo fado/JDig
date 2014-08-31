@@ -57,6 +57,8 @@ public class CellPanel extends JPanel implements LevelToolListener {
     private JLabel entityImage;
     private String imagePath;
     static final Logger logger = LoggerFactory.getLogger(CellPanel.class);
+    private int x;
+    private int y;
 
     /**
      * Constructor takes as an argument the Cell which this CellPanel represents.
@@ -64,6 +66,8 @@ public class CellPanel extends JPanel implements LevelToolListener {
      */
     public CellPanel(Cell cell) {
         this.cell = cell;
+        this.x = cell.X;
+        this.y = cell.Y;
         setDefaultProperties();
         // Check if the Cell already has an Entity.
         if(cell.getEntity() != null) {
@@ -239,6 +243,14 @@ public class CellPanel extends JPanel implements LevelToolListener {
      */
     public Cell getCell() {
         return this.cell;
+    }
+
+    public int getPanelX() {
+        return this.x;
+    }
+
+    public int getPanelY() {
+        return this.y;
     }
 
     /**
