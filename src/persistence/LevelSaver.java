@@ -71,6 +71,7 @@ public class LevelSaver {
             // Creating a new save file.
             Writer writer = new BufferedWriter(new OutputStreamWriter(
                     new FileOutputStream(file), "UTF-8"));
+            logger.info("Writing file: "+file.getPath());
             writer.write(xml);
             writer.flush();
         } catch (IOException ex) {
