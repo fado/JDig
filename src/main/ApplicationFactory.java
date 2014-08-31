@@ -1,12 +1,15 @@
 package main;
 
+import data.Cell;
 import data.Level;
 import gui.JdigComponent;
 import gui.infopanel.InfoPanel;
 import gui.infotoolbar.InfoToolbar;
+import gui.levelpanel.CellPanel;
 import gui.levelpanel.LevelPanel;
 import gui.leveltoolbar.LevelToolbar;
 import gui.menubar.DefaultLoadDialog;
+import gui.menubar.DeleteCommand;
 import gui.menubar.ExitCommand;
 import gui.menubar.MenuBar;
 import gui.menubar.SaveCommand;
@@ -38,21 +41,27 @@ public enum ApplicationFactory {
     public void buildApplication(Level level) {
         this.level = level;
         infoPanel = new InfoPanel(level);
+        levelPanel = new LevelPanel(level);
         selectionTool = new SelectionTool(infoPanel);
         infoToolbar = new InfoToolbar(level);
         selectionTool = new SelectionTool(infoPanel);
-        deletionTool = new DeletionTool();
+        deletionTool = new DeletionTool(levelPanel);
         placementRestriction = new PlacementRestriction();
         roomTool = new RoomTool(level, deletionTool, placementRestriction);
         exitBuilder = new ExitBuilder();
         connectionTool = new ConnectionTool(deletionTool, exitBuilder);
         levelToolbar = new LevelToolbar(selectionTool, roomTool, connectionTool);
-        levelPanel = new LevelPanel(level, levelToolbar);
         defaultLoadDialog = new DefaultLoadDialog();
         jFileChooser = new JFileChooser();
         levelSaver = new LevelSaver();
-        saveCommand = new SaveCommand(level, jFileChooser, levelSaver);
-        exitCommand = new ExitCommand(level, defaultLoadDialog, saveCommand);
+
+        for(CellPanel cellPanel : levelPanel.getAllCellPanels()) {
+            levelToolbar.addToolListener(cellPanel);
+        }
+    }
+
+    public Level getLevel() {
+        return this.level;
     }
 
     public JdigComponent[] getGuiComponents() {
@@ -71,4 +80,9 @@ public enum ApplicationFactory {
     public SaveCommand getNewSaveCommand() {
         return new SaveCommand(level, jFileChooser, levelSaver);
     }
+
+    public DeletionTool getDeletionTool() {
+        return deletionTool;
+    }
+
 }
