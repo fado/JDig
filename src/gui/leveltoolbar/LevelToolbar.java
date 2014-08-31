@@ -19,8 +19,11 @@ package gui.leveltoolbar;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+import gui.JdigComponent;
 import gui.ToolbarButtonBuilder;
 import tools.*;
+
+import java.awt.GridBagConstraints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -30,7 +33,7 @@ import javax.swing.JToolBar;
 /**
  * Toolbar for the level editor.
  */
-public class LevelToolbar extends JToolBar {
+public class LevelToolbar extends JToolBar implements JdigComponent {
 
     private final List<LevelToolListener> listeners = new ArrayList<>();
     private LevelTool selectedLevelTool, selectionTool, roomTool, connectionTool;
@@ -56,14 +59,6 @@ public class LevelToolbar extends JToolBar {
      */
     private void setDefaultProperties() {
         this.setFloatable(false);
-    }
-
-    /**
-     * Sets the default LevelTool to the SelectionTool setup in the default
-     * properties.
-     */
-    public void setDefaultLevelTool() {
-        setSelectedLevelTool(selectionTool);
     }
 
     /**
@@ -97,6 +92,19 @@ public class LevelToolbar extends JToolBar {
      */
     public RoomTool getRoomTool() {
         return (RoomTool)this.roomTool;
+    }
+
+    /**
+     * Get the GridBagConstraints for this object.
+     */
+    public GridBagConstraints getConstraints() {
+        GridBagConstraints constraints = new GridBagConstraints();
+        constraints.weightx = 0.1;
+        constraints.weighty = 0.1;
+        constraints.fill = GridBagConstraints.BOTH;
+        constraints.gridx = 0;
+        constraints.gridy = 0;
+        return constraints;
     }
 
     /**
