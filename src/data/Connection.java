@@ -1,9 +1,5 @@
 package data;
 
-import javax.swing.BorderFactory;
-import javax.swing.border.Border;
-import java.awt.Color;
-
 /**
  * JDig, a tool for the automatic generation of LPC class files for Epitaph
  * developers.
@@ -22,6 +18,10 @@ import java.awt.Color;
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
+
+import javax.swing.BorderFactory;
+import javax.swing.border.Border;
+import java.awt.Color;
 
 /**
  * A connection (i.e. an exit) connecting two or more rooms.
