@@ -20,12 +20,10 @@ package gui.menubar;
  */
 
 import data.Level;
-import javafx.stage.FileChooser;
+import org.apache.commons.io.FilenameUtils;
 import persistence.LevelSaver;
 import properties.JdigProperties;
 import javax.swing.JFileChooser;
-import javax.swing.filechooser.FileFilter;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.File;
 
 public class SaveCommand extends Command {
@@ -33,7 +31,6 @@ public class SaveCommand extends Command {
     private JdigProperties jdigProperties = new JdigProperties();
     private final String SAVE_FILE_LOCATION = jdigProperties.getProperty("SaveFileLocation");
     private Level level;
-    private File file;
     private JFileChooser fileChooser;
     private LevelSaver levelSaver;
 
@@ -46,13 +43,20 @@ public class SaveCommand extends Command {
     @Override
     public void execute() {
         fileChooser.setCurrentDirectory(new File(SAVE_FILE_LOCATION));
-        FileFilter filter = new FileNameExtensionFilter("XML File", "xml");
-        fileChooser.setFileFilter(filter);
+        fileChooser.setFileFilter(new XmlFileFilter());
+        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
         if (fileChooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
-            file = fileChooser.getSelectedFile();
-        }
-        if (file != null) {
-            levelSaver.save(level, file);
+            File selectedFile = fileChooser.getSelectedFile();
+            if (selectedFile != null) {
+                if(FilenameUtils.getExtension(selectedFile.getName())
+                        .equalsIgnoreCase("xml")) {
+                    levelSaver.save(level, selectedFile);
+                } else {
+                    selectedFile = new File(selectedFile.getParentFile(),
+                            FilenameUtils.getBaseName(selectedFile.getName())+".xml");
+                    levelSaver.save(level, selectedFile);
+                }
+            }
         }
     }
 
