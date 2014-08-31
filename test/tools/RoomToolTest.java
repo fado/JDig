@@ -23,6 +23,7 @@ import data.Cell;
 import data.Level;
 import data.Room;
 import gui.levelpanel.CellPanel;
+import gui.levelpanel.LevelPanel;
 import org.junit.Before;
 import org.junit.Test;
 import properties.Images;
@@ -56,7 +57,7 @@ public class RoomToolTest {
                 0, 0, 0, 0, 1, false);
 
         // RoomTool.
-        DeletionTool deletionTool = new DeletionTool();
+        DeletionTool deletionTool = new DeletionTool(new LevelPanel(testLevel));
         placementRestriction = new PlacementRestriction();
         roomTool = new RoomTool(testLevel, deletionTool, placementRestriction);
 

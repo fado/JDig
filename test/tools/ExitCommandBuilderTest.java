@@ -27,6 +27,8 @@ import data.Exit;
 import data.ExitType;
 import data.Level;
 import data.Room;
+import gui.levelpanel.CellPanel;
+import gui.levelpanel.LevelPanel;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -42,6 +44,9 @@ public class ExitCommandBuilderTest {
         northeastPoint, southwestPoint, southeastPoint, middlePoint;
     Cell northCell, southCell, eastCell, westCell, northwestCell,
         northeastCell, southwestCell, southeastCell, middleCell;
+    CellPanel northCellPanel, southCellPanel, eastCellPanel, westCellPanel,
+            northwestCellPanel, northeastCellPanel, southwestCellPanel,
+            southeastCellPanel, middleCellPanel;
 
     @Before
     public void setUp() {
@@ -64,6 +69,17 @@ public class ExitCommandBuilderTest {
         southwestCell = testLevel.getCellAt(southwestPoint);
         southeastCell = testLevel.getCellAt(southeastPoint);
         middleCell = testLevel.getCellAt(middlePoint);
+
+        LevelPanel levelPanel = new LevelPanel(testLevel);
+        northCellPanel = levelPanel.getCellPanel(northPoint);
+        southCellPanel = levelPanel.getCellPanel(southPoint);
+        eastCellPanel = levelPanel.getCellPanel(eastPoint);
+        westCellPanel = levelPanel.getCellPanel(westPoint);
+        northwestCellPanel = levelPanel.getCellPanel(northwestPoint);
+        northeastCellPanel = levelPanel.getCellPanel(northeastPoint);
+        southwestCellPanel = levelPanel.getCellPanel(southwestPoint);
+        southeastCellPanel = levelPanel.getCellPanel(southeastPoint);
+        middleCellPanel = levelPanel.getCellPanel(middlePoint);
     }
 
     /**
@@ -120,9 +136,9 @@ public class ExitCommandBuilderTest {
      * Utility method to set up three rooms in vertical alignment.
      */
     private void setupVerticalRooms() {
-        northCell.setEntity(new Room(northCell.getCellPanel()));
+        northCell.setEntity(new Room(northCellPanel));
         middleCell.setEntity(new Connection(ConnectionType.VERTICAL));
-        southCell.setEntity(new Room(southCell.getCellPanel()));
+        southCell.setEntity(new Room(southCellPanel));
         new ExitBuilder().build(middleCell);
     }
 
@@ -178,9 +194,9 @@ public class ExitCommandBuilderTest {
     * Utility method to set up three rooms in horizontal alignment.
     */
     private void setupHorizontalRooms() {
-        westCell.setEntity(new Room(westCell.getCellPanel()));
+        westCell.setEntity(new Room(westCellPanel));
         middleCell.setEntity(new Connection(ConnectionType.HORIZONTAL));
-        eastCell.setEntity(new Room(eastCell.getCellPanel()));
+        eastCell.setEntity(new Room(eastCellPanel));
         new ExitBuilder().build(middleCell);
     }
 
@@ -236,9 +252,9 @@ public class ExitCommandBuilderTest {
      * Utility method to set up three rooms in diagonal alignment.
      */
     private void setupBackwardDiagonalRooms() {
-        northwestCell.setEntity(new Room(northwestCell.getCellPanel()));
+        northwestCell.setEntity(new Room(northwestCellPanel));
         middleCell.setEntity(new Connection(ConnectionType.BACKWARD_DIAGONAL));
-        southeastCell.setEntity(new Room(southeastCell.getCellPanel()));
+        southeastCell.setEntity(new Room(southeastCellPanel));
         new ExitBuilder().build(middleCell);
     }
 
@@ -295,9 +311,9 @@ public class ExitCommandBuilderTest {
      *
      */
     private void setupForwardDiagonalRooms() {
-        northeastCell.setEntity(new Room(northeastCell.getCellPanel()));
+        northeastCell.setEntity(new Room(northeastCellPanel));
         middleCell.setEntity(new Connection(ConnectionType.FORWARD_DIAGONAL));
-        southwestCell.setEntity(new Room(southwestCell.getCellPanel()));
+        southwestCell.setEntity(new Room(southwestCellPanel));
         new ExitBuilder().build(middleCell);
     }
 

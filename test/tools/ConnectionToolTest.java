@@ -25,6 +25,8 @@ import data.ConnectionType;
 import data.Level;
 import data.Room;
 import gui.levelpanel.CellPanel;
+import gui.levelpanel.LevelPanel;
+import gui.leveltoolbar.LevelToolbar;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -34,6 +36,7 @@ import properties.Images;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
@@ -57,28 +60,30 @@ public class ConnectionToolTest {
         emptyCell = new Cell(testPoint, testLevel);
         emptyCellPanel = new CellPanel(emptyCell);
 
-        // ConnectionTool.
-        DeletionTool deletionTool = new DeletionTool();
-        ExitBuilder exitBuilder = new ExitBuilder();
-        connectionTool = new ConnectionTool(deletionTool, exitBuilder);
-
         // MouseEvent - Enter emptyCellPanel.
         eventEntered = new MouseEvent(emptyCellPanel, MouseEvent.MOUSE_ENTERED,
                 0, 0, 0, 0, 1, false);
 
         // 1x3 Level with Rooms to North and South.
         Level level = new Level(1, 3);
+        LevelPanel levelPanel = new LevelPanel(level);
         // North Cell.
         Cell northCell = level.getCellAt(new Point(0, 0));
-        northCell.setEntity(new Room(northCell.getCellPanel()));
+        CellPanel northCellPanel = levelPanel.getCellPanel(new Point(0, 0));
+        northCell.setEntity(new Room(northCellPanel));
         // Middle Cell.  Remember you have to set up the CellPanel manually as it
         // only gets created when the GUI is launched.
         emptyMiddleCell = level.getCellAt(new Point(0, 1));
         emptyMiddleCellPanel = new CellPanel(emptyMiddleCell);
-        emptyMiddleCell.setCellPanel(emptyMiddleCellPanel);
         // South Cell.
         Cell southCell = level.getCellAt(new Point(0, 2));
-        southCell.setEntity(new Room(southCell.getCellPanel()));
+        CellPanel southCellPanel = levelPanel.getCellPanel(new Point(0, 2));
+        southCell.setEntity(new Room(southCellPanel));
+
+        // ConnectionTool.
+        DeletionTool deletionTool = new DeletionTool(levelPanel);
+        ExitBuilder exitBuilder = new ExitBuilder();
+        connectionTool = new ConnectionTool(deletionTool, exitBuilder);
 
         // MouseEvent - Enter emptyMiddleCellPanel.
         eventEnteredMiddle = new MouseEvent(emptyMiddleCellPanel,

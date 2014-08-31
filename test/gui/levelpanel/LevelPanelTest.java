@@ -21,44 +21,31 @@ package gui.levelpanel;
 
 import data.Cell;
 import data.Level;
-import gui.infopanel.InfoPanel;
-import gui.leveltoolbar.LevelToolbar;
 import org.junit.Before;
 import org.junit.Test;
-import tools.ConnectionTool;
-import tools.DeletionTool;
-import tools.ExitBuilder;
-import tools.PlacementRestriction;
-import tools.RoomTool;
-import tools.SelectionTool;
 
 import java.awt.Point;
+
+import static junit.framework.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.mockito.Mockito.mock;
 
 public class LevelPanelTest {
 
     Level level;
-    LevelToolbar toolbar;
     LevelPanel levelPanel;
 
     @Before
     public void setUp() {
         level = new Level(1, 1);
-        InfoPanel infoPanel = new InfoPanel(level);
-        SelectionTool selectionTool = new SelectionTool(infoPanel);
-        DeletionTool deletionTool = new DeletionTool();
-        PlacementRestriction placementRestriction = new PlacementRestriction();
-        RoomTool roomTool = new RoomTool(level, deletionTool, placementRestriction);
-        ExitBuilder exitBuilder = new ExitBuilder();
-        ConnectionTool connectionTool = new ConnectionTool(deletionTool, exitBuilder);
-        toolbar = new LevelToolbar(selectionTool, roomTool, connectionTool);
-        levelPanel = new LevelPanel(level, toolbar);
+        levelPanel = new LevelPanel(level);
     }
 
     @Test
-    public void testConstructorGeneratesCellPanel() {
+    public void testGetCellPanel() {
         Cell cell = level.getCellAt(new Point(0, 0));
-        assertNotNull(cell.getCellPanel());
+        CellPanel cellPanel = levelPanel.getCellPanel(new Point(0, 0));
+        assertEquals(cell.X, cellPanel.getPanelX());
     }
 
 }
