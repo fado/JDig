@@ -19,7 +19,9 @@ package persistence;
  */
 
 import data.Cell;
+import data.Connection;
 import data.Exit;
+import data.ExitType;
 import data.Level;
 import data.Room;
 import data.Street;
@@ -32,6 +34,9 @@ import java.io.Writer;
 import com.thoughtworks.xstream.XStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import properties.Localization;
+
+import javax.swing.JOptionPane;
 
 /**
  * Uses the XStream library to convert a JDig Level object to XML.
@@ -52,12 +57,17 @@ public class LevelSaver {
         String xml = xStream.toXML(level);
         // Setup the class aliases XStream should use.
         xStream.alias("level", Level.class);
+        xStream.alias("connection", Connection.class);
+        xStream.alias("exittype", ExitType.class);
         xStream.alias("cell", Cell.class);
         xStream.alias("room", Room.class);
         xStream.alias("street", Street.class);
         xStream.alias("exit", Exit.class);
         // Write the file.
         write(xml, file);
+        Localization localization = new Localization();
+        JOptionPane.showMessageDialog(null, localization.get("SaveMessage"),
+                localization.get("SaveTitle"), JOptionPane.INFORMATION_MESSAGE);
     }
 
     /**
