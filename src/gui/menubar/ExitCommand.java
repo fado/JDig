@@ -19,6 +19,9 @@ package gui.menubar;
  */
 
 import data.Level;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.swing.JOptionPane;
 
 public class ExitCommand extends Command {
@@ -26,6 +29,7 @@ public class ExitCommand extends Command {
     private final Level level;
     private LoadDialog loadDialog;
     private Command saveCommand;
+    static final Logger logger = LoggerFactory.getLogger(ExitCommand.class);
 
     public ExitCommand(Level level, LoadDialog loadDialog, SaveCommand saveCommand) {
         this.level = level;
@@ -40,9 +44,11 @@ public class ExitCommand extends Command {
                 saveCommand.execute();
             }
             if(option == JOptionPane.NO_OPTION) {
+                logger.info("Application shutting down.");
                 System.exit(0);
             }
         } else {
+            logger.info("Application shutting down.");
             System.exit(0);
         }
     }
