@@ -20,13 +20,15 @@ package gui.infotoolbar;
  */
 
 import data.Level;
+import gui.JdigComponent;
 import gui.ToolbarButtonBuilder;
 import properties.JdigProperties;
 
 import javax.swing.JToolBar;
+import java.awt.GridBagConstraints;
 import java.util.Properties;
 
-public class InfoToolbar extends JToolBar {
+public class InfoToolbar extends JToolBar implements JdigComponent {
 
     public InfoToolbar(Level level) {
         setDefaultProperties();
@@ -43,6 +45,19 @@ public class InfoToolbar extends JToolBar {
      */
     private void setDefaultProperties() {
         this.setFloatable(false);
+    }
+
+    /**
+     * Get the GridBagConstraints for this object.
+     */
+    public GridBagConstraints getConstraints() {
+        GridBagConstraints constraints = new GridBagConstraints();
+        constraints.weightx = 0.1;
+        constraints.weighty = 0.1;
+        constraints.fill = GridBagConstraints.BOTH;
+        constraints.gridx = 1;
+        constraints.gridy = 0;
+        return constraints;
     }
 
 }
