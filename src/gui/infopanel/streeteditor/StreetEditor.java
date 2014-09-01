@@ -58,6 +58,7 @@ public class StreetEditor implements Runnable {
     private JTextField streetName;
     private final Level level;
     private final InfoPanel infoPanel;
+    private Container contentPane;
     static final Logger logger = LoggerFactory.getLogger(StreetEditor.class);
 
     public StreetEditor(InfoPanel infoPanel) {
@@ -78,7 +79,8 @@ public class StreetEditor implements Runnable {
 
     private void createAndShowGui() {
         JFrame frame = new JFrame(localization.get("EditorWindowTitle"));
-        addComponentsToPane(frame.getContentPane());
+        this.contentPane = frame.getContentPane();
+        addComponentsToPane(contentPane);
         frame.setVisible(true);
         frame.pack();
         frame.addWindowListener(new WindowAdapter() {
@@ -95,7 +97,7 @@ public class StreetEditor implements Runnable {
      * up the StreetEditor.
      * @param pane The content pane to which the components should be added.
      */
-    public void addComponentsToPane(Container pane) {
+    private void addComponentsToPane(Container pane) {
         pane.setLayout(new BorderLayout());
 
         // List of streets.
@@ -105,6 +107,7 @@ public class StreetEditor implements Runnable {
         pane.add(listScrollPane, BorderLayout.CENTER);
 
         JPanel buttonPane = new JPanel();
+        buttonPane.setName("buttonPane");
         buttonPane.setLayout(new BoxLayout(buttonPane, BoxLayout.LINE_AXIS));
         buttonPane.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
 
@@ -125,6 +128,7 @@ public class StreetEditor implements Runnable {
 
         // Button to remove streets from the list.
         deleteButton = new JButton(DELETE_STRING);
+        deleteButton.setName("deleteButton");
         // Disable if there are no streets to delete.
         if(listModel.isEmpty()) {
             deleteButton.setEnabled(false);
@@ -169,6 +173,9 @@ public class StreetEditor implements Runnable {
         return list;
     }
 
+    public Container getContentPane() {
+        return this.contentPane;
+    }
 
     public JTextField getStreetNameField() {
         return this.streetName;
