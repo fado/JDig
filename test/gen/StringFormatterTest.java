@@ -69,7 +69,7 @@ public class StringFormatterTest {
 
     @Test
     public void testGetTemplateString() throws IOException {
-        String expected = "foo";
+        String expected = "foo\n";
         String actual = stringFormatter.getTemplateString(path + "/test");
         assertEquals(expected, actual);
     }
