@@ -30,6 +30,7 @@ import javax.swing.JFrame;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import data.Level;
+import gui.menubar.MenuBar;
 import main.ApplicationFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -76,7 +77,7 @@ public class MainUI implements Runnable {
         ApplicationFactory.INSTANCE.buildApplication(level);
         addComponentsToPane(frame.getContentPane());
         // Setup the menu bar.
-        frame.setJMenuBar(ApplicationFactory.INSTANCE.getNewMenuBar());
+        frame.setJMenuBar(new MenuBar());
         // Set custom window close behaviour.
         frame.addWindowListener(new WindowAdapter() {
             @Override
