@@ -47,7 +47,7 @@ public class LpcWriter {
                     Charset.defaultCharset()));
             writer.write(output);
             writer.flush();
-            logger.info("Writing LPC file for {0}", roomName);
+            logger.info("Writing LPC file for {}", roomName);
         } catch (IOException ex) {
             logger.error(ex.toString());
         }
