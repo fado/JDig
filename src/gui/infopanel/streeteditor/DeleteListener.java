@@ -30,18 +30,10 @@ import javax.swing.JList;
  */
 public class DeleteListener implements ActionListener {
 
-    private final Level level;
-    private final JList list;
-    private final DefaultListModel listModel;
-    private final JButton deleteButton;
-    private int selectedIndex;
+    private final StreetEditor editor;
 
     public DeleteListener(StreetEditor editor) {
-        this.level = editor.getLevel();
-        this.list = editor.getList();
-        this.listModel = editor.getListModel();
-        this.deleteButton = editor.getDeleteButton();
-        this.selectedIndex = list.getSelectedIndex();
+        this.editor = editor;
     }
 
     /**
@@ -50,6 +42,12 @@ public class DeleteListener implements ActionListener {
      */
     @Override
     public void actionPerformed(ActionEvent event) {
+        // Get fresh data.
+        JList list = editor.getList();
+        DefaultListModel listModel = editor.getListModel();
+        Level level = editor.getLevel();
+        JButton deleteButton = editor.getDeleteButton();
+        int selectedIndex = list.getSelectedIndex();
         // Remove the street from the Level object.
         String elementAtIndex = listModel.getElementAt(selectedIndex).toString();
         level.removeStreet(level.getStreet(elementAtIndex));
