@@ -29,7 +29,7 @@ public class Exit {
     private final ExitType exitType;
 
     /**
-     * Default constructor.
+     * Constructor.
      * @param direction The Direction the Exit is pointing.
      * @param destination The Room to which the Exit is pointing.
      * @param exitType The type of Exit, in MUD terms.
@@ -41,7 +41,7 @@ public class Exit {
     }
 
     /**
-     * Gets the Direction of the Exit.
+     * Returns the Direction of the Exit.
      * @return the Direction of the Exit.
      */
     public Direction getDirection() {
@@ -49,7 +49,7 @@ public class Exit {
     }
 
     /**
-     * Gets the Room that is the Destination of the Exit.
+     * Returns the Room that is the Destination of the Exit.
      * @return the Room that is the Destination of the Exit.
      */
     public Room getDestination() {
@@ -57,7 +57,7 @@ public class Exit {
     }
 
     /**
-     * Gets the ExitType.
+     * Returns the ExitType.
      * @return the ExitType
      */
     public ExitType getExitType() {

@@ -74,7 +74,7 @@ public class Room implements Entity, Connectible {
     }
 
     /**
-     * Gets the name of this Room.
+     * Returns the name of this Room.
      * @return the name of the Room.
      */
     public String getName() {
@@ -90,7 +90,7 @@ public class Room implements Entity, Connectible {
     }
 
     /**
-     * Gets the name of the #include file for this Room.
+     * Returns the name of the #include file for this Room.
      * @return the name of the #include file for this Room.
      */
     public String getInclude() {
@@ -106,7 +106,7 @@ public class Room implements Entity, Connectible {
     }
 
     /**
-     * Get the name of the inheritable to be used by this Room.
+     * Returns the name of the inheritable to be used by this Room.
      * @return The name of the inheritable to be used by this Room.
      */
     public String getInherit() {
@@ -122,7 +122,7 @@ public class Room implements Entity, Connectible {
     }
 
     /**
-     * Gets the name of the Street to which this Room belongs.
+     * Returns the name of the Street to which this Room belongs.
      * @return the name of the Street to which this Room belongs.
      */
     public String getStreetName() {
@@ -138,7 +138,7 @@ public class Room implements Entity, Connectible {
     }
 
     /**
-     * Gets the short description of this Room.
+     * Returns the short description of this Room.
      * @return the short description of this Room.
      */
     public String getShort() {
@@ -156,7 +156,7 @@ public class Room implements Entity, Connectible {
     }
 
     /**
-     * Gets the determinate for this Room.
+     * Returns the determinate for this Room.
      * @return the determinate for this Room.
      */
     public String getDeterminate() {
@@ -174,7 +174,7 @@ public class Room implements Entity, Connectible {
     }
 
     /**
-     * Gets the light level for this Room.
+     * Returns the light level for this Room.
      * @return the light level for this Room.
      */
     public String getLight() {
@@ -190,7 +190,7 @@ public class Room implements Entity, Connectible {
     }
 
     /**
-     * Gets the long description for this Room.
+     * Returns the long description for this Room.
      * @return the long description for this Room.
      */
     public String getLong() {
@@ -214,7 +214,7 @@ public class Room implements Entity, Connectible {
     }
 
     /**
-     * Gets a list of all Exit objects contained by the Room.
+     * Returns a list of all Exit objects contained by the Room.
      * @return a list of all Exit objects contained by the Room.
      */
     public List<Exit> getExits() {
@@ -222,7 +222,7 @@ public class Room implements Entity, Connectible {
     }
 
     /**
-     * Gets a specific Exit contained by the room, specified by Direction.
+     * Returns a specific Exit contained by the room, specified by Direction.
      * @param direction Direction of the Exit you wish to get.
      * @return the Exit contained by the Room that matches the passed-in Direction,
      * otherwise null.

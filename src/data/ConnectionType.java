@@ -34,10 +34,18 @@ public enum ConnectionType {
 
     private String exitPath;
 
+    /**
+     * Constructor.
+     * @param exitPath The path where the associated image lies.
+     */
     ConnectionType(String exitPath) {
          this.exitPath = exitPath;
     }
 
+    /**
+     * Returns the path of the image associated with the ConnectionType.
+     * @return the path of the image associated with the ConnectionType.
+     */
     public String getPath() {
         return this.exitPath;
     }

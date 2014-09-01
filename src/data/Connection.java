@@ -32,7 +32,7 @@ public class Connection implements Entity {
     private ConnectionType connectionType;
 
     /**
-     * Constructor takes a ConnectionType.
+     * Constructor.
      * @param connectionType Type of connection this object represents.
      */
     public Connection(ConnectionType connectionType) {
@@ -40,7 +40,7 @@ public class Connection implements Entity {
     }
 
     /**
-     * Gets the ConnectionType of this Connection.
+     * Returns the ConnectionType of this Connection.
      * @return the ConnectionType of this Connection.
      */
     public ConnectionType getConnectionType() {
@@ -48,8 +48,8 @@ public class Connection implements Entity {
     }
 
     /**
-     * Required method from the Entity interface.
-     * @return always null.
+     * Returns the path of the normal image for ConnectionType.
+     * @return the path of the normal image for ConnectionType.
      */
     @Override
     public String getNormalImage() {
@@ -81,5 +81,6 @@ public class Connection implements Entity {
         }
         return BorderFactory.createEmptyBorder();
     }
+
 }
 

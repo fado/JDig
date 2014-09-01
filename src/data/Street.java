@@ -31,7 +31,7 @@ public class Street {
     private final List<Room> rooms;
 
     /**
-     * Default constructor.
+     * Constructor.
      * @param name The name of the Street.
      */
     public Street(String name) {
@@ -40,7 +40,7 @@ public class Street {
     }
 
     /**
-     * Get the name of the Street.
+     * Returns the name of the Street.
      * @return the name of the Street.
      */
     public String getName() {

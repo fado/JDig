@@ -29,21 +29,14 @@ import java.util.Map;
  */
 public class Cell {
 
-    /**
-     * Position of this Cell within the Level, along the X axis.
-     */
     public final int X;
-    /**
-     * Position of this Cell within the Level, along the Y axis.
-     */
     public final int Y;
     private final Level level;
     private Entity entity;
     private Color color;
 
     /**
-     * Constructor requires the Level in which the Cell exists, and the Point
-     * within that Level where the Cell lies.
+     * Constructor.
      * @param point The Point at which the Cell lies.
      * @param level The Level in which the Cell is contained.
      */
@@ -110,7 +103,7 @@ public class Cell {
     }
 
     /**
-     * Gets the potential connection type for the Cell based on the Entities
+     * Returns the potential connection type for the Cell based on the Entities
      * in the surrounding Cells.
      * @return the potential connection type.
      */
@@ -140,8 +133,8 @@ public class Cell {
     }
 
     /**
-     * Gets a Map of all Cells adjacent to this Cell.
-     * @return a Map of all adjacent Cells.
+     * Returns a Map of all Cells adjacent to this Cell.
+     * @return a Map of all Cells adjacent to this Cell.
      */
     public Map<String, Cell> getAdjacentCells() {
         Map<String, Cell> cells = new HashMap<>();
