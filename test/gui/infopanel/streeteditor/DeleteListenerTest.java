@@ -100,4 +100,13 @@ public class DeleteListenerTest {
         assertEquals(0, list.getSelectedIndex());
     }
 
+    @Test
+    public void testSelectedIndexNotDecrementedWhenLessThanListSize() {
+        listModel.add(1, "bar");
+        listModel.add(2, "foo");
+        listModel.add(3, "tux");
+        list.setSelectedIndex(2);
+        deleteListener.actionPerformed(testEvent);
+        assertEquals(2, list.getSelectedIndex());
+    }
 }
