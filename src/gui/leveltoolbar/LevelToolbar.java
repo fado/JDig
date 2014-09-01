@@ -22,7 +22,6 @@ package gui.leveltoolbar;
 import gui.JdigComponent;
 import gui.ToolbarButtonBuilder;
 import tools.*;
-
 import java.awt.GridBagConstraints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -36,21 +35,18 @@ import javax.swing.JToolBar;
 public class LevelToolbar extends JToolBar implements JdigComponent {
 
     private final List<LevelToolListener> listeners = new ArrayList<>();
-    private LevelTool selectedLevelTool, selectionTool, roomTool, connectionTool;
-    
+    private LevelTool selectedLevelTool;
+
     public LevelToolbar(SelectionTool selectionTool, RoomTool roomTool,
                         ConnectionTool connectionTool) {
-        this.selectionTool = selectionTool;
-        this.roomTool = roomTool;
-        this.connectionTool = connectionTool;
         setDefaultProperties();
         
         this.add(ToolbarButtonBuilder.build("SelectionTool",
-                getToolChangeAction(this.selectionTool)));
+                getToolChangeAction(selectionTool)));
         this.add(ToolbarButtonBuilder.build("RoomTool",
-                getToolChangeAction(this.roomTool)));
+                getToolChangeAction(roomTool)));
         this.add(ToolbarButtonBuilder.build("ExitTool",
-                getToolChangeAction(this.connectionTool)));
+                getToolChangeAction(connectionTool)));
     }
 
     /**
@@ -59,6 +55,19 @@ public class LevelToolbar extends JToolBar implements JdigComponent {
      */
     private void setDefaultProperties() {
         this.setFloatable(false);
+    }
+
+    /**
+     * Get the GridBagConstraints for this object.
+     */
+    public GridBagConstraints getConstraints() {
+        GridBagConstraints constraints = new GridBagConstraints();
+        constraints.weightx = 0.1;
+        constraints.weighty = 0.1;
+        constraints.fill = GridBagConstraints.BOTH;
+        constraints.gridx = 0;
+        constraints.gridy = 0;
+        return constraints;
     }
 
     /**
@@ -76,35 +85,6 @@ public class LevelToolbar extends JToolBar implements JdigComponent {
     public void setSelectedLevelTool(LevelTool levelTool) {
         this.selectedLevelTool = levelTool;
         fireToolChanged();
-    }
-
-    /**
-     * Returns the SelectionTool.
-     * @return the SelectionTool.
-     */
-    public SelectionTool getSelectionTool() {
-        return (SelectionTool)this.selectionTool;
-    }
-
-    /**
-     * Returns the RoomTool.
-     * @return the RoomTool.
-     */
-    public RoomTool getRoomTool() {
-        return (RoomTool)this.roomTool;
-    }
-
-    /**
-     * Get the GridBagConstraints for this object.
-     */
-    public GridBagConstraints getConstraints() {
-        GridBagConstraints constraints = new GridBagConstraints();
-        constraints.weightx = 0.1;
-        constraints.weighty = 0.1;
-        constraints.fill = GridBagConstraints.BOTH;
-        constraints.gridx = 0;
-        constraints.gridy = 0;
-        return constraints;
     }
 
     /**
