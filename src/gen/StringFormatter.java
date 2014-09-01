@@ -44,6 +44,7 @@ public class StringFormatter {
      */
     public String getExitString(Room room) {
         String exits = "";
+        logger.info("Generating exit strings...");
         for (Exit exit : room.getExits()) {
             exits += MessageFormat.format(
                     "add_exit (\"{0}\", __DIR__ +\"{1}\", \"{2}\");\n    ",
@@ -52,6 +53,7 @@ public class StringFormatter {
                     exit.getExitType().toString().toLowerCase()
             );
         }
+        logger.info("Exits generated.");
         return exits;
     }
 
@@ -62,9 +64,10 @@ public class StringFormatter {
      * @throws java.io.IOException
      */
     public String getTemplateString(String templatePath) throws IOException {
-        logger.info("Getting lines...");
+        logger.info("Loading template file...");
         List<String> lines = Files.readAllLines(Paths.get(templatePath),
                 Charset.defaultCharset());
+        logger.info("Got "+ lines.size() +" lines.");
         // Turn the List into a String and return it.
         String output = "";
         for(String line : lines) {
