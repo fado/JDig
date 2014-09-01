@@ -11,8 +11,10 @@ import gui.leveltoolbar.LevelToolbar;
 import gui.menubar.DefaultLoadDialog;
 import gui.menubar.DeleteCommand;
 import gui.menubar.ExitCommand;
+import gui.menubar.LoadCommand;
 import gui.menubar.MenuBar;
 import gui.menubar.SaveCommand;
+import persistence.LevelLoader;
 import persistence.LevelSaver;
 import tools.*;
 import tools.ExitBuilder;
@@ -69,16 +71,20 @@ public enum ApplicationFactory {
         return new JdigComponent[]{ infoPanel, infoToolbar, levelPanel, levelToolbar };
     }
 
-    public MenuBar getNewMenuBar() {
-        return new MenuBar(level, selectionTool);
-    }
-
     public ExitCommand getNewExitCommand() {
         return new ExitCommand(level, defaultLoadDialog, getNewSaveCommand());
     }
 
     public SaveCommand getNewSaveCommand() {
         return new SaveCommand(level, jFileChooser, levelSaver);
+    }
+
+    public LoadCommand getNewLoadCommand() {
+        return new LoadCommand(jFileChooser, new LevelLoader());
+    }
+
+    public DeleteCommand getNewDeleteCommand() {
+        return new DeleteCommand(selectionTool);
     }
 
     public DeletionTool getDeletionTool() {
