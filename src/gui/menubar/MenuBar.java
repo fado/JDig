@@ -19,13 +19,8 @@ package gui.menubar;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import data.Level;
-import persistence.LevelLoader;
-import persistence.LevelSaver;
+import main.ApplicationFactory;
 import properties.Localization;
-import tools.SelectionTool;
-
-import javax.swing.JFileChooser;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -36,13 +31,9 @@ import java.awt.event.KeyEvent;
 
 public class MenuBar extends JMenuBar {
 
-    private Level level;
-    private SelectionTool selectionTool;
     private Localization localization = new Localization();
 
-    public MenuBar(Level level, SelectionTool selectionTool) {
-        this.level = level;
-        this.selectionTool = selectionTool;
+    public MenuBar() {
         addComponentsToMenuBar(this);
     }
 
@@ -54,16 +45,17 @@ public class MenuBar extends JMenuBar {
 
         // Open - Open a Level.
         JMenuItem open = new JMenuItem(localization.get("Open"));
-        open.addActionListener(new MenuActionListener(new LoadCommand(new JFileChooser(),
-                new LevelLoader())));
+        open.addActionListener(new MenuActionListener(ApplicationFactory
+                .INSTANCE.getNewLoadCommand()));
         open.setMnemonic(KeyEvent.VK_O);
-        open.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.CTRL_MASK));
+        open.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O,
+                InputEvent.CTRL_MASK));
         fileMenu.add(open);
 
         // Save - Save a Level.
         JMenuItem save = new JMenuItem(localization.get("SaveAs"));
-        save.addActionListener(new MenuActionListener( new SaveCommand(level, new JFileChooser(),
-                new LevelSaver())));
+        save.addActionListener(new MenuActionListener(ApplicationFactory
+                .INSTANCE.getNewSaveCommand()));
         save.setMnemonic(KeyEvent.VK_S);
         save.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S,
                 InputEvent.CTRL_MASK | InputEvent.ALT_MASK));
@@ -73,11 +65,11 @@ public class MenuBar extends JMenuBar {
 
         // Exit - Exit the application.
         JMenuItem exit = new JMenuItem(localization.get("Exit"));
-        exit.addActionListener(new MenuActionListener( new ExitCommand(level,
-                new DefaultLoadDialog(), new SaveCommand(level, new JFileChooser(),
-                new LevelSaver()))));
+        exit.addActionListener(new MenuActionListener(ApplicationFactory
+                .INSTANCE.getNewExitCommand()));
         exit.setMnemonic(KeyEvent.VK_X);
-        exit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, InputEvent.CTRL_MASK));
+        exit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q,
+                InputEvent.CTRL_MASK));
         fileMenu.add(exit);
 
         menuBar.add(fileMenu);
@@ -87,7 +79,8 @@ public class MenuBar extends JMenuBar {
 
         // Delete - Delete a room or selected rooms.
         JMenuItem delete = new JMenuItem(localization.get("Delete"));
-        delete.addActionListener(new MenuActionListener(new DeleteCommand(selectionTool)));
+        delete.addActionListener(new MenuActionListener(ApplicationFactory
+                .INSTANCE.getNewDeleteCommand()));
         delete.setMnemonic(KeyEvent.VK_D);
         delete.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0));
         editMenu.add(delete);
