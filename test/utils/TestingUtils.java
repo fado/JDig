@@ -1,6 +1,7 @@
 package utils;
 
 import gui.infopanel.InfoPanel;
+import gui.infopanel.streeteditor.StreetEditor;
 
 /**
  * JDig, a tool for the automatic generation of LPC class files for Epitaph
@@ -20,35 +21,34 @@ import gui.infopanel.InfoPanel;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import java.awt.Component;
+import java.awt.Container;
 
 public class TestingUtils {
 
     public JComboBox getStreetNameField(InfoPanel infoPanel) {
-        // And so we embark on a magical journey.
-        // Get the content panel.
-        Component[] components = infoPanel.getComponents();
-        JPanel contentPanel = null;
-        for(Component component : components) {
-            if(component.getName() != null
-                    && component.getName().equals("contentPanel")) {
-                contentPanel = (JPanel)component;
+        JPanel contentPanel = (JPanel)getComponent(infoPanel, "contentPanel");
+        return (JComboBox)getComponent(contentPanel, "streetNameField");
+    }
+
+    public JButton getDeleteButton(StreetEditor streetEditor) {
+        JPanel buttonPane =
+                (JPanel)getComponent(streetEditor.getContentPane(), "buttonPane");
+        return (JButton)getComponent(buttonPane, "deleteButton");
+    }
+
+    private Component getComponent(Container container, String componentName) {
+        Component[] components = container.getComponents();
+        Component componentToReturn = null;
+        for (Component component : components) {
+            if (component.getName() != null
+                    && component.getName().equalsIgnoreCase(componentName)) {
+                componentToReturn = component;
             }
         }
-        // Get the streetNameField.
-        Component[] internalComponents;
-        JComboBox streetNameField = null;
-        if (contentPanel != null) {
-            internalComponents = contentPanel.getComponents();
-            for(Component component : internalComponents) {
-                if(component.getName() != null
-                        && component.getName().equals("streetNameField")) {
-                    streetNameField = (JComboBox)component;
-                }
-            }
-        }
-        return streetNameField;
+        return componentToReturn;
     }
 }
