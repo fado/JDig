@@ -19,6 +19,8 @@ package data;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+import gui.levelpanel.CellPanel;
+
 import java.awt.Color;
 import java.awt.Point;
 import java.util.HashMap;
@@ -34,6 +36,7 @@ public class Cell {
     private final Level level;
     private Entity entity;
     private Color color;
+    private CellPanel cellPanel;
 
     /**
      * Constructor.
@@ -60,6 +63,14 @@ public class Cell {
      */
     public Entity getEntity() {
         return this.entity;
+    }
+
+    public void setCellPanel(CellPanel cellPanel) {
+        this.cellPanel = cellPanel;
+    }
+
+    public CellPanel getCellPanel() {
+        return this.cellPanel;
     }
 
     /**
@@ -138,7 +149,6 @@ public class Cell {
      */
     public Map<String, Cell> getAdjacentCells() {
         Map<String, Cell> cells = new HashMap<>();
-        Direction.values();
         Direction[] directions = Direction.values();
         String[] cellNames = {"northCell", "southCell", "eastCell", "westCell",
                 "northeastCell", "northwestCell", "southeastCell", "southwestCell"};
