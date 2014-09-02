@@ -28,10 +28,7 @@ import data.Level;
 import data.Room;
 import gui.levelpanel.CellPanel;
 import gui.levelpanel.LevelPanel;
-
 import java.awt.Point;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -40,9 +37,11 @@ import java.util.Map;
 public class DeletionTool {
 
     private LevelPanel levelPanel;
+    private Level level;
 
-    public DeletionTool(LevelPanel levelPanel) {
+    public DeletionTool(LevelPanel levelPanel, Level level) {
         this.levelPanel = levelPanel;
+        this.level = level;
     }
 
     /**
@@ -50,15 +49,20 @@ public class DeletionTool {
      * @param cellPanel The CellPanel you want to delete the Entity from.
      */
     public void deleteEntity(CellPanel cellPanel) {
-        Cell cell = cellPanel.getCell();
-        // Check if the Cell contains a room.
+        // Get the Cell.
+        Point point = new Point(cellPanel.getPanelX(), cellPanel.getPanelY());
+        Cell cell = level.getCellAt(point);
+
+        // Check if we're dealing with a room or an exit.
         if(cell.isConnectible()) {
-            // Unregister the Room from the Level.
-            cell.getLevel().unregisterRoom((Room)cell.getEntity());
+            level.unregisterRoom((Room)cell.getEntity());
+            removeSurroundingEntities(cell);
+        } else if (cell.isExit()) {
+            removeDeadExits(cell);
         }
-        removeDeadExits(cell);
+
+        // Do the deletion.
         cell.setEntity(null);
-        // Visualise the delete immediately rather than waiting for mouse exit.
         cellPanel.removeImage();
         cellPanel.restoreDefaultBorder();
         if(cellPanel.isSelected()) {
@@ -71,38 +75,30 @@ public class DeletionTool {
      * @param cell The Cell from which the Entity has been deleted.
      */
     private void removeDeadExits(Cell cell) {
-        // Check if we're dealing with a Room.
-        if(cell.isConnectible()) {
-            List<Room> destinations = getDestinations((Room)cell.getEntity());
-            removeExits(destinations, (Room)cell.getEntity());
-            removeSurroundingEntities(cell);
-        // Check if we're dealing with an Exit.
-        } else if(cell.getEntity() != null) {
-            Connection connection = (Connection)cell.getEntity();
-            ConnectionType connectionType = connection.getConnectionType();
-            Level level = cell.getLevel();
-            if(connectionType == ConnectionType.HORIZONTAL) {
-                Room westRoom = (Room)level.getCellAdjacentTo(cell, Direction.WEST).getEntity();
-                removeExit(westRoom, Direction.EAST);
-                Room eastRoom = (Room)level.getCellAdjacentTo(cell, Direction.EAST).getEntity();
-                removeExit(eastRoom, Direction.WEST);
-            }
-            if(connectionType == ConnectionType.VERTICAL) {
-                Room northRoom = (Room)level.getCellAdjacentTo(cell, Direction.NORTH).getEntity();
-                removeExit(northRoom, Direction.SOUTH);
-                Room southRoom = (Room)level.getCellAdjacentTo(cell, Direction.SOUTH).getEntity();
-                removeExit(southRoom, Direction.NORTH);
-            }
-            if(connectionType == ConnectionType.FORWARD_DIAGONAL) {
-                removeForwardDiagonalExits(level, cell);
-            }
-            if(connectionType == ConnectionType.BACKWARD_DIAGONAL) {
-                removeBackwardDiagonalExits(level, cell);
-            }
-            if(connectionType == ConnectionType.X) {
-                removeForwardDiagonalExits(level, cell);
-                removeBackwardDiagonalExits(level, cell);
-            }
+        Connection connection = (Connection)cell.getEntity();
+        ConnectionType connectionType = connection.getConnectionType();
+
+        if (connectionType == ConnectionType.HORIZONTAL) {
+            Room westRoom = (Room) level.getCellAdjacentTo(cell, Direction.WEST).getEntity();
+            removeExit(westRoom, Direction.EAST);
+            Room eastRoom = (Room) level.getCellAdjacentTo(cell, Direction.EAST).getEntity();
+            removeExit(eastRoom, Direction.WEST);
+        }
+        if (connectionType == ConnectionType.VERTICAL) {
+            Room northRoom = (Room) level.getCellAdjacentTo(cell, Direction.NORTH).getEntity();
+            removeExit(northRoom, Direction.SOUTH);
+            Room southRoom = (Room) level.getCellAdjacentTo(cell, Direction.SOUTH).getEntity();
+            removeExit(southRoom, Direction.NORTH);
+        }
+        if (connectionType == ConnectionType.FORWARD_DIAGONAL) {
+            removeForwardDiagonalExits(level, cell);
+        }
+        if (connectionType == ConnectionType.BACKWARD_DIAGONAL) {
+            removeBackwardDiagonalExits(level, cell);
+        }
+        if (connectionType == ConnectionType.X) {
+            removeForwardDiagonalExits(level, cell);
+            removeBackwardDiagonalExits(level, cell);
         }
     }
 
@@ -140,9 +136,7 @@ public class DeletionTool {
             // Ensure you're trying to remove a valid Cell.
             if(aCell.X != -1 && aCell.Y != -1) {
                 CellPanel cellPanel = levelPanel.getCellPanel(new Point(aCell.X, aCell.Y));
-                cellPanel.removeImage();
-                cellPanel.restoreDefaultBorder();
-                aCell.setEntity(null);
+                deleteEntity(cellPanel);
             }
         }
     }
@@ -160,38 +154,6 @@ public class DeletionTool {
             }
         }
         room.removeExit(defunctExit);
-    }
-
-    /**
-     * Iterates through the passed-in list of Rooms and removes any Exits that
-     * have the passed-in Room as their destination.
-     * @param rooms A list of Rooms.
-     * @param destination The Room that is the destination of any Exits to be removed.
-     */
-    private void removeExits(List<Room> rooms, Room destination) {
-        Exit defunctExit = null;
-        for(Room room : rooms) {
-            for(Exit exit : room.getExits()) {
-                if(exit.getDestination().equals(destination)) {
-                    defunctExit = exit;
-                }
-            }
-            room.removeExit(defunctExit);
-        }
-    }
-
-    /**
-     * Iterates through all Exits in the passed-in Room and returns a list of
-     * all destination Rooms.
-     * @param room The Room for which you want a list of destinations.
-     * @return all Rooms that are destinations of Exits in the passed-in Room.
-     */
-    private List<Room> getDestinations(Room room) {
-        List<Room> destinations = new ArrayList<>();
-        for(Exit exit : room.getExits()) {
-            destinations.add(exit.getDestination());
-        }
-        return destinations;
     }
 
 }
