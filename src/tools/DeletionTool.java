@@ -50,8 +50,7 @@ public class DeletionTool {
      */
     public void deleteEntity(CellPanel cellPanel) {
         // Get the Cell.
-        Point point = new Point(cellPanel.getPanelX(), cellPanel.getPanelY());
-        Cell cell = level.getCellAt(point);
+        Cell cell = cellPanel.getCell();
 
         // Check if we're dealing with a room or an exit.
         if(cell.isConnectible()) {
@@ -135,7 +134,7 @@ public class DeletionTool {
         for(Cell aCell : adjacentCells.values()) {
             // Ensure you're trying to remove a valid Cell.
             if(aCell.X != -1 && aCell.Y != -1) {
-                CellPanel cellPanel = levelPanel.getCellPanel(new Point(aCell.X, aCell.Y));
+                CellPanel cellPanel = aCell.getCellPanel();
                 deleteEntity(cellPanel);
             }
         }

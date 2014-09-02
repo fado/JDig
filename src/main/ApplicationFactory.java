@@ -47,7 +47,7 @@ public enum ApplicationFactory {
         selectionTool = new SelectionTool(infoPanel);
         infoToolbar = new InfoToolbar(level);
         selectionTool = new SelectionTool(infoPanel);
-        deletionTool = new DeletionTool(levelPanel);
+        deletionTool = new DeletionTool(levelPanel, level);
         placementRestriction = new PlacementRestriction();
         roomTool = new RoomTool(level, deletionTool, placementRestriction);
         exitBuilder = new ExitBuilder();
