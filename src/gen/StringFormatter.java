@@ -42,7 +42,7 @@ public class StringFormatter {
      * @param room The Room for which you are generating Exits.
      * @return a String based on the Exits contained in the Room.
      */
-    public String getExitString(Room room) {
+    protected String getExitString(Room room) {
         String exits = "";
         logger.info("Generating exit strings...");
         for (Exit exit : room.getExits()) {
@@ -63,7 +63,7 @@ public class StringFormatter {
      * @return a starting output String based on the template file.
      * @throws java.io.IOException
      */
-    public String getTemplateString(String templatePath) throws IOException {
+    protected String getTemplateString(String templatePath) throws IOException {
         logger.info("Loading template file...");
         List<String> lines = Files.readAllLines(Paths.get(templatePath),
                 Charset.defaultCharset());

@@ -40,7 +40,7 @@ public class LpcWriter {
      * @param output The output String containing the contents of the LPC file.
      * @param roomName The Room for which you are writing the LPC file.
      */
-    public void write(String output, String roomName, String destinationPath) {
+    protected void write(String output, String roomName, String destinationPath) {
         try {
             Writer writer = new BufferedWriter(new OutputStreamWriter(
                     new FileOutputStream(destinationPath + roomName + ".c"),

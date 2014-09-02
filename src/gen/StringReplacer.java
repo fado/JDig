@@ -33,7 +33,7 @@ public class StringReplacer {
      * @param exitString The exit string you want to add.
      * @return The new output string with the exits added.
      */
-    public String replaceExitStrings(String input, String exitString) {
+    protected String replaceExitStrings(String input, String exitString) {
         return input.replace("%exit%", exitString);
     }
 
@@ -44,7 +44,7 @@ public class StringReplacer {
      * @param room The Room from which you want to take the properties.
      * @return The new output string with the properties added.
      */
-    public String replaceRoomStrings(String output, Room room) {
+    protected String replaceRoomStrings(String output, Room room) {
         output = output.replace("%include%", room.getInclude());
         output = output.replace("%inherit%", room.getInherit());
         output = output.replace("%short%", room.getShort());
