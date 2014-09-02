@@ -57,7 +57,7 @@ public class RoomToolTest {
                 0, 0, 0, 0, 1, false);
 
         // RoomTool.
-        DeletionTool deletionTool = new DeletionTool(new LevelPanel(testLevel));
+        DeletionTool deletionTool = new DeletionTool(new LevelPanel(testLevel), testLevel);
         placementRestriction = new PlacementRestriction();
         roomTool = new RoomTool(testLevel, deletionTool, placementRestriction);
 

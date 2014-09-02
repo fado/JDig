@@ -58,9 +58,9 @@ public class DeletionToolTest_5x5 {
 
         exitBuilder = new ExitBuilder();
         LevelPanel levelPanel = new LevelPanel(testLevel);
-        testDeletionTool = new DeletionTool(levelPanel);
+        testDeletionTool = new DeletionTool(levelPanel, testLevel);
 
-        middleCellPanel = levelPanel.getCellPanel(new Point(2, 2));
+        middleCellPanel = middleCell.getCellPanel();
     }
 
     /**

@@ -69,7 +69,7 @@ public class ConnectionToolTest {
         LevelPanel levelPanel = new LevelPanel(level);
         // North Cell.
         Cell northCell = level.getCellAt(new Point(0, 0));
-        CellPanel northCellPanel = levelPanel.getCellPanel(new Point(0, 0));
+        CellPanel northCellPanel = northCell.getCellPanel();
         northCell.setEntity(new Room(northCellPanel));
         // Middle Cell.  Remember you have to set up the CellPanel manually as it
         // only gets created when the GUI is launched.
@@ -77,11 +77,11 @@ public class ConnectionToolTest {
         emptyMiddleCellPanel = new CellPanel(emptyMiddleCell);
         // South Cell.
         Cell southCell = level.getCellAt(new Point(0, 2));
-        CellPanel southCellPanel = levelPanel.getCellPanel(new Point(0, 2));
+        CellPanel southCellPanel = southCell.getCellPanel();
         southCell.setEntity(new Room(southCellPanel));
 
         // ConnectionTool.
-        DeletionTool deletionTool = new DeletionTool(levelPanel);
+        DeletionTool deletionTool = new DeletionTool(levelPanel, level);
         ExitBuilder exitBuilder = new ExitBuilder();
         connectionTool = new ConnectionTool(deletionTool, exitBuilder);
 

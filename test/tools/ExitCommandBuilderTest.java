@@ -71,15 +71,15 @@ public class ExitCommandBuilderTest {
         middleCell = testLevel.getCellAt(middlePoint);
 
         LevelPanel levelPanel = new LevelPanel(testLevel);
-        northCellPanel = levelPanel.getCellPanel(northPoint);
-        southCellPanel = levelPanel.getCellPanel(southPoint);
-        eastCellPanel = levelPanel.getCellPanel(eastPoint);
-        westCellPanel = levelPanel.getCellPanel(westPoint);
-        northwestCellPanel = levelPanel.getCellPanel(northwestPoint);
-        northeastCellPanel = levelPanel.getCellPanel(northeastPoint);
-        southwestCellPanel = levelPanel.getCellPanel(southwestPoint);
-        southeastCellPanel = levelPanel.getCellPanel(southeastPoint);
-        middleCellPanel = levelPanel.getCellPanel(middlePoint);
+        northCellPanel = northCell.getCellPanel();
+        southCellPanel = southCell.getCellPanel();
+        eastCellPanel = eastCell.getCellPanel();
+        westCellPanel = westCell.getCellPanel();
+        northwestCellPanel = northwestCell.getCellPanel();
+        northeastCellPanel = northeastCell.getCellPanel();
+        southwestCellPanel = southwestCell.getCellPanel();
+        southeastCellPanel = southeastCell.getCellPanel();
+        middleCellPanel = middleCell.getCellPanel();
     }
 
     /**
