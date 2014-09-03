@@ -34,6 +34,11 @@ public class StreetNameListener implements ActionListener {
     private List<Room> currentRooms;
     private Level level;
 
+    /**
+     * Constructor.
+     * @param currentRooms The list of currently selected rooms.
+     * @param level The level containing the rooms.
+     */
     public StreetNameListener(List<Room> currentRooms, Level level) {
         this.currentRooms = currentRooms;
         this.level = level;
@@ -59,4 +64,5 @@ public class StreetNameListener implements ActionListener {
             }
         }
     }
+
 }

@@ -67,6 +67,10 @@ public class InfoPanel extends JPanel implements JdigComponent {
     private final Level level;
     private final Localization localization = new Localization();
 
+    /**
+     * Constructor.
+     * @param level The currently loaded level.
+     */
     public InfoPanel(Level level) {
         this.level = level;
         setLayout(new MigLayout());

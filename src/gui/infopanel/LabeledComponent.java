@@ -34,7 +34,12 @@ public class LabeledComponent {
     
     private final JComponent component;
     private final JLabel label;
-    
+
+    /**
+     * Constructor.
+     * @param component The JComponent wrapped by the LabeledComponent.
+     * @param labelText The text for the label.
+     */
     private LabeledComponent(JComponent component, String labelText) {
         this.component = component;
         label = new JLabel(labelText, JLabel.RIGHT);

@@ -33,7 +33,12 @@ public class InfoPanelDocListener implements DocumentListener {
     private final InfoPanel infoPanel;
     private final SetterCommand command;
     static final Logger logger = LoggerFactory.getLogger(InfoPanelDocListener.class);
-    
+
+    /**
+     * Constructor.
+     * @param infoPanel The InfoPanel containing the field.
+     * @param command The command to be called for update events.
+     */
     public InfoPanelDocListener(InfoPanel infoPanel, SetterCommand command) {
         this.infoPanel = infoPanel;
         this.command = command;
