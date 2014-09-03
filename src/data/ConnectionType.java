@@ -32,14 +32,14 @@ public enum ConnectionType {
     BACKWARD_DIAGONAL(new Images().getImagePath("BackwardDiagonalExit")),
     X(new Images().getImagePath("XExit"));
 
-    private String exitPath;
+    private String exitImagePath;
 
     /**
      * Constructor.
-     * @param exitPath The path where the associated image lies.
+     * @param exitImagePath The path where the associated image lies.
      */
-    ConnectionType(String exitPath) {
-         this.exitPath = exitPath;
+    ConnectionType(String exitImagePath) {
+         this.exitImagePath = exitImagePath;
     }
 
     /**
@@ -47,7 +47,7 @@ public enum ConnectionType {
      * @return the path of the image associated with the ConnectionType.
      */
     public String getPath() {
-        return this.exitPath;
+        return this.exitImagePath;
     }
 
 }
