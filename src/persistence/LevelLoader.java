@@ -26,6 +26,9 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
+/**
+ * Loads a level.
+ */
 public class LevelLoader {
 
     private XStream xStream = new XStream();

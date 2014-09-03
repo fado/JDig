@@ -68,26 +68,6 @@ public class ExitBuilder {
     }
 
     /**
-     * Public method allowing the building of exits only along the forward diagonal
-     * axis (southwest/northeast).
-     * @param cell
-     */
-    public void buildOnlyForwardDiagonal(Cell cell) {
-        cells = cell.getAdjacentCells();
-        buildForwardDiagonal();
-    }
-
-    /**
-     * Public method allowing the building of exits only along the backward diagonal
-     * axis (southeast/northwest).
-     * @param cell
-     */
-    public void buildOnlyBackwardDiagonal(Cell cell) {
-        cells = cell.getAdjacentCells();
-        buildBackwardDiagonal();
-    }
-
-    /**
      * Builds a forward diagonal exit (southwest/northeast).
      */
     private void buildForwardDiagonal() {

@@ -21,6 +21,9 @@ package tools;
 
 import java.util.EventListener;
 
+/**
+ * Interface for the tool listener.
+ */
 public interface LevelToolListener extends EventListener {
     public void toolChanged(LevelToolEvent event);
 }

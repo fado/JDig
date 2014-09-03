@@ -21,6 +21,9 @@ package tools;
 
 import java.awt.event.MouseEvent;
 
+/**
+ * Interface for a tool operating on a level.
+ */
 public interface LevelTool {
     public abstract void mouseEntered(MouseEvent event);
     public abstract void mouseExited(MouseEvent event);

@@ -30,6 +30,11 @@ import ch.qos.logback.core.spi.FilterReply;
  */
 public class ConsoleAppenderFilter extends AbstractMatcherFilter{
 
+    /**
+     * Keeps trace, debug, info and error events in the console appender.
+     * @param event The logging event originating the call.
+     * @return true if the event is on the keep list, otherwise false.
+     */
     @Override
     public FilterReply decide(Object event) {
         if(!isStarted()) {

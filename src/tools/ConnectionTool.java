@@ -37,6 +37,11 @@ public class ConnectionTool implements LevelTool {
     private DeletionTool deletionTool;
     private ExitBuilder exitBuilder;
 
+    /**
+     * Constructor.
+     * @param deletionTool A DeletionTool.
+     * @param exitBuilder An ExitBuilder.
+     */
     public ConnectionTool(DeletionTool deletionTool, ExitBuilder exitBuilder) {
         this.deletionTool = deletionTool;
         this.exitBuilder = exitBuilder;

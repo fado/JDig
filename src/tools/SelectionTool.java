@@ -33,7 +33,11 @@ public class SelectionTool implements LevelTool {
 
     private InfoPanel infoPanel;
     private List<CellPanel> selectedPanels = new ArrayList<>();
-    
+
+    /**
+     * Constructor.
+     * @param infoPanel Currently loaded InfoPanel.
+     */
     public SelectionTool(InfoPanel infoPanel) {
         this.infoPanel = infoPanel;
     }

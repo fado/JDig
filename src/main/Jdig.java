@@ -24,9 +24,11 @@ import gui.MainUI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import properties.JdigProperties;
-
 import java.util.Properties;
 
+/**
+ * Main class.
+ */
 public class Jdig {
 
     static final Logger logger = LoggerFactory.getLogger(Jdig.class);
@@ -37,7 +39,7 @@ public class Jdig {
      * rows and columns from config.properties and creates a new
      * Level with those constraints.  That Level is passed to the MainUI
      * class and the runnable is executed.
-     * @param args
+     * @param args Command line arguments.
      */
     public static void main(String[] args) {
         logger.info("Starting application...");
@@ -46,4 +48,5 @@ public class Jdig {
         MainUI ui = new MainUI(new Level(defaultX, defaultY));
         ui.run();
     }
+
 }

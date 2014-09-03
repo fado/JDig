@@ -21,15 +21,28 @@ package tools;
 
 import java.util.EventObject;
 
+/**
+ * Event fired when the currently selected level tool is changed.
+ */
 public class LevelToolEvent extends EventObject {
     private final LevelTool levelTool;
-    
+
+    /**
+     * Constructor.
+     * @param source Source of the event firing.
+     * @param levelTool The newly selected level tool.
+     */
     public LevelToolEvent(Object source, LevelTool levelTool) {
         super(source);
         this.levelTool = levelTool;
     }
-    
+
+    /**
+     * Returns the newly selected level tool.
+     * @return the newly selected level tool.
+     */
     public LevelTool getLevelTool() {
         return levelTool;
     }
+
 }

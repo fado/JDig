@@ -27,8 +27,6 @@ import data.Exit;
 import data.Level;
 import data.Room;
 import gui.levelpanel.CellPanel;
-import gui.levelpanel.LevelPanel;
-import java.awt.Point;
 import java.util.Map;
 
 /**
@@ -36,11 +34,13 @@ import java.util.Map;
  */
 public class DeletionTool {
 
-    private LevelPanel levelPanel;
     private Level level;
 
-    public DeletionTool(LevelPanel levelPanel, Level level) {
-        this.levelPanel = levelPanel;
+    /**
+     * Constructor.
+     * @param level The currently loaded level.
+     */
+    public DeletionTool(Level level) {
         this.level = level;
     }
 
@@ -103,8 +103,8 @@ public class DeletionTool {
 
     /**
      * Removes exits along the forward diagonal axis.
-     * @param level
-     * @param cell
+     * @param level The currently loaded level.
+     * @param cell The cell around which exits are to be removed.
      */
     private void removeForwardDiagonalExits(Level level, Cell cell) {
         Room southwestRoom = (Room)level.getCellAdjacentTo(cell, Direction.SOUTHWEST).getEntity();
@@ -115,8 +115,8 @@ public class DeletionTool {
 
     /**
      * Removes exits along the backward diagonal axis.
-     * @param level
-     * @param cell
+     * @param level The currently loaded level.
+     * @param cell The cell around which exits are to be removed.
      */
     private void removeBackwardDiagonalExits(Level level, Cell cell) {
         Room southeastRoom = (Room)level.getCellAdjacentTo(cell, Direction.SOUTHEAST).getEntity();
