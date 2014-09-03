@@ -29,6 +29,11 @@ public class LpcGenerator {
 
     private String templatePath, destinationPath;
 
+    /**
+     * Constructor.
+     * @param templatePath Path to the template file.
+     * @param destinationPath Path to the where the LPC should written.
+     */
     public LpcGenerator(String templatePath, String destinationPath) {
         this.templatePath = templatePath;
         this.destinationPath = destinationPath;
