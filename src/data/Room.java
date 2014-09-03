@@ -263,4 +263,5 @@ public class Room implements Entity, Connectible {
     public Border getBorder() {
         return null;
     }
+
 }
