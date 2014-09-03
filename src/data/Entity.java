@@ -25,7 +25,9 @@ import javax.swing.border.Border;
  * Interface implemented by Entities within a Level.
  */
 public interface Entity {
+
     public String getNormalImage();
     public String getSelectedImage();
     public Border getBorder();
+
 }
