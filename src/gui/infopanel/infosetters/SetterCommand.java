@@ -20,6 +20,9 @@ package gui.infopanel.infosetters;
 
 import data.Room;
 
+/**
+ * Interface for wrapping a setter for a Room object.
+ */
 public interface SetterCommand {
 
     public void set(Room room, String text);

@@ -20,6 +20,9 @@ package gui.infopanel.infosetters;
 
 import data.Room;
 
+/**
+ * Wrapper class for setting the include field in a Room object.
+ */
 public class SetInclude implements SetterCommand {
 
     @Override
