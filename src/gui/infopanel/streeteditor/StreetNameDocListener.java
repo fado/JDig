@@ -22,10 +22,17 @@ import javax.swing.JButton;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
+/**
+ * Document listener for the street name field.
+ */
 public class StreetNameDocListener implements DocumentListener {
 
     private StreetEditor editor;
 
+    /**
+     * Constructor.
+     * @param editor The editor in which the street name field is instantiated.
+     */
     public StreetNameDocListener(StreetEditor editor) {
         this.editor = editor;
     }

@@ -46,6 +46,9 @@ import javax.swing.event.ListSelectionListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Allows streets to be added/removed from a level.
+ */
 public class StreetEditor implements Runnable {
 
     private DefaultListModel<String> listModel;
@@ -61,11 +64,18 @@ public class StreetEditor implements Runnable {
     private Container contentPane;
     static final Logger logger = LoggerFactory.getLogger(StreetEditor.class);
 
+    /**
+     * Constructor.
+     * @param infoPanel The InfoPanel which launched the editor.
+     */
     public StreetEditor(InfoPanel infoPanel) {
         this.infoPanel = infoPanel;
         this.level = infoPanel.getLevel();
     }
 
+    /**
+     * Runner.
+     */
     @Override
     public void run() {
         try {
@@ -77,6 +87,9 @@ public class StreetEditor implements Runnable {
         }
     }
 
+    /**
+     * Creates and shows the components which make up the UI.
+     */
     private void createAndShowGui() {
         JFrame frame = new JFrame(localization.get("EditorWindowTitle"));
         this.contentPane = frame.getContentPane();
@@ -173,30 +186,58 @@ public class StreetEditor implements Runnable {
         return list;
     }
 
+    /**
+     * Returns the ContentPane of the top level JFrame.
+     * @return the ContentPane of the top level JFrame.
+     */
     public Container getContentPane() {
         return this.contentPane;
     }
 
+    /**
+     * Returns the JTextField for entering street names.
+     * @return the JTextField for entering street names.
+     */
     public JTextField getStreetNameField() {
         return this.streetName;
     }
 
+    /**
+     * Returns the JList of street names.
+     * @return the JList of street names.
+     */
     public JList getList() {
         return this.list;
     }
 
+    /**
+     * Returns the DefaultListModel that maintains the list of street names.
+     * @return the DefaultListModel that maintains the list of street names.
+     */
     public DefaultListModel<String> getListModel() {
         return this.listModel;
     }
 
+    /**
+     * Returns the JButton that adds streets to the level.
+     * @return the JButton that adds streets to the level.
+     */
     public JButton getAddButton() {
         return this.addButton;
     }
-    
+
+    /**
+     * Returns the JButton that deletes streets from the level.
+     * @return the JButton that deletes streets from the level.
+     */
     public JButton getDeleteButton() {
         return this.deleteButton;
     }
 
+    /**
+     * Returns the level to which streets will be added.
+     * @return the level to which streets will be added.
+     */
     public Level getLevel() {
         return this.level;
     }

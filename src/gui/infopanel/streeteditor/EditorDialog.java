@@ -19,6 +19,9 @@ package gui.infopanel.streeteditor;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**
+ * Interface for dialogs produced by the StreetEditor.
+ */
 public interface EditorDialog {
 
     void showDialog(String message, StreetEditor editor);
