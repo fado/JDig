@@ -22,7 +22,6 @@ package gui.infopanel.colorchooser;
 import data.Room;
 import data.Street;
 import gui.infopanel.InfoPanel;
-import javax.swing.JColorChooser;
 import javax.swing.JLabel;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;

@@ -23,6 +23,5 @@ package gui.infopanel.colorchooser;
  * Generic dialog for the ColorChooser.
  */
 public interface ColorDialog {
-
     int showDialog(String message);
 }

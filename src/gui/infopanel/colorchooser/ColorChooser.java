@@ -25,7 +25,5 @@ import java.awt.Color;
  * Interface for the ColorChooser.
  */
 public interface ColorChooser {
-
     Color showDialog();
-
 }
