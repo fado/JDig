@@ -35,11 +35,18 @@ import main.ApplicationFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Main user interface for the application.
+ */
 public class MainUI implements Runnable {
 
     static final Logger logger = LoggerFactory.getLogger(MainUI.class);
     private Level level;
 
+    /**
+     * Constructor.
+     * @param level The currently loaded level.
+     */
     public MainUI(Level level) {
         this.level = level;
     }
@@ -59,6 +66,11 @@ public class MainUI implements Runnable {
         }
     }
 
+    /**
+     * Sets up the GridBagConstraints for the passed-in Container.
+     * @param pane The Container to which the GridBagConstraints are to be added.
+     * @return The Container, with the added constraints.
+     */
     private Container setupConstraints(Container pane) {
         pane.setLayout(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();

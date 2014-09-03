@@ -1,11 +1,5 @@
 package gui;
 
-import java.awt.event.ActionListener;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import properties.Images;
-import properties.Localization;
-
 /**
  * JDig, a tool for the automatic generation of LPC class files for Epitaph
  * developers. Copyright (C) 2014 Fado@Epitaph.
@@ -24,19 +18,31 @@ import properties.Localization;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+import java.awt.event.ActionListener;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import properties.Images;
+import properties.Localization;
+
+/**
+ * Builder for toolbar buttons.
+ */
 public class ToolbarButtonBuilder {
 
     private static final Images images = new Images();
     private static final Localization localization = new Localization();
 
-    private ToolbarButtonBuilder() {
-
-    }
-
+    /**
+     * Static factory for JButtons.
+     * @param buttonName The name to be added to the button.
+     * @param actionListener The ActionListener to be added to the button.
+     * @return the button built.
+     */
     public static JButton build(String buttonName, ActionListener actionListener) {
         JButton button = new JButton(new ImageIcon(images.getImagePath(buttonName)));
         button.setToolTipText(localization.get(buttonName));
         button.addActionListener(actionListener);
         return button;
     }
+
 }
