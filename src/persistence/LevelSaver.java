@@ -50,6 +50,7 @@ public class LevelSaver {
     public void save(Level level, File file) {
         // Create the XML String from the Level.
         xStream.omitField(Cell.class, "level");
+        xStream.omitField(Cell.class, "cellPanel");
         xStream.omitField(Room.class, "localization");
         xStream.omitField(Room.class, "images");
         xStream.omitField(Room.class, "cellPanel");
