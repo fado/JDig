@@ -19,7 +19,10 @@ package gui.menubar;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-public interface LoadDialog {
+/**
+ * Interface for a JOptionPane wrapper for the MenuBar.
+ */
+public interface MenuDialog {
 
     int showDialog();
 

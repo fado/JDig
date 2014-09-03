@@ -21,10 +21,18 @@ package gui.menubar;
 import properties.Localization;
 import javax.swing.JOptionPane;
 
-public class DefaultLoadDialog implements LoadDialog {
+/**
+ * Wrapper class for a JOptionPane to display a message prompting users to save
+ * upon exiting the application.
+ */
+public class DefaultLoadDialog implements MenuDialog {
 
     Localization localization = new Localization();
 
+    /**
+     * Shows a JOptionPane and returns the response given by the user.
+     * @return a response integer from JOptionPane.
+     */
     @Override
     public int showDialog() {
         return JOptionPane.showOptionDialog(null, localization.get("ExitMess"),

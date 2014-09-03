@@ -19,6 +19,9 @@ package gui.menubar;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**
+ * Interface for commands in the menu bar.
+ */
 public abstract class Command {
     public abstract void execute();
 }

@@ -29,14 +29,24 @@ import javax.swing.UIManager;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 
+/**
+ * MenuBar for the application.
+ */
 public class MenuBar extends JMenuBar {
 
     private Localization localization = new Localization();
 
+    /**
+     * Constructor.
+     */
     public MenuBar() {
         addComponentsToMenuBar(this);
     }
 
+    /**
+     * Adds components to the MenuBar.
+     * @param menuBar The MenuBar to which the components should be added.
+     */
     private void addComponentsToMenuBar(JMenuBar menuBar) {
         UIManager.getDefaults().put("Button.showMnemonics", Boolean.TRUE);
 

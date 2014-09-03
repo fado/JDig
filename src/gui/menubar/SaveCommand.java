@@ -26,6 +26,9 @@ import properties.JdigProperties;
 import javax.swing.JFileChooser;
 import java.io.File;
 
+/**
+ * Command for saving levels to XML.
+ */
 public class SaveCommand extends Command {
 
     private JdigProperties jdigProperties = new JdigProperties();
@@ -34,12 +37,22 @@ public class SaveCommand extends Command {
     private JFileChooser fileChooser;
     private LevelSaver levelSaver;
 
+    /**
+     * Constructor.
+     * @param level The currently loaded level.
+     * @param fileChooser A JFileChooser.
+     * @param levelSaver A LevelSaver.
+     */
     public SaveCommand(Level level, JFileChooser fileChooser, LevelSaver levelSaver) {
         this.level = level;
         this.fileChooser = fileChooser;
         this.levelSaver = levelSaver;
     }
 
+    /**
+     * Passes the file to the LevelSaver, first ensuring it has the correct
+     * file type suffix.
+     */
     @Override
     public void execute() {
         fileChooser.setCurrentDirectory(new File(SAVE_FILE_LOCATION));

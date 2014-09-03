@@ -22,16 +22,27 @@ package gui.menubar;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * ActionListener for menu items.
+ */
 public class MenuActionListener implements ActionListener {
 
     private final Command command;
 
+    /**
+     * Constructor.
+     * @param command The Command to be executed by the MenuItem.
+     */
     public MenuActionListener(Command command) {
         this.command = command;
     }
 
+    /**
+     * Executes the command.
+     * @param event The event originating the call.
+     */
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent event) {
             command.execute();
     }
 

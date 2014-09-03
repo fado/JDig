@@ -29,6 +29,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import properties.JdigProperties;
 
+/**
+ * Command for loading saved levels.
+ */
 public class LoadCommand extends Command {
 
     private JFileChooser fileChooser;
@@ -38,11 +41,20 @@ public class LoadCommand extends Command {
     private final String SAVE_FILE_LOCATION = jdigProperties.getProperty("SaveFileLocation");
     static final Logger logger = LoggerFactory.getLogger(LoadCommand.class);
 
+    /**
+     * Constructor.
+     * @param fileChooser A JFileChooser.
+     * @param levelLoader An instance of the LevelLoader class.
+     */
     public LoadCommand(JFileChooser fileChooser, LevelLoader levelLoader) {
         this.fileChooser = fileChooser;
         this.levelLoader = levelLoader;
     }
 
+    /**
+     * User selects the file to be loaded.  Providing it is not null, it passes
+     * it to the level loader.
+     */
     @Override
     public void execute() {
         fileChooser.setCurrentDirectory(new File(SAVE_FILE_LOCATION));
