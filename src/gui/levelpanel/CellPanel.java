@@ -245,10 +245,18 @@ public class CellPanel extends JPanel implements LevelToolListener {
         return this.cell;
     }
 
+    /**
+     * Returns the X coordinate of the panel.
+     * @return the X coordinate of the panel.
+     */
     public int getPanelX() {
         return this.panelX;
     }
 
+    /**
+     * Returns the Y coordinate of the panel.
+     * @return the Y coordinate of the panel.
+     */
     public int getPanelY() {
         return this.panelY;
     }

@@ -22,9 +22,6 @@ package gui.levelpanel;
 import data.Cell;
 import data.Level;
 import gui.JdigComponent;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -84,6 +81,10 @@ public class LevelPanel extends JPanel implements JdigComponent {
         return cellPanel;
     }
 
+    /**
+     * Returns all CellPanels within the LevelPanel.
+     * @return all CellPanels within the LevelPanel.
+     */
     public List<CellPanel> getAllCellPanels() {
         List<CellPanel> cellPanels = new ArrayList<>();
         for(Component component : this.getComponents()) {
