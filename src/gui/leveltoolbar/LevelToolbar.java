@@ -37,6 +37,12 @@ public class LevelToolbar extends JToolBar implements JdigComponent {
     private final List<LevelToolListener> listeners = new ArrayList<>();
     private LevelTool selectedLevelTool;
 
+    /**
+     * Constructor.
+     * @param selectionTool Currently loaded selection tool.
+     * @param roomTool Currently loaded room tool.
+     * @param connectionTool Currently loaded connection tool.
+     */
     public LevelToolbar(SelectionTool selectionTool, RoomTool roomTool,
                         ConnectionTool connectionTool) {
         setDefaultProperties();
