@@ -20,7 +20,6 @@ package data;
  */
 
 import gui.levelpanel.CellPanel;
-
 import java.awt.Color;
 import java.awt.Point;
 import java.util.HashMap;
@@ -65,10 +64,18 @@ public class Cell {
         return this.entity;
     }
 
+    /**
+     * Sets the CellPanel associated with this Cell.
+     * @param cellPanel The CellPanel associated with this Cell.
+     */
     public void setCellPanel(CellPanel cellPanel) {
         this.cellPanel = cellPanel;
     }
 
+    /**
+     * Returns the CellPanel associated with this Cell.
+     * @return the CellPanel associated with this Cell.
+     */
     public CellPanel getCellPanel() {
         return this.cellPanel;
     }
@@ -81,12 +88,18 @@ public class Cell {
         return this.level;
     }
 
-    // TO-DO: Move this.
+    /**
+     * Sets the Color for this Cell.
+     * @param color The Color to be set for this Cell.
+     */
     public void setColor(Color color) {
         this.color = color;
     }
 
-    // TO-DO: Move this.
+    /**
+     * Returns the Color of the Cell.
+     * @return the Color of the Cell.
+     */
     public Color getColor() {
         return this.color;
     }
@@ -100,7 +113,10 @@ public class Cell {
         return entity != null && entity instanceof Connectible;
     }
 
-    // TO-DO: Remove this.
+    /**
+     * Determines whether or not the Cell contains a Connection.
+     * @return true if a Connection is present, otherwise false.
+     */
     public boolean isExit() {
         return entity != null && !isConnectible();
     }
