@@ -23,13 +23,19 @@ import data.Level;
 import gui.JdigComponent;
 import gui.ToolbarButtonBuilder;
 import properties.JdigProperties;
-
 import javax.swing.JToolBar;
 import java.awt.GridBagConstraints;
 import java.util.Properties;
 
+/**
+ * Toolbar for the InfoPanel.
+ */
 public class InfoToolbar extends JToolBar implements JdigComponent {
 
+    /**
+     * Constructor.
+     * @param level The currently loaded level.
+     */
     public InfoToolbar(Level level) {
         setDefaultProperties();
         Properties jdigProperties = new JdigProperties();

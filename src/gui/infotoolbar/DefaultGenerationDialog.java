@@ -26,6 +26,12 @@ import javax.swing.JOptionPane;
  */
 public class DefaultGenerationDialog implements GenerationDialog {
 
+    /**
+     * Displays a JOptionPane.
+     * @param message The message to be displayed.
+     * @param title The title of the JOptionPane.
+     * @param type The type of dialog.
+     */
     @Override
     public void showDialog(String message, String title, int type) {
         JOptionPane.showMessageDialog(null, message, title, type);
