@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The Level class represents a collection of Cells that make up a single area.
+ * The Level class holds a collection of Cells that make up a single area.
  */
 public class Level {
 
