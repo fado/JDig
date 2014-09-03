@@ -26,31 +26,24 @@ import data.Level;
 import data.Room;
 import gui.levelpanel.CellPanel;
 import gui.levelpanel.LevelPanel;
-import gui.leveltoolbar.LevelToolbar;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.powermock.modules.junit4.PowerMockRunner;
 import properties.Images;
-
 import java.awt.Point;
 import java.awt.event.MouseEvent;
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
 
 @RunWith(PowerMockRunner.class)
 public class ConnectionToolTest {
 
-    private Cell emptyCell, emptyMiddleCell, emptyCellSpy, emptyMiddleCellSpy;
-    private CellPanel emptyCellPanel, emptyCellPanelSpy, emptyMiddleCellPanel;
+    private Cell emptyCell, emptyMiddleCell;
+    private CellPanel emptyCellPanel, emptyMiddleCellPanel;
     private ConnectionTool connectionTool;
     private MouseEvent eventEntered, eventEnteredMiddle, eventExited, eventLeftPressed,
         eventLeftPressedEntity, eventRightPressed;
-    private ExitBuilder exitBuilderSpy;
-    private DeletionTool deletionToolSpy;
 
     @Before
     public void setUp() {
@@ -81,7 +74,7 @@ public class ConnectionToolTest {
         southCell.setEntity(new Room(southCellPanel));
 
         // ConnectionTool.
-        DeletionTool deletionTool = new DeletionTool(levelPanel, level);
+        DeletionTool deletionTool = new DeletionTool(level);
         ExitBuilder exitBuilder = new ExitBuilder();
         connectionTool = new ConnectionTool(deletionTool, exitBuilder);
 

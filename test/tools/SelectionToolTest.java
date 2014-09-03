@@ -28,7 +28,6 @@ import org.junit.Before;
 import org.junit.Test;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
-
 import static junit.framework.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;

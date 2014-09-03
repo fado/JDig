@@ -22,9 +22,7 @@ package data;
 import gui.levelpanel.CellPanel;
 import org.junit.Before;
 import org.junit.Test;
-
 import java.awt.Point;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 

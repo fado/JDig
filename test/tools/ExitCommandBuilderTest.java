@@ -31,10 +31,8 @@ import gui.levelpanel.CellPanel;
 import gui.levelpanel.LevelPanel;
 import org.junit.Before;
 import org.junit.Test;
-
 import java.awt.Point;
 import java.util.List;
-
 import static org.junit.Assert.assertEquals;
 
 public class ExitCommandBuilderTest {

@@ -26,12 +26,10 @@ import data.Level;
 import data.Room;
 import gui.levelpanel.CellPanel;
 import gui.levelpanel.LevelPanel;
-import gui.leveltoolbar.LevelToolbar;
 import org.junit.Before;
 import org.junit.Test;
 import java.awt.Point;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
 
 public class DeletionToolTest_5x5 {
 
@@ -58,7 +56,7 @@ public class DeletionToolTest_5x5 {
 
         exitBuilder = new ExitBuilder();
         LevelPanel levelPanel = new LevelPanel(testLevel);
-        testDeletionTool = new DeletionTool(levelPanel, testLevel);
+        testDeletionTool = new DeletionTool(testLevel);
 
         middleCellPanel = middleCell.getCellPanel();
     }

@@ -21,9 +21,7 @@ package data;
 
 import java.awt.Point;
 import java.util.Map;
-
 import static org.junit.Assert.*;
-
 import gui.levelpanel.CellPanel;
 import org.junit.Before;
 import org.junit.Test;

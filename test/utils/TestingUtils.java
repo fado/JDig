@@ -29,17 +29,33 @@ import java.awt.Container;
 
 public class TestingUtils {
 
+    /**
+     * Returns the street name field from the passed in InfoPanel.
+     * @param infoPanel The street editor containing the button.
+     * @return the street name field from the passed in InfoPanel.
+     */
     public JComboBox getStreetNameField(InfoPanel infoPanel) {
         JPanel contentPanel = (JPanel)getComponent(infoPanel, "contentPanel");
         return (JComboBox)getComponent(contentPanel, "streetNameField");
     }
 
+    /**
+     * Returns the delete button from the passed in street editor.
+     * @param streetEditor The street editor containing the button.
+     * @return the delete button from the passed in street editor.
+     */
     public JButton getDeleteButton(StreetEditor streetEditor) {
         JPanel buttonPane =
                 (JPanel)getComponent(streetEditor.getContentPane(), "buttonPane");
         return (JButton)getComponent(buttonPane, "deleteButton");
     }
 
+    /**
+     * Looks through the passed in container for the named component.
+     * @param container The container to be searched.
+     * @param componentName The name of the component searched for.
+     * @return the component found.
+     */
     private Component getComponent(Container container, String componentName) {
         Component[] components = container.getComponents();
         Component componentToReturn = null;

@@ -20,7 +20,6 @@ package tools;
  */
 
 import data.Cell;
-import data.Connectible;
 import data.Connection;
 import data.ConnectionType;
 import data.Level;
@@ -31,10 +30,7 @@ import gui.levelpanel.LevelPanel;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
 
 public class DeletionToolTest {
 
@@ -65,9 +61,9 @@ public class DeletionToolTest {
         middleCell = testLevel2.getCellAt(new Point(1, 1));
         exitBuilder = new ExitBuilder();
         LevelPanel levelPanel1 = new LevelPanel(testLevel);
-        testDeletionTool1 = new DeletionTool(levelPanel1, testLevel);
+        testDeletionTool1 = new DeletionTool(testLevel);
         LevelPanel levelPanel2 = new LevelPanel(testLevel2);
-        testDeletionTool2 = new DeletionTool(levelPanel2, testLevel2);
+        testDeletionTool2 = new DeletionTool(testLevel2);
         middleCellPanel = middleCell.getCellPanel();
     }
 

@@ -27,7 +27,6 @@ import data.Room;
 import org.junit.Before;
 import org.junit.Test;
 import properties.Images;
-
 import java.awt.Color;
 import java.awt.Point;
 import static junit.framework.TestCase.assertEquals;
