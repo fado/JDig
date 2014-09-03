@@ -23,8 +23,9 @@ import data.Cell;
 import data.Level;
 import org.junit.Before;
 import org.junit.Test;
+import utils.TestingUtils;
 import java.awt.Point;
-import static junit.framework.Assert.assertEquals;
+import static junit.framework.TestCase.assertEquals;
 
 public class LevelPanelTest {
 
@@ -34,7 +35,8 @@ public class LevelPanelTest {
     @Before
     public void setUp() {
         level = new Level(1, 1);
-        levelPanel = new LevelPanel(level);
+        TestingUtils testingUtils = new TestingUtils();
+        levelPanel = testingUtils.buildLevelPanel(level);
     }
 
     @Test

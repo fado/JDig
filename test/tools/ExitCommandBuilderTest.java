@@ -31,6 +31,8 @@ import gui.levelpanel.CellPanel;
 import gui.levelpanel.LevelPanel;
 import org.junit.Before;
 import org.junit.Test;
+import utils.TestingUtils;
+
 import java.awt.Point;
 import java.util.List;
 import static org.junit.Assert.assertEquals;
@@ -68,7 +70,8 @@ public class ExitCommandBuilderTest {
         southeastCell = testLevel.getCellAt(southeastPoint);
         middleCell = testLevel.getCellAt(middlePoint);
 
-        LevelPanel levelPanel = new LevelPanel(testLevel);
+        TestingUtils testingUtils = new TestingUtils();
+        LevelPanel levelPanel = testingUtils.buildLevelPanel(testLevel);
         northCellPanel = northCell.getCellPanel();
         southCellPanel = southCell.getCellPanel();
         eastCellPanel = eastCell.getCellPanel();

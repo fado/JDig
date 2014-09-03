@@ -37,19 +37,9 @@ public class LevelPanel extends JPanel implements JdigComponent {
 
     /**
      * Constructor.
-     * @param level Currently loaded level.
      */
-    public LevelPanel(Level level) {
+    public LevelPanel() {
         setLayout(new GridBagLayout());
-        GridBagConstraints constraints = new GridBagConstraints();
-
-        for(Cell cell : level.getAllCells()) {
-            constraints.gridx = cell.X;
-            constraints.gridy = cell.Y;
-            CellPanel cellPanel = new CellPanel(cell);
-            cell.setCellPanel(cellPanel);
-            add(cellPanel, constraints);
-        }
     }
 
     /**

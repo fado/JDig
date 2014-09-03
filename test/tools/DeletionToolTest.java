@@ -29,6 +29,8 @@ import java.awt.Point;
 import gui.levelpanel.LevelPanel;
 import org.junit.Before;
 import org.junit.Test;
+import utils.TestingUtils;
+
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -60,9 +62,10 @@ public class DeletionToolTest {
         southeastCell = testLevel2.getCellAt(new Point(2, 2));
         middleCell = testLevel2.getCellAt(new Point(1, 1));
         exitBuilder = new ExitBuilder();
-        LevelPanel levelPanel1 = new LevelPanel(testLevel);
+        TestingUtils testingUtils = new TestingUtils();
+        LevelPanel levelPanel1 = testingUtils.buildLevelPanel(testLevel);
         testDeletionTool1 = new DeletionTool(testLevel);
-        LevelPanel levelPanel2 = new LevelPanel(testLevel2);
+        LevelPanel levelPanel2 = testingUtils.buildLevelPanel(testLevel2);
         testDeletionTool2 = new DeletionTool(testLevel2);
         middleCellPanel = middleCell.getCellPanel();
     }

@@ -1,7 +1,11 @@
 package utils;
 
+import data.Cell;
+import data.Level;
 import gui.infopanel.InfoPanel;
 import gui.infopanel.streeteditor.StreetEditor;
+import gui.levelpanel.CellPanel;
+import gui.levelpanel.LevelPanel;
 
 /**
  * JDig, a tool for the automatic generation of LPC class files for Epitaph
@@ -26,6 +30,7 @@ import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.GridBagConstraints;
 
 public class TestingUtils {
 
@@ -66,5 +71,25 @@ public class TestingUtils {
             }
         }
         return componentToReturn;
+    }
+
+    /**
+     * Builds the LevelPanel for the passed-in Level.
+     * @param level The Level for which you wish to build a LevelPanel.
+     * @return the LevelPanel for the passed-in Level
+     */
+    public LevelPanel buildLevelPanel(Level level) {
+        LevelPanel levelPanel = new LevelPanel();
+
+        GridBagConstraints constraints = new GridBagConstraints();
+
+        for(Cell cell : level.getAllCells()) {
+            constraints.gridx = cell.X;
+            constraints.gridy = cell.Y;
+            CellPanel cellPanel = new CellPanel(cell);
+            cell.setCellPanel(cellPanel);
+            levelPanel.add(cellPanel, constraints);
+        }
+        return levelPanel;
     }
 }

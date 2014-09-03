@@ -29,7 +29,7 @@ import javax.swing.JButton;
 import javax.swing.JList;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import static junit.framework.Assert.assertEquals;
+import static junit.framework.TestCase.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 

@@ -31,6 +31,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.powermock.modules.junit4.PowerMockRunner;
 import properties.Images;
+import utils.TestingUtils;
+
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import static org.junit.Assert.assertTrue;
@@ -59,7 +61,8 @@ public class ConnectionToolTest {
 
         // 1x3 Level with Rooms to North and South.
         Level level = new Level(1, 3);
-        LevelPanel levelPanel = new LevelPanel(level);
+        TestingUtils testingUtils = new TestingUtils();
+        LevelPanel levelPanel = testingUtils.buildLevelPanel(level);
         // North Cell.
         Cell northCell = level.getCellAt(new Point(0, 0));
         CellPanel northCellPanel = northCell.getCellPanel();

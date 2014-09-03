@@ -19,6 +19,7 @@ package main;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+import data.Cell;
 import data.Level;
 import gui.JdigComponent;
 import gui.infopanel.InfoPanel;
@@ -36,6 +37,7 @@ import persistence.LevelSaver;
 import tools.*;
 import tools.ExitBuilder;
 import javax.swing.JFileChooser;
+import java.awt.GridBagConstraints;
 
 /**
  * Builds the application, ensuring that the objects involved are instantiated
@@ -67,7 +69,7 @@ public enum ApplicationFactory {
     public void buildApplication(Level level) {
         this.level = level;
         infoPanel = new InfoPanel(level);
-        levelPanel = new LevelPanel(level);
+        levelPanel = buildLevelPanel(level);
         selectionTool = new SelectionTool(infoPanel);
         infoToolbar = new InfoToolbar(level);
         selectionTool = new SelectionTool(infoPanel);
@@ -84,6 +86,21 @@ public enum ApplicationFactory {
         for(CellPanel cellPanel : levelPanel.getAllCellPanels()) {
             levelToolbar.addToolListener(cellPanel);
         }
+    }
+
+    private LevelPanel buildLevelPanel(Level level) {
+        LevelPanel levelPanel = new LevelPanel();
+
+        GridBagConstraints constraints = new GridBagConstraints();
+
+        for(Cell cell : level.getAllCells()) {
+            constraints.gridx = cell.X;
+            constraints.gridy = cell.Y;
+            CellPanel cellPanel = new CellPanel(cell);
+            cell.setCellPanel(cellPanel);
+            levelPanel.add(cellPanel, constraints);
+        }
+        return levelPanel;
     }
 
     /**
