@@ -21,6 +21,7 @@ package main;
 
 import data.Cell;
 import data.Level;
+import data.Room;
 import gui.JdigComponent;
 import gui.infopanel.InfoPanel;
 import gui.infotoolbar.InfoToolbar;
@@ -109,6 +110,7 @@ public enum ApplicationFactory {
         CellPanel cellPanel = new CellPanel(cell);
 
         if(cell.isConnectible()) {
+            Room room = (Room)cell.getEntity();
             Images images = new Images();
             cellPanel.addImage(images.getImagePath("Room"));
             if(cell.getColor() != null) {
