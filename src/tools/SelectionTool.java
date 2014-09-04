@@ -85,15 +85,18 @@ public class SelectionTool implements LevelTool {
     private void doSelection(MouseEvent event) {
         CellPanel lastSelectedPanel = (CellPanel) event.getSource();
         Cell cell = lastSelectedPanel.getCell();
+        System.out.println("Panel: "+ lastSelectedPanel.getPanelX() +", "+ lastSelectedPanel.getPanelY());
         if (cell.isConnectible()) {
             // Unless shift is down, deselect selected panels.
             if(!event.isShiftDown()) {
-                doDeselect();
+                if(!panelsMap.isEmpty()) {
+                    doDeselect();
+                }
             }
             //selectedPanels.add(lastSelectedPanel);
             panelsMap.put(lastSelectedPanel, cell);
             selectPanel(cell, lastSelectedPanel);
-            infoPanel.load(lastSelectedPanel);
+            infoPanel.load(cell);
         } else {
             doDeselect();
         }
@@ -128,6 +131,7 @@ public class SelectionTool implements LevelTool {
             cellPanel.setSelected(false);
         }
         panelsMap.clear();
+        infoPanel.unload();
     }
 
     /**
