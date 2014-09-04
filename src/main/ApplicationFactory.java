@@ -34,6 +34,7 @@ import gui.menubar.LoadCommand;
 import gui.menubar.SaveCommand;
 import persistence.LevelLoader;
 import persistence.LevelSaver;
+import properties.Images;
 import tools.*;
 import tools.ExitBuilder;
 import javax.swing.JFileChooser;
@@ -91,7 +92,12 @@ public enum ApplicationFactory {
         for(Cell cell : level.getAllCells()) {
             constraints.gridx = cell.X;
             constraints.gridy = cell.Y;
-            CellPanel cellPanel = new CellPanel(cell);
+            CellPanel cellPanel;
+            if(cell.getEntity() != null) {
+                cellPanel = restoreCell(cell);
+            } else {
+                cellPanel = new CellPanel(cell);
+            }
             cell.setCellPanel(cellPanel);
             levelPanel.add(cellPanel, constraints);
             levelToolbar.addToolListener(cellPanel);
@@ -99,7 +105,23 @@ public enum ApplicationFactory {
         return levelPanel;
     }
 
+    private CellPanel restoreCell(Cell cell) {
+        CellPanel cellPanel = new CellPanel(cell);
 
+        if(cell.isConnectible()) {
+            Images images = new Images();
+            cellPanel.addImage(images.getImagePath("Room"));
+            if(cell.getColor() != null) {
+                cellPanel.setBackground(cell.getColor());
+            }
+            cellPanel.removeBorder();
+        }
+        if(cell.isExit()) {
+            cellPanel.addImage(cell.getEntity().getNormalImage());
+            cellPanel.setBorder(cell.getEntity());
+        }
+        return cellPanel;
+    }
 
     /**
      * Returns the currently loaded level.

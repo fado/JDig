@@ -69,30 +69,6 @@ public class CellPanel extends JPanel implements LevelToolListener {
         this.panelX = cell.X;
         this.panelY = cell.Y;
         setDefaultProperties();
-        // Check if the Cell already has an Entity.
-        if(cell.getEntity() != null) {
-            restoreCell(cell);
-        }
-    }
-
-    /**
-     * If we're loading a Level from memory and the Cell already has an Entity
-     * in it, this method controls how the CellPanel is rendered.
-     * @param cell The Cell corresponding to this CellPanel.
-     */
-    private void restoreCell(Cell cell) {
-        if(cell.isConnectible()) {
-            Images images = new Images();
-            addImage(images.getImagePath("Room"));
-            if(cell.getColor() != null) {
-                this.setBackground(cell.getColor());
-            }
-            removeBorder();
-        }
-        if(cell.isExit()) {
-            addImage(cell.getEntity().getNormalImage());
-            setBorder(cell.getEntity());
-        }
     }
 
     /**

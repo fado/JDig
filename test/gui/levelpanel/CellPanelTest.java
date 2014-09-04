@@ -20,18 +20,15 @@ package gui.levelpanel;
  */
 
 import data.Cell;
-import data.Connection;
 import data.ConnectionType;
 import data.Level;
 import data.Room;
 import org.junit.Before;
 import org.junit.Test;
 import properties.Images;
-import java.awt.Color;
 import java.awt.Point;
 import static junit.framework.TestCase.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
@@ -56,42 +53,9 @@ public class CellPanelTest {
     }
 
     @Test
-    public void testConstructorCallsRestoreWithEntity() {
-        cell.setEntity(new Room(null));
-        cellPanel = new CellPanel(cell);
-        assertNotNull(cellPanel.getEntityImagePath());
-    }
-
-    @Test
     public void testConstructorDoesNotCallRestoreWithNoEntity() {
         cellPanel = new CellPanel(cell);
         assertNull(cellPanel.getEntityImagePath());
-    }
-
-    @Test
-    public void testRestoreAddsRoomImageForRoom() {
-        cell.setEntity(new Room(null));
-        cellPanel = new CellPanel(cell);
-        String expected = images.getImagePath("Room");
-        String actual = cellPanel.getEntityImagePath();
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    public void testRestoreAddsExitImageForExit() {
-        cell.setEntity(new Connection(ConnectionType.VERTICAL));
-        cellPanel = new CellPanel(cell);
-        String expected = ConnectionType.VERTICAL.getPath();
-        String actual = cellPanel.getEntityImagePath();
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    public void testRestoreSetsBackgroundColor() {
-        cell.setEntity(new Room(null));
-        cell.setColor(Color.BLACK);
-        cellPanel = new CellPanel(cell);
-        assertEquals(cellPanel.getBackground(), Color.BLACK);
     }
 
     @Test
