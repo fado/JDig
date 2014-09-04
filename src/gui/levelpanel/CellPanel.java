@@ -133,17 +133,6 @@ public class CellPanel extends JPanel implements LevelToolListener {
     }
 
     /**
-     * Deselect the CellPanel.
-     */
-    public void deselect() {
-        removeImage();
-        if(this.cell.isConnectible()) {
-            addImage(this.cell.getEntity().getNormalImage());
-        }
-        setSelected(false);
-    }
-
-    /**
      * Adds the image at the passed-in path to the CellPanel.
      * @param path The path of the image.
      */
