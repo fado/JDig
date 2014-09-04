@@ -41,7 +41,6 @@ public class Room implements Entity, Connectible {
     private String light;
     private final List<Exit> exits = new ArrayList<>();
     private static final Localization localization = new Localization();
-    private final Images images = new Images();
     private final CellPanel cellPanel;
 
     /**
@@ -243,6 +242,7 @@ public class Room implements Entity, Connectible {
      */
     @Override
     public String getNormalImage() {
+        Images images = new Images();
         return images.getImagePath("Room");
     }
 
@@ -252,6 +252,7 @@ public class Room implements Entity, Connectible {
      */
     @Override
     public String getSelectedImage() {
+        Images images = new Images();
         return images.getImagePath("SelectedRoom");
     }
 
