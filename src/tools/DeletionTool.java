@@ -65,7 +65,7 @@ public class DeletionTool {
         cellPanel.removeImage();
         cellPanel.restoreDefaultBorder();
         if(cellPanel.isSelected()) {
-            cellPanel.deselect();
+            cellPanel.setSelected(false);
         }
     }
 
