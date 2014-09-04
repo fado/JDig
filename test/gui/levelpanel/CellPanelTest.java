@@ -26,6 +26,8 @@ import data.Room;
 import org.junit.Before;
 import org.junit.Test;
 import properties.Images;
+import utils.TestingUtils;
+
 import java.awt.Point;
 import static junit.framework.TestCase.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -39,6 +41,7 @@ public class CellPanelTest {
     Cell cell, cell2;
     CellPanel cellPanel, selectedCellPanel;
     Images images = new Images();
+    TestingUtils testingUtils;
 
     @Before
     public void setUp() {
@@ -49,7 +52,9 @@ public class CellPanelTest {
         room = new Room(null);
         cell2.setEntity(room);
         selectedCellPanel = new CellPanel(cell2);
-        selectedCellPanel.select();
+        testingUtils = new TestingUtils();
+        testingUtils.selectPanel(cell, selectedCellPanel);
+        //selectedCellPanel.select();
     }
 
     @Test
@@ -63,7 +68,8 @@ public class CellPanelTest {
         Room room = new Room(null);
         cell.setEntity(room);
         cellPanel = new CellPanel(cell);
-        cellPanel.select();
+        testingUtils.selectPanel(cell, cellPanel);
+        //cellPanel.select();
         String expected = room.getSelectedImage();
         String actual = cellPanel.getEntityImagePath();
         assertEquals(expected, actual);
@@ -72,7 +78,8 @@ public class CellPanelTest {
     @Test
     public void testSelectWithNoEntityDoesNotAddImage() {
         cellPanel = new CellPanel(cell);
-        cellPanel.select();
+        testingUtils.selectPanel(cell, cellPanel);
+        //cellPanel.select();
         assertNull(cellPanel.getEntityImagePath());
     }
 

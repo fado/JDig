@@ -20,6 +20,7 @@ package tools;
  */
 
 import data.Cell;
+import data.Entity;
 import gui.levelpanel.CellPanel;
 import gui.infopanel.InfoPanel;
 import java.awt.event.MouseEvent;
@@ -80,20 +81,29 @@ public class SelectionTool implements LevelTool {
      * @param event The event originating the call.
      */
     private void doSelection(MouseEvent event) {
-        CellPanel cellPanel = (CellPanel) event.getSource();
-        Cell cell = cellPanel.getCell();
+        CellPanel lastSelectedPanel = (CellPanel) event.getSource();
+        Cell cell = lastSelectedPanel.getCell();
         if (cell.isConnectible()) {
             // Unless shift is down, deselect selected panels.
             if(!event.isShiftDown()) {
                 doDeselect();
             }
-            CellPanel lastSelectedPanel = (CellPanel) event.getSource();
             selectedPanels.add(lastSelectedPanel);
-            lastSelectedPanel.select();
+            selectPanel(cell, lastSelectedPanel);
             infoPanel.load(lastSelectedPanel);
         } else {
             doDeselect();
         }
+    }
+
+    private void selectPanel(Cell cell, CellPanel cellPanel) {
+        cellPanel.removeImage();
+        Entity entity = cell.getEntity();
+        if(entity != null) {
+            String path = entity.getSelectedImage();
+            cellPanel.addImage(path);
+        }
+        cellPanel.setSelected(true);
     }
 
     /**

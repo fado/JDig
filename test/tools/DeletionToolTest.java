@@ -22,6 +22,7 @@ package tools;
 import data.Cell;
 import data.Connection;
 import data.ConnectionType;
+import data.Entity;
 import data.Level;
 import data.Room;
 import gui.levelpanel.CellPanel;
@@ -90,7 +91,9 @@ public class DeletionToolTest {
      */
     @Test
     public void testDeleteEntityDeselectsCellPanel() {
-        testCellPanel.select();
+        TestingUtils testingUtils = new TestingUtils();
+        testingUtils.selectPanel(testCell, testCellPanel);
+        //testCellPanel.select();
         testDeletionTool2.deleteEntity(testCellPanel);
         assertFalse(testCellPanel.isSelected());
     }

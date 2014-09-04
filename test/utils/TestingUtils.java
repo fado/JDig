@@ -1,6 +1,7 @@
 package utils;
 
 import data.Cell;
+import data.Entity;
 import data.Level;
 import gui.infopanel.InfoPanel;
 import gui.infopanel.streeteditor.StreetEditor;
@@ -91,5 +92,20 @@ public class TestingUtils {
             levelPanel.add(cellPanel, constraints);
         }
         return levelPanel;
+    }
+
+    /**
+     * Utility method to select a panel.
+     * @param cell
+     * @param cellPanel
+     */
+    public void selectPanel(Cell cell, CellPanel cellPanel) {
+        cellPanel.removeImage();
+        Entity entity = cell.getEntity();
+        if(entity != null) {
+            String path = entity.getSelectedImage();
+            cellPanel.addImage(path);
+        }
+        cellPanel.setSelected(true);
     }
 }
