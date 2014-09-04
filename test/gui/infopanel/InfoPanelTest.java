@@ -37,6 +37,7 @@ public class InfoPanelTest {
 
     Level level;
     InfoPanel infoPanel;
+    Cell cell;
     CellPanel cellPanel;
     Room room;
     TestingUtils testingUtils = new TestingUtils();
@@ -44,7 +45,7 @@ public class InfoPanelTest {
     @Before
     public void setUp() {
         level = new Level(1, 1);
-        Cell cell = new Cell(new Point(0, 0), level);
+        cell = new Cell(new Point(0, 0), level);
         cellPanel = new CellPanel(cell);
         room = new Room(cellPanel);
         cell.setEntity(room);
@@ -53,13 +54,13 @@ public class InfoPanelTest {
 
     @Test
     public void testLoadAndGetCurrentRoom() {
-        infoPanel.load(cellPanel);
+        infoPanel.load(cell);
         assertEquals(room, infoPanel.getCurrentRoom());
     }
 
     @Test
     public void testUnload() {
-        infoPanel.load(cellPanel);
+        infoPanel.load(cell);
         infoPanel.unload();
         assertNull(infoPanel.getCurrentRoom());
     }

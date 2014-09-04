@@ -45,6 +45,7 @@ public class ColorChooserListenerTest {
     MouseEvent testEvent;
     JLabel colorChooserButton;
     CellPanel cellPanel, cellPanel2;
+    Cell cell1, cell2;
 
     @Before
     public void setUp() {
@@ -59,19 +60,19 @@ public class ColorChooserListenerTest {
         testEvent = new MouseEvent(colorChooserButton, MouseEvent.MOUSE_PRESSED,
                 0, 0, 0, 0, 1, false);
 
-        Cell cell1 = new Cell(new Point(0, 0), level);
+        cell1 = new Cell(new Point(0, 0), level);
         cellPanel = new CellPanel(cell1);
         cell1.setEntity(new Room(cellPanel));
 
-        Cell cell2 = new Cell(new Point(1, 1), level);
+        cell2 = new Cell(new Point(1, 1), level);
         cellPanel2 = new CellPanel(cell2);
         cell2.setEntity(new Room(cellPanel2));
     }
 
     @Test
     public void testMouseClickedColorsAllSelectedRooms() {
-        infoPanel.load(cellPanel);
-        infoPanel.load(cellPanel2);
+        infoPanel.load(cell1);
+        infoPanel.load(cell2);
         colorChooserListener.mouseClicked(testEvent);
         assertTrue(cellPanel.getCell().getColor() == Color.BLACK);
         assertTrue(cellPanel2.getCell().getColor() == Color.BLACK);
@@ -90,7 +91,7 @@ public class ColorChooserListenerTest {
         room2.setStreetName("foo");
         street.addRoom(room2);
 
-        infoPanel.load(cellPanel);
+        infoPanel.load(cell1);
         colorChooserListener.mouseClicked(testEvent);
 
         assertTrue(cellPanel.getCell().getColor() == Color.BLACK);

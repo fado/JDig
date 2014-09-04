@@ -84,22 +84,6 @@ public class CellPanelTest {
     }
 
     @Test
-    public void testDeselectRestoresNormalImage() {
-        selectedCellPanel.deselect();
-        String expected = room.getNormalImage();
-        String actual = selectedCellPanel.getEntityImagePath();
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    public void testDeselectDoesNotAddImageForNonConnectible() {
-        cellPanel = new CellPanel(cell);
-        cellPanel.addImage(ConnectionType.VERTICAL.getPath());
-        cellPanel.deselect();
-        assertNull(cellPanel.getEntityImagePath());
-    }
-
-    @Test
     public void testHasEntityImageReturnsFalseForNoEntityImage() {
         cellPanel = new CellPanel(cell);
         assertFalse(cellPanel.hasEntityImage());
