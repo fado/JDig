@@ -25,7 +25,9 @@ import gui.levelpanel.CellPanel;
 import gui.infopanel.InfoPanel;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Tool for selecting CellPanels within a Level.
@@ -33,7 +35,7 @@ import java.util.List;
 public class SelectionTool implements LevelTool {
 
     private InfoPanel infoPanel;
-    private List<CellPanel> selectedPanels = new ArrayList<>();
+    private Map<CellPanel, Cell> panelsMap = new HashMap<>();
 
     /**
      * Constructor.
@@ -88,7 +90,8 @@ public class SelectionTool implements LevelTool {
             if(!event.isShiftDown()) {
                 doDeselect();
             }
-            selectedPanels.add(lastSelectedPanel);
+            //selectedPanels.add(lastSelectedPanel);
+            panelsMap.put(lastSelectedPanel, cell);
             selectPanel(cell, lastSelectedPanel);
             infoPanel.load(lastSelectedPanel);
         } else {
@@ -96,6 +99,11 @@ public class SelectionTool implements LevelTool {
         }
     }
 
+    /**
+     * Select a CellPanel.
+     * @param cell The corresponding Cell.
+     * @param cellPanel The CellPanel to be selected.
+     */
     private void selectPanel(Cell cell, CellPanel cellPanel) {
         cellPanel.removeImage();
         Entity entity = cell.getEntity();
@@ -110,13 +118,16 @@ public class SelectionTool implements LevelTool {
      * Deselects any currently selected panels and unloads them from the InfoPanel.
      */
     private void doDeselect() {
-        if (!selectedPanels.isEmpty()) {
-            for(CellPanel panel : selectedPanels) {
-                panel.deselect();
+        for(Map.Entry<CellPanel, Cell> tuple : panelsMap.entrySet()) {
+            CellPanel cellPanel = tuple.getKey();
+            Cell cell = tuple.getValue();
+            cellPanel.removeImage();
+            if(cell.isConnectible()) {
+                cellPanel.addImage(cell.getEntity().getNormalImage());
             }
-            selectedPanels.clear();
-            infoPanel.unload();
+            cellPanel.setSelected(false);
         }
+        panelsMap.clear();
     }
 
     /**
@@ -124,7 +135,11 @@ public class SelectionTool implements LevelTool {
      * @return a List of all currently selected CellPanels.
      */
     public List<CellPanel> getSelectedPanels() {
-        return this.selectedPanels;
+        List<CellPanel> selectedPanels = new ArrayList<>();
+        for(Map.Entry<CellPanel, Cell> tuple : panelsMap.entrySet()) {
+            selectedPanels.add(tuple.getKey());
+        }
+        return selectedPanels;
     }
 
 }
