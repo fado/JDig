@@ -18,6 +18,7 @@ package gui.infopanel;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+import data.Cell;
 import data.Exit;
 import data.Level;
 import data.Room;
@@ -279,13 +280,14 @@ public class InfoPanel extends JPanel implements JdigComponent {
      * before passing the Room on to be loaded into the InfoPanel.
      * @param cellPanel The CellPanel from which you wish to loadRoom the data.
      */
-    public void load(CellPanel cellPanel) {
+    public void load(Cell cell) {
         // Double-check we're dealing with a Room.
-        if(cellPanel.getCell().isConnectible()) {
+        if(cell.isConnectible()) {
             // Get the data we need from the CellPanel.
-            this.colorChooserButton.setBackground(cellPanel.getBackground());
+            //this.colorChooserButton.setBackground(cellPanel.getBackground());
+            this.colorChooserButton.setBackground(cell.getColor());
             // Load the Room.
-            Room room = (Room)cellPanel.getCell().getEntity();
+            Room room = (Room)cell.getEntity();
             loadRoom(room);
         }
     }
@@ -296,6 +298,7 @@ public class InfoPanel extends JPanel implements JdigComponent {
      */
     private void loadRoom(Room room) {
         if(currentRooms.isEmpty()) {
+            System.out.println("Trace: "+room.getName());
             // Add the passed-in Room to the list of selected Rooms.
             this.currentRooms.add(room);
             // Load the data from the Room into the InfoPanel.
