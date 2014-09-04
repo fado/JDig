@@ -69,7 +69,6 @@ public enum ApplicationFactory {
     public void buildApplication(Level level) {
         this.level = level;
         infoPanel = new InfoPanel(level);
-        levelPanel = buildLevelPanel(level);
         selectionTool = new SelectionTool(infoPanel);
         infoToolbar = new InfoToolbar(level);
         selectionTool = new SelectionTool(infoPanel);
@@ -79,18 +78,14 @@ public enum ApplicationFactory {
         exitBuilder = new ExitBuilder();
         connectionTool = new ConnectionTool(deletionTool, exitBuilder);
         levelToolbar = new LevelToolbar(selectionTool, roomTool, connectionTool);
+        levelPanel = buildLevelPanel(level);
         defaultLoadDialog = new DefaultLoadDialog();
         jFileChooser = new JFileChooser();
         levelSaver = new LevelSaver();
-
-        for(CellPanel cellPanel : levelPanel.getAllCellPanels()) {
-            levelToolbar.addToolListener(cellPanel);
-        }
     }
 
     private LevelPanel buildLevelPanel(Level level) {
         LevelPanel levelPanel = new LevelPanel();
-
         GridBagConstraints constraints = new GridBagConstraints();
 
         for(Cell cell : level.getAllCells()) {
@@ -99,9 +94,12 @@ public enum ApplicationFactory {
             CellPanel cellPanel = new CellPanel(cell);
             cell.setCellPanel(cellPanel);
             levelPanel.add(cellPanel, constraints);
+            levelToolbar.addToolListener(cellPanel);
         }
         return levelPanel;
     }
+
+
 
     /**
      * Returns the currently loaded level.
