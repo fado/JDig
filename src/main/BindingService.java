@@ -95,4 +95,13 @@ public class BindingService {
         return null;
     }
 
+    public Cell getBoundCell(CellPanel cellPanel) {
+        for(Map.Entry<Cell, CellPanel> tuple : mappingCells.entrySet()) {
+            if(tuple.getValue() == cellPanel) {
+                return tuple.getKey();
+            }
+        }
+        return null;
+    }
+
 }

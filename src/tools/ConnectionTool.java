@@ -24,6 +24,8 @@ import data.Connection;
 import data.ConnectionType;
 import data.Entity;
 import gui.levelpanel.CellPanel;
+import main.BindingService;
+
 import java.awt.event.MouseEvent;
 import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
@@ -36,15 +38,19 @@ public class ConnectionTool implements LevelTool {
     ConnectionType connectionType;
     private DeletionTool deletionTool;
     private ExitBuilder exitBuilder;
+    private BindingService bindingService;
 
     /**
      * Constructor.
      * @param deletionTool A DeletionTool.
      * @param exitBuilder An ExitBuilder.
      */
-    public ConnectionTool(DeletionTool deletionTool, ExitBuilder exitBuilder) {
+    public ConnectionTool(DeletionTool deletionTool,
+                          ExitBuilder exitBuilder,
+                          BindingService bindingService) {
         this.deletionTool = deletionTool;
         this.exitBuilder = exitBuilder;
+        this.bindingService = bindingService;
     }
 
     /**
@@ -54,7 +60,8 @@ public class ConnectionTool implements LevelTool {
     @Override
     public void mouseEntered(MouseEvent event) {
         CellPanel cellPanel = (CellPanel) event.getSource();
-        Cell cell = cellPanel.getCell();
+        //Cell cell = cellPanel.getCell();
+        Cell cell = bindingService.getBoundCell(cellPanel);
         Entity entity = cell.getEntity();
         connectionType = cell.getPotentialConnectionType();
 
@@ -74,7 +81,8 @@ public class ConnectionTool implements LevelTool {
     @Override
     public void mouseExited(MouseEvent event) {
         CellPanel cellPanel = (CellPanel)event.getSource();
-        Cell cell = cellPanel.getCell();
+        //Cell cell = cellPanel.getCell();
+        Cell cell = bindingService.getBoundCell(cellPanel);
         Entity entity = cell.getEntity();
         if (entity == null) {
             cellPanel.removeImage();
@@ -110,7 +118,8 @@ public class ConnectionTool implements LevelTool {
      * @param cellPanel The CellPanel you're adding the Connection to.
      */
     private void createExits(CellPanel cellPanel) {
-        Cell cell = cellPanel.getCell();
+        //Cell cell = cellPanel.getCell();
+        Cell cell = bindingService.getBoundCell(cellPanel);
         ConnectionType connectionType = cell.getPotentialConnectionType();
         if (connectionType != ConnectionType.NONE && !cell.isExit()) {
             cell.setEntity(new Connection(cell.getPotentialConnectionType()));

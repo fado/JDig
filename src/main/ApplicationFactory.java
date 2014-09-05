@@ -95,7 +95,7 @@ public enum ApplicationFactory {
         placementRestriction = new PlacementRestriction();
         roomTool = new RoomTool(level, deletionTool, placementRestriction);
         exitBuilder = new ExitBuilder();
-        connectionTool = new ConnectionTool(deletionTool, exitBuilder);
+        connectionTool = new ConnectionTool(deletionTool, exitBuilder, bindingService);
         levelToolbar = new LevelToolbar(selectionTool, roomTool, connectionTool);
         levelPanel = buildLevelPanel(level);
         defaultLoadDialog = new DefaultLoadDialog();
