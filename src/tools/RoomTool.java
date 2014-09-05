@@ -23,6 +23,7 @@ import data.Cell;
 import data.Level;
 import data.Room;
 import gui.levelpanel.CellPanel;
+import main.BindingService;
 import properties.Images;
 import java.awt.event.MouseEvent;
 import javax.swing.SwingUtilities;
@@ -36,16 +37,20 @@ public class RoomTool implements LevelTool {
     private Images images = new Images();
     private DeletionTool deletionTool;
     private PlacementRestriction placementRestriction;
+    private BindingService bindingService;
 
     /**
      * Default constructor.
      * @param level The Level on which the tool will be operating.
      */
-    public RoomTool(Level level, DeletionTool deletionTool,
-                    PlacementRestriction placementRestriction) {
+    public RoomTool(Level level,
+                    DeletionTool deletionTool,
+                    PlacementRestriction placementRestriction,
+                    BindingService bindingService) {
         this.level = level;
         this.deletionTool = deletionTool;
         this.placementRestriction = placementRestriction;
+        this.bindingService = bindingService;
     }
 
     /**
@@ -59,7 +64,8 @@ public class RoomTool implements LevelTool {
     @Override
     public void mouseEntered(MouseEvent event) {
         CellPanel cellPanel = (CellPanel)event.getSource();
-        Cell cell = cellPanel.getCell();
+        //Cell cell = cellPanel.getCell();
+        Cell cell = bindingService.getBoundCell(cellPanel);
         // Check that the Cell does not already contain an Entity.
         if (cellPanel.getCell().getEntity() == null) {
             // Check whether or not the Cell Panel can contain a Room.
@@ -81,7 +87,8 @@ public class RoomTool implements LevelTool {
     @Override
     public void mouseExited(MouseEvent event) {
         CellPanel cellPanel = (CellPanel) event.getSource();
-        if (cellPanel.getCell().getEntity() == null) {
+        Cell cell = bindingService.getBoundCell(cellPanel);
+        if (cell.getEntity() == null) {
             cellPanel.removeImage();
             cellPanel.restoreDefaultBorder();
         }
@@ -94,7 +101,8 @@ public class RoomTool implements LevelTool {
     @Override
     public void mousePressed(MouseEvent event) {
         CellPanel cellPanel = (CellPanel) event.getSource();
-        Cell cell = cellPanel.getCell();
+        //Cell cell = cellPanel.getCell();
+        Cell cell = bindingService.getBoundCell(cellPanel);
         // Delete the Room from the Cell upon right mouse click.
         if (SwingUtilities.isRightMouseButton(event)) {
             deletionTool.deleteEntity(cellPanel);
