@@ -298,7 +298,6 @@ public class InfoPanel extends JPanel implements JdigComponent {
      */
     private void loadRoom(Room room) {
         if(currentRooms.isEmpty()) {
-            System.out.println("Trace: "+room.getName());
             // Add the passed-in Room to the list of selected Rooms.
             this.currentRooms.add(room);
             // Load the data from the Room into the InfoPanel.
