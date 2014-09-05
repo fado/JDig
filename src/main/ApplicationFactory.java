@@ -66,17 +66,19 @@ public enum ApplicationFactory {
     DefaultLoadDialog defaultLoadDialog;
     JFileChooser jFileChooser;
     LevelSaver levelSaver;
+    BindingService bindingService;
 
     /**
      * Builds the application, ensuring objects are instantiated in the correct order.
      * @param level The currently loaded level.
      */
     public void buildApplication(Level level) {
+        bindingService = new BindingService();
         if(level.getAllCells().isEmpty()) {
             Properties properties = new JdigProperties();
             int defaultX = Integer.parseInt(properties.getProperty("DefaultX"));
             int defaultY = Integer.parseInt(properties.getProperty("DefaultY"));
-            level = populateLevel(defaultX, defaultY, level);
+            this.level = populateLevel(defaultX, defaultY, level);
         } else {
             this.level = level;
         }
@@ -106,6 +108,7 @@ public enum ApplicationFactory {
             for (int columns = 0; columns < maxColumns; columns++) {
                 Cell cell = new Cell(new Point(columns, rows), level);
                 level.addCell(cell);
+                bindingService.bindToCellPanel(cell);
             }
         }
         return level;
