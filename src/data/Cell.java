@@ -19,7 +19,6 @@ package data;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import gui.levelpanel.CellPanel;
 import java.awt.Color;
 import java.awt.Point;
 import java.util.HashMap;
@@ -35,7 +34,6 @@ public class Cell {
     private final Level level;
     private Entity entity;
     private Color color;
-    private CellPanel cellPanel;
 
     /**
      * Constructor.
@@ -62,22 +60,6 @@ public class Cell {
      */
     public Entity getEntity() {
         return this.entity;
-    }
-
-    /**
-     * Sets the CellPanel associated with this Cell.
-     * @param cellPanel The CellPanel associated with this Cell.
-     */
-    public void setCellPanel(CellPanel cellPanel) {
-        this.cellPanel = cellPanel;
-    }
-
-    /**
-     * Returns the CellPanel associated with this Cell.
-     * @return the CellPanel associated with this Cell.
-     */
-    public CellPanel getCellPanel() {
-        return this.cellPanel;
     }
 
     /**
