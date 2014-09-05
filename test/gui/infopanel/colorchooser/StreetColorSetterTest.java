@@ -26,6 +26,8 @@ import data.Street;
 import gui.levelpanel.CellPanel;
 import org.junit.Before;
 import org.junit.Test;
+import utils.TestingUtils;
+
 import javax.swing.JOptionPane;
 import java.awt.Color;
 import java.awt.Point;
@@ -37,10 +39,12 @@ public class StreetColorSetterTest {
     Street street;
     Cell cell;
     StreetColorSetter streetColorSetter;
+    TestingUtils testingUtils = new TestingUtils();
 
     @Before
     public void setUp() {
-        level = new Level(1, 1);
+        level = new Level();
+        testingUtils.populateLevel(1, 1, level);
         street = new Street("foo");
         level.addStreet(street);
         cell = new Cell(new Point(0, 0), level);

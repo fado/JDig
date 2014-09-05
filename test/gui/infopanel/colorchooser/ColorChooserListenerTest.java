@@ -27,6 +27,8 @@ import gui.infopanel.InfoPanel;
 import gui.levelpanel.CellPanel;
 import org.junit.Before;
 import org.junit.Test;
+import utils.TestingUtils;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import java.awt.Color;
@@ -46,10 +48,12 @@ public class ColorChooserListenerTest {
     JLabel colorChooserButton;
     CellPanel cellPanel, cellPanel2;
     Cell cell1, cell2;
+    TestingUtils testingUtils = new TestingUtils();
 
     @Before
     public void setUp() {
-        level = new Level(1, 1);
+        level = new Level();
+        testingUtils.populateLevel(1, 1, level);
         infoPanel = new InfoPanel(level);
         colorChooser = new MockColorChooser();
         roomColorSetter = new RoomColorSetter();

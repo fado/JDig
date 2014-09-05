@@ -31,10 +31,12 @@ public class LevelPanelTest {
 
     Level level;
     LevelPanel levelPanel;
+    TestingUtils testingUtils = new TestingUtils();
 
     @Before
     public void setUp() {
-        level = new Level(1, 1);
+        level = new Level();
+        testingUtils.populateLevel(1, 1, level);
         TestingUtils testingUtils = new TestingUtils();
         levelPanel = testingUtils.buildLevelPanel(level);
     }

@@ -22,6 +22,8 @@ package data;
 import gui.levelpanel.CellPanel;
 import org.junit.Before;
 import org.junit.Test;
+import utils.TestingUtils;
+
 import java.awt.Point;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -34,10 +36,12 @@ public class RoomTest {
     Room testRoom;
     Level testLevel;
     Exit testExit;
+    TestingUtils testingUtils = new TestingUtils();
 
     @Before
     public void setUp() {
-        testLevel = new Level(1, 1);
+        testLevel = new Level();
+        testingUtils.populateLevel(1, 1, testLevel);
         testPoint = new Point(1, 1);
         testCell = new Cell(testPoint, testLevel);
         testCellPanel = new CellPanel(testCell);

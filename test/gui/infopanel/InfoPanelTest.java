@@ -44,7 +44,8 @@ public class InfoPanelTest {
 
     @Before
     public void setUp() {
-        level = new Level(1, 1);
+        level = new Level();
+        testingUtils.populateLevel(1, 1, level);
         cell = new Cell(new Point(0, 0), level);
         cellPanel = new CellPanel(cell);
         room = new Room(cellPanel);

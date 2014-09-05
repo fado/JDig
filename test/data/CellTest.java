@@ -25,6 +25,7 @@ import static org.junit.Assert.*;
 import gui.levelpanel.CellPanel;
 import org.junit.Before;
 import org.junit.Test;
+import utils.TestingUtils;
 
 public class CellTest {
 
@@ -32,10 +33,12 @@ public class CellTest {
     private Entity testConnection;
     private Entity testRoom;
     private Cell testCell1, testCell2, testCell3;
+    TestingUtils testingUtils = new TestingUtils();
 
     @Before
     public void setUp() {
-        Level testLevel1 = new Level(1, 1);
+        Level testLevel1 = new Level();
+        testingUtils.populateLevel(1, 1, testLevel1);
         ConnectionType testConnectionType = ConnectionType.NONE;
         testConnection = new Connection(testConnectionType);
         Point testPoint = new Point(1, 1);
@@ -46,7 +49,8 @@ public class CellTest {
         testCell3 = new Cell(testPointInvalidY, testLevel1);
         CellPanel testCellPanel = new CellPanel(testCell1);
         testRoom = new Room(testCellPanel);
-        testLevel2 = new Level(3, 3);
+        testLevel2 = new Level();
+        testingUtils.populateLevel(3, 3, testLevel2);
     }
 
     @Test

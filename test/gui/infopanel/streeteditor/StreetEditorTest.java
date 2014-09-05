@@ -34,10 +34,11 @@ public class StreetEditorTest {
 
     @Before
     public void setUp() {
-        Level level = new Level(1, 1);
+        testingUtils = new TestingUtils();
+        Level level = new Level();
+        testingUtils.populateLevel(1, 1, level);
         InfoPanel infoPanel = new InfoPanel(level);
         streetEditor = new StreetEditor(infoPanel);
-        testingUtils = new TestingUtils();
     }
 
     @Test

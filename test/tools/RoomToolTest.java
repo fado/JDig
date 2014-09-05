@@ -26,6 +26,8 @@ import gui.levelpanel.CellPanel;
 import org.junit.Before;
 import org.junit.Test;
 import properties.Images;
+import utils.TestingUtils;
+
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import static org.junit.Assert.assertTrue;
@@ -42,11 +44,13 @@ public class RoomToolTest {
     Images images;
     PlacementRestriction placementRestriction;
     Level testLevel;
+    TestingUtils testingUtils = new TestingUtils();
 
     @Before
     public void setUp() {
         // Empty Cell and CellPanel.
-        testLevel = new Level(1, 1);
+        testLevel = new Level();
+        testingUtils.populateLevel(1, 1, testLevel);
         Point testPoint = new Point(0, 0);
         emptyCell = new Cell(testPoint, testLevel);
         emptyCellPanel = new CellPanel(emptyCell);

@@ -32,6 +32,7 @@ import javax.swing.JPanel;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.GridBagConstraints;
+import java.awt.Point;
 
 public class TestingUtils {
 
@@ -107,5 +108,20 @@ public class TestingUtils {
             cellPanel.addImage(path);
         }
         cellPanel.setSelected(true);
+    }
+
+    /**
+     * Populates the Level with Cells.
+     * @param maxColumns Maximum number of columns within the Level.
+     * @param maxRows Maximum number of Rows within the Level.
+     */
+    public Level populateLevel(int maxColumns, int maxRows, Level level) {
+        for (int rows = 0; rows < maxRows; rows++) {
+            for (int columns = 0; columns < maxColumns; columns++) {
+                Cell cell = new Cell(new Point(columns, rows), level);
+                level.addCell(cell);
+            }
+        }
+        return level;
     }
 }

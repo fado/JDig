@@ -22,6 +22,8 @@ package data;
 import gui.levelpanel.CellPanel;
 import org.junit.Before;
 import org.junit.Test;
+import utils.TestingUtils;
+
 import java.awt.Point;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -41,23 +43,29 @@ public class LevelTest {
     private CellPanel testCellPanel;
     private Point testPoint;
     private Room testRoom;
+    TestingUtils testingUtils = new TestingUtils();
 
     @Before
     public void setUp() {
-        testLevel = new Level(1, 1);
-        testLevel2 = new Level(2, 2);
+        testLevel = new Level();
+        testingUtils.populateLevel(1, 1, testLevel);
+        testLevel2 = new Level();
+        testingUtils.populateLevel(2, 2, testLevel2);
         testStreetName = "testStreetName";
         testStreet = new Street(testStreetName);
-        testLevel3 = new Level(1, 1);
+        testLevel3 = new Level();
+        testingUtils.populateLevel(1, 1, testLevel3);
         testLevel3.addStreet(testStreet);
         testPoint = new Point(1, 1);
         testCell = new Cell(testPoint, testLevel);
         testCellPanel = new CellPanel(testCell);
         testRoom = new Room(testCellPanel);
-        testLevel4 = new Level(1, 1);
+        testLevel4 = new Level();
+        testingUtils.populateLevel(1, 1, testLevel4);
         testLevel4.registerRoom(testRoom);
 
-        testLevel5 = new Level(3, 3);
+        testLevel5 = new Level();
+        testingUtils.populateLevel(3, 3, testLevel5);
 
         testPointDefault = new Point(-1, -1);
         testPointNorthwest = new Point(0,0);

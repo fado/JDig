@@ -23,6 +23,8 @@ import gui.infopanel.InfoPanel;
 import org.junit.Before;
 import org.junit.Test;
 import properties.Localization;
+import utils.TestingUtils;
+
 import javax.swing.DefaultListModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -36,10 +38,12 @@ public class AddListenerTest {
     ActionListener addListener;
     ActionEvent testEvent;
     DefaultListModel<String> listModel;
+    TestingUtils testingUtils = new TestingUtils();
 
     @Before
     public void setUp() {
-        level = new Level(1, 1);
+        level = new Level();
+        testingUtils.populateLevel(1, 1, level);
         InfoPanel infoPanel = new InfoPanel(level);
         streetEditor = new StreetEditor(infoPanel);
         addListener = new AddListener(streetEditor, new MockDialog());

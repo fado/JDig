@@ -26,6 +26,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 import properties.JdigProperties;
+import utils.TestingUtils;
+
 import javax.swing.JOptionPane;
 import java.awt.event.ActionEvent;
 import java.util.Properties;
@@ -38,13 +40,15 @@ public class GenerationListenerTest {
     GenerationListener generationListener;
     MockGenerationMessage mockGenerationMessage;
     ActionEvent testEvent;
+    TestingUtils testingUtils = new TestingUtils();
 
     @Rule
     public TemporaryFolder folder = new TemporaryFolder();
 
     @Before
     public void setUp() {
-        level = new Level(1, 1);
+        level = new Level();
+        testingUtils.populateLevel(1, 1, level);
         mockGenerationMessage = new MockGenerationMessage();
         Properties jdigProperties = new JdigProperties();
         String templatePath = jdigProperties.getProperty("EpitaphTemplate");

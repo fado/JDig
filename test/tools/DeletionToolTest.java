@@ -45,11 +45,14 @@ public class DeletionToolTest {
     private DeletionTool testDeletionTool2, testDeletionTool1;
     private Room testRoom;
     ExitBuilder exitBuilder;
+    TestingUtils testingUtils = new TestingUtils();
 
     @Before
     public void setUp() {
-        testLevel = new Level(1, 1);
-        Level testLevel2 = new Level(3, 3);
+        testLevel = new Level();
+        testingUtils.populateLevel(1, 1, testLevel);
+        Level testLevel2 = new Level();
+        testingUtils.populateLevel(3, 3, testLevel2);
         testCell = new Cell(new Point(0, 0), testLevel);
         testCellPanel = new CellPanel(testCell);
         testRoom = new Room(testCellPanel);

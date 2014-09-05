@@ -46,11 +46,13 @@ public class ConnectionToolTest {
     private ConnectionTool connectionTool;
     private MouseEvent eventEntered, eventEnteredMiddle, eventExited, eventLeftPressed,
         eventLeftPressedEntity, eventRightPressed;
+    private TestingUtils testingUtils = new TestingUtils();
 
     @Before
     public void setUp() {
         // Empty Cell and CellPanel.
-        Level testLevel = new Level(1, 1);
+        Level testLevel = new Level();
+        testingUtils.populateLevel(1, 1, testLevel);
         Point testPoint = new Point(0, 0);
         emptyCell = new Cell(testPoint, testLevel);
         emptyCellPanel = new CellPanel(emptyCell);
@@ -60,7 +62,8 @@ public class ConnectionToolTest {
                 0, 0, 0, 0, 1, false);
 
         // 1x3 Level with Rooms to North and South.
-        Level level = new Level(1, 3);
+        Level level = new Level();
+        testingUtils.populateLevel(1, 3, level);
         TestingUtils testingUtils = new TestingUtils();
         LevelPanel levelPanel = testingUtils.buildLevelPanel(level);
         // North Cell.

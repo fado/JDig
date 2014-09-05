@@ -41,18 +41,18 @@ public class CellPanelTest {
     Cell cell, cell2;
     CellPanel cellPanel, selectedCellPanel;
     Images images = new Images();
-    TestingUtils testingUtils;
+    TestingUtils testingUtils = new TestingUtils();
 
     @Before
     public void setUp() {
-        level = new Level(1, 1);
+        level = new Level();
+        testingUtils.populateLevel(1, 1, level);
         cell = new Cell(new Point(0, 0), level);
 
         cell2 = new Cell(new Point(0, 0), level);
         room = new Room(null);
         cell2.setEntity(room);
         selectedCellPanel = new CellPanel(cell2);
-        testingUtils = new TestingUtils();
         testingUtils.selectPanel(cell, selectedCellPanel);
         //selectedCellPanel.select();
     }

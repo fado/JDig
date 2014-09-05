@@ -47,10 +47,12 @@ public class ExitCommandBuilderTest {
     CellPanel northCellPanel, southCellPanel, eastCellPanel, westCellPanel,
             northwestCellPanel, northeastCellPanel, southwestCellPanel,
             southeastCellPanel, middleCellPanel;
+    TestingUtils testingUtils = new TestingUtils();
 
     @Before
     public void setUp() {
-        testLevel = new Level(3, 3);
+        testLevel = new Level();
+        testingUtils.populateLevel(3, 3, testLevel);
         northwestPoint = new Point(0, 0);
         northeastPoint = new Point(2, 0);
         southwestPoint = new Point(0, 2);

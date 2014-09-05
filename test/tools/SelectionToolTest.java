@@ -26,6 +26,8 @@ import gui.infopanel.InfoPanel;
 import gui.levelpanel.CellPanel;
 import org.junit.Before;
 import org.junit.Test;
+import utils.TestingUtils;
+
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import static junit.framework.TestCase.assertEquals;
@@ -38,11 +40,12 @@ public class SelectionToolTest {
     private SelectionTool selectionTool;
     private Cell testCell, testCell2, testCell3;
     private CellPanel testCellPanel, testCellPanel2, testCellPanel3;
+    private TestingUtils testingUtils = new TestingUtils();
 
     @Before
     public void setUp() {
-        Level testLevel = new Level(1, 1);
-
+        Level testLevel = new Level();
+        testingUtils.populateLevel(1, 1, testLevel);
         testCell = new Cell(new Point(0, 0), testLevel);
         testCellPanel = new CellPanel(testCell);
 

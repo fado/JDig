@@ -24,6 +24,8 @@ import gui.infopanel.InfoPanel;
 import org.junit.Before;
 import org.junit.Test;
 import properties.Localization;
+import utils.TestingUtils;
+
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JList;
@@ -42,10 +44,12 @@ public class DeleteListenerTest {
     DefaultListModel<String> listModel;
     JList list;
     JButton deleteButton;
+    TestingUtils testingUtils = new TestingUtils();
 
     @Before
     public void setUp() {
-        level = new Level(1, 1);
+        level = new Level();
+        testingUtils.populateLevel(1, 1, level);
         InfoPanel infoPanel = new InfoPanel(level);
         streetEditor = new StreetEditor(infoPanel);
         streetEditor.run();

@@ -41,11 +41,12 @@ public class DeletionToolTest_5x5 {
     private CellPanel middleCellPanel;
     private DeletionTool testDeletionTool;
     private ExitBuilder exitBuilder;
+    private TestingUtils testingUtils = new TestingUtils();
 
     @Before
     public void setUp() {
-        testLevel = new Level(5, 5);
-
+        testLevel = new Level();
+        testingUtils.populateLevel(5, 5, testLevel);
         northCell = testLevel.getCellAt(new Point(2, 0));
         southCell = testLevel.getCellAt(new Point(2, 4));
         eastCell = testLevel.getCellAt(new Point(4, 2));

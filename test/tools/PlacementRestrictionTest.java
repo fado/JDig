@@ -23,6 +23,8 @@ import data.Cell;
 import data.Level;
 import org.junit.Before;
 import org.junit.Test;
+import utils.TestingUtils;
+
 import java.awt.Point;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -32,12 +34,13 @@ public class PlacementRestrictionTest {
     Level testLevel;
     Cell oddCell, evenCell;
     PlacementRestriction placementRestriction;
+    TestingUtils testingUtils = new TestingUtils();
 
     @Before
     public void setUp() {
         placementRestriction = new PlacementRestriction();
-        testLevel = new Level(1, 1);
-
+        testLevel = new Level();
+        testingUtils.populateLevel(1, 1, testLevel);
         // Cell, odd parity.
         Point oddPoint = new Point(1, 1);
         oddCell = new Cell(oddPoint, testLevel);

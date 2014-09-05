@@ -43,7 +43,8 @@ public class StreetNameListenerTest {
 
     @Before
     public void setUp() {
-        level = new Level(1, 1);
+        level = new Level();
+        testingUtils.populateLevel(1, 1, level);
         infoPanel = new InfoPanel(level);
         room = new Room(null);
         room2 = new Room(null);
