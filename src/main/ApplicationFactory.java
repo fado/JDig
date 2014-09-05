@@ -24,6 +24,11 @@ import data.Level;
 import data.Room;
 import gui.JdigComponent;
 import gui.infopanel.InfoPanel;
+import gui.infopanel.colorchooser.ColorChooserListener;
+import gui.infopanel.colorchooser.ColorStreetDialog;
+import gui.infopanel.colorchooser.DefaultColorChooser;
+import gui.infopanel.colorchooser.RoomColorSetter;
+import gui.infopanel.colorchooser.StreetColorSetter;
 import gui.infotoolbar.InfoToolbar;
 import gui.levelpanel.CellPanel;
 import gui.levelpanel.LevelPanel;
@@ -88,9 +93,8 @@ public enum ApplicationFactory {
             this.level = level;
         }
         infoPanel = new InfoPanel(level);
-        selectionTool = new SelectionTool(infoPanel);
         infoToolbar = new InfoToolbar(level);
-        selectionTool = new SelectionTool(infoPanel);
+        selectionTool = new SelectionTool(infoPanel, bindingService);
         deletionTool = new DeletionTool(level, bindingService);
         placementRestriction = new PlacementRestriction();
         roomTool = new RoomTool(level, deletionTool, placementRestriction, bindingService);
@@ -136,7 +140,6 @@ public enum ApplicationFactory {
             constraints.gridx = cell.X;
             constraints.gridy = cell.Y;
             CellPanel cellPanel = bindingService.getBoundCellPanel(cell);
-            cell.setCellPanel(cellPanel);
             levelPanel.add(cellPanel, constraints);
             levelToolbar.addToolListener(cellPanel);
         }
@@ -198,6 +201,18 @@ public enum ApplicationFactory {
      */
     public DeletionTool getDeletionTool() {
         return deletionTool;
+    }
+
+    public ColorChooserListener getNewColorChooserListener() {
+        return new ColorChooserListener(
+                infoPanel,
+                new DefaultColorChooser(),
+                new RoomColorSetter(bindingService),
+                new StreetColorSetter(
+                        new ColorStreetDialog(),
+                        bindingService
+                )
+        );
     }
 
 }
