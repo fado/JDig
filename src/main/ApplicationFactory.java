@@ -75,11 +75,16 @@ public enum ApplicationFactory {
     public void buildApplication(Level level) {
         bindingService = new BindingService();
         if(level.getAllCells().isEmpty()) {
+            // If it's a new level, populate it.
             Properties properties = new JdigProperties();
             int defaultX = Integer.parseInt(properties.getProperty("DefaultX"));
             int defaultY = Integer.parseInt(properties.getProperty("DefaultY"));
             this.level = populateLevel(defaultX, defaultY, level);
         } else {
+            // If it's a saved level, register the cells with the BindingService.
+            for(Cell cell : level.getAllCells()) {
+                bindingService.bindToCellPanel(cell);
+            }
             this.level = level;
         }
         infoPanel = new InfoPanel(level);
@@ -99,7 +104,7 @@ public enum ApplicationFactory {
     }
 
     /**
-     * Populates the Level with Cells.
+     * Populates the Level with Cells and register them with the BindingService.
      * @param maxColumns Maximum number of columns within the Level.
      * @param maxRows Maximum number of Rows within the Level.
      */
@@ -130,42 +135,12 @@ public enum ApplicationFactory {
         for(Cell cell : level.getAllCells()) {
             constraints.gridx = cell.X;
             constraints.gridy = cell.Y;
-            CellPanel cellPanel;
-            if(cell.getEntity() != null) {
-                cellPanel = restoreCell(cell);
-            } else {
-                cellPanel = new CellPanel(cell);
-            }
+            CellPanel cellPanel = bindingService.getBoundCellPanel(cell);
             cell.setCellPanel(cellPanel);
             levelPanel.add(cellPanel, constraints);
             levelToolbar.addToolListener(cellPanel);
         }
         return levelPanel;
-    }
-
-    /**
-     * Returns a CellPanel with an appearance appropriate for the
-     * contents of the passed-in Cell.
-     * @param cell The Cell corresponding to the CellPanel.
-     * @return the restored CellPanel.
-     */
-    private CellPanel restoreCell(Cell cell) {
-        CellPanel cellPanel = new CellPanel(cell);
-
-        if(cell.isConnectible()) {
-            //Room room = (Room)cell.getEntity();
-            Images images = new Images();
-            cellPanel.addImage(images.getImagePath("Room"));
-            if(cell.getColor() != null) {
-                cellPanel.setBackground(cell.getColor());
-            }
-            cellPanel.removeBorder();
-        }
-        if(cell.isExit()) {
-            cellPanel.addImage(cell.getEntity().getNormalImage());
-            cellPanel.setBorder(cell.getEntity());
-        }
-        return cellPanel;
     }
 
     /**
