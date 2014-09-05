@@ -85,7 +85,6 @@ public class SelectionTool implements LevelTool {
     private void doSelection(MouseEvent event) {
         CellPanel lastSelectedPanel = (CellPanel) event.getSource();
         Cell cell = lastSelectedPanel.getCell();
-        System.out.println("Panel: "+ lastSelectedPanel.getPanelX() +", "+ lastSelectedPanel.getPanelY());
         if (cell.isConnectible()) {
             // Unless shift is down, deselect selected panels.
             if(!event.isShiftDown()) {
