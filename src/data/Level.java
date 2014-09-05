@@ -36,34 +36,17 @@ public class Level {
     /**
      * Constructor builds a Level comprised of a number of Cells, spanning
      * the number of rows and columns passed in.
-     * @param maxColumns The number of columns wide the Level should be.
-     * @param maxRows The number of rows deep the Level should be.
      */
-    public Level(int maxColumns, int maxRows) {
+    public Level() {
         this.defaultCell = new Cell(new Point(-1, -1), this);
         this.allCells = new ArrayList<>();
-        populateLevel(maxColumns, maxRows);
-    }
-
-    /**
-     * Populates the Level with Cells.
-     * @param maxColumns Maximum number of columns within the Level.
-     * @param maxRows Maximum number of Rows within the Level.
-     */
-    private void populateLevel(int maxColumns, int maxRows) {
-        for (int rows = 0; rows < maxRows; rows++) {
-            for (int columns = 0; columns < maxColumns; columns++) {
-                Cell cell = new Cell(new Point(columns, rows), this);
-                this.addCell(cell);
-            }
-        }
     }
 
     /**
      * Add a new Cell to the Level.
      * @param cell The new Cell.
      */
-    private void addCell(Cell cell) {
+    public void addCell(Cell cell) {
         allCells.add(cell);
     }
 

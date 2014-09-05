@@ -36,10 +36,13 @@ import gui.menubar.SaveCommand;
 import persistence.LevelLoader;
 import persistence.LevelSaver;
 import properties.Images;
+import properties.JdigProperties;
 import tools.*;
 import tools.ExitBuilder;
 import javax.swing.JFileChooser;
 import java.awt.GridBagConstraints;
+import java.awt.Point;
+import java.util.Properties;
 
 /**
  * Builds the application, ensuring that the objects involved are instantiated
@@ -69,7 +72,14 @@ public enum ApplicationFactory {
      * @param level The currently loaded level.
      */
     public void buildApplication(Level level) {
-        this.level = level;
+        if(level.getAllCells().isEmpty()) {
+            Properties properties = new JdigProperties();
+            int defaultX = Integer.parseInt(properties.getProperty("DefaultX"));
+            int defaultY = Integer.parseInt(properties.getProperty("DefaultY"));
+            level = populateLevel(defaultX, defaultY, level);
+        } else {
+            this.level = level;
+        }
         infoPanel = new InfoPanel(level);
         selectionTool = new SelectionTool(infoPanel);
         infoToolbar = new InfoToolbar(level);
@@ -84,6 +94,21 @@ public enum ApplicationFactory {
         defaultLoadDialog = new DefaultLoadDialog();
         jFileChooser = new JFileChooser();
         levelSaver = new LevelSaver();
+    }
+
+    /**
+     * Populates the Level with Cells.
+     * @param maxColumns Maximum number of columns within the Level.
+     * @param maxRows Maximum number of Rows within the Level.
+     */
+    private Level populateLevel(int maxColumns, int maxRows, Level level) {
+        for (int rows = 0; rows < maxRows; rows++) {
+            for (int columns = 0; columns < maxColumns; columns++) {
+                Cell cell = new Cell(new Point(columns, rows), level);
+                level.addCell(cell);
+            }
+        }
+        return level;
     }
 
     private LevelPanel buildLevelPanel(Level level) {
@@ -110,7 +135,7 @@ public enum ApplicationFactory {
         CellPanel cellPanel = new CellPanel(cell);
 
         if(cell.isConnectible()) {
-            Room room = (Room)cell.getEntity();
+            //Room room = (Room)cell.getEntity();
             Images images = new Images();
             cellPanel.addImage(images.getImagePath("Room"));
             if(cell.getColor() != null) {
