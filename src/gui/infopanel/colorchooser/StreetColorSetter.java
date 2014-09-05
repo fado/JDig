@@ -20,6 +20,8 @@ package gui.infopanel.colorchooser;
 
 import data.Room;
 import data.Street;
+import gui.levelpanel.CellPanel;
+import main.BindingService;
 import properties.Localization;
 import javax.swing.JOptionPane;
 import java.awt.Color;
@@ -31,13 +33,16 @@ public class StreetColorSetter {
 
     ColorDialog colorDialog;
     Localization localization = new Localization();
+    BindingService bindingService;
 
     /**
      * Constructor.
      * @param colorDialog The dialog to be displayed by the StreetColorSetter.
      */
-    public StreetColorSetter(ColorDialog colorDialog) {
+    public StreetColorSetter(ColorDialog colorDialog,
+                             BindingService bindingService) {
         this.colorDialog = colorDialog;
+        this.bindingService = bindingService;
     }
 
     /**
@@ -47,8 +52,8 @@ public class StreetColorSetter {
         int value = colorDialog.showDialog(localization.get("PropagateColorMessage"));
         if (value == JOptionPane.YES_OPTION) {
             for (Room room : street.getRooms()) {
-                room.getCellPanel().setBackground(color);
-                room.getCellPanel().getCell().setColor(color);
+                bindingService.getBoundCellPanel(room.getCell()).setBackground(color);
+                room.getCell().setColor(color);
             }
         }
     }

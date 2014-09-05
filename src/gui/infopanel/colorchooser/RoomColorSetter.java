@@ -21,6 +21,7 @@ package gui.infopanel.colorchooser;
 
 import data.Room;
 import gui.levelpanel.CellPanel;
+import main.BindingService;
 import java.awt.Color;
 
 /**
@@ -28,15 +29,21 @@ import java.awt.Color;
  */
 public class RoomColorSetter {
 
+    private BindingService bindingService;
+
+    public RoomColorSetter(BindingService bindingService) {
+        this.bindingService = bindingService;
+    }
+
     /**
      * Sets the passed in Room/CellPanel to the selected color.
      * @param room The Room whose color you want to change.
      * @param color The color to be set.
      */
     public void colorRoom(Room room, Color color) {
-        CellPanel cellPanel = room.getCellPanel();
+        CellPanel cellPanel = bindingService.getBoundCellPanel(room.getCell());
         cellPanel.setBackground(color);
-        cellPanel.getCell().setColor(color);
+        room.getCell().setColor(color);
     }
 
 }

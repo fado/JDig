@@ -67,7 +67,7 @@ public class RoomTool implements LevelTool {
         //Cell cell = cellPanel.getCell();
         Cell cell = bindingService.getBoundCell(cellPanel);
         // Check that the Cell does not already contain an Entity.
-        if (cellPanel.getCell().getEntity() == null) {
+        if (cell.getEntity() == null) {
             // Check whether or not the Cell Panel can contain a Room.
             if(placementRestriction.positionIsValid(cell)) {
                 cellPanel.addImage(images.getImagePath("Room"));
@@ -113,7 +113,7 @@ public class RoomTool implements LevelTool {
         // Add a new Room to the Cell upon left mouse click.
         } else if (SwingUtilities.isLeftMouseButton(event)
                 && placementRestriction.positionIsValid(cell)) {
-            Room room = new Room(cellPanel);
+            Room room = new Room(cell);
             cell.setEntity(room);
             level.registerRoom(room);
             // Check if a Room has already been created.

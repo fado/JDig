@@ -23,6 +23,8 @@ import data.Cell;
 import data.Entity;
 import gui.levelpanel.CellPanel;
 import gui.infopanel.InfoPanel;
+import main.BindingService;
+
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -36,13 +38,15 @@ public class SelectionTool implements LevelTool {
 
     private InfoPanel infoPanel;
     private Map<CellPanel, Cell> panelsMap = new HashMap<>();
+    private BindingService bindingService;
 
     /**
      * Constructor.
      * @param infoPanel Currently loaded InfoPanel.
      */
-    public SelectionTool(InfoPanel infoPanel) {
+    public SelectionTool(InfoPanel infoPanel, BindingService bindingService) {
         this.infoPanel = infoPanel;
+        this.bindingService = bindingService;
     }
 
     /**
@@ -84,7 +88,8 @@ public class SelectionTool implements LevelTool {
      */
     private void doSelection(MouseEvent event) {
         CellPanel lastSelectedPanel = (CellPanel) event.getSource();
-        Cell cell = lastSelectedPanel.getCell();
+        //Cell cell = lastSelectedPanel.getCell();
+        Cell cell = bindingService.getBoundCell(lastSelectedPanel);
         if (cell.isConnectible()) {
             // Unless shift is down, deselect selected panels.
             if(!event.isShiftDown()) {
