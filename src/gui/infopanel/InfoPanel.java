@@ -24,14 +24,9 @@ import data.Level;
 import data.Room;
 import data.Street;
 import gui.JdigComponent;
-import gui.infopanel.colorchooser.ColorChooserListener;
-import gui.infopanel.colorchooser.ColorStreetDialog;
-import gui.infopanel.colorchooser.DefaultColorChooser;
-import gui.infopanel.colorchooser.RoomColorSetter;
-import gui.infopanel.colorchooser.StreetColorSetter;
-import gui.levelpanel.CellPanel;
 import gui.infopanel.infosetters.*;
 import gui.infopanel.streeteditor.StreetEditor;
+import main.ApplicationFactory;
 import properties.Localization;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -125,9 +120,8 @@ public class InfoPanel extends JPanel implements JdigComponent {
         colorChooserButton.setBackground(Color.WHITE);
         colorChooserButton.setOpaque(true);
         colorChooserButton.setBorder(BorderFactory.createLineBorder(Color.black));
-        colorChooserButton.addMouseListener(new ColorChooserListener(this,
-                new DefaultColorChooser(), new RoomColorSetter(),
-                new StreetColorSetter(new ColorStreetDialog())));
+        colorChooserButton.addMouseListener(ApplicationFactory.INSTANCE
+                .getNewColorChooserListener());
         panel.add(colorChooserButton, "wrap");
     }
 
