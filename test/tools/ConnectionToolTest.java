@@ -26,6 +26,7 @@ import data.Level;
 import data.Room;
 import gui.levelpanel.CellPanel;
 import gui.levelpanel.LevelPanel;
+import main.BindingService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -43,7 +44,7 @@ public class ConnectionToolTest {
 
     private Cell emptyCell, emptyMiddleCell;
     private CellPanel emptyCellPanel, emptyMiddleCellPanel;
-    private ConnectionTool connectionTool;
+    private ConnectionTool connectionTool, connectionTool2;
     private MouseEvent eventEntered, eventEnteredMiddle, eventExited, eventLeftPressed,
         eventLeftPressedEntity, eventRightPressed;
     private TestingUtils testingUtils = new TestingUtils();
@@ -54,8 +55,12 @@ public class ConnectionToolTest {
         Level testLevel = new Level();
         testingUtils.populateLevel(1, 1, testLevel);
         Point testPoint = new Point(0, 0);
-        emptyCell = new Cell(testPoint, testLevel);
-        emptyCellPanel = new CellPanel(emptyCell);
+        //emptyCell = new Cell(testPoint, testLevel);
+        emptyCell = testLevel.getCellAt(testPoint);
+        BindingService bindingService = new BindingService();
+        bindingService = testingUtils.setupBindingService(bindingService, testLevel);
+        //emptyCellPanel = new CellPanel(emptyCell);
+        emptyCellPanel = bindingService.getBoundCellPanel(emptyCell);
 
         // MouseEvent - Enter emptyCellPanel.
         eventEntered = new MouseEvent(emptyCellPanel, MouseEvent.MOUSE_ENTERED,
@@ -64,25 +69,31 @@ public class ConnectionToolTest {
         // 1x3 Level with Rooms to North and South.
         Level level = new Level();
         testingUtils.populateLevel(1, 3, level);
-        TestingUtils testingUtils = new TestingUtils();
-        LevelPanel levelPanel = testingUtils.buildLevelPanel(level);
+        BindingService bindingService2 = new BindingService();
+        bindingService2 = testingUtils.setupBindingService(bindingService2, level);
+
         // North Cell.
         Cell northCell = level.getCellAt(new Point(0, 0));
-        CellPanel northCellPanel = northCell.getCellPanel();
+        //CellPanel northCellPanel = northCell.getCellPanel();
+        CellPanel northCellPanel = bindingService2.getBoundCellPanel(northCell);
         northCell.setEntity(new Room(northCellPanel));
         // Middle Cell.  Remember you have to set up the CellPanel manually as it
         // only gets created when the GUI is launched.
         emptyMiddleCell = level.getCellAt(new Point(0, 1));
-        emptyMiddleCellPanel = new CellPanel(emptyMiddleCell);
+        //emptyMiddleCellPanel = new CellPanel(emptyMiddleCell);
+        emptyMiddleCellPanel = bindingService2.getBoundCellPanel(emptyMiddleCell);
         // South Cell.
         Cell southCell = level.getCellAt(new Point(0, 2));
-        CellPanel southCellPanel = southCell.getCellPanel();
+        //CellPanel southCellPanel = southCell.getCellPanel();
+        CellPanel southCellPanel = bindingService2.getBoundCellPanel(southCell);
         southCell.setEntity(new Room(southCellPanel));
 
         // ConnectionTool.
         DeletionTool deletionTool = new DeletionTool(level);
         ExitBuilder exitBuilder = new ExitBuilder();
-        connectionTool = new ConnectionTool(deletionTool, exitBuilder);
+        connectionTool = new ConnectionTool(deletionTool, exitBuilder, bindingService);
+        // ConnectionTool2.
+        connectionTool2 = new ConnectionTool(deletionTool, exitBuilder, bindingService2);
 
         // MouseEvent - Enter emptyMiddleCellPanel.
         eventEnteredMiddle = new MouseEvent(emptyMiddleCellPanel,
@@ -129,7 +140,7 @@ public class ConnectionToolTest {
      */
     @Test
     public void testMouseEnteredWithNoEntityAndConnection() {
-        connectionTool.mouseEntered(eventEnteredMiddle);
+        connectionTool2.mouseEntered(eventEnteredMiddle);
         assertTrue(emptyMiddleCellPanel.hasEntityImage());
     }
 
@@ -167,7 +178,7 @@ public class ConnectionToolTest {
      */
     @Test
     public void testLeftMousePressedWithPotentialConnection() {
-        connectionTool.mousePressed(eventLeftPressedEntity);
+        connectionTool2.mousePressed(eventLeftPressedEntity);
         assertFalse(emptyMiddleCell.getEntity() == null);
     }
 
@@ -178,7 +189,7 @@ public class ConnectionToolTest {
     @Test
     public void testLeftMousePressedWithPotentialConnectionAndExit() {
         emptyMiddleCell.setEntity(new Connection(ConnectionType.HORIZONTAL));
-        connectionTool.mousePressed(eventLeftPressedEntity);
+        connectionTool2.mousePressed(eventLeftPressedEntity);
         Connection actual = (Connection)emptyMiddleCell.getEntity();
         assertFalse(actual.getConnectionType() == ConnectionType.VERTICAL);
     }
