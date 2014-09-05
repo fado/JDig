@@ -54,7 +54,7 @@ public class BindingService {
         if(cell.getEntity() != null) {
             cellPanel = restoreCellPanel(cell);
         } else {
-            cellPanel = new CellPanel(cell);
+            cellPanel = new CellPanel(cell.X, cell.Y);
         }
         return cellPanel;
     }
@@ -66,7 +66,7 @@ public class BindingService {
      * @return the restored CellPanel.
      */
     private CellPanel restoreCellPanel(Cell cell) {
-        CellPanel cellPanel = new CellPanel(cell);
+        CellPanel cellPanel = new CellPanel(cell.X, cell.Y);
 
         if(cell.isConnectible()) {
             Images images = new Images();
