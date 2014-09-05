@@ -28,6 +28,7 @@ import data.Room;
 import gui.levelpanel.CellPanel;
 import java.awt.Point;
 import gui.levelpanel.LevelPanel;
+import main.BindingService;
 import org.junit.Before;
 import org.junit.Test;
 import utils.TestingUtils;
@@ -53,9 +54,7 @@ public class DeletionToolTest {
         testingUtils.populateLevel(1, 1, testLevel);
         Level testLevel2 = new Level();
         testingUtils.populateLevel(3, 3, testLevel2);
-        testCell = new Cell(new Point(0, 0), testLevel);
-        testCellPanel = new CellPanel(testCell);
-        testRoom = new Room(testCellPanel);
+        testCell = testLevel.getCellAt(new Point(0, 0));
         northCell = testLevel2.getCellAt(new Point(1, 0));
         southCell = testLevel2.getCellAt(new Point(1, 2));
         eastCell = testLevel2.getCellAt(new Point(2, 1));
@@ -68,10 +67,18 @@ public class DeletionToolTest {
         exitBuilder = new ExitBuilder();
         TestingUtils testingUtils = new TestingUtils();
         LevelPanel levelPanel1 = testingUtils.buildLevelPanel(testLevel);
-        testDeletionTool1 = new DeletionTool(testLevel);
+        BindingService bindingService = new BindingService();
+        bindingService = testingUtils.setupBindingService(bindingService, testLevel);
+        testDeletionTool1 = new DeletionTool(testLevel, bindingService);
         LevelPanel levelPanel2 = testingUtils.buildLevelPanel(testLevel2);
-        testDeletionTool2 = new DeletionTool(testLevel2);
-        middleCellPanel = middleCell.getCellPanel();
+        BindingService bindingService2 = new BindingService();
+        bindingService2 = testingUtils.setupBindingService(bindingService2, testLevel2);
+        testDeletionTool2 = new DeletionTool(testLevel2, bindingService2);
+        //middleCellPanel = middleCell.getCellPanel();
+        //testCellPanel = new CellPanel(testCell);
+        testCellPanel = bindingService.getBoundCellPanel(testCell);
+        testRoom = new Room(testCellPanel);
+        middleCellPanel = bindingService2.getBoundCellPanel(middleCell);
     }
 
     /**
@@ -80,11 +87,9 @@ public class DeletionToolTest {
      */
     @Test
     public void testDeleteEntityUnregistersRoom() {
-        Cell cell = testLevel.getCellAt(new Point(0, 0));
-        CellPanel cellPanel = new CellPanel(cell);
-        cell.setEntity(testRoom);
+        testCell.setEntity(testRoom);
         testLevel.registerRoom(testRoom);
-        testDeletionTool1.deleteEntity(cellPanel);
+        testDeletionTool1.deleteEntity(testCellPanel);
         assertTrue(testLevel.getRooms().isEmpty());
     }
 
@@ -97,7 +102,7 @@ public class DeletionToolTest {
         TestingUtils testingUtils = new TestingUtils();
         testingUtils.selectPanel(testCell, testCellPanel);
         //testCellPanel.select();
-        testDeletionTool2.deleteEntity(testCellPanel);
+        testDeletionTool1.deleteEntity(testCellPanel);
         assertFalse(testCellPanel.isSelected());
     }
 

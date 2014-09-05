@@ -89,11 +89,12 @@ public class ConnectionToolTest {
         southCell.setEntity(new Room(southCellPanel));
 
         // ConnectionTool.
-        DeletionTool deletionTool = new DeletionTool(level);
+        DeletionTool deletionTool = new DeletionTool(testLevel, bindingService);
+        DeletionTool deletionTool2 = new DeletionTool(level, bindingService2);
         ExitBuilder exitBuilder = new ExitBuilder();
         connectionTool = new ConnectionTool(deletionTool, exitBuilder, bindingService);
         // ConnectionTool2.
-        connectionTool2 = new ConnectionTool(deletionTool, exitBuilder, bindingService2);
+        connectionTool2 = new ConnectionTool(deletionTool2, exitBuilder, bindingService2);
 
         // MouseEvent - Enter emptyMiddleCellPanel.
         eventEnteredMiddle = new MouseEvent(emptyMiddleCellPanel,

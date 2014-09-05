@@ -7,6 +7,7 @@ import gui.infopanel.InfoPanel;
 import gui.infopanel.streeteditor.StreetEditor;
 import gui.levelpanel.CellPanel;
 import gui.levelpanel.LevelPanel;
+import main.BindingService;
 
 /**
  * JDig, a tool for the automatic generation of LPC class files for Epitaph
@@ -123,5 +124,18 @@ public class TestingUtils {
             }
         }
         return level;
+    }
+
+    /**
+     * Sets up the binding service for the test level.
+     * @param bindingService The binding service with the appropriate bindings setup.
+     * @param level The level for which you wish to setup bindings.
+     * @return the binding service for the test level with the bindings setup.
+     */
+    public BindingService setupBindingService(BindingService bindingService, Level level) {
+        for(Cell cell : level.getAllCells()) {
+            bindingService.bindToCellPanel(cell);
+        }
+        return bindingService;
     }
 }

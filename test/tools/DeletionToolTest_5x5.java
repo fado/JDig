@@ -26,6 +26,7 @@ import data.Level;
 import data.Room;
 import gui.levelpanel.CellPanel;
 import gui.levelpanel.LevelPanel;
+import main.BindingService;
 import org.junit.Before;
 import org.junit.Test;
 import utils.TestingUtils;
@@ -46,7 +47,8 @@ public class DeletionToolTest_5x5 {
     @Before
     public void setUp() {
         testLevel = new Level();
-        testingUtils.populateLevel(5, 5, testLevel);
+        testLevel = testingUtils.populateLevel(5, 5, testLevel);
+
         northCell = testLevel.getCellAt(new Point(2, 0));
         southCell = testLevel.getCellAt(new Point(2, 4));
         eastCell = testLevel.getCellAt(new Point(4, 2));
@@ -59,10 +61,11 @@ public class DeletionToolTest_5x5 {
 
         exitBuilder = new ExitBuilder();
         TestingUtils testingUtils = new TestingUtils();
-        LevelPanel levelPanel = testingUtils.buildLevelPanel(testLevel);
-        testDeletionTool = new DeletionTool(testLevel);
+        BindingService bindingService = new BindingService();
+        bindingService = testingUtils.setupBindingService(bindingService, testLevel);
+        testDeletionTool = new DeletionTool(testLevel, bindingService);
 
-        middleCellPanel = middleCell.getCellPanel();
+        middleCellPanel = bindingService.getBoundCellPanel(middleCell);
     }
 
     /**

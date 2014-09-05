@@ -27,6 +27,8 @@ import data.Exit;
 import data.Level;
 import data.Room;
 import gui.levelpanel.CellPanel;
+import main.BindingService;
+
 import java.util.Map;
 
 /**
@@ -35,13 +37,15 @@ import java.util.Map;
 public class DeletionTool {
 
     private Level level;
+    private BindingService bindingService;
 
     /**
      * Constructor.
      * @param level The currently loaded level.
      */
-    public DeletionTool(Level level) {
+    public DeletionTool(Level level, BindingService bindingService) {
         this.level = level;
+        this.bindingService = bindingService;
     }
 
     /**
@@ -50,7 +54,8 @@ public class DeletionTool {
      */
     public void deleteEntity(CellPanel cellPanel) {
         // Get the Cell.
-        Cell cell = cellPanel.getCell();
+        //Cell cell = cellPanel.getCell();
+        Cell cell = bindingService.getBoundCell(cellPanel);
 
         // Check if we're dealing with a room or an exit.
         if(cell.isConnectible()) {
@@ -134,7 +139,7 @@ public class DeletionTool {
         for(Cell aCell : adjacentCells.values()) {
             // Ensure you're trying to remove a valid Cell.
             if(aCell.X != -1 && aCell.Y != -1) {
-                CellPanel cellPanel = aCell.getCellPanel();
+                CellPanel cellPanel = bindingService.getBoundCellPanel(aCell);
                 deleteEntity(cellPanel);
             }
         }

@@ -23,6 +23,7 @@ import data.Cell;
 import data.Level;
 import data.Room;
 import gui.levelpanel.CellPanel;
+import main.BindingService;
 import org.junit.Before;
 import org.junit.Test;
 import properties.Images;
@@ -50,17 +51,20 @@ public class RoomToolTest {
     public void setUp() {
         // Empty Cell and CellPanel.
         testLevel = new Level();
-        testingUtils.populateLevel(1, 1, testLevel);
+        testLevel = testingUtils.populateLevel(3, 3, testLevel);
+        BindingService bindingService = new BindingService();
+        bindingService = testingUtils.setupBindingService(bindingService, testLevel);
+
         Point testPoint = new Point(0, 0);
-        emptyCell = new Cell(testPoint, testLevel);
-        emptyCellPanel = new CellPanel(emptyCell);
+        emptyCell = testLevel.getCellAt(testPoint);
+        emptyCellPanel = bindingService.getBoundCellPanel(emptyCell);
 
         // MouseEvent - Enter emptyCellPanel.
         eventEntered = new MouseEvent(emptyCellPanel, MouseEvent.MOUSE_ENTERED,
                 0, 0, 0, 0, 1, false);
 
         // RoomTool.
-        DeletionTool deletionTool = new DeletionTool(testLevel);
+        DeletionTool deletionTool = new DeletionTool(testLevel, bindingService);
         placementRestriction = new PlacementRestriction();
         roomTool = new RoomTool(testLevel, deletionTool, placementRestriction);
 
@@ -69,13 +73,13 @@ public class RoomToolTest {
 
         // Cell, odd parity.
         Point oddPoint = new Point(1, 1);
-        oddCell = new Cell(oddPoint, testLevel);
-        oddCellPanel = new CellPanel(oddCell);
+        oddCell = testLevel.getCellAt(oddPoint);
+        oddCellPanel = bindingService.getBoundCellPanel(oddCell);
 
         // Cell, even parity.
         Point evenPoint = new Point(2, 2);
-        evenCell = new Cell(evenPoint, testLevel);
-        evenCellPanel = new CellPanel(evenCell);
+        evenCell = testLevel.getCellAt(evenPoint);
+        evenCellPanel = bindingService.getBoundCellPanel(evenCell);
 
         // MouseEvent - Enter evenCellPanel.
         eventEnteredEven = new MouseEvent(evenCellPanel, MouseEvent.MOUSE_ENTERED,

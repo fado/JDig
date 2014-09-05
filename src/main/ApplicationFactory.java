@@ -91,7 +91,7 @@ public enum ApplicationFactory {
         selectionTool = new SelectionTool(infoPanel);
         infoToolbar = new InfoToolbar(level);
         selectionTool = new SelectionTool(infoPanel);
-        deletionTool = new DeletionTool(level);
+        deletionTool = new DeletionTool(level, bindingService);
         placementRestriction = new PlacementRestriction();
         roomTool = new RoomTool(level, deletionTool, placementRestriction);
         exitBuilder = new ExitBuilder();
