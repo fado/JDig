@@ -111,6 +111,15 @@ public enum ApplicationFactory {
         return level;
     }
 
+    /**
+     * Creates a new LevelPanel.  Adds a CellPanel to it for each Cell
+     * in the passed-in Level.  If the Cell already contains an Entity
+     * (i.e. it's being loaded from a save file), then the appearance
+     * of the CellPanel will be restored to what it was when the Level
+     * was saved.
+     * @param level The level the LevelPanel is being built from.
+     * @return the LevelPanel populated with CellPanels.
+     */
     private LevelPanel buildLevelPanel(Level level) {
         LevelPanel levelPanel = new LevelPanel();
         GridBagConstraints constraints = new GridBagConstraints();
@@ -131,6 +140,12 @@ public enum ApplicationFactory {
         return levelPanel;
     }
 
+    /**
+     * Returns a CellPanel with an appearance appropriate for the
+     * contents of the passed-in Cell.
+     * @param cell The Cell corresponding to the CellPanel.
+     * @return the restored CellPanel.
+     */
     private CellPanel restoreCell(Cell cell) {
         CellPanel cellPanel = new CellPanel(cell);
 
