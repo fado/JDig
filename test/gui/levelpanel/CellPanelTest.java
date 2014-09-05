@@ -52,14 +52,14 @@ public class CellPanelTest {
         cell2 = new Cell(new Point(0, 0), level);
         room = new Room(null);
         cell2.setEntity(room);
-        selectedCellPanel = new CellPanel(cell2);
+        selectedCellPanel = new CellPanel(cell2.X, cell2.Y);
         testingUtils.selectPanel(cell, selectedCellPanel);
         //selectedCellPanel.select();
     }
 
     @Test
     public void testConstructorDoesNotCallRestoreWithNoEntity() {
-        cellPanel = new CellPanel(cell);
+        cellPanel = new CellPanel(cell.X, cell.Y);
         assertNull(cellPanel.getEntityImagePath());
     }
 
@@ -67,7 +67,7 @@ public class CellPanelTest {
     public void testSelectWithEntityAddsImage() {
         Room room = new Room(null);
         cell.setEntity(room);
-        cellPanel = new CellPanel(cell);
+        cellPanel = new CellPanel(cell.X, cell.Y);
         testingUtils.selectPanel(cell, cellPanel);
         //cellPanel.select();
         String expected = room.getSelectedImage();
@@ -77,7 +77,7 @@ public class CellPanelTest {
 
     @Test
     public void testSelectWithNoEntityDoesNotAddImage() {
-        cellPanel = new CellPanel(cell);
+        cellPanel = new CellPanel(cell.X, cell.Y);
         testingUtils.selectPanel(cell, cellPanel);
         //cellPanel.select();
         assertNull(cellPanel.getEntityImagePath());
@@ -85,13 +85,13 @@ public class CellPanelTest {
 
     @Test
     public void testHasEntityImageReturnsFalseForNoEntityImage() {
-        cellPanel = new CellPanel(cell);
+        cellPanel = new CellPanel(cell.X, cell.Y);
         assertFalse(cellPanel.hasEntityImage());
     }
 
     @Test
     public void testHasEntityImageReturnsTrueForEntityImage() {
-        cellPanel = new CellPanel(cell);
+        cellPanel = new CellPanel(cell.X, cell.Y);
         cellPanel.addImage(ConnectionType.VERTICAL.getPath());
         assertTrue(cellPanel.hasEntityImage());
     }

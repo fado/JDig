@@ -24,6 +24,7 @@ import data.Level;
 import data.Room;
 import gui.infopanel.InfoPanel;
 import gui.levelpanel.CellPanel;
+import main.BindingService;
 import org.junit.Before;
 import org.junit.Test;
 import utils.TestingUtils;
@@ -45,15 +46,25 @@ public class SelectionToolTest {
     @Before
     public void setUp() {
         Level testLevel = new Level();
-        testingUtils.populateLevel(1, 1, testLevel);
-        testCell = new Cell(new Point(0, 0), testLevel);
-        testCellPanel = new CellPanel(testCell);
+        testingUtils.populateLevel(3, 3, testLevel);
 
-        testCell2 = new Cell(new Point(1, 1), testLevel);
-        testCellPanel2 = new CellPanel(testCell2);
+        BindingService bindingService = new BindingService();
+        bindingService = testingUtils.setupBindingService(bindingService, testLevel);
 
-        testCell3 = new Cell(new Point(2, 2), testLevel);
-        testCellPanel3 = new CellPanel(testCell3);
+        //testCell = new Cell(new Point(0, 0), testLevel);
+        testCell = testLevel.getCellAt(new Point(0, 0));
+        //testCellPanel = new CellPanel(testCell);
+        testCellPanel = bindingService.getBoundCellPanel(testCell);
+
+        //testCell2 = new Cell(new Point(1, 1), testLevel);
+        testCell2 = testLevel.getCellAt(new Point(1, 1));
+        //testCellPanel2 = new CellPanel(testCell2);
+        testCellPanel2 = bindingService.getBoundCellPanel(testCell2);
+
+        //testCell3 = new Cell(new Point(2, 2), testLevel);
+        testCell3 = testLevel.getCellAt(new Point(2, 2));
+        //testCellPanel3 = new CellPanel(testCell3);
+        testCellPanel3 = bindingService.getBoundCellPanel(testCell3);
 
         mousePressed = new MouseEvent(testCellPanel, MouseEvent.MOUSE_PRESSED,
                 0, 0, 0, 0, 1, false);
@@ -65,7 +76,7 @@ public class SelectionToolTest {
                 0, MouseEvent.SHIFT_DOWN_MASK, 0, 0, 1, false);
 
         InfoPanel infoPanel = new InfoPanel(testLevel);
-        selectionTool = new SelectionTool(infoPanel);
+        selectionTool = new SelectionTool(infoPanel, bindingService);
     }
 
     @Test

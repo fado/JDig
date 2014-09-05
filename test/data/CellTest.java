@@ -47,8 +47,8 @@ public class CellTest {
         testCell1 = new Cell(testPoint, testLevel1);
         testCell2 = new Cell(testPointInvalidX, testLevel1);
         testCell3 = new Cell(testPointInvalidY, testLevel1);
-        CellPanel testCellPanel = new CellPanel(testCell1);
-        testRoom = new Room(testCellPanel);
+        CellPanel testCellPanel = new CellPanel(testCell1.X, testCell1.Y);
+        testRoom = new Room(testCell1);
         testLevel2 = new Level();
         testingUtils.populateLevel(3, 3, testLevel2);
     }

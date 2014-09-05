@@ -137,7 +137,8 @@ public class RoomToolTest {
      */
     @Test
     public void testMouseEnteredEntityNotNullRoom() {
-        emptyCellPanel.getCell().setEntity(new Room(null));
+        //emptyCellPanel.getCell().setEntity(new Room(null));
+        emptyCell.setEntity(new Room(null));
         roomTool.mouseEntered(eventEntered);
         assertFalse(emptyCellPanel.hasEntityImage());
     }

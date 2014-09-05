@@ -47,8 +47,8 @@ public class InfoPanelTest {
         level = new Level();
         testingUtils.populateLevel(1, 1, level);
         cell = new Cell(new Point(0, 0), level);
-        cellPanel = new CellPanel(cell);
-        room = new Room(cellPanel);
+        cellPanel = new CellPanel(cell.X, cell.Y);
+        room = new Room(cell);
         cell.setEntity(room);
         infoPanel = new InfoPanel(level);
     }

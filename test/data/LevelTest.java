@@ -58,8 +58,8 @@ public class LevelTest {
         testLevel3.addStreet(testStreet);
         testPoint = new Point(1, 1);
         testCell = new Cell(testPoint, testLevel);
-        testCellPanel = new CellPanel(testCell);
-        testRoom = new Room(testCellPanel);
+        testCellPanel = new CellPanel(testCell.X, testCell.Y);
+        testRoom = new Room(testCell);
         testLevel4 = new Level();
         testingUtils.populateLevel(1, 1, testLevel4);
         testLevel4.registerRoom(testRoom);

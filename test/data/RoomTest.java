@@ -44,8 +44,8 @@ public class RoomTest {
         testingUtils.populateLevel(1, 1, testLevel);
         testPoint = new Point(1, 1);
         testCell = new Cell(testPoint, testLevel);
-        testCellPanel = new CellPanel(testCell);
-        testRoom = new Room(testCellPanel);
+        testCellPanel = new CellPanel(testCell.X, testCell.Y);
+        testRoom = new Room(testCell);
         testExit = new Exit(Direction.SOUTH, testRoom, ExitType.PATH);
         testRoom.addExit(testExit);
     }

@@ -24,6 +24,7 @@ import data.Level;
 import data.Room;
 import data.Street;
 import gui.levelpanel.CellPanel;
+import main.BindingService;
 import org.junit.Before;
 import org.junit.Test;
 import utils.TestingUtils;
@@ -45,16 +46,18 @@ public class StreetColorSetterTest {
     public void setUp() {
         level = new Level();
         testingUtils.populateLevel(1, 1, level);
+        BindingService bindingService = new BindingService();
+        bindingService = testingUtils.setupBindingService(bindingService, level);
         street = new Street("foo");
         level.addStreet(street);
         cell = new Cell(new Point(0, 0), level);
-        CellPanel cellPanel = new CellPanel(cell);
-        Room room = new Room(cellPanel);
+        CellPanel cellPanel = new CellPanel(cell.X, cell.Y);
+        Room room = new Room(cell);
         cell.setEntity(room);
         street.addRoom(room);
         cell.setColor(Color.BLACK);
 
-        streetColorSetter = new StreetColorSetter(new MockColorDialog());
+        streetColorSetter = new StreetColorSetter(new MockColorDialog(), bindingService);
     }
 
     @Test

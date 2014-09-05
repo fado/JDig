@@ -76,7 +76,7 @@ public class ConnectionToolTest {
         Cell northCell = level.getCellAt(new Point(0, 0));
         //CellPanel northCellPanel = northCell.getCellPanel();
         CellPanel northCellPanel = bindingService2.getBoundCellPanel(northCell);
-        northCell.setEntity(new Room(northCellPanel));
+        northCell.setEntity(new Room(northCell));
         // Middle Cell.  Remember you have to set up the CellPanel manually as it
         // only gets created when the GUI is launched.
         emptyMiddleCell = level.getCellAt(new Point(0, 1));
@@ -86,7 +86,7 @@ public class ConnectionToolTest {
         Cell southCell = level.getCellAt(new Point(0, 2));
         //CellPanel southCellPanel = southCell.getCellPanel();
         CellPanel southCellPanel = bindingService2.getBoundCellPanel(southCell);
-        southCell.setEntity(new Room(southCellPanel));
+        southCell.setEntity(new Room(southCell));
 
         // ConnectionTool.
         DeletionTool deletionTool = new DeletionTool(testLevel, bindingService);
@@ -131,7 +131,7 @@ public class ConnectionToolTest {
      */
     @Test
     public void testMouseEnteredWithEntity() {
-        emptyCell.setEntity(new Room(emptyCellPanel));
+        emptyCell.setEntity(new Room(emptyCell));
         connectionTool.mouseEntered(eventEntered);
         assertFalse(emptyCellPanel.hasEntityImage());
     }
@@ -159,7 +159,7 @@ public class ConnectionToolTest {
      */
     @Test
     public void testMouseExitedWithEntity() {
-        emptyCell.setEntity(new Room(emptyCellPanel));
+        emptyCell.setEntity(new Room(emptyCell));
         emptyCellPanel.addImage(new Images().getImagePath("Room"));
         connectionTool.mouseExited(eventExited);
         assertTrue(emptyCellPanel.hasEntityImage());

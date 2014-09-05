@@ -21,6 +21,7 @@ package gui.levelpanel;
 
 import data.Cell;
 import data.Level;
+import main.BindingService;
 import org.junit.Before;
 import org.junit.Test;
 import utils.TestingUtils;
@@ -38,7 +39,9 @@ public class LevelPanelTest {
         level = new Level();
         testingUtils.populateLevel(1, 1, level);
         TestingUtils testingUtils = new TestingUtils();
-        levelPanel = testingUtils.buildLevelPanel(level);
+        BindingService bindingService = new BindingService();
+        bindingService = testingUtils.setupBindingService(bindingService, level);
+        levelPanel = testingUtils.buildLevelPanel(level, bindingService);
     }
 
     @Test

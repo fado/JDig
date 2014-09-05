@@ -25,6 +25,7 @@ import data.Room;
 import data.Street;
 import gui.infopanel.InfoPanel;
 import gui.levelpanel.CellPanel;
+import main.BindingService;
 import org.junit.Before;
 import org.junit.Test;
 import utils.TestingUtils;
@@ -49,28 +50,31 @@ public class ColorChooserListenerTest {
     CellPanel cellPanel, cellPanel2;
     Cell cell1, cell2;
     TestingUtils testingUtils = new TestingUtils();
+    BindingService bindingService;
 
     @Before
     public void setUp() {
         level = new Level();
-        testingUtils.populateLevel(1, 1, level);
+        level = testingUtils.populateLevel(2, 2, level);
+        bindingService = new BindingService();
+        bindingService = testingUtils.setupBindingService(bindingService, level);
         infoPanel = new InfoPanel(level);
         colorChooser = new MockColorChooser();
-        roomColorSetter = new RoomColorSetter();
-        streetColorSetter = new StreetColorSetter(new MockColorStreetDialog());
+        roomColorSetter = new RoomColorSetter(bindingService);
+        streetColorSetter = new StreetColorSetter(new MockColorStreetDialog(), bindingService);
         colorChooserListener = new ColorChooserListener(infoPanel, colorChooser,
                 roomColorSetter, streetColorSetter);
         colorChooserButton = new JLabel();
         testEvent = new MouseEvent(colorChooserButton, MouseEvent.MOUSE_PRESSED,
                 0, 0, 0, 0, 1, false);
 
-        cell1 = new Cell(new Point(0, 0), level);
-        cellPanel = new CellPanel(cell1);
-        cell1.setEntity(new Room(cellPanel));
+        cell1 = level.getCellAt(new Point(0, 0));
+        cellPanel = bindingService.getBoundCellPanel(cell1);
+        cell1.setEntity(new Room(cell1));
 
-        cell2 = new Cell(new Point(1, 1), level);
-        cellPanel2 = new CellPanel(cell2);
-        cell2.setEntity(new Room(cellPanel2));
+        cell2 = level.getCellAt(new Point(1, 1));
+        cellPanel2 = bindingService.getBoundCellPanel(cell2);
+        cell2.setEntity(new Room(cell2));
     }
 
     @Test
@@ -78,8 +82,8 @@ public class ColorChooserListenerTest {
         infoPanel.load(cell1);
         infoPanel.load(cell2);
         colorChooserListener.mouseClicked(testEvent);
-        assertTrue(cellPanel.getCell().getColor() == Color.BLACK);
-        assertTrue(cellPanel2.getCell().getColor() == Color.BLACK);
+        assertTrue(cell1.getColor() == Color.BLACK);
+        assertTrue(cell2.getColor() == Color.BLACK);
     }
 
     @Test
@@ -87,19 +91,19 @@ public class ColorChooserListenerTest {
         Street street = new Street("foo");
         level.addStreet(street);
 
-        Room room = (Room)cellPanel.getCell().getEntity();
+        Room room = (Room)bindingService.getBoundCell(cellPanel).getEntity();
         room.setStreetName("foo");
         street.addRoom(room);
 
-        Room room2 = (Room)cellPanel2.getCell().getEntity();
+        Room room2 = (Room)bindingService.getBoundCell(cellPanel2).getEntity();
         room2.setStreetName("foo");
         street.addRoom(room2);
 
         infoPanel.load(cell1);
         colorChooserListener.mouseClicked(testEvent);
 
-        assertTrue(cellPanel.getCell().getColor() == Color.BLACK);
-        assertTrue(cellPanel2.getCell().getColor() == Color.BLACK);
+        assertTrue(cell1.getColor() == Color.BLACK);
+        assertTrue(cell2.getColor() == Color.BLACK);
     }
 
 }

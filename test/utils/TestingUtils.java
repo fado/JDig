@@ -81,7 +81,7 @@ public class TestingUtils {
      * @param level The Level for which you wish to build a LevelPanel.
      * @return the LevelPanel for the passed-in Level
      */
-    public LevelPanel buildLevelPanel(Level level) {
+    public LevelPanel buildLevelPanel(Level level, BindingService bindingService) {
         LevelPanel levelPanel = new LevelPanel();
 
         GridBagConstraints constraints = new GridBagConstraints();
@@ -89,8 +89,9 @@ public class TestingUtils {
         for(Cell cell : level.getAllCells()) {
             constraints.gridx = cell.X;
             constraints.gridy = cell.Y;
-            CellPanel cellPanel = new CellPanel(cell);
-            cell.setCellPanel(cellPanel);
+            CellPanel cellPanel = new CellPanel(cell.X, cell.Y);
+            //cell.setCellPanel(cellPanel);
+            bindingService.bindToCellPanel(cell);
             levelPanel.add(cellPanel, constraints);
         }
         return levelPanel;

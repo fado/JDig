@@ -66,18 +66,18 @@ public class DeletionToolTest {
         middleCell = testLevel2.getCellAt(new Point(1, 1));
         exitBuilder = new ExitBuilder();
         TestingUtils testingUtils = new TestingUtils();
-        LevelPanel levelPanel1 = testingUtils.buildLevelPanel(testLevel);
+        //LevelPanel levelPanel1 = testingUtils.buildLevelPanel(testLevel);
         BindingService bindingService = new BindingService();
         bindingService = testingUtils.setupBindingService(bindingService, testLevel);
         testDeletionTool1 = new DeletionTool(testLevel, bindingService);
-        LevelPanel levelPanel2 = testingUtils.buildLevelPanel(testLevel2);
+        //LevelPanel levelPanel2 = testingUtils.buildLevelPanel(testLevel2);
         BindingService bindingService2 = new BindingService();
         bindingService2 = testingUtils.setupBindingService(bindingService2, testLevel2);
         testDeletionTool2 = new DeletionTool(testLevel2, bindingService2);
         //middleCellPanel = middleCell.getCellPanel();
         //testCellPanel = new CellPanel(testCell);
         testCellPanel = bindingService.getBoundCellPanel(testCell);
-        testRoom = new Room(testCellPanel);
+        testRoom = new Room(testCell);
         middleCellPanel = bindingService2.getBoundCellPanel(middleCell);
     }
 
