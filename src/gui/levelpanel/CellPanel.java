@@ -53,7 +53,6 @@ public class CellPanel extends JPanel implements LevelToolListener {
     private final Border defaultBorder = BorderFactory.createLineBorder(VERY_LIGHT_GRAY);
     private LevelTool selectedLevelTool;
     private boolean selected = false;
-    private Cell cell;
     private JLabel entityImage;
     private String imagePath;
     static final Logger logger = LoggerFactory.getLogger(CellPanel.class);
@@ -62,12 +61,10 @@ public class CellPanel extends JPanel implements LevelToolListener {
 
     /**
      * Constructor takes as an argument the Cell which this CellPanel represents.
-     * @param cell which this CellPanel represents.
      */
-    public CellPanel(Cell cell) {
-        this.cell = cell;
-        this.panelX = cell.X;
-        this.panelY = cell.Y;
+    public CellPanel(int x, int y) {
+        this.panelX = x;
+        this.panelY = y;
         setDefaultProperties();
     }
 
@@ -187,14 +184,6 @@ public class CellPanel extends JPanel implements LevelToolListener {
      */
     public void restoreDefaultBorder() {
         setBorder(defaultBorder);
-    }
-
-    /**
-     * Returns the Cell that corresponds to this CellPanel.
-     * @return the Cell that corresponds to this CellPanel.
-     */
-    public Cell getCell() {
-        return this.cell;
     }
 
     /**
