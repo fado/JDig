@@ -41,27 +41,20 @@ public class Room implements Entity, Connectible {
     private String light;
     private final List<Exit> exits = new ArrayList<>();
     private static final Localization localization = new Localization();
-    private final CellPanel cellPanel;
+    private final Cell cell;
 
     /**
      * Constructor.
-     * @param cellPanel The CellPanel that represents the Cell containing this room
-     *                  in the UI.
      */
-    public Room(CellPanel cellPanel) {
-        this.cellPanel = cellPanel;
+    public Room(Cell cell) {
+        this.cell = cell;
         this.include = localization.get("DefaultInclude");
         this.inherit = localization.get("DefaultInherit");
         this.longDescription = localization.get("DefaultLongDescription");
     }
 
-    /**
-     * Returns the CellPanel corresponding to the Cell object that contains
-     * this room.
-     * @return the CellPanel that 'contains' this Room.  See description.
-     */
-    public CellPanel getCellPanel() {
-        return this.cellPanel;
+    public Cell getCell() {
+        return this.cell;
     }
 
     /**
