@@ -21,7 +21,6 @@ package main;
 
 import data.Cell;
 import data.Level;
-import data.Room;
 import gui.JdigComponent;
 import gui.infopanel.InfoPanel;
 import gui.infopanel.colorchooser.ColorChooserListener;
@@ -40,7 +39,6 @@ import gui.menubar.LoadCommand;
 import gui.menubar.SaveCommand;
 import persistence.LevelLoader;
 import persistence.LevelSaver;
-import properties.Images;
 import properties.JdigProperties;
 import tools.*;
 import tools.ExitBuilder;
@@ -97,7 +95,8 @@ public enum ApplicationFactory {
         selectionTool = new SelectionTool(infoPanel, bindingService);
         deletionTool = new DeletionTool(level, bindingService);
         placementRestriction = new PlacementRestriction();
-        roomTool = new RoomTool(level, deletionTool, placementRestriction, bindingService);
+        roomTool = new RoomTool(level, deletionTool, placementRestriction, bindingService,
+                new DefaultOverwriteDialog());
         exitBuilder = new ExitBuilder();
         connectionTool = new ConnectionTool(deletionTool, exitBuilder, bindingService);
         levelToolbar = new LevelToolbar(selectionTool, roomTool, connectionTool);

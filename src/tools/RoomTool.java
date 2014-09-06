@@ -22,10 +22,12 @@ package tools;
 import data.Cell;
 import data.Level;
 import data.Room;
+import gui.JdigDialog;
 import gui.levelpanel.CellPanel;
 import main.BindingService;
 import properties.Images;
 import java.awt.event.MouseEvent;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 /**
@@ -38,6 +40,7 @@ public class RoomTool implements LevelTool {
     private DeletionTool deletionTool;
     private PlacementRestriction placementRestriction;
     private BindingService bindingService;
+    private JdigDialog jdigDialog;
 
     /**
      * Default constructor.
@@ -46,11 +49,13 @@ public class RoomTool implements LevelTool {
     public RoomTool(Level level,
                     DeletionTool deletionTool,
                     PlacementRestriction placementRestriction,
-                    BindingService bindingService) {
+                    BindingService bindingService,
+                    JdigDialog jdigDialog) {
         this.level = level;
         this.deletionTool = deletionTool;
         this.placementRestriction = placementRestriction;
         this.bindingService = bindingService;
+        this.jdigDialog = jdigDialog;
     }
 
     /**
@@ -113,6 +118,20 @@ public class RoomTool implements LevelTool {
         // Add a new Room to the Cell upon left mouse click.
         } else if (SwingUtilities.isLeftMouseButton(event)
                 && placementRestriction.positionIsValid(cell)) {
+            placeRoom(cell, cellPanel);
+        }
+    }
+
+    /**
+     * Controls the placement of rooms. First ensures that you're not
+     * overwriting.
+     * @param cell The Cell in which you're placing the Room.
+     * @param cellPanel The CellPanel representing the Cell.
+     */
+    private void placeRoom(Cell cell, CellPanel cellPanel) {
+        if(cell.getEntity() != null) {
+            overwriteRoom(cell, cellPanel);
+        } else {
             Room room = new Room(cell);
             cell.setEntity(room);
             level.registerRoom(room);
@@ -121,6 +140,21 @@ public class RoomTool implements LevelTool {
                 // Sets the first room, governing where future rooms can be placed.
                 placementRestriction.setPlacementRestriction(cell);
             }
+        }
+    }
+
+    /**
+     * Overwrites the passed in Cell and CellPanel with a new room.
+     * @param cell The underlying Cell.
+     * @param cellPanel The CellPanel representing the Cell.
+     */
+    private void overwriteRoom(Cell cell, CellPanel cellPanel) {
+        int option = jdigDialog.showDialog();
+        if(option == JOptionPane.YES_OPTION) {
+            deletionTool.deleteEntity(cellPanel);
+            cellPanel.addImage(images.getImagePath("Room"));
+            cellPanel.removeBorder();
+            placeRoom(cell, cellPanel);
         }
     }
 

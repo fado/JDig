@@ -66,7 +66,8 @@ public class RoomToolTest {
         // RoomTool.
         DeletionTool deletionTool = new DeletionTool(testLevel, bindingService);
         placementRestriction = new PlacementRestriction();
-        roomTool = new RoomTool(testLevel, deletionTool, placementRestriction, bindingService);
+        roomTool = new RoomTool(testLevel, deletionTool, placementRestriction, bindingService,
+                new DefaultOverwriteDialog());
 
         // Images.
         images = new Images();

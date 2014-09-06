@@ -1,4 +1,4 @@
-package gui.menubar;
+package gui;
 
 /**
  * JDig, a tool for the automatic generation of LPC class files for Epitaph
@@ -22,7 +22,7 @@ package gui.menubar;
 /**
  * Interface for a JOptionPane wrapper for the MenuBar.
  */
-public interface MenuDialog {
+public interface JdigDialog {
 
     int showDialog();
 

@@ -18,6 +18,7 @@ package gui.menubar;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+import gui.JdigDialog;
 import properties.Localization;
 import javax.swing.JOptionPane;
 
@@ -25,7 +26,7 @@ import javax.swing.JOptionPane;
  * Wrapper class for a JOptionPane to display a message prompting users to save
  * upon exiting the application.
  */
-public class DefaultLoadDialog implements MenuDialog {
+public class DefaultLoadDialog implements JdigDialog {
 
     Localization localization = new Localization();
 
