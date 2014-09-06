@@ -21,8 +21,10 @@ package main;
 
 import data.Cell;
 import data.Level;
+import data.Room;
 import gui.JdigComponent;
 import gui.infopanel.InfoPanel;
+import gui.infopanel.StreetNameListener;
 import gui.infopanel.colorchooser.ColorChooserListener;
 import gui.infopanel.colorchooser.ColorStreetDialog;
 import gui.infopanel.colorchooser.DefaultColorChooser;
@@ -45,6 +47,7 @@ import tools.ExitBuilder;
 import javax.swing.JFileChooser;
 import java.awt.GridBagConstraints;
 import java.awt.Point;
+import java.util.List;
 import java.util.Properties;
 
 /**
@@ -214,4 +217,7 @@ public enum ApplicationFactory {
         );
     }
 
+    public StreetNameListener getStreetNameListener(List<Room> currentRooms) {
+        return new StreetNameListener(currentRooms, level);
+    }
 }
