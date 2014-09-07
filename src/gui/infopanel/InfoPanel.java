@@ -224,7 +224,7 @@ public class InfoPanel extends JPanel implements JdigComponent {
     public void populateStreetNames() {
         streetNameField.removeAllItems();
         streetNameField.addItem("");
-        for (Street street : level.getStreets()) {
+        for (Street street : bindingService.getStreets()) {
             streetNameField.addItem(street.getName());
         }
     }
