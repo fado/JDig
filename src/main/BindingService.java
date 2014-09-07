@@ -125,4 +125,12 @@ public class BindingService {
         return this.level.getStreets();
     }
 
+    /**
+     * Adds a Street to the currently loaded Level.
+     * @param street The Street to be added.
+     */
+    public void addStreet(Street street) {
+        level.addStreet(street);
+    }
+
 }
