@@ -150,7 +150,7 @@ public class StreetEditor implements Runnable {
             deleteButton.setEnabled(false);
         }
         deleteButton.setActionCommand(DELETE_STRING);
-        deleteButton.addActionListener(new DeleteListener(this));
+        deleteButton.addActionListener(new DeleteListener(this, bindingService));
         buttonPane.add(deleteButton);
 
         // Add buttonPane to the passed-in Container.

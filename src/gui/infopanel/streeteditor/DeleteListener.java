@@ -19,6 +19,8 @@ package gui.infopanel.streeteditor;
  */
 
 import data.Level;
+import main.BindingService;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.DefaultListModel;
@@ -31,9 +33,11 @@ import javax.swing.JList;
 public class DeleteListener implements ActionListener {
 
     private final StreetEditor editor;
+    private BindingService bindingService;
 
-    public DeleteListener(StreetEditor editor) {
+    public DeleteListener(StreetEditor editor, BindingService bindingService) {
         this.editor = editor;
+        this.bindingService = bindingService;
     }
 
     /**
