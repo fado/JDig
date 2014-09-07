@@ -133,4 +133,12 @@ public class BindingService {
         level.addStreet(street);
     }
 
+    public void removeStreet(Street street) {
+        level.removeStreet(street);
+    }
+
+    public Street getStreet(String streetName) {
+        return level.getStreet(streetName);
+    }
+
 }
