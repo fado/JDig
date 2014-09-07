@@ -23,7 +23,6 @@ import data.Room;
 import data.Street;
 import gui.infopanel.InfoPanel;
 import main.BindingService;
-
 import javax.swing.JLabel;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
@@ -91,7 +90,7 @@ public class ColorChooserListener extends MouseAdapter {
         String streetName = room.getStreetName();
         Street street = null;
         if(streetName != null) {
-            street = infoPanel.getLevel().getStreet(streetName);
+            street = bindingService.getStreet(streetName);
         }
         if(street != null && !streets.contains(street)) {
             streets.add(street);
