@@ -45,7 +45,7 @@ public class StreetNameListenerTest {
     @Before
     public void setUp() {
         level = new Level();
-        BindingService bindingService = new BindingService();
+        BindingService bindingService = new BindingService(level);
         bindingService = testingUtils.setupBindingService(bindingService, level);
         testingUtils.populateLevel(1, 1, level);
         infoPanel = new InfoPanel(level, bindingService);

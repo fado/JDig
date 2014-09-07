@@ -46,7 +46,7 @@ public class StreetColorSetterTest {
     public void setUp() {
         level = new Level();
         testingUtils.populateLevel(1, 1, level);
-        BindingService bindingService = new BindingService();
+        BindingService bindingService = new BindingService(level);
         bindingService = testingUtils.setupBindingService(bindingService, level);
         street = new Street("foo");
         level.addStreet(street);

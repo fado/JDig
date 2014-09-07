@@ -57,7 +57,7 @@ public class ConnectionToolTest {
         Point testPoint = new Point(0, 0);
         //emptyCell = new Cell(testPoint, testLevel);
         emptyCell = testLevel.getCellAt(testPoint);
-        BindingService bindingService = new BindingService();
+        BindingService bindingService = new BindingService(testLevel);
         bindingService = testingUtils.setupBindingService(bindingService, testLevel);
         //emptyCellPanel = new CellPanel(emptyCell);
         emptyCellPanel = bindingService.getBoundCellPanel(emptyCell);
@@ -69,7 +69,7 @@ public class ConnectionToolTest {
         // 1x3 Level with Rooms to North and South.
         Level level = new Level();
         testingUtils.populateLevel(1, 3, level);
-        BindingService bindingService2 = new BindingService();
+        BindingService bindingService2 = new BindingService(level);
         bindingService2 = testingUtils.setupBindingService(bindingService2, level);
 
         // North Cell.

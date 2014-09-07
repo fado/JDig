@@ -52,7 +52,7 @@ public class DeleteListenerTest {
     public void setUp() {
         level = new Level();
         testingUtils.populateLevel(1, 1, level);
-        BindingService bindingService = new BindingService();
+        BindingService bindingService = new BindingService(level);
         bindingService = testingUtils.setupBindingService(bindingService, level);
         InfoPanel infoPanel = new InfoPanel(level, bindingService);
         streetEditor = new StreetEditor(infoPanel, bindingService);

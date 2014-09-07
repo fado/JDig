@@ -79,7 +79,7 @@ public enum ApplicationFactory {
      * @param level The currently loaded level.
      */
     public void buildApplication(Level level) {
-        bindingService = new BindingService();
+        bindingService = new BindingService(level);
         if(level.getAllCells().isEmpty()) {
             // If it's a new level, populate it.
             Properties properties = new JdigProperties();

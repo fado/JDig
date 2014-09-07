@@ -61,7 +61,7 @@ public class DeletionToolTest_5x5 {
 
         exitBuilder = new ExitBuilder();
         TestingUtils testingUtils = new TestingUtils();
-        BindingService bindingService = new BindingService();
+        BindingService bindingService = new BindingService(testLevel);
         bindingService = testingUtils.setupBindingService(bindingService, testLevel);
         testDeletionTool = new DeletionTool(testLevel, bindingService);
 

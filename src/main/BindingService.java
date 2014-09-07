@@ -20,6 +20,7 @@ package main;
  */
 
 import data.Cell;
+import data.Level;
 import gui.levelpanel.CellPanel;
 import properties.Images;
 import java.util.HashMap;
@@ -30,7 +31,12 @@ import java.util.Map;
  */
 public class BindingService {
 
-    Map<Cell, CellPanel> mappingCells = new HashMap<>();
+    private Map<Cell, CellPanel> mappingCells = new HashMap<>();
+    private Level level;
+
+    public BindingService(Level level) {
+        this.level = level;
+    }
 
     /**
      * Binds a CellPanel to the passed in Cell.

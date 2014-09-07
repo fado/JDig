@@ -52,7 +52,7 @@ public class RoomToolTest {
         // Empty Cell and CellPanel.
         testLevel = new Level();
         testLevel = testingUtils.populateLevel(3, 3, testLevel);
-        BindingService bindingService = new BindingService();
+        BindingService bindingService = new BindingService(testLevel);
         bindingService = testingUtils.setupBindingService(bindingService, testLevel);
 
         Point testPoint = new Point(0, 0);

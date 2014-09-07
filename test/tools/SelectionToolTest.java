@@ -48,7 +48,7 @@ public class SelectionToolTest {
         Level testLevel = new Level();
         testingUtils.populateLevel(3, 3, testLevel);
 
-        BindingService bindingService = new BindingService();
+        BindingService bindingService = new BindingService(testLevel);
         bindingService = testingUtils.setupBindingService(bindingService, testLevel);
 
         //testCell = new Cell(new Point(0, 0), testLevel);

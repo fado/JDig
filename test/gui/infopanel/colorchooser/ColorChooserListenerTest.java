@@ -56,7 +56,7 @@ public class ColorChooserListenerTest {
     public void setUp() {
         level = new Level();
         level = testingUtils.populateLevel(2, 2, level);
-        bindingService = new BindingService();
+        bindingService = new BindingService(level);
         bindingService = testingUtils.setupBindingService(bindingService, level);
         infoPanel = new InfoPanel(level, bindingService);
         colorChooser = new MockColorChooser();

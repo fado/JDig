@@ -74,7 +74,7 @@ public class ExitCommandBuilderTest {
         middleCell = testLevel.getCellAt(middlePoint);
 
         TestingUtils testingUtils = new TestingUtils();
-        BindingService bindingService = new BindingService();
+        BindingService bindingService = new BindingService(testLevel);
         bindingService = testingUtils.setupBindingService(bindingService, testLevel);
         LevelPanel levelPanel = testingUtils.buildLevelPanel(testLevel, bindingService);
         northCellPanel = bindingService.getBoundCellPanel(northCell);

@@ -37,7 +37,7 @@ public class StreetEditorTest {
     public void setUp() {
         testingUtils = new TestingUtils();
         Level level = new Level();
-        BindingService bindingService = new BindingService();
+        BindingService bindingService = new BindingService(level);
         bindingService = testingUtils.setupBindingService(bindingService, level);
         testingUtils.populateLevel(1, 1, level);
         InfoPanel infoPanel = new InfoPanel(level, bindingService);
