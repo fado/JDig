@@ -89,7 +89,7 @@ public class InfoPanel extends JPanel implements JdigComponent {
         streetNameField.setName("streetNameField");
         Dimension dimension = streetNameField.getPreferredSize();
         streetNameField.setPreferredSize(new Dimension(200, dimension.height));
-        streetNameField.addActionListener(new StreetNameListener(currentRooms, level, bindingService));
+        streetNameField.addActionListener(new StreetNameListener(currentRooms, bindingService));
         populateStreetNames();
         JLabel streetNameLabel = new JLabel(localization.get("StreetName"), JLabel.RIGHT);
         streetNameLabel.setLabelFor(streetNameField);

@@ -218,6 +218,6 @@ public enum ApplicationFactory {
     }
 
     public StreetNameListener getStreetNameListener(List<Room> currentRooms) {
-        return new StreetNameListener(currentRooms, level, bindingService);
+        return new StreetNameListener(currentRooms, bindingService);
     }
 }

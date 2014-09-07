@@ -18,11 +18,9 @@ package gui.infopanel;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import data.Level;
 import data.Room;
 import data.Street;
 import main.BindingService;
-
 import javax.swing.JComboBox;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -34,17 +32,14 @@ import java.util.List;
 public class StreetNameListener implements ActionListener {
 
     private List<Room> currentRooms;
-    private Level level;
     private BindingService bindingService;
 
     /**
      * Constructor.
      * @param currentRooms The list of currently selected rooms.
-     * @param level The level containing the rooms.
      */
-    public StreetNameListener(List<Room> currentRooms, Level level, BindingService bindingService) {
+    public StreetNameListener(List<Room> currentRooms, BindingService bindingService) {
         this.currentRooms = currentRooms;
-        this.level = level;
         this.bindingService = bindingService;
     }
 
@@ -61,7 +56,7 @@ public class StreetNameListener implements ActionListener {
                 // Set the street name in the Room object.
                 room.setStreetName((String) streetNameField.getSelectedItem());
                 // Add the room to the Street in the Level object.
-                Street street = level.getStreet(room.getStreetName());
+                Street street = bindingService.getStreet(room.getStreetName());
                 if(street != null) {
                     street.addRoom(room);
                 }
