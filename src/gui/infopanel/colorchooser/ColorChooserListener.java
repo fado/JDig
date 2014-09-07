@@ -22,6 +22,8 @@ package gui.infopanel.colorchooser;
 import data.Room;
 import data.Street;
 import gui.infopanel.InfoPanel;
+import main.BindingService;
+
 import javax.swing.JLabel;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
@@ -39,6 +41,7 @@ public class ColorChooserListener extends MouseAdapter {
     private ColorChooser colorChooser;
     private RoomColorSetter roomColorSetter;
     private StreetColorSetter streetColorSetter;
+    private BindingService bindingService;
 
     /**
      * Constructor.
@@ -46,11 +49,13 @@ public class ColorChooserListener extends MouseAdapter {
      */
     public ColorChooserListener(InfoPanel infoPanel, ColorChooser colorChooser,
                                 RoomColorSetter roomColorSetter,
-                                StreetColorSetter streetColorSetter) {
+                                StreetColorSetter streetColorSetter,
+                                BindingService bindingService){
         this.infoPanel = infoPanel;
         this.colorChooser = colorChooser;
         this.roomColorSetter = roomColorSetter;
         this.streetColorSetter = streetColorSetter;
+        this.bindingService = bindingService;
     }
 
     /**

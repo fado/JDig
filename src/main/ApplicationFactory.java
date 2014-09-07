@@ -213,7 +213,8 @@ public enum ApplicationFactory {
                 new StreetColorSetter(
                         new ColorStreetDialog(),
                         bindingService
-                )
+                ),
+                bindingService
         );
     }
 

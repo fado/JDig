@@ -63,7 +63,7 @@ public class ColorChooserListenerTest {
         roomColorSetter = new RoomColorSetter(bindingService);
         streetColorSetter = new StreetColorSetter(new MockColorStreetDialog(), bindingService);
         colorChooserListener = new ColorChooserListener(infoPanel, colorChooser,
-                roomColorSetter, streetColorSetter);
+                roomColorSetter, streetColorSetter, bindingService);
         colorChooserButton = new JLabel();
         testEvent = new MouseEvent(colorChooserButton, MouseEvent.MOUSE_PRESSED,
                 0, 0, 0, 0, 1, false);
