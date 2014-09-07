@@ -53,7 +53,7 @@ public class StreetNameListenerTest {
         room2 = new Room(null);
         currentRooms.add(room);
         currentRooms.add(room2);
-        streetNameListener = new StreetNameListener(currentRooms, level);
+        streetNameListener = new StreetNameListener(currentRooms, level, bindingService);
         streetNameField = testingUtils.getStreetNameField(infoPanel);
         testEvent = new ActionEvent(streetNameField, ActionEvent.ACTION_PERFORMED, null);
     }

@@ -21,6 +21,8 @@ package gui.infopanel;
 import data.Level;
 import data.Room;
 import data.Street;
+import main.BindingService;
+
 import javax.swing.JComboBox;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -33,15 +35,17 @@ public class StreetNameListener implements ActionListener {
 
     private List<Room> currentRooms;
     private Level level;
+    private BindingService bindingService;
 
     /**
      * Constructor.
      * @param currentRooms The list of currently selected rooms.
      * @param level The level containing the rooms.
      */
-    public StreetNameListener(List<Room> currentRooms, Level level) {
+    public StreetNameListener(List<Room> currentRooms, Level level, BindingService bindingService) {
         this.currentRooms = currentRooms;
         this.level = level;
+        this.bindingService = bindingService;
     }
 
     /**
