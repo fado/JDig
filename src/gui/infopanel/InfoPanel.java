@@ -63,6 +63,7 @@ public class InfoPanel extends JPanel implements JdigComponent {
     private List<Room> currentRooms = new ArrayList<>();
     private final Level level;
     private final Localization localization = new Localization();
+    private BindingService bindingService;
 
     /**
      * Constructor.
@@ -70,6 +71,7 @@ public class InfoPanel extends JPanel implements JdigComponent {
      */
     public InfoPanel(Level level, BindingService bindingService) {
         this.level = level;
+        this.bindingService = bindingService;
         setLayout(new MigLayout());
         JPanel contentPanel = createContentPanel();
         contentPanel.setName("contentPanel");
