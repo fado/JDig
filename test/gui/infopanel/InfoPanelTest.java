@@ -53,7 +53,7 @@ public class InfoPanelTest {
         cellPanel = new CellPanel(cell.X, cell.Y);
         room = new Room(cell);
         cell.setEntity(room);
-        infoPanel = new InfoPanel(level, bindingService);
+        infoPanel = new InfoPanel(bindingService);
     }
 
     @Test

@@ -61,16 +61,13 @@ public class InfoPanel extends JPanel implements JdigComponent {
     private final JPanel exitPanel;
     private LabeledComponent longDescriptionField;
     private List<Room> currentRooms = new ArrayList<>();
-    private final Level level;
     private final Localization localization = new Localization();
     private BindingService bindingService;
 
     /**
      * Constructor.
-     * @param level The currently loaded level.
      */
-    public InfoPanel(Level level, BindingService bindingService) {
-        this.level = level;
+    public InfoPanel(BindingService bindingService) {
         this.bindingService = bindingService;
         setLayout(new MigLayout());
         JPanel contentPanel = createContentPanel();
@@ -240,14 +237,6 @@ public class InfoPanel extends JPanel implements JdigComponent {
         constraints.gridx = 1;
         constraints.gridy = 1;
         return constraints;
-    }
-
-    /**
-     * Returns the Level currently loaded in the application.
-     * @return the Level currently loaded in the application.
-     */
-    public Level getLevel() {
-        return this.level;
     }
 
     /**

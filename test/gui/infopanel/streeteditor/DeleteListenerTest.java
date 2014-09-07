@@ -54,7 +54,7 @@ public class DeleteListenerTest {
         testingUtils.populateLevel(1, 1, level);
         BindingService bindingService = new BindingService(level);
         bindingService = testingUtils.setupBindingService(bindingService, level);
-        InfoPanel infoPanel = new InfoPanel(level, bindingService);
+        InfoPanel infoPanel = new InfoPanel(bindingService);
         streetEditor = new StreetEditor(infoPanel, bindingService);
         streetEditor.run();
 

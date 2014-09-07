@@ -48,7 +48,7 @@ public class StreetNameListenerTest {
         BindingService bindingService = new BindingService(level);
         bindingService = testingUtils.setupBindingService(bindingService, level);
         testingUtils.populateLevel(1, 1, level);
-        infoPanel = new InfoPanel(level, bindingService);
+        infoPanel = new InfoPanel(bindingService);
         room = new Room(null);
         room2 = new Room(null);
         currentRooms.add(room);

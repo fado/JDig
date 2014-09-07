@@ -93,7 +93,7 @@ public enum ApplicationFactory {
             }
             this.level = level;
         }
-        infoPanel = new InfoPanel(level, bindingService);
+        infoPanel = new InfoPanel(bindingService);
         infoToolbar = new InfoToolbar(level);
         selectionTool = new SelectionTool(infoPanel, bindingService);
         deletionTool = new DeletionTool(level, bindingService);

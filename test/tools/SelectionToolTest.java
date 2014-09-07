@@ -75,7 +75,7 @@ public class SelectionToolTest {
         mousePressed3 = new MouseEvent(testCellPanel3, MouseEvent.MOUSE_PRESSED,
                 0, MouseEvent.SHIFT_DOWN_MASK, 0, 0, 1, false);
 
-        InfoPanel infoPanel = new InfoPanel(testLevel, bindingService);
+        InfoPanel infoPanel = new InfoPanel(bindingService);
         selectionTool = new SelectionTool(infoPanel, bindingService);
     }
 

@@ -40,7 +40,7 @@ public class StreetEditorTest {
         BindingService bindingService = new BindingService(level);
         bindingService = testingUtils.setupBindingService(bindingService, level);
         testingUtils.populateLevel(1, 1, level);
-        InfoPanel infoPanel = new InfoPanel(level, bindingService);
+        InfoPanel infoPanel = new InfoPanel(bindingService);
         streetEditor = new StreetEditor(infoPanel, bindingService);
     }
 
