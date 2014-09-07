@@ -72,7 +72,7 @@ public class DeleteListenerTest {
         list = streetEditor.getList();
         list.setSelectedIndex(0);
 
-        deleteListener = new DeleteListener(streetEditor);
+        deleteListener = new DeleteListener(streetEditor, bindingService);
     }
 
     @Test
