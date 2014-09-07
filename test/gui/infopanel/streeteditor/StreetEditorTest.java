@@ -21,6 +21,7 @@ package gui.infopanel.streeteditor;
 
 import data.Level;
 import gui.infopanel.InfoPanel;
+import main.BindingService;
 import org.junit.Before;
 import org.junit.Test;
 import utils.TestingUtils;
@@ -36,8 +37,10 @@ public class StreetEditorTest {
     public void setUp() {
         testingUtils = new TestingUtils();
         Level level = new Level();
+        BindingService bindingService = new BindingService();
+        bindingService = testingUtils.setupBindingService(bindingService, level);
         testingUtils.populateLevel(1, 1, level);
-        InfoPanel infoPanel = new InfoPanel(level);
+        InfoPanel infoPanel = new InfoPanel(level, bindingService);
         streetEditor = new StreetEditor(infoPanel);
     }
 

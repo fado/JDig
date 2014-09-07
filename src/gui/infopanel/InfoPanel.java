@@ -27,6 +27,7 @@ import gui.JdigComponent;
 import gui.infopanel.infosetters.*;
 import gui.infopanel.streeteditor.StreetEditor;
 import main.ApplicationFactory;
+import main.BindingService;
 import properties.Localization;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -67,7 +68,7 @@ public class InfoPanel extends JPanel implements JdigComponent {
      * Constructor.
      * @param level The currently loaded level.
      */
-    public InfoPanel(Level level) {
+    public InfoPanel(Level level, BindingService bindingService) {
         this.level = level;
         setLayout(new MigLayout());
         JPanel contentPanel = createContentPanel();
@@ -86,7 +87,7 @@ public class InfoPanel extends JPanel implements JdigComponent {
         streetNameField.setName("streetNameField");
         Dimension dimension = streetNameField.getPreferredSize();
         streetNameField.setPreferredSize(new Dimension(200, dimension.height));
-        streetNameField.addActionListener(ApplicationFactory.INSTANCE.getStreetNameListener(currentRooms));
+        streetNameField.addActionListener(new StreetNameListener(currentRooms, level));
         populateStreetNames();
         JLabel streetNameLabel = new JLabel(localization.get("StreetName"), JLabel.RIGHT);
         streetNameLabel.setLabelFor(streetNameField);

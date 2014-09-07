@@ -58,7 +58,7 @@ public class ColorChooserListenerTest {
         level = testingUtils.populateLevel(2, 2, level);
         bindingService = new BindingService();
         bindingService = testingUtils.setupBindingService(bindingService, level);
-        infoPanel = new InfoPanel(level);
+        infoPanel = new InfoPanel(level, bindingService);
         colorChooser = new MockColorChooser();
         roomColorSetter = new RoomColorSetter(bindingService);
         streetColorSetter = new StreetColorSetter(new MockColorStreetDialog(), bindingService);
