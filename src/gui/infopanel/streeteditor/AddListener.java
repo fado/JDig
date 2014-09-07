@@ -33,7 +33,6 @@ import javax.swing.JTextField;
 class AddListener implements ActionListener {
 
     private final StreetEditor editor;
-    private final Level level;
     private final Localization localization = new Localization();
     private final String ALREADY_EXISTS_MSG = localization.get("AlreadyExistsMessage");
     private final String NOT_EMPTY_MSG = localization.get("NotEmptyMessage");
@@ -49,7 +48,6 @@ class AddListener implements ActionListener {
      */
     public AddListener(StreetEditor editor, EditorDialog editorDialog, BindingService bindingService) {
         this.editor = editor;
-        this.level = editor.getLevel();
         this.messageDialog = editorDialog;
         this.bindingService = bindingService;
     }
@@ -76,7 +74,7 @@ class AddListener implements ActionListener {
         // Add the street name to the next available index of the list.
         listModel.add(listModel.getSize(), streetNameField.getText());
         // Register the new street with the Level object while we're at it.
-        level.addStreet(new Street(streetNameField.getText()));
+        bindingService.addStreet(new Street(streetNameField.getText()));
         // Now clear the text field.
         streetNameField.requestFocusInWindow();
         streetNameField.setText("");
