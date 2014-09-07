@@ -21,6 +21,7 @@ package gui.infopanel.streeteditor;
 import data.Level;
 import data.Street;
 import gui.infopanel.InfoPanel;
+import main.BindingService;
 import properties.Localization;
 import java.awt.BorderLayout;
 import java.awt.Container;
@@ -63,14 +64,16 @@ public class StreetEditor implements Runnable {
     private final InfoPanel infoPanel;
     private Container contentPane;
     static final Logger logger = LoggerFactory.getLogger(StreetEditor.class);
+    private BindingService bindingService;
 
     /**
      * Constructor.
      * @param infoPanel The InfoPanel which launched the editor.
      */
-    public StreetEditor(InfoPanel infoPanel) {
+    public StreetEditor(InfoPanel infoPanel, BindingService bindingService) {
         this.infoPanel = infoPanel;
         this.level = infoPanel.getLevel();
+        this.bindingService = bindingService;
     }
 
     /**

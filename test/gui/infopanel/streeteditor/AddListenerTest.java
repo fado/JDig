@@ -48,7 +48,7 @@ public class AddListenerTest {
         BindingService bindingService = new BindingService();
         bindingService = testingUtils.setupBindingService(bindingService, level);
         InfoPanel infoPanel = new InfoPanel(level, bindingService);
-        streetEditor = new StreetEditor(infoPanel);
+        streetEditor = new StreetEditor(infoPanel, bindingService);
         addListener = new AddListener(streetEditor, new MockDialog());
         streetEditor.run();
 

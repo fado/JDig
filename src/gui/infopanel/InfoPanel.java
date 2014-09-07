@@ -105,7 +105,7 @@ public class InfoPanel extends JPanel implements JdigComponent {
         addEditStreetsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent event) {
-                StreetEditor editor = new StreetEditor(InfoPanel.this);
+                StreetEditor editor = new StreetEditor(InfoPanel.this, bindingService);
                 editor.run();
             }
         });
