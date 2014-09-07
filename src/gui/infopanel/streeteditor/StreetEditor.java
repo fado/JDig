@@ -165,7 +165,7 @@ public class StreetEditor implements Runnable {
      */
     private JList<String> getStreetNameList() {
         listModel = new DefaultListModel<>();
-        for (Street street : level.getStreets()) {
+        for (Street street : bindingService.getStreets()) {
             listModel.addElement(street.getName());
         }
         list = new JList<>(listModel);
