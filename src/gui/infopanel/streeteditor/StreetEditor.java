@@ -18,7 +18,6 @@ package gui.infopanel.streeteditor;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import data.Level;
 import data.Street;
 import gui.infopanel.InfoPanel;
 import main.BindingService;
@@ -60,7 +59,6 @@ public class StreetEditor implements Runnable {
     private JButton deleteButton;
     private JButton addButton;
     private JTextField streetName;
-    private final Level level;
     private final InfoPanel infoPanel;
     private Container contentPane;
     static final Logger logger = LoggerFactory.getLogger(StreetEditor.class);
@@ -72,7 +70,6 @@ public class StreetEditor implements Runnable {
      */
     public StreetEditor(InfoPanel infoPanel, BindingService bindingService) {
         this.infoPanel = infoPanel;
-        this.level = infoPanel.getLevel();
         this.bindingService = bindingService;
     }
 
@@ -235,14 +232,6 @@ public class StreetEditor implements Runnable {
      */
     public JButton getDeleteButton() {
         return this.deleteButton;
-    }
-
-    /**
-     * Returns the level to which streets will be added.
-     * @return the level to which streets will be added.
-     */
-    public Level getLevel() {
-        return this.level;
     }
     
 }
