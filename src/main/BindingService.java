@@ -21,9 +21,11 @@ package main;
 
 import data.Cell;
 import data.Level;
+import data.Street;
 import gui.levelpanel.CellPanel;
 import properties.Images;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -101,6 +103,11 @@ public class BindingService {
         return null;
     }
 
+    /**
+     * Returns the Cell bound to the CellPanel.
+     * @param cellPanel The CellPanel for which you want the bound Cell.
+     * @return the Cell bound to the CellPanel.
+     */
     public Cell getBoundCell(CellPanel cellPanel) {
         for(Map.Entry<Cell, CellPanel> tuple : mappingCells.entrySet()) {
             if(tuple.getValue() == cellPanel) {
@@ -108,6 +115,14 @@ public class BindingService {
             }
         }
         return null;
+    }
+
+    /**
+     * Returns all Streets in the Level.
+     * @return all Streets in the Level.
+     */
+    public List<Street> getStreets() {
+        return this.level.getStreets();
     }
 
 }
