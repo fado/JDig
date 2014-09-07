@@ -49,7 +49,7 @@ public class AddListenerTest {
         bindingService = testingUtils.setupBindingService(bindingService, level);
         InfoPanel infoPanel = new InfoPanel(level, bindingService);
         streetEditor = new StreetEditor(infoPanel, bindingService);
-        addListener = new AddListener(streetEditor, new MockDialog());
+        addListener = new AddListener(streetEditor, new MockDialog(), bindingService);
         streetEditor.run();
 
         // Action Event
