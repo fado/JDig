@@ -121,7 +121,7 @@ public class InfoPanel extends JPanel implements JdigComponent {
         colorChooserButton.setOpaque(true);
         colorChooserButton.setBorder(BorderFactory.createLineBorder(Color.black));
         colorChooserButton.addMouseListener(ApplicationFactory.INSTANCE
-                .getNewColorChooserListener());
+                .getNewColorChooserListener(this));
         panel.add(colorChooserButton, "wrap");
     }
 

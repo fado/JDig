@@ -205,7 +205,7 @@ public enum ApplicationFactory {
         return deletionTool;
     }
 
-    public ColorChooserListener getNewColorChooserListener() {
+    public ColorChooserListener getNewColorChooserListener(InfoPanel infoPanel) {
         return new ColorChooserListener(
                 infoPanel,
                 new DefaultColorChooser(),
