@@ -203,6 +203,16 @@ public class CellPanel extends JPanel implements LevelToolListener {
     }
 
     /**
+     * Restores the default color of the CellPanel.  Figured it as better
+     * to keep it localized here rather than calling setBackground from the
+     * deletion tool.  Makes more sense to keep state about this object
+     * in the object.  Not sure how to farm the colour out to a config file.
+     */
+    public void restoreDefaultBackground() {
+        this.setBackground(Color.WHITE);
+    }
+
+    /**
      * Gets the preferred size of this component.
      * @return the preferred size of this component.
      */

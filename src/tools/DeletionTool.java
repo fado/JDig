@@ -67,6 +67,7 @@ public class DeletionTool {
 
         // Do the deletion.
         cell.setEntity(null);
+        cellPanel.restoreDefaultBackground();
         cellPanel.removeImage();
         cellPanel.restoreDefaultBorder();
         if(cellPanel.isSelected()) {
