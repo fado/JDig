@@ -51,6 +51,7 @@ public class Room implements Entity, Connectible {
         this.include = localization.get("DefaultInclude");
         this.inherit = localization.get("DefaultInherit");
         this.longDescription = localization.get("DefaultLongDescription");
+        this.light = localization.get("DefaultLight");
     }
 
     public Cell getCell() {
