@@ -39,7 +39,7 @@ public class LevelPanelTest {
         level = new Level();
         testingUtils.populateLevel(1, 1, level);
         TestingUtils testingUtils = new TestingUtils();
-        BindingService bindingService = new BindingService();
+        BindingService bindingService = new BindingService(level);
         bindingService = testingUtils.setupBindingService(bindingService, level);
         levelPanel = testingUtils.buildLevelPanel(level, bindingService);
     }

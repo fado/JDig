@@ -21,6 +21,7 @@ package gui.infopanel;
 import data.Level;
 import data.Room;
 import data.Street;
+import main.BindingService;
 import org.junit.Before;
 import org.junit.Test;
 import utils.TestingUtils;
@@ -44,13 +45,15 @@ public class StreetNameListenerTest {
     @Before
     public void setUp() {
         level = new Level();
+        BindingService bindingService = new BindingService(level);
+        bindingService = testingUtils.setupBindingService(bindingService, level);
         testingUtils.populateLevel(1, 1, level);
-        infoPanel = new InfoPanel(level);
+        infoPanel = new InfoPanel(bindingService);
         room = new Room(null);
         room2 = new Room(null);
         currentRooms.add(room);
         currentRooms.add(room2);
-        streetNameListener = new StreetNameListener(currentRooms, level);
+        streetNameListener = new StreetNameListener(currentRooms, bindingService);
         streetNameField = testingUtils.getStreetNameField(infoPanel);
         testEvent = new ActionEvent(streetNameField, ActionEvent.ACTION_PERFORMED, null);
     }

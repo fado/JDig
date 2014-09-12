@@ -48,7 +48,7 @@ public class SelectionToolTest {
         Level testLevel = new Level();
         testingUtils.populateLevel(3, 3, testLevel);
 
-        BindingService bindingService = new BindingService();
+        BindingService bindingService = new BindingService(testLevel);
         bindingService = testingUtils.setupBindingService(bindingService, testLevel);
 
         //testCell = new Cell(new Point(0, 0), testLevel);
@@ -75,7 +75,7 @@ public class SelectionToolTest {
         mousePressed3 = new MouseEvent(testCellPanel3, MouseEvent.MOUSE_PRESSED,
                 0, MouseEvent.SHIFT_DOWN_MASK, 0, 0, 1, false);
 
-        InfoPanel infoPanel = new InfoPanel(testLevel);
+        InfoPanel infoPanel = new InfoPanel(bindingService);
         selectionTool = new SelectionTool(infoPanel, bindingService);
     }
 

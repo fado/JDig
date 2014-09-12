@@ -56,14 +56,14 @@ public class ColorChooserListenerTest {
     public void setUp() {
         level = new Level();
         level = testingUtils.populateLevel(2, 2, level);
-        bindingService = new BindingService();
+        bindingService = new BindingService(level);
         bindingService = testingUtils.setupBindingService(bindingService, level);
-        infoPanel = new InfoPanel(level);
+        infoPanel = new InfoPanel(bindingService);
         colorChooser = new MockColorChooser();
         roomColorSetter = new RoomColorSetter(bindingService);
         streetColorSetter = new StreetColorSetter(new MockColorStreetDialog(), bindingService);
         colorChooserListener = new ColorChooserListener(infoPanel, colorChooser,
-                roomColorSetter, streetColorSetter);
+                roomColorSetter, streetColorSetter, bindingService);
         colorChooserButton = new JLabel();
         testEvent = new MouseEvent(colorChooserButton, MouseEvent.MOUSE_PRESSED,
                 0, 0, 0, 0, 1, false);

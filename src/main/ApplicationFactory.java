@@ -79,7 +79,7 @@ public enum ApplicationFactory {
      * @param level The currently loaded level.
      */
     public void buildApplication(Level level) {
-        bindingService = new BindingService();
+        bindingService = new BindingService(level);
         if(level.getAllCells().isEmpty()) {
             // If it's a new level, populate it.
             Properties properties = new JdigProperties();
@@ -93,7 +93,7 @@ public enum ApplicationFactory {
             }
             this.level = level;
         }
-        infoPanel = new InfoPanel(level);
+        infoPanel = new InfoPanel(bindingService);
         infoToolbar = new InfoToolbar(level);
         selectionTool = new SelectionTool(infoPanel, bindingService);
         deletionTool = new DeletionTool(level, bindingService);
@@ -205,7 +205,7 @@ public enum ApplicationFactory {
         return deletionTool;
     }
 
-    public ColorChooserListener getNewColorChooserListener() {
+    public ColorChooserListener getNewColorChooserListener(InfoPanel infoPanel) {
         return new ColorChooserListener(
                 infoPanel,
                 new DefaultColorChooser(),
@@ -213,11 +213,12 @@ public enum ApplicationFactory {
                 new StreetColorSetter(
                         new ColorStreetDialog(),
                         bindingService
-                )
+                ),
+                bindingService
         );
     }
 
     public StreetNameListener getStreetNameListener(List<Room> currentRooms) {
-        return new StreetNameListener(currentRooms, level);
+        return new StreetNameListener(currentRooms, bindingService);
     }
 }

@@ -67,11 +67,11 @@ public class DeletionToolTest {
         exitBuilder = new ExitBuilder();
         TestingUtils testingUtils = new TestingUtils();
         //LevelPanel levelPanel1 = testingUtils.buildLevelPanel(testLevel);
-        BindingService bindingService = new BindingService();
+        BindingService bindingService = new BindingService(testLevel);
         bindingService = testingUtils.setupBindingService(bindingService, testLevel);
         testDeletionTool1 = new DeletionTool(testLevel, bindingService);
         //LevelPanel levelPanel2 = testingUtils.buildLevelPanel(testLevel2);
-        BindingService bindingService2 = new BindingService();
+        BindingService bindingService2 = new BindingService(testLevel2);
         bindingService2 = testingUtils.setupBindingService(bindingService2, testLevel2);
         testDeletionTool2 = new DeletionTool(testLevel2, bindingService2);
         //middleCellPanel = middleCell.getCellPanel();

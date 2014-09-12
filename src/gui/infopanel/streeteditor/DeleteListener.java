@@ -18,7 +18,8 @@ package gui.infopanel.streeteditor;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import data.Level;
+
+import main.BindingService;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.DefaultListModel;
@@ -31,9 +32,11 @@ import javax.swing.JList;
 public class DeleteListener implements ActionListener {
 
     private final StreetEditor editor;
+    private BindingService bindingService;
 
-    public DeleteListener(StreetEditor editor) {
+    public DeleteListener(StreetEditor editor, BindingService bindingService) {
         this.editor = editor;
+        this.bindingService = bindingService;
     }
 
     /**
@@ -45,12 +48,11 @@ public class DeleteListener implements ActionListener {
         // Get fresh data.
         JList list = editor.getList();
         DefaultListModel listModel = editor.getListModel();
-        Level level = editor.getLevel();
         JButton deleteButton = editor.getDeleteButton();
         int selectedIndex = list.getSelectedIndex();
         // Remove the street from the Level object.
         String elementAtIndex = listModel.getElementAt(selectedIndex).toString();
-        level.removeStreet(level.getStreet(elementAtIndex));
+        bindingService.removeStreet(bindingService.getStreet(elementAtIndex));
         // And remove it from the list model.
         listModel.remove(selectedIndex);
         // If the list model is empty, disable the delete button.

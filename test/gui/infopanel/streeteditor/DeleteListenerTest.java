@@ -21,11 +21,13 @@ package gui.infopanel.streeteditor;
 import data.Level;
 import data.Street;
 import gui.infopanel.InfoPanel;
+import main.BindingService;
 import org.junit.Before;
 import org.junit.Test;
 import properties.Localization;
 import utils.TestingUtils;
 
+import javax.naming.Binding;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JList;
@@ -50,8 +52,10 @@ public class DeleteListenerTest {
     public void setUp() {
         level = new Level();
         testingUtils.populateLevel(1, 1, level);
-        InfoPanel infoPanel = new InfoPanel(level);
-        streetEditor = new StreetEditor(infoPanel);
+        BindingService bindingService = new BindingService(level);
+        bindingService = testingUtils.setupBindingService(bindingService, level);
+        InfoPanel infoPanel = new InfoPanel(bindingService);
+        streetEditor = new StreetEditor(infoPanel, bindingService);
         streetEditor.run();
 
         deleteButton = streetEditor.getDeleteButton();
@@ -68,7 +72,7 @@ public class DeleteListenerTest {
         list = streetEditor.getList();
         list.setSelectedIndex(0);
 
-        deleteListener = new DeleteListener(streetEditor);
+        deleteListener = new DeleteListener(streetEditor, bindingService);
     }
 
     @Test

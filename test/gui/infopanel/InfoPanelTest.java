@@ -23,6 +23,7 @@ import data.Level;
 import data.Room;
 import data.Street;
 import gui.levelpanel.CellPanel;
+import main.BindingService;
 import org.junit.Before;
 import org.junit.Test;
 import utils.TestingUtils;
@@ -45,12 +46,14 @@ public class InfoPanelTest {
     @Before
     public void setUp() {
         level = new Level();
+        BindingService bindingService = new BindingService(level);
+        bindingService = testingUtils.setupBindingService(bindingService, level);
         testingUtils.populateLevel(1, 1, level);
         cell = new Cell(new Point(0, 0), level);
         cellPanel = new CellPanel(cell.X, cell.Y);
         room = new Room(cell);
         cell.setEntity(room);
-        infoPanel = new InfoPanel(level);
+        infoPanel = new InfoPanel(bindingService);
     }
 
     @Test

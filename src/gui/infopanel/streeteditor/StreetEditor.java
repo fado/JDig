@@ -18,9 +18,9 @@ package gui.infopanel.streeteditor;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import data.Level;
 import data.Street;
 import gui.infopanel.InfoPanel;
+import main.BindingService;
 import properties.Localization;
 import java.awt.BorderLayout;
 import java.awt.Container;
@@ -59,18 +59,18 @@ public class StreetEditor implements Runnable {
     private JButton deleteButton;
     private JButton addButton;
     private JTextField streetName;
-    private final Level level;
     private final InfoPanel infoPanel;
     private Container contentPane;
     static final Logger logger = LoggerFactory.getLogger(StreetEditor.class);
+    private BindingService bindingService;
 
     /**
      * Constructor.
      * @param infoPanel The InfoPanel which launched the editor.
      */
-    public StreetEditor(InfoPanel infoPanel) {
+    public StreetEditor(InfoPanel infoPanel, BindingService bindingService) {
         this.infoPanel = infoPanel;
-        this.level = infoPanel.getLevel();
+        this.bindingService = bindingService;
     }
 
     /**
@@ -126,7 +126,7 @@ public class StreetEditor implements Runnable {
 
         // Button to add streets to the list.
         addButton = new JButton(ADD_STRING);
-        AddListener addListener = new AddListener(this, new DefaultEditorDialog());
+        AddListener addListener = new AddListener(this, new DefaultEditorDialog(), bindingService);
         addButton.addActionListener(addListener);
         buttonPane.add(addButton);
         buttonPane.add(Box.createHorizontalStrut(5));
@@ -147,7 +147,7 @@ public class StreetEditor implements Runnable {
             deleteButton.setEnabled(false);
         }
         deleteButton.setActionCommand(DELETE_STRING);
-        deleteButton.addActionListener(new DeleteListener(this));
+        deleteButton.addActionListener(new DeleteListener(this, bindingService));
         buttonPane.add(deleteButton);
 
         // Add buttonPane to the passed-in Container.
@@ -162,7 +162,7 @@ public class StreetEditor implements Runnable {
      */
     private JList<String> getStreetNameList() {
         listModel = new DefaultListModel<>();
-        for (Street street : level.getStreets()) {
+        for (Street street : bindingService.getStreets()) {
             listModel.addElement(street.getName());
         }
         list = new JList<>(listModel);
@@ -232,14 +232,6 @@ public class StreetEditor implements Runnable {
      */
     public JButton getDeleteButton() {
         return this.deleteButton;
-    }
-
-    /**
-     * Returns the level to which streets will be added.
-     * @return the level to which streets will be added.
-     */
-    public Level getLevel() {
-        return this.level;
     }
     
 }

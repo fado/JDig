@@ -20,6 +20,7 @@ package gui.infopanel.streeteditor;
 
 import data.Level;
 import gui.infopanel.InfoPanel;
+import main.BindingService;
 import org.junit.Before;
 import org.junit.Test;
 import properties.Localization;
@@ -44,9 +45,11 @@ public class AddListenerTest {
     public void setUp() {
         level = new Level();
         testingUtils.populateLevel(1, 1, level);
-        InfoPanel infoPanel = new InfoPanel(level);
-        streetEditor = new StreetEditor(infoPanel);
-        addListener = new AddListener(streetEditor, new MockDialog());
+        BindingService bindingService = new BindingService(level);
+        bindingService = testingUtils.setupBindingService(bindingService, level);
+        InfoPanel infoPanel = new InfoPanel(bindingService);
+        streetEditor = new StreetEditor(infoPanel, bindingService);
+        addListener = new AddListener(streetEditor, new MockDialog(), bindingService);
         streetEditor.run();
 
         // Action Event

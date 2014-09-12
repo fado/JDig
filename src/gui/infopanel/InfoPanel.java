@@ -27,6 +27,7 @@ import gui.JdigComponent;
 import gui.infopanel.infosetters.*;
 import gui.infopanel.streeteditor.StreetEditor;
 import main.ApplicationFactory;
+import main.BindingService;
 import properties.Localization;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -60,15 +61,14 @@ public class InfoPanel extends JPanel implements JdigComponent {
     private final JPanel exitPanel;
     private LabeledComponent longDescriptionField;
     private List<Room> currentRooms = new ArrayList<>();
-    private final Level level;
     private final Localization localization = new Localization();
+    private BindingService bindingService;
 
     /**
      * Constructor.
-     * @param level The currently loaded level.
      */
-    public InfoPanel(Level level) {
-        this.level = level;
+    public InfoPanel(BindingService bindingService) {
+        this.bindingService = bindingService;
         setLayout(new MigLayout());
         JPanel contentPanel = createContentPanel();
         contentPanel.setName("contentPanel");
@@ -86,7 +86,7 @@ public class InfoPanel extends JPanel implements JdigComponent {
         streetNameField.setName("streetNameField");
         Dimension dimension = streetNameField.getPreferredSize();
         streetNameField.setPreferredSize(new Dimension(200, dimension.height));
-        streetNameField.addActionListener(ApplicationFactory.INSTANCE.getStreetNameListener(currentRooms));
+        streetNameField.addActionListener(new StreetNameListener(currentRooms, bindingService));
         populateStreetNames();
         JLabel streetNameLabel = new JLabel(localization.get("StreetName"), JLabel.RIGHT);
         streetNameLabel.setLabelFor(streetNameField);
@@ -102,7 +102,7 @@ public class InfoPanel extends JPanel implements JdigComponent {
         addEditStreetsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent event) {
-                StreetEditor editor = new StreetEditor(InfoPanel.this);
+                StreetEditor editor = new StreetEditor(InfoPanel.this, bindingService);
                 editor.run();
             }
         });
@@ -121,7 +121,7 @@ public class InfoPanel extends JPanel implements JdigComponent {
         colorChooserButton.setOpaque(true);
         colorChooserButton.setBorder(BorderFactory.createLineBorder(Color.black));
         colorChooserButton.addMouseListener(ApplicationFactory.INSTANCE
-                .getNewColorChooserListener());
+                .getNewColorChooserListener(this));
         panel.add(colorChooserButton, "wrap");
     }
 
@@ -221,7 +221,7 @@ public class InfoPanel extends JPanel implements JdigComponent {
     public void populateStreetNames() {
         streetNameField.removeAllItems();
         streetNameField.addItem("");
-        for (Street street : level.getStreets()) {
+        for (Street street : bindingService.getStreets()) {
             streetNameField.addItem(street.getName());
         }
     }
@@ -237,14 +237,6 @@ public class InfoPanel extends JPanel implements JdigComponent {
         constraints.gridx = 1;
         constraints.gridy = 1;
         return constraints;
-    }
-
-    /**
-     * Returns the Level currently loaded in the application.
-     * @return the Level currently loaded in the application.
-     */
-    public Level getLevel() {
-        return this.level;
     }
 
     /**
