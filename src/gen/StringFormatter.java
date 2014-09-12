@@ -49,7 +49,7 @@ public class StringFormatter {
             exits += MessageFormat.format(
                     "add_exit (\"{0}\", __DIR__ +\"{1}\", \"{2}\");\n    ",
                     exit.getDirection().toString().toLowerCase(),
-                    exit.getDestination().getName() + ".c",
+                    exit.getDestination().getName(),
                     exit.getExitType().toString().toLowerCase()
             );
         }
