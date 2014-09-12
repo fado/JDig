@@ -63,7 +63,7 @@ public class StringFormatterTest {
     @Test
     public void testGetExitString() {
         String actual = stringFormatter.getExitString(room);
-        String expected = "add_exit (\"south\", __DIR__ +\"foo.c\", \"path\");\n    ";
+        String expected = "add_exit (\"south\", __DIR__ +\"foo\", \"path\");\n    ";
         assertEquals(expected, actual);
     }
 
