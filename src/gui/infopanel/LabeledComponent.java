@@ -72,6 +72,8 @@ public class LabeledComponent {
     public static LabeledComponent textArea(String labelText,
                                             DocumentListener documentListener) {
         JTextArea component = new JTextArea(5, 60);
+        component.setLineWrap(true);
+        component.setFont(component.getFont().deriveFont(11f));
         component.getDocument().addDocumentListener(documentListener);
         return new LabeledComponent(component, labelText);
     }
@@ -95,7 +97,7 @@ public class LabeledComponent {
     /**
      * Set the text in the base JComponent for this LabeledComponent.  First
      * casts it as a JTextComponent.
-     * @param string
+     * @param string The text to be set.
      */
     public void setText(String string) {
         JTextComponent textField = (JTextComponent)this.component;
@@ -108,7 +110,7 @@ public class LabeledComponent {
      */
     public void addToPanel(JPanel panel) {
         panel.add(label);
-        panel.add(component, "wrap");
+        panel.add(component, "span, grow, wrap");
     }
 
 }
