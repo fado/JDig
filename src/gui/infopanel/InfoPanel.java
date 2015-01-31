@@ -20,7 +20,6 @@ package gui.infopanel;
 
 import data.Cell;
 import data.Exit;
-import data.Level;
 import data.Room;
 import data.Street;
 import gui.JdigComponent;
@@ -264,7 +263,7 @@ public class InfoPanel extends JPanel implements JdigComponent {
      * Checks the passed-in CellPanel for a connectible Entity.  If the Entity
      * is connectible, this method takes the information it needs from the CellPanel
      * before passing the Room on to be loaded into the InfoPanel.
-     * @param cellPanel The CellPanel from which you wish to loadRoom the data.
+     * @param cell The Cell from which you wish to loadRoom the data.
      */
     public void load(Cell cell) {
         // Double-check we're dealing with a Room.
