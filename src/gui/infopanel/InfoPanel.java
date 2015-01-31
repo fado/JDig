@@ -85,7 +85,7 @@ public class InfoPanel extends JPanel implements JdigComponent {
         streetNameField = new JComboBox<>();
         streetNameField.setName("streetNameField");
         Dimension dimension = streetNameField.getPreferredSize();
-        streetNameField.setPreferredSize(new Dimension(200, dimension.height));
+        streetNameField.setPreferredSize(new Dimension(150, dimension.height));
         streetNameField.addActionListener(new StreetNameListener(currentRooms, bindingService));
         populateStreetNames();
         JLabel streetNameLabel = new JLabel(localization.get("StreetName"), JLabel.RIGHT);
