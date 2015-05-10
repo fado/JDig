@@ -1,7 +1,7 @@
 package main;
 
 /**
- * JDig, a tool for the automatic generation of LPC class files for Epitaph 
+ * Jdig, a tool for the automatic generation of LPC class files for Epitaph
  * developers.
  * Copyright (C) 2014 Fado@Epitaph.
  *
@@ -19,29 +19,35 @@ package main;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import data.Level;
 import gui.MainUI;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- * Main class.
- */
-public class Jdig {
+public class Jdig extends Application {
 
     static final Logger logger = LoggerFactory.getLogger(Jdig.class);
 
-    /**
-     * Start of the thread of execution.  Pulls the default number of
-     * rows and columns from config.properties and creates a new
-     * Level with those constraints.  That Level is passed to the MainUI
-     * class and the runnable is executed.
-     * @param args Command line arguments.
-     */
+    public static final int WIDTH = 1024;
+    public static final int HEIGHT = 768;
+
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        Scene mainApplicationScene = new Scene(new MainUI(), WIDTH, HEIGHT);
+        primaryStage.setScene(mainApplicationScene);
+        primaryStage.show();
+        primaryStage.setOnCloseRequest(event -> doExit());
+    }
+
     public static void main(String[] args) {
         logger.info("Starting application...");
-        MainUI ui = new MainUI(new Level());
-        ui.run();
+        launch(args);
+    }
+
+    private void doExit() {
+        System.exit(0);
     }
 
 }
