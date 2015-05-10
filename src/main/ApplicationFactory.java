@@ -12,7 +12,7 @@ public enum ApplicationFactory {
 
     private Level level;
 
-    public void newLevel() { this.level = new Level(); }
+    public void initialiseNewLevel() { this.level = new Level(); }
 
     public Level getLevel() { return this.level; }
 
