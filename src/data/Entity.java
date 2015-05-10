@@ -3,7 +3,7 @@ package data;
 import javax.swing.border.Border;
 
 /**
- * JDig, a tool for the automatic generation of LPC class files for Epitaph
+ * Jdig, a tool for the automatic generation of LPC class files for Epitaph
  * developers.
  * Copyright (C) 2014 Fado@Epitaph.
  *

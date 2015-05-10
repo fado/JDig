@@ -32,7 +32,7 @@ import org.slf4j.LoggerFactory;
  * file.
  */
 public class Localization {
-    
+
     private final Properties properties = new Properties();
     static final Logger logger = LoggerFactory.getLogger(Localization.class);
 

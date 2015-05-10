@@ -31,7 +31,7 @@ import org.slf4j.LoggerFactory;
  */
 
 public class Images {
-    
+
     private final Properties properties = new Properties();
     static final Logger logger = LoggerFactory.getLogger(Images.class);
 
@@ -55,5 +55,5 @@ public class Images {
         String BASE_PATH = "./resources/images/";
         return BASE_PATH + properties.getProperty(key);
     }
-    
+
 }
