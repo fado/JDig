@@ -1,12 +1,16 @@
 package gui.levelpanel;
 
+import data.Cell;
+import data.Level;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeType;
+import main.ApplicationFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.awt.Point;
 
 /**
  * Created by Fado on 10/05/2015 for the Epitaph MUD.
@@ -46,11 +50,15 @@ public class CellPanel extends Rectangle {
 
     private void doMouseClicked(MouseEvent event, int x, int y) {
         if(event.getButton() == MouseButton.PRIMARY) {
-            logger.trace("Will eventually draw a room at " + x + "," + y);
+            logger.trace("Adding cell to level at " + x + "," + y);
+            Level level = ApplicationFactory.INSTANCE.getLevel();
+            level.addCell(new Cell(new Point(x, y), level));
             this.isEmpty = false;
         }
         if(event.getButton() == MouseButton.SECONDARY) {
-            logger.trace("Will eventually delete a room at "+ x +","+ y);
+            logger.trace("Deleting cell from level at "+ x +","+ y);
+            Level level = ApplicationFactory.INSTANCE.getLevel();
+            level.removeCellAt(new Point(x, y));
             this.isEmpty = true;
         }
     }
