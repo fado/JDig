@@ -1,31 +1,14 @@
 package data;
 
-/**
- * Jdig, a tool for the automatic generation of LPC class files for Epitaph
- * developers.
- * Copyright (C) 2014 Fado@Epitaph.
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any later
- * version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
- * details.
- *
- * You should have received a copy of the GNU General Public License along with
- * this program. If not, see <http://www.gnu.org/licenses/>.
- */
-
 import java.awt.Color;
 import java.awt.Point;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * This is one Cell within the Level.
+ * Created by Fado on 10/05/2015 for the Epitaph MUD.
+ * Copyright (C) 2015 Fado@Epitaph.
+ * Distributed under the GPL3 license.
  */
 public class Cell {
 
@@ -35,87 +18,34 @@ public class Cell {
     private Entity entity;
     private Color color;
 
-    /**
-     * Constructor.
-     * @param point The Point at which the Cell lies.
-     * @param level The Level in which the Cell is contained.
-     */
     public Cell(Point point, Level level) {
         this.X = point.x;
         this.Y = point.y;
         this.level = level;
     }
 
-    /**
-     * Sets the current Entity contained by the Cell.
-     * @param entity The new Entity.
-     */
-    public void setEntity(Entity entity) {
-        this.entity = entity;
-    }
+    public void setEntity(Entity entity) { this.entity = entity; }
 
-    /**
-     * Returns the Entity contained by the Cell.
-     * @return the Entity contained by the Cell, or null if no Entity has been set.
-     */
-    public Entity getEntity() {
-        return this.entity;
-    }
+    public Entity getEntity() { return this.entity; }
 
-    /**
-     * Returns the Level in which this Cell exists.
-     * @return the parent Level of the Cell.
-     */
-    public Level getLevel() {
-        return this.level;
-    }
+    public Level getLevel() { return this.level; }
 
-    /**
-     * Sets the Color for this Cell.
-     * @param color The Color to be set for this Cell.
-     */
-    public void setColor(Color color) {
-        this.color = color;
-    }
+    public void setColor(Color color) { this.color = color; }
 
-    /**
-     * Returns the Color of the Cell.
-     * @return the Color of the Cell.
-     */
-    public Color getColor() {
-        return this.color;
-    }
+    public Color getColor() { return this.color; }
 
-    /**
-     * Tests for the presence of the marker interface Connectible on the Entity
-     * contained by the Cell.
-     * @return true if the marker interface is present, otherwise false.
-     */
     public boolean isConnectible() {
         return entity != null && entity instanceof Connectible;
     }
 
-    /**
-     * Determines whether or not the Cell contains a Connection.
-     * @return true if a Connection is present, otherwise false.
-     */
     public boolean isExit() {
         return entity != null && !isConnectible();
     }
 
-    /**
-     * Tests whether or not this Cell is within valid bounds.
-     * @return true if in bounds, false otherwise.
-     */
     public boolean isInBounds() {
         return this.X >= 0 && this.Y >= 0;
     }
 
-    /**
-     * Returns the potential connection type for the Cell based on the Entities
-     * in the surrounding Cells.
-     * @return the potential connection type.
-     */
     public ConnectionType getPotentialConnectionType() {
         Map<String, Cell> cells = getAdjacentCells();
         if (cells.get("westCell").isConnectible()
@@ -141,10 +71,6 @@ public class Cell {
         return ConnectionType.NONE;
     }
 
-    /**
-     * Returns a Map of all Cells adjacent to this Cell.
-     * @return a Map of all Cells adjacent to this Cell.
-     */
     public Map<String, Cell> getAdjacentCells() {
         Map<String, Cell> cells = new HashMap<>();
         Direction[] directions = Direction.values();
