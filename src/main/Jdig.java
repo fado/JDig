@@ -22,6 +22,7 @@ public class Jdig extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        ApplicationFactory.INSTANCE.initialiseNewLevel();
         Scene mainApplicationScene = new Scene(new MainUI(), WIDTH, HEIGHT);
         primaryStage.setScene(mainApplicationScene);
         primaryStage.show();
