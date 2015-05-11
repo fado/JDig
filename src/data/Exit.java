@@ -24,6 +24,15 @@ package data;
  */
 public class Exit {
 
+    public enum ExitType {
+        ROAD,
+        PATH,
+        DOOR,
+        SECRET,
+        CORRIDOR,
+        HIDDEN;
+    }
+
     private final Direction direction;
     private final Room destination;
     private final ExitType exitType;
