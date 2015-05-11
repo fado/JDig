@@ -1,5 +1,6 @@
 package gui.levelpanel;
 
+import data.Level;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Rectangle;
 
@@ -14,10 +15,10 @@ public class LevelPanel extends GridPane {
     static final int ROWS = 40;
     static final int COLUMNS = 40;
 
-    public LevelPanel() {
+    public LevelPanel(Level level) {
         for(int y=0; y<ROWS; y++) {
             for(int x=0; x<COLUMNS; x++) {
-                Rectangle cell = new CellPanel(x, y);
+                Rectangle cell = new CellPanel(x, y, level);
                 GridPane.setConstraints(cell, x, y);
                 this.getChildren().add(cell);
             }

@@ -1,6 +1,11 @@
 package main;
 
 import data.Level;
+import gui.MainUI;
+import gui.levelpanel.JdigMenuBar;
+import gui.levelpanel.LevelPanel;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
 /**
  * Created by Fado on 10/05/2015 for the Epitaph MUD.
@@ -10,10 +15,18 @@ import data.Level;
 public enum ApplicationFactory {
     INSTANCE;
 
-    private Level level;
+    public void build(Stage primaryStage) {
+        // Instantiate all the things...
+        Level level = new Level();
+        LevelPanel levelPanel = new LevelPanel(level);
+        JdigMenuBar jdigMenuBar = new JdigMenuBar();
+        MainUI mainUI = new MainUI(jdigMenuBar, levelPanel);
+        Scene mainApplicationScene = new Scene(mainUI);
 
-    public void initialiseNewLevel() { this.level = new Level(); }
-
-    public Level getLevel() { return this.level; }
+        // Setup the primary stage and show it.
+        primaryStage.setScene(mainApplicationScene);
+        primaryStage.show();
+        primaryStage.setOnCloseRequest(event -> System.exit(0));
+    }
 
 }

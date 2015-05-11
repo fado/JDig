@@ -27,9 +27,11 @@ public class CellPanel extends Rectangle {
     private boolean isEmpty = true;
     private int x;
     private int y;
+    private Level level;
     Logger logger = LoggerFactory.getLogger(CellPanel.class);
 
-    public CellPanel(int x, int y) {
+    public CellPanel(int x, int y, Level level) {
+        this.level = level;
         this.x = x;
         this.y = y;
         setHeight(CELL_SIZE);
@@ -46,7 +48,6 @@ public class CellPanel extends Rectangle {
 
     private void doMouseEntered() {
         setStrokeWidth(SELECTED_STROKE_WIDTH);
-        Level level = ApplicationFactory.INSTANCE.getLevel();
         logger.trace(""+level.getPotentialConnectionTypeAt(new Point(x, y)));
         if(level.getPotentialConnectionTypeAt(new Point(x, y)) != ConnectionType.NONE) {
             logger.info("Cell can potentially hold an exit.");
@@ -63,7 +64,6 @@ public class CellPanel extends Rectangle {
         if(event.getButton() == MouseButton.PRIMARY) {
             logger.trace("Adding cell to level at " + x + "," + y);
 
-            Level level = ApplicationFactory.INSTANCE.getLevel();
             Cell cell = new Cell(new Point(x, y));
             cell.setEntity(new Room());
             level.addCell(cell);
@@ -72,7 +72,6 @@ public class CellPanel extends Rectangle {
         }
         if(event.getButton() == MouseButton.SECONDARY) {
             logger.trace("Deleting cell from level at "+ x +","+ y);
-            Level level = ApplicationFactory.INSTANCE.getLevel();
             level.removeCellAt(new Point(x, y));
             this.isEmpty = true;
         }
