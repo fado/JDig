@@ -3,7 +3,7 @@ package main;
 import data.Level;
 import gui.MainUI;
 import gui.levelpanel.JdigMenuBar;
-import gui.levelpanel.LevelPanel;
+import gui.levelpanel.MapGrid;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -18,9 +18,9 @@ public enum ApplicationFactory {
     public void build(Stage primaryStage) {
         // Instantiate all the things...
         Level level = new Level();
-        LevelPanel levelPanel = new LevelPanel(level);
+        MapGrid mapGrid = new MapGrid(level);
         JdigMenuBar jdigMenuBar = new JdigMenuBar();
-        MainUI mainUI = new MainUI(jdigMenuBar, levelPanel);
+        MainUI mainUI = new MainUI(jdigMenuBar, mapGrid);
         Scene mainApplicationScene = new Scene(mainUI);
 
         // Setup the primary stage and show it.

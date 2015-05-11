@@ -1,5 +1,6 @@
 package data;
 
+import gui.levelpanel.GridSquare;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.awt.Point;
@@ -43,8 +44,8 @@ public class Level {
         return null;
     }
 
-    public ConnectionType getPotentialConnectionTypeAt(Point point) {
-        Map<String, Entity> entities = getAllEntitiesAdjacentTo(point);
+    public ConnectionType getPotentialConnectionTypeAt(GridSquare gridSquare) {
+        Map<String, Entity> entities = getAllEntitiesAdjacentTo(gridSquare);
 
         if (entities.get("westCell").isConnectible()
                 && entities.get("eastCell").isConnectible()) {
@@ -69,7 +70,7 @@ public class Level {
         return ConnectionType.NONE;
     }
 
-    public Map<String, Entity> getAllEntitiesAdjacentTo(Point point) {
+    public Map<String, Entity> getAllEntitiesAdjacentTo(GridSquare gridSquare) {
         Map<String, Entity> cells = new HashMap<>();
         Direction[] directions = Direction.values();
         String[] gridNames = {
@@ -84,15 +85,15 @@ public class Level {
         };
 
         for (int counter = 0; counter < gridNames.length; counter++) {
-            cells.put(gridNames[counter], getEntityAdjacentTo(point, directions[counter]));
+            cells.put(gridNames[counter], getEntityAdjacentTo(gridSquare, directions[counter]));
         }
         return cells;
     }
 
-    public Entity getEntityAdjacentTo(Point referencePoint, Direction direction) {
+    public Entity getEntityAdjacentTo(GridSquare gridSquare, Direction direction) {
         for (Entity entity : allEntities) {
-            if (entity.X == direction.translateX(referencePoint.x) &&
-                    entity.Y == direction.translateY(referencePoint.y)) {
+            if (entity.X == direction.translateX(gridSquare.x) &&
+                    entity.Y == direction.translateY(gridSquare.y)) {
                 return entity;
             }
         }

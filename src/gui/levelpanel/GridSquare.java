@@ -1,6 +1,5 @@
 package gui.levelpanel;
 
-import data.Cell;
 import data.ConnectionType;
 import data.Level;
 import data.Room;
@@ -18,18 +17,18 @@ import java.awt.Point;
  * Copyright (C) 2015 Fado@Epitaph.
  * Distributed under the GPL3 license.
  */
-public class GridPanel extends Rectangle {
+public class GridSquare extends Rectangle {
 
     static final int CELL_SIZE = 15;
     static final double DEFAULT_STROKE_WIDTH = 0.25;
     static final double SELECTED_STROKE_WIDTH = 2;
+    public final int x;
+    public final int y;
     private boolean isEmpty = true;
-    private int x;
-    private int y;
     private Level level;
-    Logger logger = LoggerFactory.getLogger(GridPanel.class);
+    Logger logger = LoggerFactory.getLogger(GridSquare.class);
 
-    public GridPanel(int x, int y, Level level) {
+    public GridSquare(int x, int y, Level level) {
         this.level = level;
         this.x = x;
         this.y = y;
@@ -47,9 +46,10 @@ public class GridPanel extends Rectangle {
 
     private void doMouseEntered() {
         setStrokeWidth(SELECTED_STROKE_WIDTH);
-        logger.trace(""+level.getPotentialConnectionTypeAt(new Point(x, y)));
-        if(level.getPotentialConnectionTypeAt(new Point(x, y)) != ConnectionType.NONE) {
-            logger.info("Cell can potentially hold an exit.");
+        ConnectionType connectionType = level.getPotentialConnectionTypeAt(this);
+        logger.trace(""+connectionType);
+        if(connectionType != ConnectionType.NONE) {
+            logger.info("Cell can potentially hold a {} exit.", connectionType);
         }
     }
 

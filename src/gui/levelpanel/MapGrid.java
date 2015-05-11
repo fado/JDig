@@ -9,16 +9,15 @@ import javafx.scene.shape.Rectangle;
  * Copyright (C) 2015 Fado@Epitaph.
  * Distributed under the GPL3 license.
  */
-
-public class LevelPanel extends GridPane {
+public class MapGrid extends GridPane {
 
     static final int ROWS = 40;
     static final int COLUMNS = 40;
 
-    public LevelPanel(Level level) {
+    public MapGrid(Level level) {
         for(int y=0; y<ROWS; y++) {
             for(int x=0; x<COLUMNS; x++) {
-                Rectangle cell = new GridPanel(x, y, level);
+                Rectangle cell = new GridSquare(x, y, level);
                 GridPane.setConstraints(cell, x, y);
                 this.getChildren().add(cell);
             }
