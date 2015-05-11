@@ -9,7 +9,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeType;
-import main.ApplicationFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.awt.Point;
@@ -19,7 +18,7 @@ import java.awt.Point;
  * Copyright (C) 2015 Fado@Epitaph.
  * Distributed under the GPL3 license.
  */
-public class CellPanel extends Rectangle {
+public class GridPanel extends Rectangle {
 
     static final int CELL_SIZE = 15;
     static final double DEFAULT_STROKE_WIDTH = 0.25;
@@ -28,9 +27,9 @@ public class CellPanel extends Rectangle {
     private int x;
     private int y;
     private Level level;
-    Logger logger = LoggerFactory.getLogger(CellPanel.class);
+    Logger logger = LoggerFactory.getLogger(GridPanel.class);
 
-    public CellPanel(int x, int y, Level level) {
+    public GridPanel(int x, int y, Level level) {
         this.level = level;
         this.x = x;
         this.y = y;
@@ -62,17 +61,13 @@ public class CellPanel extends Rectangle {
 
     private void doMouseClicked(MouseEvent event, int x, int y) {
         if(event.getButton() == MouseButton.PRIMARY) {
-            logger.trace("Adding cell to level at " + x + "," + y);
-
-            Cell cell = new Cell(new Point(x, y));
-            cell.setEntity(new Room());
-            level.addCell(cell);
-
+            logger.trace("Adding room to level at " + x + "," + y);
+            level.addEntity(new Room(new Point(x, y)));
             this.isEmpty = false;
         }
         if(event.getButton() == MouseButton.SECONDARY) {
             logger.trace("Deleting cell from level at "+ x +","+ y);
-            level.removeCellAt(new Point(x, y));
+            level.removeEntityAt(new Point(x, y));
             this.isEmpty = true;
         }
     }

@@ -18,7 +18,7 @@ public class LevelPanel extends GridPane {
     public LevelPanel(Level level) {
         for(int y=0; y<ROWS; y++) {
             for(int x=0; x<COLUMNS; x++) {
-                Rectangle cell = new CellPanel(x, y, level);
+                Rectangle cell = new GridPanel(x, y, level);
                 GridPane.setConstraints(cell, x, y);
                 this.getChildren().add(cell);
             }

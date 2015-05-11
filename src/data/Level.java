@@ -15,66 +15,64 @@ import java.util.Map;
  */
 public class Level {
 
-    private final List<Cell> allCells;
-    private final Cell defaultCell;
+    private final List<Entity> allEntities;
     Logger logger = LoggerFactory.getLogger(Level.class);
 
     public Level() {
-        this.defaultCell = new Cell(new Point(-1, -1));
-        this.allCells = new ArrayList<>();
+        this.allEntities = new ArrayList<>();
     }
 
-    public void addCell(Cell cell) {
-        allCells.add(cell);
-        logger.debug("Adding cell at {},{}", cell.X, cell.Y);
-        logger.debug("Cells in level: {}", allCells.size());
+    public void addEntity(Entity entity) {
+        allEntities.add(entity);
+        logger.debug("Adding cell at {},{}", entity.X, entity.Y);
+        logger.debug("Cells in level: {}", allEntities.size());
     }
 
-    public void removeCellAt(Point point) {
-        allCells.remove(getCellAt(point));
+    public void removeEntityAt(Point point) {
+        allEntities.remove(getEntityAt(point));
         logger.debug("Removing cell from {},{}", point.x, point.y);
-        logger.debug("Cells in level: {}", allCells.size());
+        logger.debug("Cells in level: {}", allEntities.size());
     }
 
-    public Cell getCellAt(Point point) {
-        for (Cell cell : allCells) {
-            if (cell.X == point.x && cell.Y == point.y) {
-                return cell;
+    public Entity getEntityAt(Point point) {
+        for (Entity entity : allEntities) {
+            if (entity.X == point.x && entity.Y == point.y) {
+                return entity;
             }
         }
-        return defaultCell;
+        return null;
     }
 
     public ConnectionType getPotentialConnectionTypeAt(Point point) {
-        Map<String, Cell> cells = getAllCellsAdjacentTo(point);
+        Map<String, Entity> entities = getAllEntitiesAdjacentTo(point);
 
-        if (cells.get("westCell").isConnectible()
-                && cells.get("eastCell").isConnectible()) {
+        if (entities.get("westCell").isConnectible()
+                && entities.get("eastCell").isConnectible()) {
             return ConnectionType.HORIZONTAL;
         }
-        if (cells.get("northCell").isConnectible()
-                && cells.get("southCell").isConnectible()) {
+        if (entities.get("northCell").isConnectible()
+                && entities.get("southCell").isConnectible()) {
             return ConnectionType.VERTICAL;
         }
-        if (cells.get("northwestCell").isConnectible()
-                && cells.get("northeastCell").isConnectible()
-                && cells.get("southwestCell").isConnectible()
-                && cells.get("southeastCell").isConnectible()) {
+        if (entities.get("northwestCell").isConnectible()
+                && entities.get("northeastCell").isConnectible()
+                && entities.get("southwestCell").isConnectible()
+                && entities.get("southeastCell").isConnectible()) {
             return ConnectionType.X;
-        } else if (cells.get("southwestCell").isConnectible()
-                && cells.get("northeastCell").isConnectible()) {
+        } else if (entities.get("southwestCell").isConnectible()
+                && entities.get("northeastCell").isConnectible()) {
             return ConnectionType.FORWARD_DIAGONAL;
-        } else if (cells.get("southeastCell").isConnectible()
-                && cells.get("northwestCell").isConnectible()) {
+        } else if (entities.get("southeastCell").isConnectible()
+                && entities.get("northwestCell").isConnectible()) {
             return ConnectionType.BACKWARD_DIAGONAL;
         }
         return ConnectionType.NONE;
     }
 
-    public Map<String, Cell> getAllCellsAdjacentTo(Point point) {
-        Map<String, Cell> cells = new HashMap<>();
+    public Map<String, Entity> getAllEntitiesAdjacentTo(Point point) {
+        Map<String, Entity> cells = new HashMap<>();
         Direction[] directions = Direction.values();
-        String[] cellNames = {
+        String[] gridNames = {
                 "northCell",
                 "southCell",
                 "eastCell",
@@ -85,20 +83,20 @@ public class Level {
                 "southwestCell"
         };
 
-        for (int counter = 0; counter < cellNames.length; counter++) {
-            cells.put(cellNames[counter], getCellAdjacentTo(point, directions[counter]));
+        for (int counter = 0; counter < gridNames.length; counter++) {
+            cells.put(gridNames[counter], getEntityAdjacentTo(point, directions[counter]));
         }
         return cells;
     }
 
-    public Cell getCellAdjacentTo(Point referencePoint, Direction direction) {
-        for (Cell cell : allCells) {
-            if (cell.X == direction.translateX(referencePoint.x) &&
-                    cell.Y == direction.translateY(referencePoint.y)) {
-                return cell;
+    public Entity getEntityAdjacentTo(Point referencePoint, Direction direction) {
+        for (Entity entity : allEntities) {
+            if (entity.X == direction.translateX(referencePoint.x) &&
+                    entity.Y == direction.translateY(referencePoint.y)) {
+                return entity;
             }
         }
-        return defaultCell;
+        return new DefaultEntity();
     }
 
 }
