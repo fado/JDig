@@ -1,6 +1,7 @@
 package data;
 
-import gui.levelpanel.GridSquare;
+import gui.GridSquare;
+import gui.RoomDrawLock;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.awt.Point;
@@ -24,6 +25,9 @@ public class Level {
     }
 
     public void addEntity(Entity entity) {
+        if(allEntities.size() == 0) {
+
+        }
         allEntities.add(entity);
         logger.debug("Adding cell at {},{}", entity.X, entity.Y);
         logger.debug("Cells in level: {}", allEntities.size());

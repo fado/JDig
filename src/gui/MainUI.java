@@ -1,7 +1,5 @@
 package gui;
 
-import gui.levelpanel.JdigMenuBar;
-import gui.levelpanel.MapGrid;
 import javafx.scene.layout.GridPane;
 
 /**

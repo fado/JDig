@@ -2,8 +2,8 @@ package main;
 
 import data.Level;
 import gui.MainUI;
-import gui.levelpanel.JdigMenuBar;
-import gui.levelpanel.MapGrid;
+import gui.JdigMenuBar;
+import gui.MapGrid;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 

@@ -1,4 +1,4 @@
-package gui.levelpanel;
+package gui;
 
 import data.ConnectionType;
 import data.Level;
@@ -45,11 +45,11 @@ public class GridSquare extends Rectangle {
     }
 
     private void doMouseEntered() {
-        setStrokeWidth(SELECTED_STROKE_WIDTH);
         ConnectionType connectionType = level.getPotentialConnectionTypeAt(this);
-        logger.trace(""+connectionType);
         if(connectionType != ConnectionType.NONE) {
             logger.info("Cell can potentially hold a {} exit.", connectionType);
+        } else {
+            setStrokeWidth(SELECTED_STROKE_WIDTH);
         }
     }
 

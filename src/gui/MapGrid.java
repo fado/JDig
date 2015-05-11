@@ -1,7 +1,8 @@
-package gui.levelpanel;
+package gui;
 
 import data.Level;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
 
 /**
@@ -17,8 +18,12 @@ public class MapGrid extends GridPane {
     public MapGrid(Level level) {
         for(int y=0; y<ROWS; y++) {
             for(int x=0; x<COLUMNS; x++) {
+                StackPane gridSquare = new StackPane();
+
                 Rectangle cell = new GridSquare(x, y, level);
+
                 GridPane.setConstraints(cell, x, y);
+
                 this.getChildren().add(cell);
             }
         }

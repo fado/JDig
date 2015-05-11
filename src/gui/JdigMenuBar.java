@@ -1,4 +1,4 @@
-package gui.levelpanel;
+package gui;
 
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
