@@ -3,6 +3,7 @@ package gui.levelpanel;
 import data.Cell;
 import data.ConnectionType;
 import data.Level;
+import data.Room;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
@@ -46,8 +47,8 @@ public class CellPanel extends Rectangle {
     private void doMouseEntered() {
         setStrokeWidth(SELECTED_STROKE_WIDTH);
         Level level = ApplicationFactory.INSTANCE.getLevel();
-        Cell cell = level.getCellAt(new Point(x, y));  // The cell won't exist...
-        if(cell.getPotentialConnectionType() != ConnectionType.NONE) {  // Need to make this method accept non-existent cells.
+        logger.trace(""+level.getPotentialConnectionTypeAt(new Point(x, y)));
+        if(level.getPotentialConnectionTypeAt(new Point(x, y)) != ConnectionType.NONE) {
             logger.info("Cell can potentially hold an exit.");
         }
     }
@@ -61,8 +62,12 @@ public class CellPanel extends Rectangle {
     private void doMouseClicked(MouseEvent event, int x, int y) {
         if(event.getButton() == MouseButton.PRIMARY) {
             logger.trace("Adding cell to level at " + x + "," + y);
+
             Level level = ApplicationFactory.INSTANCE.getLevel();
-            level.addCell(new Cell(new Point(x, y), level));
+            Cell cell = new Cell(new Point(x, y));
+            cell.setEntity(new Room());
+            level.addCell(cell);
+
             this.isEmpty = false;
         }
         if(event.getButton() == MouseButton.SECONDARY) {

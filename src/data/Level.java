@@ -4,7 +4,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Fado on 10/05/2015 for the Epitaph MUD.
@@ -15,12 +17,10 @@ public class Level {
 
     private final List<Cell> allCells;
     private final Cell defaultCell;
-    private final List<Room> rooms = new ArrayList<>();
-    private final List<Street> streets = new ArrayList<>();
     Logger logger = LoggerFactory.getLogger(Level.class);
 
     public Level() {
-        this.defaultCell = new Cell(new Point(-1, -1), this);
+        this.defaultCell = new Cell(new Point(-1, -1));
         this.allCells = new ArrayList<>();
     }
 
@@ -36,28 +36,6 @@ public class Level {
         logger.debug("Cells in level: {}", allCells.size());
     }
 
-    public void addStreet(Street street) {
-        streets.add(street);
-    }
-
-    public void removeStreet(Street street) {
-        streets.remove(street);
-    }
-
-    public List<Street> getStreets() {
-        return this.streets;
-    }
-
-    public Street getStreet(String streetName) {
-        Street streetToBeReturned = null;
-        for (Street street : streets) {
-            if (street.getName().equalsIgnoreCase(streetName)) {
-                streetToBeReturned = street;
-            }
-        }
-        return streetToBeReturned;
-    }
-
     public Cell getCellAt(Point point) {
         for (Cell cell : allCells) {
             if (cell.X == point.x && cell.Y == point.y) {
@@ -67,26 +45,56 @@ public class Level {
         return defaultCell;
     }
 
-    public List<Cell> getAllCells() {
-        return this.allCells;
+    public ConnectionType getPotentialConnectionTypeAt(Point point) {
+        Map<String, Cell> cells = getAllCellsAdjacentTo(point);
+
+        if (cells.get("westCell").isConnectible()
+                && cells.get("eastCell").isConnectible()) {
+            return ConnectionType.HORIZONTAL;
+        }
+        if (cells.get("northCell").isConnectible()
+                && cells.get("southCell").isConnectible()) {
+            return ConnectionType.VERTICAL;
+        }
+        if (cells.get("northwestCell").isConnectible()
+                && cells.get("northeastCell").isConnectible()
+                && cells.get("southwestCell").isConnectible()
+                && cells.get("southeastCell").isConnectible()) {
+            return ConnectionType.X;
+        } else if (cells.get("southwestCell").isConnectible()
+                && cells.get("northeastCell").isConnectible()) {
+            return ConnectionType.FORWARD_DIAGONAL;
+        } else if (cells.get("southeastCell").isConnectible()
+                && cells.get("northwestCell").isConnectible()) {
+            return ConnectionType.BACKWARD_DIAGONAL;
+        }
+        return ConnectionType.NONE;
     }
 
-    public void registerRoom(Room room) {
-        rooms.add(room);
+    public Map<String, Cell> getAllCellsAdjacentTo(Point point) {
+        Map<String, Cell> cells = new HashMap<>();
+        Direction[] directions = Direction.values();
+        String[] cellNames = {
+                "northCell",
+                "southCell",
+                "eastCell",
+                "westCell",
+                "northeastCell",
+                "northwestCell",
+                "southeastCell",
+                "southwestCell"
+        };
+
+        for (int counter = 0; counter < cellNames.length; counter++) {
+            cells.put(cellNames[counter], getCellAdjacentTo(point, directions[counter]));
+        }
+        return cells;
     }
 
-    public void unregisterRoom(Room room) {
-        rooms.remove(room);
-    }
-
-    public List<Room> getRooms() {
-        return rooms;
-    }
-
-    public Cell getCellAdjacentTo(Cell referenceCell, Direction direction) {
+    public Cell getCellAdjacentTo(Point referencePoint, Direction direction) {
         for (Cell cell : allCells) {
-            if (cell.X == direction.translateX(referenceCell) &&
-                    cell.Y == direction.translateY(referenceCell)) {
+            if (cell.X == direction.translateX(referencePoint.x) &&
+                    cell.Y == direction.translateY(referencePoint.y)) {
                 return cell;
             }
         }
