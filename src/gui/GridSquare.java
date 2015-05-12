@@ -5,6 +5,7 @@ import data.Level;
 import data.Room;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeType;
@@ -17,11 +18,9 @@ import java.awt.Point;
  * Copyright (C) 2015 Fado@Epitaph.
  * Distributed under the GPL3 license.
  */
-public class GridSquare extends Rectangle {
+public class GridSquare extends StackPane {
 
-    static final int CELL_SIZE = 15;
-    static final double DEFAULT_STROKE_WIDTH = 0.25;
-    static final double SELECTED_STROKE_WIDTH = 2;
+    static final int GRID_SQUARE_SIZE = 15;
     public final int x;
     public final int y;
     private boolean isEmpty = true;
@@ -32,12 +31,17 @@ public class GridSquare extends Rectangle {
         this.level = level;
         this.x = x;
         this.y = y;
-        setHeight(CELL_SIZE);
-        setWidth(CELL_SIZE);
-        setFill(Color.TRANSPARENT);
-        setStroke(Color.BLACK);
-        setStrokeType(StrokeType.INSIDE);
-        setStrokeWidth(DEFAULT_STROKE_WIDTH);
+        this.setMinWidth(GRID_SQUARE_SIZE);
+        this.setMinHeight(GRID_SQUARE_SIZE);
+
+        Rectangle rectangle = new Rectangle();
+        rectangle.setHeight(GRID_SQUARE_SIZE);
+        rectangle.setWidth(GRID_SQUARE_SIZE);
+        rectangle.setFill(Color.TRANSPARENT);
+        rectangle.setStroke(Color.BLACK);
+        rectangle.setStrokeType(StrokeType.INSIDE);
+        rectangle.setStrokeWidth(0.25);
+        this.getChildren().add(rectangle);
 
         setOnMouseEntered(event -> doMouseEntered());
         setOnMouseExited(event -> doMouseExited());
@@ -49,13 +53,13 @@ public class GridSquare extends Rectangle {
         if(connectionType != ConnectionType.NONE) {
             logger.info("Cell can potentially hold a {} exit.", connectionType);
         } else {
-            setStrokeWidth(SELECTED_STROKE_WIDTH);
+            // Show selection cursor.
         }
     }
 
     private void doMouseExited() {
         if(this.isEmpty) {
-            setStrokeWidth(DEFAULT_STROKE_WIDTH);
+            // Stop showing the cursor.
         }
     }
 
