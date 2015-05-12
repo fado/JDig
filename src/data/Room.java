@@ -1,8 +1,6 @@
 package data;
 
-import properties.Images;
 import properties.Localization;
-import javax.swing.border.Border;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;

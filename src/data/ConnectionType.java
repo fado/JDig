@@ -19,18 +19,18 @@ package data;
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import properties.Images;
+import properties.ImageProperties;
 
 /**
  * Represents the types of Connection that can exist between rooms.
  */
 public enum ConnectionType {
     NONE(null),
-    HORIZONTAL(new Images().getImagePath("HorizontalExit")),
-    VERTICAL(new Images().getImagePath("VerticalExit")),
-    FORWARD_DIAGONAL(new Images().getImagePath("ForwardDiagonalExit")),
-    BACKWARD_DIAGONAL(new Images().getImagePath("BackwardDiagonalExit")),
-    X(new Images().getImagePath("XExit"));
+    HORIZONTAL(new ImageProperties().getImagePath("HorizontalExit")),
+    VERTICAL(new ImageProperties().getImagePath("VerticalExit")),
+    FORWARD_DIAGONAL(new ImageProperties().getImagePath("ForwardDiagonalExit")),
+    BACKWARD_DIAGONAL(new ImageProperties().getImagePath("BackwardDiagonalExit")),
+    X(new ImageProperties().getImagePath("XExit"));
 
     private String exitImagePath;
 

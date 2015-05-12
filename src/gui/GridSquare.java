@@ -3,6 +3,8 @@ package gui;
 import data.ConnectionType;
 import data.Level;
 import data.Room;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
@@ -11,6 +13,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import properties.ImageProperties;
 import java.awt.Point;
 
 /**
@@ -25,6 +28,8 @@ public class GridSquare extends StackPane {
     public final int y;
     private boolean isEmpty = true;
     private Level level;
+    private ImageView currentCursor;
+    private ImageProperties imageProperties = new ImageProperties();
     Logger logger = LoggerFactory.getLogger(GridSquare.class);
 
     public GridSquare(int x, int y, Level level) {
@@ -51,15 +56,17 @@ public class GridSquare extends StackPane {
     private void doMouseEntered() {
         ConnectionType connectionType = level.getPotentialConnectionTypeAt(this);
         if(connectionType != ConnectionType.NONE) {
-            logger.info("Cell can potentially hold a {} exit.", connectionType);
+            currentCursor = getImageView(connectionType.getPath(), 15);
+            this.getChildren().add(currentCursor);
         } else {
-            // Show selection cursor.
+            currentCursor = getImageView(imageProperties.getImagePath("Room"), 15);
+            this.getChildren().add(currentCursor);
         }
     }
 
     private void doMouseExited() {
         if(this.isEmpty) {
-            // Stop showing the cursor.
+            this.getChildren().remove(currentCursor);
         }
     }
 
@@ -74,6 +81,16 @@ public class GridSquare extends StackPane {
             level.removeEntityAt(new Point(x, y));
             this.isEmpty = true;
         }
+    }
+
+    private ImageView getImageView(String path, int fitWidth) {
+        Image image = new Image("file:"+ path);
+        ImageView imageView = new ImageView();
+        imageView.setImage(image);
+        imageView.setCache(true);
+        imageView.setPreserveRatio(true);
+        imageView.setFitWidth(fitWidth);
+        return imageView;
     }
 
 }
