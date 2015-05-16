@@ -1,6 +1,8 @@
 package gui;
 
+import data.Connection;
 import data.ConnectionType;
+import data.ExitBuilder;
 import data.Level;
 import data.Room;
 import javafx.scene.image.Image;
@@ -30,6 +32,8 @@ public class GridSquare extends StackPane {
     private Level level;
     private ImageView currentCursor;
     private ImageProperties imageProperties = new ImageProperties();
+    private Connection connection;
+    private ConnectionType connectionType;
     Logger logger = LoggerFactory.getLogger(GridSquare.class);
 
     public GridSquare(int x, int y, Level level) {
@@ -39,14 +43,7 @@ public class GridSquare extends StackPane {
         this.setMinWidth(GRID_SQUARE_SIZE);
         this.setMinHeight(GRID_SQUARE_SIZE);
 
-        Rectangle rectangle = new Rectangle();
-        rectangle.setHeight(GRID_SQUARE_SIZE);
-        rectangle.setWidth(GRID_SQUARE_SIZE);
-        rectangle.setFill(Color.TRANSPARENT);
-        rectangle.setStroke(Color.BLACK);
-        rectangle.setStrokeType(StrokeType.INSIDE);
-        rectangle.setStrokeWidth(0.25);
-        this.getChildren().add(rectangle);
+        this.getChildren().add(getRectangle());
 
         setOnMouseEntered(event -> doMouseEntered());
         setOnMouseExited(event -> doMouseExited());
@@ -54,9 +51,10 @@ public class GridSquare extends StackPane {
     }
 
     private void doMouseEntered() {
-        ConnectionType connectionType = level.getPotentialConnectionTypeAt(this);
+        connectionType = level.getPotentialConnectionTypeAt(this);
         if(connectionType != ConnectionType.NONE) {
             currentCursor = getImageView(connectionType.getPath(), 15);
+            connection = new Connection(new Point(x, y), connectionType);
             this.getChildren().add(currentCursor);
         } else {
             currentCursor = getImageView(imageProperties.getImagePath("Room"), 15);
@@ -73,12 +71,35 @@ public class GridSquare extends StackPane {
     private void doMouseClicked(MouseEvent event, int x, int y) {
         if(event.getButton() == MouseButton.PRIMARY) {
             logger.trace("Adding room to level at " + x + "," + y);
-            level.addEntity(new Room(new Point(x, y)));
-            this.isEmpty = false;
+            if(this.isEmpty) {
+                if (connection == null) {
+                    level.addEntity(new Room(new Point(x, y)));
+                } else {
+                    new ExitBuilder(level).build(this, connection);
+                    level.addEntity(connection);
+                }
+                this.isEmpty = false;
+            } else {
+                ExitBuilder exitBuilder = new ExitBuilder(level);
+                if (connection.getConnectionType() == ConnectionType.X) {
+                    connection = new Connection(new Point(x, y), ConnectionType.FORWARD_DIAGONAL);
+                    exitBuilder.build(this, connection);
+                } else if (connection.getConnectionType() == ConnectionType.FORWARD_DIAGONAL) {
+                    connection = new Connection(new Point(x, y), ConnectionType.BACKWARD_DIAGONAL);
+                    exitBuilder.build(this, connection);
+                } else if (connection.getConnectionType() == ConnectionType.BACKWARD_DIAGONAL) {
+                    connection = new Connection(new Point(x, y), ConnectionType.X);
+                    exitBuilder.build(this, connection);
+                }
+                this.getChildren().clear();
+                this.getChildren().add(getImageView(connection.getConnectionType().getPath(), 15));
+            }
         }
         if(event.getButton() == MouseButton.SECONDARY) {
-            logger.trace("Deleting cell from level at "+ x +","+ y);
+            logger.trace("Deleting entity from level at "+ x +","+ y);
             level.removeEntityAt(new Point(x, y));
+            this.getChildren().clear();
+            this.getChildren().add(getRectangle());
             this.isEmpty = true;
         }
     }
@@ -93,4 +114,14 @@ public class GridSquare extends StackPane {
         return imageView;
     }
 
+    private Rectangle getRectangle() {
+        Rectangle rectangle = new Rectangle();
+        rectangle.setHeight(GRID_SQUARE_SIZE);
+        rectangle.setWidth(GRID_SQUARE_SIZE);
+        rectangle.setFill(Color.TRANSPARENT);
+        rectangle.setStroke(Color.BLACK);
+        rectangle.setStrokeType(StrokeType.INSIDE);
+        rectangle.setStrokeWidth(0.25);
+        return rectangle;
+    }
 }
