@@ -1,7 +1,6 @@
 package data;
 
 import gui.GridSquare;
-import gui.RoomDrawLock;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.awt.Point;
@@ -75,7 +74,7 @@ public class Level {
     }
 
     public Map<String, Entity> getAllEntitiesAdjacentTo(GridSquare gridSquare) {
-        Map<String, Entity> cells = new HashMap<>();
+        Map<String, Entity> entities = new HashMap<>();
         Direction[] directions = Direction.values();
         String[] gridNames = {
                 "northCell",
@@ -89,9 +88,9 @@ public class Level {
         };
 
         for (int counter = 0; counter < gridNames.length; counter++) {
-            cells.put(gridNames[counter], getEntityAdjacentTo(gridSquare, directions[counter]));
+            entities.put(gridNames[counter], getEntityAdjacentTo(gridSquare, directions[counter]));
         }
-        return cells;
+        return entities;
     }
 
     public Entity getEntityAdjacentTo(GridSquare gridSquare, Direction direction) {
